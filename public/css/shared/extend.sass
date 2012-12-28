@@ -8,61 +8,121 @@
   margin: 0
   list-style: none
 
-@-webkit-keyframes cycleone
+@mixin cycleone
   0%
+    opacity: 0
+  1%
+    opacity: 1
+  24%
     opacity: 1
   25%
-    opacity: 1 // fade out
-  27%
     opacity: 0
-  98%
-    opacity: 0 // fade in
   100%
+    opacity: 0
+
+@mixin cycletwo
+  0%
+    opacity: 0
+  25%
+    opacity: 0
+  26%
     opacity: 1
+  49%
+    opacity: 1 // fade out
+  50%
+    opacity: 0
+  100%
+    opacity: 0
+
+@mixin cyclethree
+  0%
+    opacity: 0
+  50%
+    opacity: 0 // fade in
+  51%
+    opacity: 1
+  74%
+    opacity: 1 // fade out
+  75%
+    opacity: 0
+  100%
+    opacity: 0
+
+@mixin cyclefour
+  0%
+    opacity: 0 // fade out
+  25%
+    opacity: 0
+  50%
+    opacity: 0
+  75%
+    opacity: 0 // fade in
+  76%
+    opacity: 1
+  99%
+    opacity: 1
+  100%
+    opacity: 0
+
+@-webkit-keyframes cycleone
+  @include cycleone
 
 @-webkit-keyframes cycletwo
-  0%
-    opacity: 0
-  23%
-    opacity: 0 // fade in
-  25%
-    opacity: 1
-  50%
-    opacity: 1 // fade out
-  52%
-    opacity: 0
-  100%
-    opacity: 0
+  @include cycletwo
 
 @-webkit-keyframes cyclethree
-  0%
-    opacity: 0
-  48%
-    opacity: 0 // fade in
-  50%
-    opacity: 1
-  75%
-    opacity: 1 // fade out
-  77%
-    opacity: 0
-  100%
-    opacity: 0
+  @include cyclethree
 
 @-webkit-keyframes cyclefour
-  0%
-    opacity: 1 // fade out
-  2%
-    opacity: 0
-  25%
-    opacity: 0
-  50%
-    opacity: 0
-  71%
-    opacity: 0 // fade in
-  73%
-    opacity: 1
-  100%
-    opacity: 1
+  @include cyclefour
+
+@-o-keyframes cycleone
+  @include cycleone
+
+@-o-keyframes cycletwo
+  @include cycletwo
+
+@-o-keyframes cyclethree
+  @include cyclethree
+
+@-o-keyframes cyclefour
+  @include cyclefour
+
+@-moz-keyframes cycleone
+  @include cycleone
+
+@-moz-keyframes cycletwo
+  @include cycletwo
+
+@-moz-keyframes cyclethree
+  @include cyclethree
+
+@-moz-keyframes cyclefour
+  @include cyclefour
+
+@-ms-keyframes cycleone
+  @include cycleone
+
+@-ms-keyframes cycletwo
+  @include cycletwo
+
+@-ms-keyframes cyclethree
+  @include cyclethree
+
+@-ms-keyframes cyclefour
+  @include cyclefour
+
+@keyframes cycleone
+  @include cycleone
+
+@keyframes cycletwo
+  @include cycletwo
+
+@keyframes cyclethree
+  @include cyclethree
+
+@keyframes cyclefour
+  @include cyclefour
 
 @mixin animation($name, $duration, $timing, $iteration)
   -webkit-animation: $name $duration $timing $iteration
