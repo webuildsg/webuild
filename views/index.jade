@@ -3,28 +3,26 @@ html(lang='en')
 
   head
     meta(charset='utf-8')
-    //- Use the .htaccess and remove these lines to avoid edge case issues.
-    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-    title We Build | A list of open event and open source for the inspired ones
-    meta(name='description', content='')
+    title We Build | open events & open source for the curious folks
+    meta(name='description', content='a list of free open events and open source libraries for the curious folks who love to make things!')
 
-    meta(name='viewport', content='width=device-width')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
     link(href='http://fonts.googleapis.com/css?family=Peralta|Open+Sans', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='public/css/style.css')
 
     //- Gridline for dev environment
-    link(rel='stylesheet', href='public/css/hugrid.css')
+    //- link(rel='stylesheet', href='public/css/hugrid.css')
 
   body
 
-    //if lt IE 7
+    //if lt IE 9
       p.chromeframe Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a cool new browser</a> to experience this site!
 
     div.wrapper
       header
         .container
           h1 we build!
-          h2 Exploring the maker scene in Singapore? Connect with people who are&nbsp;
+          h2 Exploring the tech scene in Singapore? Connect with people who are&nbsp;
             ul.people
               li ...
               li designers
@@ -35,78 +33,101 @@ html(lang='en')
           h3 open events
           ul.open-list.first
             li
-              a(href='#')
-                p Creative Crew Meetup
-                  span on 11 Dec
-                p.tagline fireworks, web fonts, travel
+              a(href='http://www.meetup.com/Software-Craftsmanship-Singapore/events/92589082/')
+                p 7 Databases in 7 weeks
+                  span on 2 Jan
+                p.tagline Riak day 1
             li
-              a(href='#')
-                p 7dB in 7 wks, Day 1: PostgreSQL
-                  span on 12 Dec
-                p.tagline Pragmatic Programmers, Day 1 on PosgreSQL
+              a(href='http://www.meetup.com/HTML5Rocks-SG/events/93216432/')
+                p HTML5 Series - Chapter 1
+                  span on 4 Jan
+                p.tagline HTML5 audio & video, WebRTC, Camera API
             li
-              a(href='#')
-                p iOS Day
-                  span on 16 Dec
-                p.tagline Happy 1st Birthday iOS Dev Scout!
+              a(href='http://www.meetup.com/Singapore-Ruby-Group/events/94023812/')
+                p Singapore Ruby Group
+                  span on 8 Jan
+                p.tagline Spelunking your Credit Card
             li
-              a(href='#')
-                p Agile Software Meetup
-                  span on 18 Dec
-                p.tagline What is an Agile Development with TDD?
+              a(href='https://www.facebook.com/events/495277747161799/')
+                p Singapore Makers Meetup
+                  span on 15 Jan
+                p.tagline Makerspace, Mini Maker Faire, 3D printing with Shapifi, giant cardboard sculptures, Playlab.me building heartware
             li
-              a(href='#')
-                p Creative Crew Meetup
-                  span on 11 Dec
-                p.tagline fireworks, web fonts, travel
+              a(href='http://www.meetup.com/HTML5Rocks-SG/events/93217852/')
+                p HTML5 Series - Chapter 2
+                  span on 18 Jan
+                p.tagline Online & Offline events, Offline resources, IndexDB, DOM & Local Storage
             li
-              a(href='#')
-                p 7dB in 7 wks, Day 1: PostgreSQL
-                  span on 12 Dec
-                p.tagline Pragmatic Programmers, Day 1 on PosgreSQL
+              a(href='http://www.meetup.com/HTML5Rocks-SG/events/93219302/')
+                p HTML5 Series - Chapter 3
+                  span on 1 Feb
+                p.tagline Web Sockets, What if the server want to push events
             li
-              a(href='#')
-                p iOS Day
-                  span on 16 Dec
-                p.tagline Happy 1st Birthday iOS Dev Scout!
-            li
-              a(href='#')
-                p Agile Software Meetup
-                  span on 18 Dec
-                p.tagline What is an Agile Development with TDD?
+              a(href='http://www.meetup.com/HTML5Rocks-SG/events/93220782/')
+                p HTML5 Series - Chapter 4
+                  span on 15 Feb
+                p.tagline Web workers, XMLHttpRequest, History API, Focus Management for the nerds
+
+
         section
           h3 open source
           ul.open-list
             li
-              a(href='#')
+              a(href='https://github.com/miccheng/php-queue')
+                p Php Queue
+                  span updated 1 day ago
+                p.tagline A unified front-end for different queuing backends
+            li
+              a(href='https://github.com/honcheng/PaperFold-for-iOS')
+                p PaperFold for iOS
+                  span updated 3 days ago
+                p.tagline Paper folding animation for iOS
+            li
+              a(href='https://github.com/MugunthKumar/MKNetworkKit')
+                p MKNetworkKit
+                  span updated 4 days ago
+                p.tagline Full ARC based Networking Kit for iOS 4+ devices
+            li
+              a(href='https://github.com/cheeaun/hackerweb')
+                p Hacker Web
+                  span updated 16 days ago
+                p.tagline A simply readable Hacker News web app
+            li
+              a(href='https://github.com/MugunthKumar/MKStoreKit')
+                p MKStoreKit
+                  span updated 1 month ago
+                p.tagline In-App Purchases StoreKit for iOS devices
+            li
+              a(href='https://github.com/zz85/sparks.js')
+                p Sparks
+                  span updated 2 months ago
+                p.tagline a lightweight 3d particle engine in javascript
+            li
+              a(href='https://github.com/uzyn/opauth')
                 p opAuth
                   span updated 2 months ago
                 p.tagline Multi-provider authentication framework for PHP
             li
-              a(href='#')
-                p Hacker Web
-                  span updated 5 days ago
-                p.tagline Hacker News mobile web app
-            li
-              a(href='#')
-                p Specta
+              a(href='https://github.com/hboon/GlassButtons')
+                p GlassButtons
                   span updated 3 months ago
-                p.tagline A light-weight TDD / BDD framework for Objective-C & Cocoa
+                p.tagline Glass buttons for iPhone apps
             li
-              a(href='#')
+              a(href='https://github.com/Luracast/Restler')
                 p Restler
-                  span updated 2 months ago
+                  span updated 3 months ago
                 p.tagline Simple and effective multi-format Web API Server
             li
-              a(href='#')
-                p MKNetworkKit
-                  span updated 22 days ago
-                p.tagline Full ARC based Networking Kit for iOS 4+ devices
-            li
-              a(href='#')
+              a(href='http://www.sketchkit.com/')
                 p Sketch Kit Wireframes
                   span updated 3 months ago
                 p.tagline Create quick iPhone app wireframes in Keynote
+            li
+              a(href='https://github.com/petejkim/specta')
+                p Specta
+                  span updated 3 months ago
+                p.tagline A light-weight TDD / BDD framework for Objective-C & Cocoa
+
         p.explain a list of free open events and open source libraries for the curious folks who love to make things!
       footer
         .container
@@ -122,64 +143,11 @@ html(lang='en')
     script(src='//raw.github.com/davatron5000/FitText.js/master/jquery.fittext.js')
     script
       $(document).ready(function() {
-        $("h1").fitText(0.75);
+        $("h1").fitText(0.6);
       });
 
-
     //- Gridline for dev environment
-    script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
-    script
-      definegrid = function() {
-        var browserWidth = $(window).width();
-        if (browserWidth >= 1001)
-        {
-          pageUnits = 'px';
-          colUnits = 'px';
-          pagewidth = 960;
-          columns = 6;
-          columnwidth = 140;
-          gutterwidth = 24;
-          pagetopmargin = 35;
-          rowheight = 20;
-          gridonload = 'off';
-          makehugrid();
-        }
-        if (browserWidth <= 1000)
-        {
-          pageUnits = '%';
-          colUnits = '%';
-          pagewidth = 94;
-          columns = 3;
-          columnwidth = 32;
-          gutterwidth = 2;
-          pagetopmargin = 35;
-          rowheight = 20;
-          gridonload = 'off';
-          makehugrid();
-        }
-        if (browserWidth <= 768)
-        {
-          pageUnits = '%';
-          colUnits = '%';
-          pagewidth = 96;
-          columns = 2;
-          columnwidth = 49;
-          gutterwidth = 2;
-          pagetopmargin = 35;
-          rowheight = 20;
-          gridonload = 'off';
-          makehugrid();
-        }
-      }
-        $(document).ready(function() {
-        definegrid();
-        setgridonload();
-        });
-
-        $(window).resize(function() {
-        definegrid();
-            setgridonresize();
-        });
+    //- script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
 
     script
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

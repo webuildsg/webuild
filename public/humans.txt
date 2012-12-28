@@ -1,0 +1,14 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Sayanee -- Developer & Designer -- www.sayan.ee
+
+# THANKS
+
+    Chinmay
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, Fittext
