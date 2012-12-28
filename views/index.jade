@@ -1,0 +1,183 @@
+!!! 5
+html(lang='en')
+
+  head
+    meta(charset='utf-8')
+    //- Use the .htaccess and remove these lines to avoid edge case issues.
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title We Build | A list of open event and open source for the inspired ones
+    meta(name='description', content='')
+
+    meta(name='viewport', content='width=device-width')
+    link(href='http://fonts.googleapis.com/css?family=Peralta|Open+Sans', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='public/css/style.css')
+
+    //- Gridline for dev environment
+    link(rel='stylesheet', href='public/css/hugrid.css')
+
+  body
+
+    //if lt IE 7
+      p.chromeframe Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a cool new browser</a> to experience this site!
+
+    div.wrapper
+      header
+        .container
+          h1 we build!
+          h2 Exploring the maker scene in Singapore? Connect with people who are&nbsp;
+            ul.people
+              li developers
+              li designers
+              li makers
+              li ...
+          //- designers, makers,
+      .main.container
+        section
+          h3 open events
+          ul.open-list.first
+            li
+              a(href='#')
+                p Creative Crew Meetup
+                  span on 11 Dec
+                p.tagline fireworks, web fonts, travel
+            li
+              a(href='#')
+                p 7dB in 7 wks, Day 1: PostgreSQL
+                  span on 12 Dec
+                p.tagline Pragmatic Programmers, Day 1 on PosgreSQL
+            li
+              a(href='#')
+                p iOS Day
+                  span on 16 Dec
+                p.tagline Happy 1st Birthday iOS Dev Scout!
+            li
+              a(href='#')
+                p Agile Software Meetup
+                  span on 18 Dec
+                p.tagline What is an Agile Development with TDD?
+            li
+              a(href='#')
+                p Creative Crew Meetup
+                  span on 11 Dec
+                p.tagline fireworks, web fonts, travel
+            li
+              a(href='#')
+                p 7dB in 7 wks, Day 1: PostgreSQL
+                  span on 12 Dec
+                p.tagline Pragmatic Programmers, Day 1 on PosgreSQL
+            li
+              a(href='#')
+                p iOS Day
+                  span on 16 Dec
+                p.tagline Happy 1st Birthday iOS Dev Scout!
+            li
+              a(href='#')
+                p Agile Software Meetup
+                  span on 18 Dec
+                p.tagline What is an Agile Development with TDD?
+        section
+          h3 open source
+          ul.open-list
+            li
+              a(href='#')
+                p opAuth
+                  span updated 2 months ago
+                p.tagline Multi-provider authentication framework for PHP
+            li
+              a(href='#')
+                p Hacker Web
+                  span updated 5 days ago
+                p.tagline Hacker News mobile web app
+            li
+              a(href='#')
+                p Specta
+                  span updated 3 months ago
+                p.tagline A light-weight TDD / BDD framework for Objective-C & Cocoa
+            li
+              a(href='#')
+                p Restler
+                  span updated 2 months ago
+                p.tagline Simple and effective multi-format Web API Server
+            li
+              a(href='#')
+                p MKNetworkKit
+                  span updated 22 days ago
+                p.tagline Full ARC based Networking Kit for iOS 4+ devices
+            li
+              a(href='#')
+                p Sketch Kit Wireframes
+                  span updated 3 months ago
+                p.tagline Create quick iPhone app wireframes in Keynote
+        p.explain a list of free events and open source libraries for the traveling designer & developer!
+      footer
+        .container
+          :markdown
+            Checkout more cool events and people in startup, arts and tech with
+            [thelist.sg](http://thelist.sg/),
+            [connections.sg](http://connections.sg/),
+            [hackerspace calendar](http://hackerspace.sg/calendar/hackerspacesg-events/) and
+            [sge calendar](http://sge.io/calendar/)
+      a(href='http://sayan.ee').credit handmade by sayanee
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+
+    //- Gridline for dev environment
+    script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
+    script
+      definegrid = function() {
+        var browserWidth = $(window).width();
+        if (browserWidth >= 1001)
+        {
+          pageUnits = 'px';
+          colUnits = 'px';
+          pagewidth = 960;
+          columns = 6;
+          columnwidth = 140;
+          gutterwidth = 24;
+          pagetopmargin = 35;
+          rowheight = 20;
+          gridonload = 'off';
+          makehugrid();
+        }
+        if (browserWidth <= 1000)
+        {
+          pageUnits = '%';
+          colUnits = '%';
+          pagewidth = 94;
+          columns = 3;
+          columnwidth = 32;
+          gutterwidth = 2;
+          pagetopmargin = 35;
+          rowheight = 20;
+          gridonload = 'off';
+          makehugrid();
+        }
+        if (browserWidth <= 768)
+        {
+          pageUnits = '%';
+          colUnits = '%';
+          pagewidth = 96;
+          columns = 2;
+          columnwidth = 49;
+          gutterwidth = 2;
+          pagetopmargin = 35;
+          rowheight = 20;
+          gridonload = 'off';
+          makehugrid();
+        }
+      }
+        $(document).ready(function() {
+        definegrid();
+        setgridonload();
+        });
+
+        $(window).resize(function() {
+        definegrid();
+            setgridonresize();
+        });
+
+    script
+      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));

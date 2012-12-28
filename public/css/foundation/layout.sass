@@ -1,0 +1,60 @@
+::-moz-selection
+	background: lighten($yellow, 10%)
+	color: $grey
+	text-shadow: none
+
+::selection
+	background: lighten($yellow, 10%)
+	color: $grey
+	text-shadow: none
+
+*
+	box-sizing: border-box
+	// @include transition-property(all)
+	// @include transition-duration(0.2s)
+	// @include transition-timing-function(ease-in)
+
+body
+	background-color: white
+	color: black
+
+.wrapper
+	width: 100%
+	margin: 0 auto
+
+.container
+	width: $width-total
+	margin: 0 auto
+
+header
+	width: 100%
+	background-color: $red
+	@include box-shadow(lighten(black, 50%) 0 3px 10px)
+	padding: 0 0 15px 0
+
+.main
+	margin: 0 auto 20px auto
+
+section
+	width: 50%
+	display: inline-block
+	padding: 60px 0 0 0
+	vertical-align: top
+
+footer
+	width: 100%
+	background-color: lighten($yellow, 10%)
+	display: block
+	padding: 15px 0
+	p
+		color: $blue
+		text-align: center
+		margin: 0 auto
+		width: 80%
+		font-size: 1.5rem
+		a
+			text-decoration: underline
+			&:link, &:visited
+				color: $blue
+			&:hover, &:active
+				color: $red-light

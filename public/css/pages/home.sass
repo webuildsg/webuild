@@ -1,0 +1,44 @@
+.people
+  display: inline-block
+  vertical-align: top
+  list-style-type: none
+  margin: 0
+  padding: 0
+  position: relative
+  li
+    position: absolute
+    top: 0
+    left: 0
+    font-weight: normal
+    display: inline-block
+    opacity: 0
+    &:nth-child(1)
+      @include animation(cycleone, 8s, linear, infinite)
+    &:nth-child(2)
+      @include animation(cycletwo, 8s, linear, infinite)
+    &:nth-child(3)
+      @include animation(cyclethree, 8s, linear, infinite)
+    &:nth-child(4)
+      @include animation(cyclefour, 8s, linear, infinite)
+
+.open-list
+  list-style-type: none
+  width: 100%
+  margin: 30px 0 60px 0
+  padding: 0
+  li
+    width: 95%
+    display: block
+    margin: 0 10px 15px 10px
+    &:hover
+      a
+        background-color: lighten($yellow, 10%)
+    a
+      display: block
+      padding: 10px
+      @include border-radius(5px)
+      text-decoration: none
+
+.first
+  border-right: 2px solid $blue
+
