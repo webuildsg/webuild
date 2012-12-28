@@ -26,11 +26,10 @@ html(lang='en')
           h1 we build!
           h2 Exploring the maker scene in Singapore? Connect with people who are&nbsp;
             ul.people
-              li developers
-              li designers
-              li makers
               li ...
-          //- designers, makers,
+              li designers
+              li developers
+              li makers
       .main.container
         section
           h3 open events
@@ -108,7 +107,7 @@ html(lang='en')
                 p Sketch Kit Wireframes
                   span updated 3 months ago
                 p.tagline Create quick iPhone app wireframes in Keynote
-        p.explain a list of free events and open source libraries for the traveling designer & developer!
+        p.explain a list of free open events and open source libraries for the curious folks who love to make things!
       footer
         .container
           :markdown
@@ -120,6 +119,12 @@ html(lang='en')
       a(href='http://sayan.ee').credit handmade by sayanee
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+    script(src='//raw.github.com/davatron5000/FitText.js/master/jquery.fittext.js')
+    script
+      $(document).ready(function() {
+        $("h1").fitText(0.75);
+      });
+
 
     //- Gridline for dev environment
     script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
