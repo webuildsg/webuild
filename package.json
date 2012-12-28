@@ -9,5 +9,9 @@
     "express": "3.0.0rc5",
     "jade": "*",
     "mongoose": "3.5.2"
+  },
+  "engines": {
+    "node": "0.8.16",
+    "npm": "1.1.70"
   }
 }
