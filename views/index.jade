@@ -7,7 +7,7 @@ html(lang='en')
     meta(name='description', content='a list of free open events and open source libraries for the curious folks who love to make things!')
 
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
-    link(href='http://fonts.googleapis.com/css?family=Peralta|Open+Sans', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Vollkorn:400,700|Open+Sans', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='public/css/style.css')
 
     //- Gridline for dev environment
@@ -145,10 +145,10 @@ html(lang='en')
       a(href='http://sayan.ee').credit handmade by sayanee
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js')
-    script(src='//raw.github.com/davatron5000/FitText.js/master/jquery.fittext.js')
+    script(src='public/js/fittext.js')
     script
       $(document).ready(function() {
-        $("h1").fitText(0.6);
+        $("h1").fitText(0.55).css("opacity", 1);
       });
 
     //- Gridline for dev environment

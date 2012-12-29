@@ -6,7 +6,7 @@ var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 4000);
-  app.use('/public/css', express.static(__dirname + '/public/css'));
+  app.use('/public', express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 });
