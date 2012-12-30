@@ -40,6 +40,7 @@ The returned object contains the following properties:
 - auth: if auth is specified, this object will exist `{ user: 'username', pass: 'password' }`
 - hosts: array of host/port objects, one for each specified `[{ host: 'local', port: 27107 }, { host: '..', port: port }]`
   - if a port is not specified for a given host, the default port (27017) is used
+  - if a unix domain socket is passed, host/port will be undefined and `ipc` will be set to the value specified `[{ ipc: '/tmp/mongodb-27017' }]`
 - options: this is a hash of all options specified in the querystring
 
 [LICENSE](https://github.com/aheckmann/muri/blob/master/LICENSE)

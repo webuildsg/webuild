@@ -40,37 +40,37 @@ function insertRepo(num, url, name, updated, description) {
     '<a href="' + url + '"><p>' + name + '<span>updated ' + moment(updated).endOf('hour').fromNow() +
     '</span></p><p class="tagline" >' + description + '</p></a>');
 }
-$.getJSON("https://api.github.com/repos/miccheng/php-queue", function(json) {
-  insertRepo(1, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/miccheng/php-queue?callback=?", function(json) {
+  insertRepo(1, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/MugunthKumar/MKNetworkKit", function(json) {
-  insertRepo(2, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/MugunthKumar/MKNetworkKit?callback=?", function(json) {
+  insertRepo(2, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/lxcid/LXReorderableCollectionViewFlowLayout", function(json) {
-  insertRepo(3, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/lxcid/LXReorderableCollectionViewFlowLayout?callback=?", function(json) {
+  insertRepo(3, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/honcheng/PaperFold-for-iOS", function(json) {
-  insertRepo(4, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/honcheng/PaperFold-for-iOS?callback=?", function(json) {
+  insertRepo(4, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/cheeaun/hackerweb", function(json) {
-  insertRepo(5, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/cheeaun/hackerweb?callback=?", function(json) {
+  insertRepo(5, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/MugunthKumar/MKStoreKit", function(json) {
-  insertRepo(6, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/MugunthKumar/MKStoreKit?callback=?", function(json) {
+  insertRepo(6, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/zz85/sparks.js", function(json) {
-  insertRepo(7, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/zz85/sparks.js?callback=?", function(json) {
+  insertRepo(7, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/uzyn/opauth", function(json) {
-  insertRepo(8, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/uzyn/opauth?callback=?", function(json) {
+  insertRepo(8, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/hboon/GlassButtons", function(json) {
-  insertRepo(9, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/hboon/GlassButtons?callback=?", function(json) {
+  insertRepo(9, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
-$.getJSON("https://api.github.com/repos/Luracast/Restler", function(json) {
-  insertRepo(10, json.html_url, json.name, "2012-10-10", json.description);
+$.getJSON("https://api.github.com/repos/Luracast/Restler?callback=?", function(json) {
+  insertRepo(10, json.data.html_url, json.data.name, "2012-10-10", json.data.description);
 });
 insertRepo(11, "http://www.sketchkit.com/", "Sketch Kit Wireframes", "2012-09-30", "Create quick iPhone app wireframes in Keynote");
-$.getJSON("https://api.github.com/repos/petejkim/specta", function(json) {
-  insertRepo(12, json.html_url, json.name, json.pushed_at, json.description);
+$.getJSON("https://api.github.com/repos/petejkim/specta?callback=?", function(json) {
+  insertRepo(12, json.data.html_url, json.data.name, json.data.pushed_at, json.data.description);
 });
