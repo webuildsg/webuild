@@ -29,6 +29,7 @@ html(lang='en')
               li developers
               li makers
       .main.container
+
         section
           h3 open events
           ul.open-list.first
@@ -73,72 +74,14 @@ html(lang='en')
                   span on 15 Feb
                 p.tagline Web workers, XMLHttpRequest, History API, Focus Management for the nerds
 
-
         section
           h3 open source
-          ul.open-list
-            li
-              a(href='https://github.com/miccheng/php-queue')
-                p Php Queue
-                  span updated 1 day ago
-                p.tagline A unified front-end for different queuing backends
-            li
-              a(href='https://github.com/MugunthKumar/MKNetworkKit')
-                p MKNetworkKit
-                  span updated 1 day ago
-                p.tagline Full ARC based Networking Kit for iOS 4+ devices
-            li
-              a(href='https://github.com/lxcid/LXReorderableCollectionViewFlowLayout')
-                p LXReorderable Collection View Flow Layout
-                  span updated 4 days ago
-                p.tagline Extends `UICollectionViewFlowLayout` to support reordering of cells
-            li
-              a(href='https://github.com/honcheng/PaperFold-for-iOS')
-                p PaperFold for iOS
-                  span updated 5 days ago
-                p.tagline Paper folding animation for iOS
-            li
-              a(href='https://github.com/cheeaun/hackerweb')
-                p HackerWeb
-                  span updated 17 days ago
-                p.tagline A simply readable Hacker News web app
-            li
-              a(href='https://github.com/MugunthKumar/MKStoreKit')
-                p MKStoreKit
-                  span updated 1 month ago
-                p.tagline In-App Purchases StoreKit for iOS devices
-            li
-              a(href='https://github.com/zz85/sparks.js')
-                p Sparks
-                  span updated 2 months ago
-                p.tagline a lightweight 3d particle engine in javascript
-            li
-              a(href='https://github.com/uzyn/opauth')
-                p opAuth
-                  span updated 2 months ago
-                p.tagline Multi-provider authentication framework for PHP
-            li
-              a(href='https://github.com/hboon/GlassButtons')
-                p GlassButtons
-                  span updated 3 months ago
-                p.tagline Glass buttons for iPhone apps
-            li
-              a(href='https://github.com/Luracast/Restler')
-                p Restler
-                  span updated 3 months ago
-                p.tagline Simple and effective multi-format Web API Server
-            li
-              a(href='http://www.sketchkit.com/')
-                p Sketch Kit Wireframes
-                  span updated 3 months ago
-                p.tagline Create quick iPhone app wireframes in Keynote
-            li
-              a(href='https://github.com/petejkim/specta')
-                p Specta
-                  span updated 3 months ago
-                p.tagline A light-weight TDD / BDD framework for Objective-C & Cocoa
+          ul.open-list.second
+            - for (var i = 0; i < 14; ++i) {
+              li
+            - }
 
-        p.explain a list of free open events and open source libraries for the curious folks who love to make things!
+        p.explain a list of free public events and open source projects for the curious folks who love to make things!
       footer
         .container
           :markdown
@@ -150,11 +93,8 @@ html(lang='en')
       a(href='http://sayan.ee').credit handmade by sayanee
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js')
-    script(src='public/js/fittext.js')
-    script
-      $(document).ready(function() {
-        $("h1").fitText(0.55).css("opacity", 1);
-      });
+    script(src='//raw.github.com/timrwood/moment/1.7.2/min/moment.min.js')
+    script(src='public/js/script.js')
 
     //- Gridline for dev environment
     //- script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
