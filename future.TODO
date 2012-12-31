@@ -1,0 +1,7 @@
+Future:
+
+ ☐ open events: detect facebook/ eventbrite/ meetup/ lanyrd API
+ ☐ open source: detect github API
+ ☐ ability to add manual events and repo
+ ☐ ability to take in user listed suggestions for repo and events
+ ☐ spread the platform to other cities with admin access for the city curator
