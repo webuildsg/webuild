@@ -7,6 +7,7 @@ var app = express();
 app.configure(function(){
   app.set('port', process.env.PORT || 4000);
   app.use('/public', express.static(__dirname + '/public'));
+  app.use(express.favicon(__dirname + '/public/favicon.ico'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 });
