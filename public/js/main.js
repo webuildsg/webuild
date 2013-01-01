@@ -80,14 +80,14 @@ require(
   };
 
   // Non Github Repo
-  Repo.totalList.push({
-    html_url: "http://www.sketchkit.com/",
-    name: "Sketch Kit Wireframes",
-    pushed_at: "2012-10-01",
-    description: "Create quick iPhone app wireframes in Keynote"
-  });
+  // Repo.totalList.push({
+  //   html_url: "http://www.sketchkit.com/",
+  //   name: "Sketch Kit Wireframes",
+  //   pushed_at: "2012-10-01",
+  //   description: "Create quick iPhone app wireframes in Keynote"
+  // });
 
-  // Github Repo
+  // Github Repo updated in the last 2 months
   Repo.fetch([
     'miccheng/php-queue',
     'MugunthKumar/MKNetworkKit',
@@ -98,8 +98,10 @@ require(
     'MugunthKumar/MKStoreKit',
     'zz85/sparks.js',
     'uzyn/opauth',
-    'hboon/GlassButtons',
-    'petejkim/specta'
+    'honcheng/RTLabel',
+    'honcheng/PaperFoldMenuController'
+    // 'hboon/GlassButtons',
+    //'petejkim/specta'
     ]);
 
 });
