@@ -6,6 +6,10 @@ require(
   ],
   function($, Fittext, Moment) {
 
+  // hello to another happy developer
+  console.log('hello fellow developer :)');
+  console.log('if you have suggestions for this site, do buzz me and say hi @sayanee_');
+
   // Responsive Heading
   $("h1").fitText(0.55).css("opacity", 1);
 
@@ -56,14 +60,11 @@ require(
           return new Date(a);
         })
       );
-      // console.log('inside sortByDate');
-      // console.log(this.totalList);
     },
     insertRepo: function (  ) {
       var arr = this.totalList;
 
       for( var arrayIndex = 0; arrayIndex < arr.length; arrayIndex++ ) {
-        // console.log(arr[arrayIndex]);
         $("ul.open-list.second li:nth-child(" + (arrayIndex + 1) + ")").html(
           '<a href="'+
           arr[arrayIndex].html_url +
