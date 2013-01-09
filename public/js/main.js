@@ -100,7 +100,7 @@ require(
     'zz85/sparks.js',
     'uzyn/opauth',
     'honcheng/RTLabel',
-    'honcheng/PaperFoldMenuController'
+    'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
     'petejkim/specta'
     ]);
