@@ -102,7 +102,7 @@ require(
     'honcheng/RTLabel',
     'honcheng/PaperFoldMenuController'
     // 'hboon/GlassButtons',
-    //'petejkim/specta'
+    'petejkim/specta'
     ]);
 
 });
