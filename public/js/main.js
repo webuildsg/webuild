@@ -27,7 +27,8 @@ require(
             html_url: json.data.html_url,
             name: json.data.name,
             pushed_at: json.data.pushed_at,
-            description: json.data.description
+            description: json.data.description,
+            stars: json.data.watchers_count
           };
           self.totalList.push(repo);
           count++;
@@ -72,6 +73,8 @@ require(
           arr[arrayIndex].name +
           '<span>updated ' +
           moment(arr[arrayIndex].pushed_at).endOf('hour').fromNow() +
+          '</span><span class="stars">&#9733; ' +
+          arr[arrayIndex].stars +
           '</span></p><p class="tagline" >' +
           arr[arrayIndex].description +
           '</p></a>'
