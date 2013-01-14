@@ -97,7 +97,7 @@ require(
     'honcheng/PaperFold-for-iOS',
     'cheeaun/hackerweb',
     'MugunthKumar/MKStoreKit',
-    'zz85/sparks.js',
+    //'zz85/sparks.js',
     'uzyn/opauth',
     'honcheng/RTLabel',
     'honcheng/PaperFoldMenuController',
