@@ -36,7 +36,7 @@ html(lang='en')
     script(type='text/javascript', src='public/js/require.js', data-main='public/js/config')
 
     //- Gridline for dev environment
-    //- link(rel='stylesheet', href='public/css/hugrid.css')
+    link(rel='stylesheet', href='public/css/hugrid.css')
 
   body
 
@@ -104,10 +104,20 @@ html(lang='en')
                   span on 21 Jan
                 p.tagline HTML5 audio & video, WebRTC, Camera API
             li
+              a(href='http://www.meetup.com/Software-Craftsmanship-Singapore/events/99865012/')
+                p HBase Day 1: CRUD and Table Administration
+                  span on 23 Jan
+                p.tagline Chapter 4.2 from 7 Databases in 7 weeks book
+            li
               a(href='http://ccsg-workshop0113.eventbrite.com/')
                 p Mobile Photography Workshop
                   span on 26 Jan
                 p.tagline Flickr, Mobile Photo, Camera, Composition, Evernote, Creative Commons
+            li
+              a(href='http://www.meetup.com/Agile-Singapore/events/93477582/')
+                p Jan/2013 - Open Space
+                  span on 28 Jan
+                p.tagline Agile methodologies, Estimation, Maintain/create executable requirements
             li
               a(href='http://sg.hackandtell.org/')
                 p SG Hack and Tell
@@ -142,7 +152,59 @@ html(lang='en')
       a(href='http://sayan.ee').credit handmade by sayanee
 
     //- Gridline for dev environment
-    //- script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
+    script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
+    script
+      definegrid = function() {
+          var browserWidth = $(window).width();
+          if (browserWidth >= 1001)
+          {
+              pageUnits = 'px';
+              colUnits = 'px';
+              pagewidth = 960;
+              columns = 6;
+              columnwidth = 140;
+              gutterwidth = 24;
+              pagetopmargin = 35;
+              rowheight = 20;
+              gridonload = 'off';
+              makehugrid();
+          }
+          if (browserWidth <= 1000)
+          {
+              pageUnits = '%';
+              colUnits = '%';
+              pagewidth = 94;
+              columns = 2;
+              columnwidth = 48;
+              gutterwidth = 4;
+              pagetopmargin = 35;
+              rowheight = 20;
+              gridonload = 'off';
+              makehugrid();
+          }
+          if (browserWidth <= 768)
+          {
+              pageUnits = '%';
+              colUnits = '%';
+              pagewidth = 96;
+              columns = 2;
+              columnwidth = 49;
+              gutterwidth = 2;
+              pagetopmargin = 35;
+              rowheight = 20;
+              gridonload = 'off';
+              makehugrid();
+          }
+      }
+      $(document).ready(function() {
+          definegrid();
+          setgridonload();
+      });
+
+      $(window).resize(function() {
+          definegrid();
+          setgridonresize();
+      });
 
     script
       var _gaq = _gaq || [];
