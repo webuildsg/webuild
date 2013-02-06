@@ -1,5 +1,9 @@
 Future:
 
+ ☐ fix line hieght isse
+ ☐ wwizer
+ ☐ anchor link anchor link to a talk: E.g. http://www.webuild.sg/#html5talk
+ 
  ☐ open events: detect facebook/ eventbrite/ meetup/ lanyrd API
  ☐ open source: detect github API
  ☐ ability to add manual events and repo

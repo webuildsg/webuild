@@ -36,7 +36,7 @@ html(lang='en')
     script(type='text/javascript', src='public/js/require.js', data-main='public/js/config')
 
     //- Gridline for dev environment
-    link(rel='stylesheet', href='public/css/hugrid.css')
+    //- link(rel='stylesheet', href='public/css/hugrid.css')
 
   body
 
@@ -123,36 +123,61 @@ html(lang='en')
             //-     p SG Hack and Tell
             //-       span on 29 Jan
             //-     p.tagline 5 min lightning talks on what we hacked on
+            //- li
+            //-   a(href='http://www.meetup.com/devops-singapore/events/99812762/')
+            //-     p DevOps Singapore Meetup #10: Stacko
+            //-       span on 30 Jan
+            //-     p.tagline Stacko is a gem that make it easy to spin up an EC2 instance
+            //- li
+            //-   a(href='http://uxsg.eventbrite.com/')
+            //-     p UXSG Meetup #2
+            //-       span on 30 Jan
+            //-     p.tagline Tobi Eye Tracker, HCI research projects like 3D User Interface, Sand Animation
+            //- li
+            //-   a(href='http://www.meetup.com/HTML5Rocks-SG/events/93217852/')
+            //-     p HTML5 Series - Chapter 2
+            //-       span on 1 Feb
+            //-     p.tagline Online & Offline events, Offline resources, IndexDB, DOM & Local Storage
+            //- li
+            //-   a(href='http://www.meetup.com/Singapore-JS/events/99986652/')
+            //-     p talk.js
+            //-       span on 4 Feb
+            //-     p.tagline Hypermedia APIs, Frontend UI: Spaghetti vs. State Machine
             li
-              a(href='http://www.meetup.com/devops-singapore/events/99812762/')
-                p DevOps Singapore Meetup #10: Stacko
-                  span on 30 Jan
-                p.tagline Stacko is a gem that make it easy to spin up an EC2 instance
-            li
-              a(href='http://uxsg.eventbrite.com/')
-                p UXSG Meetup #2
-                  span on 30 Jan
-                p.tagline Tobi Eye Tracker, HCI research projects like 3D User Interface, Sand Animation
-            li
-              a(href='http://www.meetup.com/HTML5Rocks-SG/events/93217852/')
-                p HTML5 Series - Chapter 2
-                  span on 1 Feb
-                p.tagline Online & Offline events, Offline resources, IndexDB, DOM & Local Storage
-            li
-              a(href='http://www.meetup.com/Singapore-JS/events/99986652/')
-                p talk.js
-                  span on 4 Feb
-                p.tagline Hypermedia APIs, Frontend UI: Spaghetti vs. State Machine
+              a(href='http://www.meetup.com/Software-Craftsmanship-Singapore/events/103221032/')
+                p 7DB7W. MongoDB. Day 1
+                  span on 13 Feb
+                p.tagline Read Chapter 5.2 from "Seven Databases in Seven Weeks"
             li
               a(href='http://www.meetup.com/HTML5Rocks-SG/events/93219302/')
                 p HTML5 Series - Chapter 3
                   span on 15 Feb
                 p.tagline Web Sockets, What if the server want to push events
             li
+              a(href='http://www.meetup.com/Software-Craftsmanship-Singapore/events/103221282/')
+                p 7DB7W. MongoDB. Day 2
+                  span on 20 Feb
+                p.tagline Indexing, Grouping, Mapreduce
+            li
+              a(href='https://www.facebook.com/events/347867548660365/')
+                p Nodejs Group Feb Meetup
+                  span on 21 Feb
+                p.tagline Calling for Speakers
+            li
               a(href='http://www.meetup.com/Singapore-Ruby-Group/events/101168232/')
-                p February Meetup
+                p Singapore Ruby Group February Meetup
                   span on 26 Feb
                 p.tagline Handling Online Payment in Ruby, RedDotRubyConf 2013
+            li
+              a(href='https://www.facebook.com/events/154741208013409/')
+                p Singapore PHP User Group Meetup (Feb 2013)
+                  span on 26 Feb
+                p.tagline Calling for speakers
+            li
+              a(href='http://www.meetup.com/Software-Craftsmanship-Singapore/events/103221432/')
+                p 7DB7W. MongoDB. Day 3
+                  span on 27 Feb
+                p.tagline Replica Sets, Sharding, GeoSpatial, and GridFS
         section
           h3 open source
           ul.open-list.second
@@ -172,59 +197,59 @@ html(lang='en')
       a(href='http://sayan.ee').credit handmade by sayanee
 
     //- Gridline for dev environment
-    script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
-    script
-      definegrid = function() {
-        var browserWidth = $(window).width();
-        if (browserWidth >= 1001)
-        {
-          pageUnits = 'px';
-          colUnits = 'px';
-          pagewidth = 960;
-          columns = 6;
-          columnwidth = 140;
-          gutterwidth = 24;
-          pagetopmargin = 35;
-          rowheight = 20;
-          gridonload = 'off';
-          makehugrid();
-        }
-        if (browserWidth <= 1000)
-        {
-          pageUnits = '%';
-          colUnits = '%';
-          pagewidth = 94;
-          columns = 2;
-          columnwidth = 48;
-          gutterwidth = 4;
-          pagetopmargin = 35;
-          rowheight = 20;
-          gridonload = 'off';
-          makehugrid();
-        }
-        if (browserWidth <= 768)
-        {
-          pageUnits = '%';
-          colUnits = '%';
-          pagewidth = 96;
-          columns = 2;
-          columnwidth = 49;
-          gutterwidth = 2;
-          pagetopmargin = 35;
-          rowheight = 20;
-          gridonload = 'off';
-          makehugrid();
-        }
-      }
-      $(document).ready(function() {
-        definegrid();
-        setgridonload();
-      });
+    //- script(src='//raw.github.com/simanek/Heads-Up-Grid/master/headsupgrid/hugrid.js')
+    //- script
+    //-   definegrid = function() {
+    //-     var browserWidth = $(window).width();
+    //-     if (browserWidth >= 1001)
+    //-     {
+    //-       pageUnits = 'px';
+    //-       colUnits = 'px';
+    //-       pagewidth = 960;
+    //-       columns = 6;
+    //-       columnwidth = 140;
+    //-       gutterwidth = 24;
+    //-       pagetopmargin = 35;
+    //-       rowheight = 20;
+    //-       gridonload = 'off';
+    //-       makehugrid();
+    //-     }
+    //-     if (browserWidth <= 1000)
+    //-     {
+    //-       pageUnits = '%';
+    //-       colUnits = '%';
+    //-       pagewidth = 94;
+    //-       columns = 2;
+    //-       columnwidth = 48;
+    //-       gutterwidth = 4;
+    //-       pagetopmargin = 35;
+    //-       rowheight = 20;
+    //-       gridonload = 'off';
+    //-       makehugrid();
+    //-     }
+    //-     if (browserWidth <= 768)
+    //-     {
+    //-       pageUnits = '%';
+    //-       colUnits = '%';
+    //-       pagewidth = 96;
+    //-       columns = 2;
+    //-       columnwidth = 49;
+    //-       gutterwidth = 2;
+    //-       pagetopmargin = 35;
+    //-       rowheight = 20;
+    //-       gridonload = 'off';
+    //-       makehugrid();
+    //-     }
+    //-   }
+    //-   $(document).ready(function() {
+    //-     definegrid();
+    //-     setgridonload();
+    //-   });
 
-      $(window).resize(function() {
-        definegrid();
-        setgridonresize();
-      });
+    //-   $(window).resize(function() {
+    //-     definegrid();
+    //-     setgridonresize();
+    //-   });
 
     script
       var _gaq = _gaq || [];
