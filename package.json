@@ -6,7 +6,6 @@
     "start": "node app"
   },
   "dependencies": {
-    "cookie-signature": "~0.0.1",
     "express": "3.1.0",
     "jade": "*",
     "mongoose": "3.5.6",
