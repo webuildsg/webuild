@@ -1,6 +1,5 @@
-var express = require('express')
-  //, mongoose = require('mongoose')
-  , http = require('http');
+var express = require('express'),
+  http = require('http');
 
 var app = express();
 
