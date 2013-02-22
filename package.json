@@ -7,6 +7,7 @@
     "test": "grunt travis --verbose"
   },
   "dependencies": {
+    "cookie-signature": "*",
     "express": "3.1.0",
     "jade": "*",
     "mongoose": "3.5.6",
