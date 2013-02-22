@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "grunt travis --verbose"
   },
   "dependencies": {
     "express": "3.1.0",
@@ -16,8 +17,5 @@
   "engines": {
     "node": "0.8.14",
     "npm": "1.1.65"
-  },
-  "scripts": {
-    "test": "grunt travis --verbose"
   }
 }
