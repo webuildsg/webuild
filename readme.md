@@ -1,5 +1,7 @@
 [![Dependency Status](https://gemnasium.com/sayanee/webuild.png)](https://gemnasium.com/sayanee/webuild)
 
+[![Build Status](https://travis-ci.org/sayanee/webuild.png)](https://travis-ci.org/sayanee/webuild)
+
 [We Build SG](http://www.webuild.sg/) curates a list of free public events and open source projects for the curious folks who love to make things in Singapore!
 
 #We Build SG
