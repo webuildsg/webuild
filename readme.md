@@ -13,7 +13,7 @@ Who are we? We are **technies** - developers, designers, programmers, hackers or
 
 **Open Events** are *free tech events* that are open for public and anyone can drop by! Listed events are within the _next 2 months_.
 
-**Open Source** are projects with [free licenses](http://en.wikipedia.org/wiki/Comparison_of_free_software_licences) that [grants recipients extensive rights to modify and redistribute, which would otherwise be prohibited by copyright law](http://en.wikipedia.org/wiki/Free_software_license). Listed [Github]() repos have at least *100 watchers* and have been updated within the *past 2 months*. 
+**Open Source** are projects with [free licenses](http://en.wikipedia.org/wiki/Comparison_of_free_software_licences) that [grants recipients extensive rights to modify and redistribute, which would otherwise be prohibited by copyright law](http://en.wikipedia.org/wiki/Free_software_license). Listed [Github]() repos have at least *100 watchers* and have been updated within the *past 2 months*.
 
 
 #Websites
