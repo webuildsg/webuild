@@ -101,7 +101,7 @@ require(
     'cheeaun/hackerweb',
     'MugunthKumar/MKStoreKit',
     //'zz85/sparks.js',
-    'uzyn/opauth',
+    'opauth/opauth',
     'honcheng/RTLabel',
     'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
