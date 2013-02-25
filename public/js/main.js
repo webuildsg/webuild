@@ -108,4 +108,39 @@ require(
     'petejkim/specta'
     ]);
 
+
+  /*
+  *  Anchor Link Highlight
+  */ 
+
+  doHashChange(window.location.hash);
+
+  $(window).bind('hashchange', function(){        
+    doHashChange(window.location.hash);
+  });
+  
+
+  // Handles Hash Change Event
+  function doHashChange(hash){
+
+    var $openlist = $('.open-list');
+
+    if(hash){
+
+      $openlist
+        .find('.anchor[href="'+hash+'"]')
+        .parent()
+        .addClass("active")
+        .siblings()
+        .removeClass("active");
+
+    }else{
+
+      $openlist
+        .find('li')
+        .removeClass("active");  
+    }
+    
+  }
+
 });

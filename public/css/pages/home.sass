@@ -30,9 +30,12 @@
     width: 95%
     display: block
     margin: 0 10px 15px 10px
-    &:hover
+    position: relative
+    &:hover, &.active
       a
         background-color: lighten($yellow, 10%)
+      .anchor
+        display: block
     a
       display: block
       padding: 10px
@@ -41,6 +44,17 @@
     .stars
       float: right
       padding-top: 6px
+
+    .anchor
+      background: transparent url(../link-anchor.png) top left no-repeat  
+      width: 12px
+      height: 12px
+      display: none
+      padding: 0 !important
+      text-indent: -2000em
+      position: absolute
+      right: 10px
+      top: 10px
 
 .first
   border-right: 2px solid $blue
