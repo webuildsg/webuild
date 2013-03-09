@@ -97,13 +97,13 @@ require(
     'MugunthKumar/MKNetworkKit',
     'lxcid/LXReorderableCollectionViewFlowLayout',
     'Luracast/Restler',
-    // 'honcheng/PaperFold-for-iOS',
+    'honcheng/PaperFold-for-iOS',
     'cheeaun/hackerweb',
     'MugunthKumar/MKStoreKit',
     //'zz85/sparks.js',
     'opauth/opauth',
     // 'honcheng/RTLabel',
-    'honcheng/PaperFoldMenuController',
+    // 'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
     'petejkim/specta'
     ]);
