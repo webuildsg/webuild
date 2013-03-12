@@ -1,0 +1,19 @@
+// %display-inline {
+// 	display: inline-block;
+//   vertical-align: top;
+//   margin: 0 0 0 -4px
+// }
+//   
+// %spacing-zero {
+// 	padding: 0;
+//   margin: 0;
+//   list-style: none
+// }
+
+@mixin animation($name, $duration, $timing, $iteration) {
+  -webkit-animation: $name $duration $timing $iteration;
+	-ms-animation: $name $duration $timing $iteration;
+  -o-animation: $name $duration $timing $iteration;
+  -moz-animation: $name $duration $timing $iteration;
+  animation: $name $duration $timing $iteration;
+}

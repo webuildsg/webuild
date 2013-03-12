@@ -18,7 +18,7 @@ html(lang='en')
     meta(name='keywords', content='Singapore, SG, open community, open source, software, hardware, programming, design, maker movement, free events, free tech events')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
 
-    meta(property='og:image', content='public/logo.png')
+    meta(property='og:image', content='/logo.png')
     meta(property='og:url', content='http://www.webuild.sg')
     meta(property='og:site_name', content='www.webuild.sg')
     meta(property='og:title', content='We Build SG')
@@ -26,17 +26,17 @@ html(lang='en')
     meta(property='og:type', content='website')
 
     link(href='http://fonts.googleapis.com/css?family=Vollkorn:400,700|Open+Sans', rel='stylesheet', type='text/css')
-    link(rel='stylesheet', href='public/css/style.css')
+    link(rel='stylesheet', href='/css/style.css')
 
-    link(rel='apple-touch-icon', href='public/apple-touch-icon.png')
-    link(rel='apple-touch-icon', sizes='72x72', href='public/apple-touch-icon-72x72-precomposed.png')
-    link(rel='apple-touch-icon', sizes='114x114', href='public/apple-touch-icon-114x114-precomposed.png')
-    link(rel='apple-touch-icon', sizes='144x144', href='public/apple-touch-icon-144x144-precomposed.png')
+    link(rel='apple-touch-icon', href='/apple-touch-icon.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/apple-touch-icon-72x72-precomposed.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/apple-touch-icon-114x114-precomposed.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='/apple-touch-icon-144x144-precomposed.png')
 
-    script(type='text/javascript', src='public/js/require.js', data-main='public/js/config')
+    script(type='text/javascript', src='/js/require.js', data-main='/js/config')
 
     //- Gridline for dev environment
-    //- link(rel='stylesheet', href='public/css/hugrid.css')
+    //- link(rel='stylesheet', href='/css/hugrid.css')
 
   body
 
@@ -53,46 +53,18 @@ html(lang='en')
               li designers
               li developers
               li makers
-      .main.container
 
+      .main.container
         section
           h3 open events
           ul.open-list.first
+          for event in events
             li
-              a(href='http://www.meetup.com/Singapore-Ruby-Group/events/101168232/')
-                p Singapore Ruby Group February Meetup
-                  span on 26 Feb
-                p.tagline Handling Online Payment in Ruby, RedDotRubyConf 2013
-            li
-              a(href='https://www.facebook.com/events/154741208013409/')
-                p Singapore PHP User Group Meetup (Feb 2013)
-                  span on 26 Feb
-                p.tagline Calling for speakers
-            li
-              a(href='http://www.meetup.com/Software-Craftsmanship-Singapore/events/103221432/')
-                p 7DB7W. MongoDB. Day 3
-                  span on 27 Feb
-                p.tagline Replica Sets, Sharding, GeoSpatial, and GridFS
-            li
-              a(href='http://www.meetup.com/Singapore-JS/events/105620502/')
-                p talk.js
-                  span on 4 Mar
-                p.tagline CoffeeScript, ES6, RESTful, voxeljs
-            li
-              a(href='http://sg.hackandtell.org/')
-                p Hack & Tell
-                  span on 5 Mar
-                p.tagline Share and Tell your latest project in just 5 minutes!
-            li
-              a(href='http://www.barcampsingapore.com/')
-                p Open Science barcamp
-                  span on 8 Mar
-                p.tagline Open Access, Science Commons, Beyond publications, Academic IP ownership, Citizen Science
-            li
-              a(href='https://www.facebook.com/events/491548380882462')
-                p SG Makers Movement Meetup
-                  span on 14 Mar
-                p.tagline Little Makers, Ironman Propmaker, Uyii, Collabcollab, Sculptor
+              p
+                a(href="#{event.url}")= event.title
+                span on #{event.date}
+              p.tagline= event.tagline 
+
         section
           h3 open source
           ul.open-list.second

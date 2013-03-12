@@ -1,0 +1,341 @@
+/*
+There's a bug in libsass which doesn't recognise @- browser specific rules - https://github.com/hcatlin/libsass/issues/54
+Had to define the styles in pure CSS as a workaround
+*/
+
+@-webkit-keyframes cycleone {
+	0% {
+		opacity: 0
+	}
+	1% {
+		opacity: 1
+	}
+	24% {
+		opacity: 1
+	}
+	25% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@-moz-keyframes cycleone {
+	0% {
+		opacity: 0
+	}
+	1% {
+		opacity: 1
+	}
+	24% {
+		opacity: 1
+	}
+	25% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@-ms-keyframes cycleone {
+	0% {
+		opacity: 0
+	}
+	1% {
+		opacity: 1
+	}
+	24% {
+		opacity: 1
+	}
+	25% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@keyframes cycleone {
+	0% {
+		opacity: 0
+	}
+	1% {
+		opacity: 1
+	}
+	24% {
+		opacity: 1
+	}
+	25% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+   
+@-webkit-keyframes cycletwo {
+	0% {
+		opacity: 0
+	}
+	25% {
+		opacity: 0
+	}
+	26% {
+		opacity: 1
+	}
+	49% {
+		opacity: 1 // fade out
+	}
+	50% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@-moz-keyframes cycletwo {
+	0% {
+		opacity: 0
+	}
+	25% {
+		opacity: 0
+	}
+	26% {
+		opacity: 1
+	}
+	49% {
+		opacity: 1 // fade out
+	}
+	50% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@-ms-keyframes cycletwo {
+	0% {
+		opacity: 0
+	}
+	25% {
+		opacity: 0
+	}
+	26% {
+		opacity: 1
+	}
+	49% {
+		opacity: 1 // fade out
+	}
+	50% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@keyframes cycletwo {
+	0% {
+		opacity: 0
+	}
+	25% {
+		opacity: 0
+	}
+	26% {
+		opacity: 1
+	}
+	49% {
+		opacity: 1 // fade out
+	}
+	50% {
+		opacity: 0
+	}
+	100% {
+		opacity: 0
+	}
+}
+
+@-webkit-keyframes cyclethree {
+	0% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0 // fade in
+	}
+  51% {
+    opacity: 1
+	}
+  74% {
+    opacity: 1 // fade out
+	}
+  75% {
+    opacity: 0
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@-moz-keyframes cyclethree {
+	0% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0 // fade in
+	}
+  51% {
+    opacity: 1
+	}
+  74% {
+    opacity: 1 // fade out
+	}
+  75% {
+    opacity: 0
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@-ms-keyframes cyclethree {
+	0% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0 // fade in
+	}
+  51% {
+    opacity: 1
+	}
+  74% {
+    opacity: 1 // fade out
+	}
+  75% {
+    opacity: 0
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@keyframes cyclethree {
+	0% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0 // fade in
+	}
+  51% {
+    opacity: 1
+	}
+  74% {
+    opacity: 1 // fade out
+	}
+  75% {
+    opacity: 0
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@-webkit-keyframes cyclefour {
+	0% {
+    opacity: 0 // fade out
+	}
+  25% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0
+	}
+  75% {
+    opacity: 0 // fade in
+	}
+  76% {
+    opacity: 1
+	}
+  99% {
+    opacity: 1
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@-moz-keyframes cyclefour {
+	0% {
+    opacity: 0 // fade out
+	}
+  25% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0
+	}
+  75% {
+    opacity: 0 // fade in
+	}
+  76% {
+    opacity: 1
+	}
+  99% {
+    opacity: 1
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@-ms-keyframes cyclefour {
+	0% {
+    opacity: 0 // fade out
+	}
+  25% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0
+	}
+  75% {
+    opacity: 0 // fade in
+	}
+  76% {
+    opacity: 1
+	}
+  99% {
+    opacity: 1
+	}
+  100% {
+    opacity: 0
+	}
+}
+
+@keyframes cyclefour {
+	0% {
+    opacity: 0 // fade out
+	}
+  25% {
+    opacity: 0
+	}
+  50% {
+    opacity: 0
+	}
+  75% {
+    opacity: 0 // fade in
+	}
+  76% {
+    opacity: 1
+	}
+  99% {
+    opacity: 1
+	}
+  100% {
+    opacity: 0
+	}
+}
+ 

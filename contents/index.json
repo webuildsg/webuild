@@ -1,0 +1,52 @@
+{
+	"events": [
+		{
+			"title": "Creative Crew March Meeting",
+			"tagline": "Evernote, Illustrations in Fireworks, Evernote",
+			"date": "12 Mar",
+			"url": "http://ccsg0313.eventbrite.com/"
+		},
+		{
+			"title": "SG Makers Movement Meetup",
+			"tagline": "Little Makers, Ironman Propmaker, Uyii, Collabcollab, Sculptor",
+			"date": "14 Mar",
+			"url": "https://www.facebook.com/events/491548380882462"
+		},
+		{
+			"title": "Book Club: Effective JavaScript",
+			"tagline": "New book club om Effective JavaScript by David Herman",
+			"date": "14 Mar",
+			"url": "http://www.meetup.com/Singapore-JS/events/108037732/"
+		},
+		{
+			"title": "FREE Technical Workshop - Healthcare Data in the Cloud",
+			"tagline": "Healthcare in the Cloud, Technical introduction to NHP, Big Data & Visualization",
+			"date": "14 Mar",
+			"url": "http://www.meetup.com/Singapore-Ruby-Group/events/108064092/"
+		},
+		{
+			"title": "NUS Hackers",
+			"tagline": "Open Web Data Aggregation and Integration using CSS selectors",
+			"date": "15 Mar",
+			"url": "http://nushackers.org/"
+		},
+		{
+			"title": "HTML5 Series - Chapter 4: It's all in the details...",
+			"tagline": "Web workers, XMLHttpRequest, History API, Focus Management for the nerds",
+			"date": "18 Mar",
+			"url": "http://www.meetup.com/HTML5Rocks-SG/events/93220782/"
+		},
+		{
+			"title": "CouchDB Day 2",
+			"tagline": "Creating and Querying Views",
+			"date": "20 Mar",
+			"url": "http://www.meetup.com/Software-Craftsmanship-Singapore/events/107202232/"
+		},
+		{
+			"title": "NUS Hackers",
+			"tagline": "The Unix Philosophy, Automating your command line workflow with Make",
+			"date": "22 Mar",
+			"url": "http://nushackers.org/"
+		}
+	] 
+}
