@@ -1,0 +1,20 @@
+{
+	"template_dir": "templates", 
+	"content_dir": "contents",
+	"output_dir": "output",
+
+	"server": { 
+		"port": 9009
+	},
+
+	"plugins": {
+    "template_engine": "punch-engine-jade", 
+
+		"compilers": {
+			".css": "punch-sass-compiler" 
+    }
+	},
+
+	"bundles": {
+	}
+}
