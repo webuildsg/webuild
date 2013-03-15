@@ -93,19 +93,18 @@ require(
 
   // Github Repo updated in the last 2 months
   Repo.fetch([
-    'miccheng/php-queue',
-    'MugunthKumar/MKNetworkKit',
     'lxcid/LXReorderableCollectionViewFlowLayout',
-    'Luracast/Restler',
-    'honcheng/PaperFold-for-iOS',
     'cheeaun/hackerweb',
-    'MugunthKumar/MKStoreKit',
-    //'zz85/sparks.js',
+    'petejkim/specta',
+    'Luracast/Restler',
+    'MugunthKumar/MKNetworkKit',
     'opauth/opauth',
+    'MugunthKumar/MKStoreKit',
+    'honcheng/PaperFold-for-iOS'
+    //'zz85/sparks.js',
     // 'honcheng/RTLabel',
     // 'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
-    'petejkim/specta'
     ]);
 
 });
