@@ -100,9 +100,9 @@ require(
     'MugunthKumar/MKNetworkKit',
     'opauth/opauth',
     'MugunthKumar/MKStoreKit',
-    'honcheng/PaperFold-for-iOS',
-    'CoderKungfu/php-queue'
-    //'zz85/sparks.js',
+    'honcheng/PaperFold-for-iOS'
+    // 'CoderKungfu/php-queue'
+    //' zz85/sparks.js',
     // 'honcheng/RTLabel',
     // 'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
