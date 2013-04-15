@@ -99,7 +99,7 @@ require(
     'Luracast/Restler',
     'MugunthKumar/MKNetworkKit',
     'opauth/opauth',
-    'MugunthKumar/MKStoreKit',
+    // 'MugunthKumar/MKStoreKit',
     // 'honcheng/PaperFold-for-iOS',
     'laktek/punch',
     'laktek/jQuery-Smart-Auto-Complete'
