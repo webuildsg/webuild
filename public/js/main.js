@@ -1,17 +1,14 @@
 require(
   [
   'jQuery',
-  'Fittext',
+  // 'Fittext',
   'Moment'
   ],
-  function($, Fittext, Moment) {
+  function($, Moment) {
 
   // hello to another happy developer
   console.log('hello fellow developer :)');
   console.log('if you have suggestions for this site, do buzz me and say hi @sayanee_');
-
-  // Responsive Heading
-  $("h1").fitText(0.55).css("opacity", 1);
 
   // Github API call for Repos
   var Repo = {
