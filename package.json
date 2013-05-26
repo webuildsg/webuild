@@ -9,7 +9,7 @@
   "dependencies": {
     "buffer-crc32": "*",
     "cookie-signature": "*",
-    "express": "3.2.4",
+    "express": "3.2.5",
     "jade": "*",
     "grunt": "0.4.1",
     "grunt-contrib-clean": "*",
