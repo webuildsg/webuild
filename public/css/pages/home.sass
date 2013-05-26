@@ -1,3 +1,21 @@
+.live
+  width: 100%
+  margin: 2em 0
+  background-color: lighten($yellow, 10%)
+  @include border-radius(5px)
+  text-align: center
+  padding: .5em
+  &:hover
+    cursor: pointer
+    background-color: lighten($yellow, 5%)
+  p
+    &.countdown
+      font-size: 2rem
+      margin: 0 0 1.2rem 0
+    &#livetime
+      color: $grey
+      font-size: 0.9rem
+
 .people
   display: inline-block
   vertical-align: top

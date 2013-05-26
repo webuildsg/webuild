@@ -15,8 +15,8 @@ require(
     totalList: [],
     fetch: function(config) {
       var len = config.length,
-        self = this,
-        count = 0;
+      self = this,
+      count = 0;
       config.forEach( function(configEl) {
         var url = 'https://api.github.com/repos/' + configEl + '?callback=?';
         $.getJSON( url, function( json ) {
@@ -57,7 +57,7 @@ require(
         this.sortHelper('pushed_at', false, function(a) {
           return new Date(a);
         })
-      );
+        );
     },
     insertRepo: function (  ) {
       var arr = this.totalList;
@@ -75,10 +75,45 @@ require(
           '</span></p><p class="tagline" >' +
           arr[arrayIndex].description +
           '</p></a>'
-        );
+          );
       }
     }
   };
+
+  // click live section to go to the live website
+  $('.live').click(function() {
+    window.parent.location.href = 'http://live.webuild.sg';
+  });
+
+  // countdown
+  countdown();
+  setInterval(countdown, 1000);
+  function countdown () {
+
+    var now = moment(),
+      livedate = moment("2013-6-8 11:00 +0800", "YYYY-MM-DD HH:mm Z"),
+      then = moment("2013-6-8 11:00 +0800", "YYYY-MM-DD HH:mm Z");
+
+    ms = then.diff(now, 'milliseconds', true);
+    days = Math.floor(moment.duration(ms).asDays());
+
+    then.subtract('days', days);
+    ms = then.diff(now, 'milliseconds', true);
+    hours = Math.floor(moment.duration(ms).asHours());
+
+    then.subtract('hours', hours);
+    ms = then.diff(now, 'milliseconds', true);
+    minutes = Math.floor(moment.duration(ms).asMinutes());
+
+    then.subtract('minutes', minutes);
+    ms = then.diff(now, 'milliseconds', true);
+    seconds = Math.floor(moment.duration(ms).asSeconds());
+
+    diff = 'in <strong>' + days + '</strong> days <strong>' + hours + '</strong> hours <strong>' + minutes + '</strong> minutes <strong>' + seconds + '</strong> seconds';
+
+    $('.countdown').html(diff);
+    $('#livetime').html( livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT' );
+  }
 
   // Non Github Repo
   // Repo.totalList.push({
