@@ -99,10 +99,10 @@ require(
     // 'MugunthKumar/MKStoreKit',
     // 'honcheng/PaperFold-for-iOS',
     'laktek/punch',
-    'laktek/jQuery-Smart-Auto-Complete'
+    'laktek/jQuery-Smart-Auto-Complete',
     // 'CoderKungfu/php-queue'
     // 'zz85/sparks.js',
-    'honcheng/RTLabel',
+    'honcheng/RTLabel'
     // 'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
     ]);
