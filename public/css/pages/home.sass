@@ -63,3 +63,21 @@
 .first
   border-right: 2px solid $blue
 
+.social
+  font-family: 'Social'
+  font-size: 3rem
+  font-size: 4vw
+  margin: 0 auto 2rem auto
+  padding: 0 calc(50% - 60%/2)
+  li
+    width: 30%
+    text-align: center
+    display: inline-block
+    margin: 0
+    padding: 0
+  a
+    color: $blue
+    text-decoration: none
+    &:hover, &:active
+      color: $red
+      @include scale(1.2)
