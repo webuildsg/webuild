@@ -1,7 +1,6 @@
 require(
   [
   'jQuery',
-  // 'Fittext',
   'Moment'
   ],
   function($, Moment) {
