@@ -113,11 +113,12 @@ require(
       diff = 'in <strong>' + days + '</strong> days <strong>' + hours + '</strong> hours <strong>' + minutes + '</strong> minutes <strong>' + seconds + '</strong> seconds';
 
       $('.countdown').html(diff);
+      $('#livetime').html( livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT' );
     } else {
       $('.countdown').html('');
     }
 
-    $('#livetime').html( livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT' );
+
   }
 
   // Non Github Repo
