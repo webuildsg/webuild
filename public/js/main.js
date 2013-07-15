@@ -89,7 +89,7 @@ require(
   setInterval(countdown, 1000);
   function countdown () {
     var now = moment(),
-    podcastDate = "2013-7-13 11:00 +0800",
+    podcastDate = "2013-8-24 11:00 +0800",
     dateFormat = "YYYY-MM-DD HH:mm Z",
     livedate = moment(podcastDate, dateFormat),
     then = moment(podcastDate, dateFormat);
@@ -133,7 +133,7 @@ require(
   Repo.fetch([
     'lxcid/LXReorderableCollectionViewFlowLayout',
     'cheeaun/hackerweb',
-    // 'petejkim/specta',
+    'petejkim/specta',
     'Luracast/Restler',
     'MugunthKumar/MKNetworkKit',
     'opauth/opauth',
@@ -141,9 +141,9 @@ require(
     // 'honcheng/PaperFold-for-iOS',
     'laktek/punch',
     'laktek/jQuery-Smart-Auto-Complete',
-    // 'CoderKungfu/php-queue'
-    // 'zz85/sparks.js',
-    'honcheng/RTLabel',
+    'CoderKungfu/php-queue',
+    'zz85/sparks.js',
+    // 'honcheng/RTLabel',
     'mbrochh/vim-as-a-python-ide'
     // 'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
