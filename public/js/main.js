@@ -133,7 +133,7 @@ require(
   Repo.fetch([
     'lxcid/LXReorderableCollectionViewFlowLayout',
     'cheeaun/hackerweb',
-    'petejkim/specta',
+    'specta/specta',
     'Luracast/Restler',
     'MugunthKumar/MKNetworkKit',
     'opauth/opauth',
