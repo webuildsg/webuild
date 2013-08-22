@@ -140,11 +140,11 @@ require(
     // 'MugunthKumar/MKStoreKit',
     // 'honcheng/PaperFold-for-iOS',
     'laktek/punch',
-    'laktek/jQuery-Smart-Auto-Complete',
+    // 'laktek/jQuery-Smart-Auto-Complete',
     'CoderKungfu/php-queue',
-    'zz85/sparks.js',
+    'zz85/sparks.js'
     // 'honcheng/RTLabel',
-    'mbrochh/vim-as-a-python-ide'
+    // 'mbrochh/vim-as-a-python-ide'
     // 'honcheng/PaperFoldMenuController',
     // 'hboon/GlassButtons',
     ]);
