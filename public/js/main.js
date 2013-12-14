@@ -141,7 +141,8 @@ require(
     // 'honcheng/PaperFold-for-iOS',
     'laktek/punch',
     // 'laktek/jQuery-Smart-Auto-Complete',
-    'CoderKungfu/php-queue'
+    'CoderKungfu/php-queue',
+    'cheeaun/life'
     // 'zz85/sparks.js'
     // 'honcheng/RTLabel',
     // 'mbrochh/vim-as-a-python-ide'
