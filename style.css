@@ -1,0 +1,25 @@
+/*
+Errno::ENOENT: No such file or directory @ rb_sysopen - style.sass
+
+Backtrace:
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:360:in `read'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:360:in `update_stylesheet'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:201:in `each'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin/compiler.rb:235:in `watch'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/plugin.rb:107:in `method_missing'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/exec.rb:463:in `watch_or_update'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/exec.rb:326:in `process_result'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/exec.rb:41:in `parse'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/lib/sass/exec.rb:21:in `parse!'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/gems/sass-3.2.14/bin/sass:13:in `<top (required)>'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/bin/sass:23:in `load'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/bin/sass:23:in `<main>'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/bin/ruby_executable_hooks:15:in `eval'
+/Users/sayanee/.rvm/gems/ruby-2.1.0/bin/ruby_executable_hooks:15:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Errno::ENOENT: No such file or directory @ rb_sysopen - style.sass"; }
