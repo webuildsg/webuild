@@ -137,6 +137,7 @@ require(
     'Luracast/Restler',
     'MugunthKumar/MKNetworkKit',
     'opauth/opauth',
+    'jf/rbenv-gemset',
     // 'MugunthKumar/MKStoreKit',
     // 'honcheng/PaperFold-for-iOS',
     'laktek/punch',
