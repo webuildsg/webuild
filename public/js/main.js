@@ -89,7 +89,7 @@ require(
   setInterval(countdown, 1000);
   function countdown () {
     var now = moment(),
-    podcastDate = "2014-04-05 11:00 +0800",
+    podcastDate = "2014-04-19 11:00 +0800",
     dateFormat = "YYYY-MM-DD HH:mm Z",
     livedate = moment(podcastDate, dateFormat),
     then = moment(podcastDate, dateFormat);
