@@ -89,7 +89,7 @@ require(
   setInterval(countdown, 1000);
   function countdown () {
     var now = moment(),
-    podcastDate = "2014-05-05 11:00 +0800",
+    podcastDate = "2014-05-03 11:00 +0800",
     dateFormat = "YYYY-MM-DD HH:mm Z",
     livedate = moment(podcastDate, dateFormat),
     then = moment(podcastDate, dateFormat);
@@ -143,7 +143,8 @@ require(
     'laktek/punch',
     // 'laktek/jQuery-Smart-Auto-Complete',
     'CoderKungfu/php-queue',
-    'cheeaun/life'
+    'cheeaun/life',
+    'winston/google_visualr'
     // 'zz85/sparks.js'
     // 'honcheng/RTLabel',
     // 'mbrochh/vim-as-a-python-ide'
