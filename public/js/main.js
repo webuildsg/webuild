@@ -144,7 +144,8 @@ require(
     // 'laktek/jQuery-Smart-Auto-Complete',
     'CoderKungfu/php-queue',
     'cheeaun/life',
-    'winston/google_visualr'
+    'winston/google_visualr',
+    'timoxley/functional-javascript-workshop'
     // 'zz85/sparks.js'
     // 'honcheng/RTLabel',
     // 'mbrochh/vim-as-a-python-ide'
