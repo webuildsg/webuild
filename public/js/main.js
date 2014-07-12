@@ -6,8 +6,8 @@ require(
   function($, Moment) {
 
   // hello to another happy developer
-  console.log('hello fellow developer :)');
-  console.log('if you have suggestions for this site, do buzz me and say hi @sayanee_');
+  console.log('Hello fellow developer! :)');
+  console.log('If you have suggestions for this site, get in touch at: https://github.com/webuildsg');
 
   // click live section to go to the live website
   $('.live').click(function() {
