@@ -50,22 +50,38 @@ function saveEvents(arr, row) {
   events.push(entry);
 }
 
-function getMeetupEvents() {
-  return new Promise(function (resolve, reject) {
-    https_get_json('https://www.meetup.com/muapi/find/groups?' + meetupQuery)
-    .then(function(data) {
-      events = [];
-      data
-        .filter(isValidGroup)
-        .reduce(saveEvents, events);
-      resolve(events);
-    })
-    .catch(function(err) {
-      console.error(err);
-      reject(err);
-    })
+function getAllMeetupEvents() { //regardless of venue
+  var url = 'https://www.meetup.com/muapi/find/groups?' +
+    querystring.stringify(config.meetupParams);
+  return https_get_json(url).then(function(data) {
+    events = [];
+    data
+      .filter(isValidGroup)
+      .reduce(saveEvents, events);
+    return events;
   });
 }
 
-module.exports.getMeetupEvents = getMeetupEvents;
+function getMeetupEvents() { //events with venues
+  return getAllMeetupEvents().then(function(events) {
+    var venues = events.map(function(event) {
+      return https_get_json('https://api.meetup.com/2/event/'
+        + event.id
+        + '?fields=venue_visibility&key='
+        + config.meetupParams.key);
+    });
 
+    return Promise.all(venues).then(function(venues) {
+      var eventsWithVenues = events.filter(function(evt, i) {
+        return venues[i].hasOwnProperty('venue') ||
+          venues[i].venue_visibility === 'members';
+      });
+      return eventsWithVenues;
+    });
+  });
+}
+
+module.exports = {
+  getAllMeetupEvents: getAllMeetupEvents,
+  getMeetupEvents: getMeetupEvents
+}

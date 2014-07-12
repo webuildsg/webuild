@@ -35,10 +35,12 @@ function timeComparer(a, b) {
 }
 
 function updateEventsJson() {
+  console.log('Updating the events feed...');
   return events.getMeetupEvents()
   .then(function(events) {
     eventsJson = events.concat(moreEvents);
     eventsJson.sort(timeComparer);
+    console.log('The events feed has been updated!');
   })
   .catch(function(err) {
     console.error(err);
