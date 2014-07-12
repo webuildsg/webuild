@@ -32,6 +32,21 @@ Who are we? We are **technies** - developers, designers, programmers, hackers or
 - run in command line `node app.js`
 - open [localhost:4000](http://localhost:4000/)
 
+#Deployment
+
+Set the following environment variables on your system:
+
+- **PORT** (optional, default: 4000) Configures the port used by the web server.
+- **WEBUILD_API_SECRET** (required) Used as a password when remotely refreshing the feeds.
+- **MEETUP_API_KEY** (required) Used to list available meetup events in Singapore.
+- **LOCATION** (optional, default: Singapore) The GitHub feed shows only repositories owned by developers in this area. Matches the GitHub "Location" property in user profiles.
+- **MAX_USERS** (optional, default: 1000) Show only repositories belonging to developers in this ranking. Only the last updated repository of a user is shown.
+- **MAX_REPOS** (optional, default: 50) Show up to this many total repositories.
+- **GITHUB_CLIENT_ID** (optional) App OAuth client ID for GitHub.
+- **GITHUB_CLIENT_SECRET** (optional) App OAuth client secret for GitHub.
+
+Use an external "web cron" service to periodically refresh the GitHub data feed. Keep in mind that due to GitHub API rate limiting it may take >15 minutes to retrieve the entire feed. [Register a GitHub OAuth application](https://github.com/settings/applications/new) and configure the `GITHUB_CLIENT_*` environment variables (see above) to increase the rate limit. Do not refresh the feed too often or the rate limit will cause it to take longer.
+
 #Compile CSS
 
 To compile sass into css and minify:
