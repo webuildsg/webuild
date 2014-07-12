@@ -10,10 +10,12 @@
     "buffer-crc32": "*",
     "cookie-signature": "*",
     "express": "3.2.5",
-    "jade": "*",
     "grunt": "0.4.1",
     "grunt-contrib-clean": "*",
-    "markdown": "0.4.0"
+    "jade": "*",
+    "markdown": "0.4.0",
+    "moment": "^2.7.0",
+    "promise": "^5.0.0"
   },
   "engines": {
     "node": "0.8.14",
