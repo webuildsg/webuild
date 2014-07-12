@@ -1,6 +1,8 @@
 var express = require('express'),
   http = require('http'),
-  app = express();
+  app = express(),
+  later = require('later'),
+  githubFeed = require('./jobs/github_feed');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 4000);
@@ -17,6 +19,9 @@ app.configure(function(){
 app.get("/", function(req, res) {
   res.render("index.jade", { name: 'Sayanee'});
 });
+
+githubFeed();
+later.setInterval(githubFeed, later.parse.text('every 1 hour'));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
