@@ -10,6 +10,7 @@ var express = require('express'),
 
 app.configure(function(){
   app.set('port', process.env.PORT || 4000);
+  app.use(express.compress());
   app.use('/public', express.static(__dirname + '/public'));
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
 
