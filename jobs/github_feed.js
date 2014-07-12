@@ -1,6 +1,5 @@
 var Promise = require('promise');
 var GitHubApi = require('github');
-var jf = require('jsonfile');
 var mess = require('mess');
 
 var LOCATION = process.env.LOCATION || 'Singapore';
@@ -114,13 +113,14 @@ exports.update = function () {
   })
   .then(function (repos) {
     console.log('Found %d repos', repos.length);
-    jf.writeFile(__dirname + '/public/github.json', {
+    var feed = {
       generated_at: new Date().toISOString(),
       location: LOCATION,
       max_users: MAX_USERS,
       max_repos: MAX_REPOS,
       repos: repos
-    });
+    };
+    return feed;
   })
   .catch(function (err) {
     console.error(err);

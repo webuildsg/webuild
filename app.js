@@ -21,28 +21,40 @@ app.configure(function(){
   app.use(express.methodOverride());
 });
 
+var githubJson = { repos: [] };
+
 app.get("/", function(req, res) {
-  jf.readFile(__dirname + '/public/github.json', function(err, github) {
-    res.render("index.jade", {
-      github: github
-    });
+  res.render("index.jade", {
+    github: githubJson
   });
 });
 
 app.post("/feeds/github/update", function(req, res) {
   if (req.param('secret') === process.env.WEBUILD_API_SECRET) {
-    githubFeed.update();
+    githubFeed.update()
+      .then(function(feed) {
+        console.log('GitHub feed generated');
+        githubJson = feed;
+        jf.writeFile(__dirname + '/github.json', feed);
+      });
     res.send(200, 'Updating the repos feed; sit tight!');
   }
 });
 
-fs.exists(__dirname + '/public/github.json', function(exists) {
-  if (!exists) {
+fs.exists(__dirname + '/github.json', function(exists) {
+  if (exists) {
+    jf.readFile(__dirname + '/github.json', function(err, feed) {
+      if (!err) {
+        githubJson = feed;
+      }
+    });
+  } else {
     console.log('Fetching public repos feed...');
     request('http://webuild.sg/github.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
-        jf.writeFile(__dirname + '/public/github.json', body);
+        githubJson = body;
+        jf.writeFile(__dirname + '/github.json', body);
       } else {
         console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
       }
