@@ -54,19 +54,22 @@ function saveEvents(arr, row) {
 function getAllMeetupEvents() { //regardless of venue
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
+
   return https_get_json(url).then(function(data) {
     console.log('Fetched ' + data.results.length + ' rows');
     events = [];
     data.results
       .filter(isValidGroup)
       .reduce(saveEvents, events);
-    console.log('Fetched ' + events.length + ' events');
     return events;
+  }).catch(function(err) {
+    console.error('Error getAllMeetupEvents():' + err);
   });
 }
 
 function getMeetupEvents() { //events with venues
   return getAllMeetupEvents().then(function(events) {
+    console.log('Fetched ' + events.length + ' events');
     var venues = events.map(function(event) {
       return https_get_json('https://api.meetup.com/2/event/'
         + event.id
@@ -81,6 +84,8 @@ function getMeetupEvents() { //events with venues
       });
       console.log(eventsWithVenues.length + ' events with venues');
       return eventsWithVenues;
+    }).catch(function(err) {
+      console.error('Error getMeetupEvents():' + err);
     });
   });
 }

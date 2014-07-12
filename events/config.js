@@ -4,7 +4,7 @@ module.exports = {
     country: 'SG',
     state: 'SG',
     city: 'Singapore',
-    category: 34, //Tech category
+    category_id: 34, //Tech category
     page: 500,
     fields: 'next_event'
   },
