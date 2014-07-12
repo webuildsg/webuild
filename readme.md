@@ -6,7 +6,7 @@
 
 #We Build SG
 
-Who are we? We are **technies** - developers, designers, programmers, hackers or makers.
+Who are we? We are **techies** - developers, designers, programmers, hackers or makers.
 
 - **veteran techies** to get introduced to the community of open events and open source
 - **wannabe techies** to get examples of great open source projects and  events to meet mentors
@@ -36,9 +36,9 @@ Who are we? We are **technies** - developers, designers, programmers, hackers or
 
 Set the following environment variables on your system:
 
-- **PORT** (optional, default: 4000) Configures the port used by the web server.
 - **WEBUILD_API_SECRET** (required) Used as a password when remotely refreshing the feeds.
-- **MEETUP_API_KEY** (required) Used to list available meetup events in Singapore.
+- [**MEETUP_API_KEY**](https://secure.meetup.com/meetup_api/key/) (required) Used to list available meetup events in Singapore.
+- **PORT** (optional, default: 4000) Configures the port used by the web server.
 - **LOCATION** (optional, default: Singapore) The GitHub feed shows only repositories owned by developers in this area. Matches the GitHub "Location" property in user profiles.
 - **MAX_USERS** (optional, default: 1000) Show only repositories belonging to developers in this ranking. Only the last updated repository of a user is shown.
 - **MAX_REPOS** (optional, default: 50) Show up to this many total repositories.
