@@ -37,7 +37,9 @@ function timeComparer(a, b) {
 function updateEventsJson() {
   return events.getMeetupEvents()
   .then(function(events) {
-    eventsJson = events.concat(moreEvents);
+    events.concat(moreEvents).forEach(function (x) {
+      eventsJson.push(x);
+    });
     eventsJson.sort(timeComparer);
   })
   .catch(function(err) {
