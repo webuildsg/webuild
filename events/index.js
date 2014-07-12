@@ -54,6 +54,7 @@ function getAllMeetupEvents() { //regardless of venue
   var url = 'https://www.meetup.com/muapi/find/groups?' +
     querystring.stringify(config.meetupParams);
   return https_get_json(url).then(function(data) {
+    console.log(data);
     events = [];
     data
       .filter(isValidGroup)
@@ -72,6 +73,7 @@ function getMeetupEvents() { //events with venues
     });
 
     return Promise.all(venues).then(function(venues) {
+      console.log(venues);
       var eventsWithVenues = events.filter(function(evt, i) {
         return venues[i].hasOwnProperty('venue') ||
           venues[i].venue_visibility === 'members';

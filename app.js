@@ -38,14 +38,13 @@ function updateEventsJson() {
   console.log('Updating the events feed...');
   return events.getMeetupEvents()
   .then(function(events) {
-    events.concat(moreEvents).forEach(function(e) {
-      eventsJson.push(e)
-    })
+    console.log(events)
+    eventsJson = events.concat(moreEvents);
     eventsJson.sort(timeComparer);
     console.log('The events feed has been updated! ' + eventsJson.length);
   })
   .catch(function(err) {
-    console.error(err);
+    console.error('Failed to update events feeds' + err);
   })
 }
 
