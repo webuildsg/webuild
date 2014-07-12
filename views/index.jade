@@ -139,9 +139,7 @@ html(lang='en')
                 a(href=repo.html_url)
                   p= repo.name
                     span= 'updated ' + moment(repo.updated_at).endOf('hour').fromNow()
-                    span.stars
-                      != '&#9733; '
-                      = repo.stargazers_count
+                    span.stars!= '&#9733; ' + repo.stargazers_count
                   p.tagline= repo.description
 
         p.explain a list of free public events and open source projects for the curious folks who love to make things!
