@@ -35,7 +35,7 @@ function timeComparer(a, b) {
 }
 
 function updateEventsJson() {
-  events.getMeetupEvents()
+  return events.getMeetupEvents()
   .then(function(events) {
     eventsJson = events.concat(moreEvents);
     eventsJson.sort(timeComparer);
@@ -63,16 +63,21 @@ app.get("/api/github", function(req, res) {
 
 app.post("/api/events/update", function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
-    res.send(503);
+    res.send(503, "Incorrect secret key");
   }
-  updateEventsJson();
+  updateEventsJson()
+  .then(function() {
+    res.send(200, "Events feed updated");
+  })
+  .catch(function() {
+    res.send(500, "Failed to update feed");
+  });
 })
 
-app.post("api/github/update", function(req, res) {
+app.post("/api/github/update", function(req, res) {
   if (req.param("secret") !== process.env.WEBUILD_API_SECRET) {
-    res.send(503);
+    res.send(503, "Incorrect secret key");
   }
-
   githubFeed.update()
     .then(function(feed) {
       console.log("GitHub feed generated");
