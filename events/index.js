@@ -7,8 +7,8 @@ var config = require('./config');
 var meetupQuery = querystring.stringify(config.meetupParams);
 
 function https_get_json(url) {
-  console.log('Getting data from ' + url)
- return new Promise(function (resolve, reject) {
+  console.log('Getting data from ' + url);
+  return new Promise(function (resolve, reject) {
     https.get(url, function (res) {
       var buffer = [];
       res.on('data', Array.prototype.push.bind(buffer));
@@ -52,16 +52,15 @@ function saveEvents(arr, row) {
 }
 
 function getAllMeetupEvents() { //regardless of venue
-  var url = 'https://www.meetup.com/muapi/find/groups?' +
+  var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
-
   return https_get_json(url).then(function(data) {
-    console.log(data.length, data[0]);
+    console.log('Fetched ' + data.results.length + ' rows');
     events = [];
-    data
+    data.results
       .filter(isValidGroup)
       .reduce(saveEvents, events);
-    console.log(events.length, events[0]);
+    console.log('Fetched ' + events.length + ' events');
     return events;
   });
 }
@@ -76,11 +75,11 @@ function getMeetupEvents() { //events with venues
     });
 
     return Promise.all(venues).then(function(venues) {
-      console.log(venues);
       var eventsWithVenues = events.filter(function(evt, i) {
         return venues[i].hasOwnProperty('venue') ||
           venues[i].venue_visibility === 'members';
       });
+      console.log(eventsWithVenues.length + ' events with venues');
       return eventsWithVenues;
     });
   });
