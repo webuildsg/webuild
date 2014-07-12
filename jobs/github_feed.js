@@ -72,14 +72,18 @@ exports.update = function () {
       return fetch(github.search.repos, {
         sort: 'updated',
         order: 'desc',
-        q: users
-          .filter(function (user) {
-            return !/"/.test(user.login);
-          })
-          .map(function (user) {
-            return 'user:"' + user.login + '"';
-          })
-          .join('+')
+        q: [
+          'stars:>=200',
+          'fork:true'
+        ].concat(
+          users
+            .filter(function (user) {
+              return !/"/.test(user.login);
+            })
+            .map(function (user) {
+              return 'user:"' + user.login + '"';
+            })
+        ).join('+')
       }, MAX_REPOS);
     });
     return Promise.all(searches);
