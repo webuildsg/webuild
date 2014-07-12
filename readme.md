@@ -47,6 +47,10 @@ Set the following environment variables on your system:
 
 Use an external "web cron" service to periodically refresh the GitHub data feed. Keep in mind that due to GitHub API rate limiting it may take >15 minutes to retrieve the entire feed. [Register a GitHub OAuth application](https://github.com/settings/applications/new) and configure the `GITHUB_CLIENT_*` environment variables (see above) to increase the rate limit. Do not refresh the feed too often or the rate limit will cause it to take longer.
 
+# Events
+Meetup events in Singapore are automatically pulled.
+To add additional events (e.g. Facebook, which will be automated in near future), edit `events\more_events.json`
+
 #Compile CSS
 
 To compile sass into css and minify:
