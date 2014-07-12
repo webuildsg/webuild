@@ -47,8 +47,8 @@ function updateEventsJson() {
 
 app.get('/', function(req, res) {
   res.render('index.jade', {
-    github: githubJson,
-    events: eventsJson
+    github: githubJson.repos.slice(0, 10),
+    events: eventsJson.slice(0, 10)
   });
 });
 
