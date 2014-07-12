@@ -18,7 +18,9 @@
     "later": "^1.1.6",
     "markdown": "0.4.0",
     "mess": "^0.1.2",
-    "promise": "^5.0.0"
+    "moment": "^2.7.0",
+    "promise": "^5.0.0",
+    "request": "^2.37.0"
   },
   "engines": {
     "node": "0.8.14",

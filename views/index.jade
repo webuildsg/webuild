@@ -134,9 +134,15 @@ html(lang='en')
         section
           h3 open source
           ul.open-list.second
-            - for (var i = 0; i < 14; ++i) {
+            each repo in github.repos
               li
-            - }
+                a(href=repo.html_url)
+                  p= repo.name
+                    span= 'updated ' + moment(repo.updated_at).endOf('hour').fromNow()
+                    span.stars
+                      != '&#9733; '
+                      = repo.stargazers_count
+                  p.tagline= repo.description
 
         p.explain a list of free public events and open source projects for the curious folks who love to make things!
       footer
@@ -151,10 +157,10 @@ html(lang='en')
       ul.social
         li
           a(href='https://twitter.com/intent/tweet?hashtags=webuildSGLive&original_referer=http%3A%2F%2Flive.webuild.sg%2F&text=@webuildsg&tw_p=tweetbutton')
-            &#xe286;
+            != '&#xe286;'
         li
           a(href='http://www.facebook.com/webuildsg')
-            &#xe227;
+            != '&#xe227;'
         li
           a(href='https://plus.google.com/115395182582724849094')
-           &#xe239;
+            != '&#xe239;'

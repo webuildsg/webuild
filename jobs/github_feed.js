@@ -62,9 +62,9 @@ function chunk(arr, size) {
   return chunks;
 }
 
-var runner = function () {
+exports.update = function () {
   console.log('Generating GitHub repos feed... this may take a while...');
-  fetch(github.search.users, {
+  return fetch(github.search.users, {
     q: 'location:' + LOCATION
   }, MAX_USERS)
   .then(function (users) {
@@ -114,7 +114,7 @@ var runner = function () {
   })
   .then(function (repos) {
     console.log('Found %d repos', repos.length);
-    jf.writeFileSync('repos.json', {
+    jf.writeFile(__dirname + '/public/github.json', {
       generated_at: new Date().toISOString(),
       location: LOCATION,
       max_users: MAX_USERS,
@@ -126,5 +126,3 @@ var runner = function () {
     console.error(err);
   });
 };
-
-module.exports = runner;
