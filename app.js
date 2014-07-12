@@ -29,6 +29,10 @@ app.get("/", function(req, res) {
   });
 });
 
+app.get("/api/github.json", function(req, res) {
+  res.send(githubJson);
+});
+
 app.post("/feeds/github/update", function(req, res) {
   if (req.param('secret') === process.env.WEBUILD_API_SECRET) {
     githubFeed.update()
