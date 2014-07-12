@@ -32,6 +32,14 @@ Who are we? We are **techies** - developers, designers, programmers, hackers or 
 - run in command line `node app.js`
 - open [localhost:4000](http://localhost:4000/)
 
+#Integration
+
+The events and GitHub data feeds are available as JSON.
+
+<http://webuild.sg/api/github>
+
+<http://webuild.sg/api/events>
+
 #Deployment
 
 Set the following environment variables on your system:
