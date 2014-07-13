@@ -66,6 +66,7 @@ app.get('/api/github', function(req, res) {
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
+    return;
   }
   updateEventsJson()
   .then(function() {
@@ -79,6 +80,7 @@ app.post('/api/events/update', function(req, res) {
 app.post('/api/github/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
+    return;
   }
   githubFeed.update()
     .then(function(feed) {
