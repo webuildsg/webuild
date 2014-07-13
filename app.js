@@ -104,7 +104,12 @@ fs.exists(__dirname + '/github.json', function(exists) {
         githubJson = body;
         jf.writeFile(__dirname + '/github.json', body);
       } else {
-        console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        if (res) {
+          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        }
+        else {
+          console.warn('Failed to retrieve data (Status code: %s)', err);
+        }
       }
     });
   }
