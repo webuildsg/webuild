@@ -41,7 +41,7 @@ function updateEventsJson() {
     console.log(events)
     eventsJson = events.concat(moreEvents);
     eventsJson.sort(timeComparer);
-    console.log('The events feed has been updated! ' + eventsJson.length);
+    console.log(eventsJson.length + ' events have been added!');
   })
   .catch(function(err) {
     console.error('Failed to update events feeds' + err);
