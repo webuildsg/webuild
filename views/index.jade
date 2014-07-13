@@ -74,7 +74,7 @@ html(lang='en')
               li
                 a(href=repo.html_url)
                   p= repo.name
-                    span= 'updated ' + moment(repo.updated_at).endOf('hour').fromNow()
+                    span= 'updated ' + moment(repo.pushed_at).endOf('hour').fromNow()
                     span.stars!= '&#9733; ' + repo.stargazers_count
                   p.tagline= repo.description
 
