@@ -2,22 +2,18 @@ var Promise = require('promise');
 var GitHubApi = require('github');
 var mess = require('mess');
 var whitelistUsers = require('./whitelistUsers');
-
-var LOCATION = process.env.LOCATION || 'Singapore';
-var MAX_USERS = process.env.MAX_USERS || 1000;
-var MAX_REPOS = process.env.MAX_REPOS || 50;
-var START_LIMIT = process.env.START_LIMIT || 200;
+var config = require('./config.js');
 
 var github = new GitHubApi({
   version: '3.0.0',
   //debug: true
 });
 
-if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+if (config.githubParams.clientID && config.githubParams.clientSecret) {
   github.authenticate({
       type: 'oauth',
-      key: process.env.GITHUB_CLIENT_ID,
-      secret: process.env.GITHUB_CLIENT_SECRET
+      key: config.githubParams.clientID,
+      secret: config.githubParams.clientSecret,
   });
 }
 
@@ -92,8 +88,8 @@ exports.update = function () {
 
   console.log('Generating GitHub repos feed... this may take a while...');
   return fetch(github.search.users, {
-    q: 'location:' + LOCATION
-  }, MAX_USERS)
+    q: 'location:' + config.githubParams.location
+  }, config.githubParams.masUsers)
   .then(function (users) {
     users = insertWhiteList(users, whitelistUsers);
     console.log('Found %d users', users.length);
@@ -102,7 +98,7 @@ exports.update = function () {
         sort: 'updated',
         order: 'desc',
         q: [
-          'stars:>='+START_LIMIT,
+          'stars:>='+config.githubParams.starLimit,
           'fork:true',
           pushedQuery
         ].concat(
@@ -114,7 +110,7 @@ exports.update = function () {
               return 'user:"' + user.login + '"';
             })
         ).join('+')
-      }, MAX_REPOS);
+      }, config.githubParams.maxRepos);
     });
     return Promise.all(searches);
   })
@@ -143,15 +139,15 @@ exports.update = function () {
         owners[repo.owner.login] = 1 + (owners[repo.owner.login] || 0);
         return owners[repo.owner.login] === 1;
       })
-      .slice(0, MAX_REPOS);
+      .slice(0, config.githubParams.maxRepos);
   })
   .then(function (repos) {
     console.log('Found %d repos', repos.length);
     var feed = {
       generated_at: new Date().toISOString(),
-      location: LOCATION,
-      max_users: MAX_USERS,
-      max_repos: MAX_REPOS,
+      location: config.githubParams.location,
+      max_users: config.githubParams.masUsers,
+      max_repos: config.githubParams.maxRepos,
       repos: repos
     };
     return feed;
