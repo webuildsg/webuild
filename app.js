@@ -6,7 +6,8 @@ var express = require('express'),
   moreEvents = require('./events/more_events'),
   request = require('request'),
   jf = require('jsonfile'),
-  githubFeed = require('./jobs/github_feed'),
+  githubFeed = require('./repos/github_feed'),
+  ghConfig = require('./repos/config.js'),
   app = express();
 
 var githubJson = { repos: [] },
@@ -86,14 +87,14 @@ app.post('/api/github/update', function(req, res) {
     .then(function(feed) {
       console.log('GitHub feed generated');
       githubJson = feed;
-      jf.writeFile(__dirname + '/github.json', feed);
+      jf.writeFile(__dirname + ghConfig.outfile, feed);
     });
   res.send(200, 'Updating the repos feed; sit tight!');
 });
 
-fs.exists(__dirname + '/github.json', function(exists) {
+fs.exists(__dirname + ghConfig.outfile, function(exists) {
   if (exists) {
-    jf.readFile(__dirname + '/github.json', function(err, feed) {
+    jf.readFile(__dirname + ghConfig.outfile, function(err, feed) {
       if (!err) {
         githubJson = feed;
       }
@@ -104,7 +105,7 @@ fs.exists(__dirname + '/github.json', function(exists) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
         githubJson = body;
-        jf.writeFile(__dirname + '/github.json', body);
+        jf.writeFile(__dirname + ghConfig.outfile, body);
       } else {
         if (res) {
           console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
