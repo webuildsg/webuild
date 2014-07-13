@@ -1,14 +1,16 @@
 var Promise = require('promise');
 var GitHubApi = require('github');
 var mess = require('mess');
+var whitelistUsers = require('./whitelistUsers');
 
 var LOCATION = process.env.LOCATION || 'Singapore';
 var MAX_USERS = process.env.MAX_USERS || 1000;
 var MAX_REPOS = process.env.MAX_REPOS || 100;
+var START_LIMIT = process.env.START_LIMIT || 200;
 
 var github = new GitHubApi({
   version: '3.0.0',
-  debug: true
+  //debug: true
 });
 
 if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
@@ -65,6 +67,20 @@ function pad(d) {
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
 
+function insertWhiteList(searchedUsers,whitelistUsers){
+
+  whitelistUsers.forEach(function(whitelistUser) {
+    var found = searchedUsers.filter(function(searchedUser){
+        return searchedUser.login === whitelistUser.login;
+      });
+    if (found.length === 0) {
+      //console.log("adding.. ", whitelistUser.login);
+      searchedUsers.push(whitelistUser);
+    }
+  });
+  return searchedUsers;
+}
+
 exports.update = function () {
   var now = new Date();
   var pushedQuery = 'pushed:>'
@@ -79,13 +95,14 @@ exports.update = function () {
     q: 'location:' + LOCATION
   }, MAX_USERS)
   .then(function (users) {
+    users = insertWhiteList(users, whitelistUsers);
     console.log('Found %d users', users.length);
     var searches = chunk(mess(users), 20).map(function (users) {
       return fetch(github.search.repos, {
         sort: 'updated',
         order: 'desc',
         q: [
-          'stars:>=200',
+          'stars:>='+START_LIMIT,
           'fork:true',
           pushedQuery
         ].concat(
