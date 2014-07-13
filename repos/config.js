@@ -8,5 +8,5 @@ module.exports = {
     starLimit: process.env.STAR_LIMIT || 200
   },
 
-  outfile: '/github.json'
+  outfile: '/repos.json'
 };

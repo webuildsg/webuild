@@ -3,7 +3,7 @@ var express = require('express'),
   http = require('http'),
   moment = require('moment'),
   events = require('./events')
-  moreEvents = require('./events/more_events'),
+  moreEvents = require('./events/whitelistEvents'),
   request = require('request'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
@@ -60,7 +60,7 @@ app.get('/api/events', function(req, res) {
   res.send(eventsJson);
 });
 
-app.get('/api/github', function(req, res) {
+app.get('/api/repos', function(req, res) {
   res.send(githubJson);
 });
 
@@ -78,7 +78,7 @@ app.post('/api/events/update', function(req, res) {
   });
 })
 
-app.post('/api/github/update', function(req, res) {
+app.post('/api/repos/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
     return;
@@ -101,7 +101,7 @@ fs.exists(__dirname + ghConfig.outfile, function(exists) {
     });
   } else {
     console.log('Fetching public repos feed...');
-    request('http://webuild.sg/github.json', function(err, res, body) {
+    request('http://webuild.sg/repos.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
         githubJson = body;
