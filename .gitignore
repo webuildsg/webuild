@@ -1,3 +1,4 @@
 node_modules/*
 github.json
+run.sh
 .sass-cache
