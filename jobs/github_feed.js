@@ -4,7 +4,7 @@ var mess = require('mess');
 
 var LOCATION = process.env.LOCATION || 'Singapore';
 var MAX_USERS = process.env.MAX_USERS || 1000;
-var MAX_REPOS = process.env.MAX_REPOS || 50;
+var MAX_REPOS = process.env.MAX_REPOS || 100;
 
 var github = new GitHubApi({
   version: '3.0.0',
@@ -96,6 +96,7 @@ exports.update = function () {
           name: repo.name,
           html_url: repo.html_url,
           description: repo.description,
+          pushed_at: repo.pushed_at,
           updated_at: repo.updated_at,
           language: repo.language,
           stargazers_count: repo.stargazers_count,
@@ -107,7 +108,7 @@ exports.update = function () {
         };
       })
       .sort(function (a, b) {
-        return a.updated_at > b.updated_at ? -1 : 1;
+        return a.pushed_at > b.pushed_at ? -1 : 1;
       })
       .filter(function (repo) {
         owners[repo.owner.login] = 1 + (owners[repo.owner.login] || 0);
