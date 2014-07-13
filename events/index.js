@@ -7,7 +7,8 @@ var config = require('./config');
 var meetupQuery = querystring.stringify(config.meetupParams);
 
 function https_get_json(url) {
- return new Promise(function (resolve, reject) {
+  console.log('Getting data from ' + url);
+  return new Promise(function (resolve, reject) {
     https.get(url, function (res) {
       var buffer = [];
       res.on('data', Array.prototype.push.bind(buffer));
@@ -46,24 +47,29 @@ function saveEvents(arr, row) {
   entry.group_name = row.name;
   entry.group_url = row.link;
   entry.url = 'http://meetup.com/' + row.urlname + '/events/' + entry.id;
-  entry.formatted_time = moment(new Date(entry.time)).format('DD MMM, ddd, h:mm a');
+  entry.formatted_time = moment.utc(entry.time + entry.utc_offset).format('DD MMM, ddd, h:mm a');
   events.push(entry);
 }
 
 function getAllMeetupEvents() { //regardless of venue
-  var url = 'https://www.meetup.com/muapi/find/groups?' +
+  var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
+
   return https_get_json(url).then(function(data) {
+    console.log('Fetched ' + data.results.length + ' rows');
     events = [];
-    data
+    data.results
       .filter(isValidGroup)
       .reduce(saveEvents, events);
     return events;
+  }).catch(function(err) {
+    console.error('Error getAllMeetupEvents():' + err);
   });
 }
 
 function getMeetupEvents() { //events with venues
   return getAllMeetupEvents().then(function(events) {
+    console.log('Fetched ' + events.length + ' events');
     var venues = events.map(function(event) {
       return https_get_json('https://api.meetup.com/2/event/'
         + event.id
@@ -76,7 +82,10 @@ function getMeetupEvents() { //events with venues
         return venues[i].hasOwnProperty('venue') ||
           venues[i].venue_visibility === 'members';
       });
+      console.log(eventsWithVenues.length + ' events with venues');
       return eventsWithVenues;
+    }).catch(function(err) {
+      console.error('Error getMeetupEvents():' + err);
     });
   });
 }

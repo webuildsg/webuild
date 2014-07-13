@@ -38,14 +38,13 @@ function updateEventsJson() {
   console.log('Updating the events feed...');
   return events.getMeetupEvents()
   .then(function(events) {
-    events.concat(moreEvents).forEach(function(e) {
-      eventsJson.push(e)
-    })
+    console.log(events)
+    eventsJson = events.concat(moreEvents);
     eventsJson.sort(timeComparer);
-    console.log('The events feed has been updated! ' + eventsJson.length);
+    console.log(eventsJson.length + ' events have been added!');
   })
   .catch(function(err) {
-    console.error(err);
+    console.error('Failed to update events feeds' + err);
   })
 }
 
@@ -105,7 +104,12 @@ fs.exists(__dirname + '/github.json', function(exists) {
         githubJson = body;
         jf.writeFile(__dirname + '/github.json', body);
       } else {
-        console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        if (res) {
+          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        }
+        else {
+          console.warn('Failed to retrieve data (Status code: %s)', err);
+        }
       }
     });
   }

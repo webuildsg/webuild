@@ -61,7 +61,19 @@ function chunk(arr, size) {
   return chunks;
 }
 
+function pad(d) {
+  return (d < 10) ? '0' + d.toString() : d.toString();
+}
+
 exports.update = function () {
+  var now = new Date();
+  var pushedQuery = 'pushed:>'
+    + now.getFullYear()
+    + '-'
+    + pad(now.getMonth() - 2)
+    + '-'
+    + '01'; // pushed:>2014-06-01 - pushed date until 3 months ago only
+
   console.log('Generating GitHub repos feed... this may take a while...');
   return fetch(github.search.users, {
     q: 'location:' + LOCATION
@@ -74,7 +86,8 @@ exports.update = function () {
         order: 'desc',
         q: [
           'stars:>=200',
-          'fork:true'
+          'fork:true',
+          pushedQuery
         ].concat(
           users
             .filter(function (user) {
