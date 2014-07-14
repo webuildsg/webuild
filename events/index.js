@@ -67,6 +67,28 @@ function getAllMeetupEvents() { //regardless of venue
   });
 }
 
+function waitAllPromises(arr) {
+  if (arr.length === 0) return resolve([]);
+
+  return new Promise(function (resolve, reject) {
+    var numResolved = 0;
+    function save(i, val) {
+      arr[i] = val
+      if (++numResolved === arr.length) {
+        resolve(arr);
+      }
+    }
+
+    arr.forEach(function(item, i) {
+      item.then(function(val) {
+        save(i, val);
+      }).catch(function(err) {
+        save(i, {'error': err}); // resolve errors
+      });
+    });
+  });
+}
+
 function getMeetupEvents() { //events with venues
   return getAllMeetupEvents().then(function(events) {
     console.log('Fetched ' + events.length + ' events');
@@ -77,7 +99,7 @@ function getMeetupEvents() { //events with venues
         + config.meetupParams.key);
     });
 
-    return Promise.all(venues).then(function(venues) {
+    return waitAllPromises(venues).then(function(venues) {
       var eventsWithVenues = events.filter(function(evt, i) {
         return venues[i].hasOwnProperty('venue') ||
           venues[i].venue_visibility === 'members';
@@ -85,7 +107,7 @@ function getMeetupEvents() { //events with venues
       console.log(eventsWithVenues.length + ' events with venues');
       return eventsWithVenues;
     }).catch(function(err) {
-      console.error('Error getMeetupEvents():' + err);
+      console.error('Error getMeetupEvents(): ' + err);
     });
   });
 }
