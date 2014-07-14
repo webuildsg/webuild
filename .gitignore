@@ -1,4 +1,5 @@
 node_modules/*
+public/js/vendor/*
 
 repos.json
 events.json

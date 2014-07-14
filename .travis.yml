@@ -6,3 +6,5 @@ before_install:
   - gem install compass
 before_script:
   - npm install -g grunt-cli
+  - npm install -g bower
+  - bower install
