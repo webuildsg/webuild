@@ -1,4 +1,7 @@
 node_modules/*
+
 repos.json
+events.json
+
 run.sh
 .sass-cache

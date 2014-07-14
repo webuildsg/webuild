@@ -2,13 +2,14 @@ var express = require('express'),
   fs = require('fs'),
   http = require('http'),
   moment = require('moment'),
-  events = require('./events')
+  events = require('./events'),
   moreEvents = require('./events/whitelistEvents'),
   request = require('request'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
   ghConfig = require('./repos/config.js'),
-  app = express();
+  app = express(),
+  podcastApiUrl = "http://live.webuild.sg/api/podcasts.json";
 
 var githubJson = { repos: [] },
   eventsJson = [];
@@ -90,6 +91,11 @@ app.post('/api/repos/update', function(req, res) {
       jf.writeFile(__dirname + ghConfig.outfile, feed);
     });
   res.send(200, 'Updating the repos feed; sit tight!');
+});
+
+app.use('/api/podcasts', function(req, res) {
+ var url = podcastApiUrl;
+ req.pipe(request(url)).pipe(res);
 });
 
 fs.exists(__dirname + ghConfig.outfile, function(exists) {

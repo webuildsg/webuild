@@ -5,8 +5,7 @@ require(
   ],
   function($, Moment) {
 
-  var podcastSite = 'http://live.webuild.sg';
-  var podcastSiteApi = podcastSite + '/api/podcasts.json';
+  var podcastApi = '/api/podcasts';
 
   // hello to another happy developer
   console.log('Hello fellow developer! :)');
@@ -18,7 +17,7 @@ require(
   });
 
   var request = new XMLHttpRequest();
-  request.open('GET', podcastSiteApi, true);
+  request.open('GET', podcastApi, true);
   request.responseType = 'json';
   request.onload = function() {
     countdown(request.response.next_live_show);
