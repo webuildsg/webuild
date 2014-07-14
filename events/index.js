@@ -151,38 +151,47 @@ function getFacebookEvents(user_access_token) {
   })
 }
 
-function getUsers() {
-  request
-  .post('https://alyssa.auth0.com/oauth/token')
-  .set('Content-Type', 'application/json')
-  .send({
-    "client_id": config.auth0.clientId,
-    "client_secret": config.auth0.clientSecret,
-    "grant_type": "client_credentials"
-  })
-  .end(function(err, res) {
-    if (err) console.error('Error' + err);
-    console.log(res.status, res.body);
-    var auth0_temp_token = res.body.access_token;
-    request
-    .get('https://alyssa.auth0.com/api/users')
-    .set('Authorization', 'Bearer ' + auth0_temp_token)
-    .end(function(err, res) {
-      if (err) {
-        console.error('Error' + err);
+function getFacebookUsers() {
+  return new Promise(function (resolve, reject) {
+    request.post('https://' + config.auth0.domain + '/oauth/token')
+    .set('Content-Type', 'application/json')
+    .send({
+      'client_id': config.auth0.clientId,
+      'client_secret': config.auth0.clientSecret,
+      'grant_type': 'client_credentials'
+    })
+    .end(function(res) {
+      if (res.status > 300) {
+        console.error('Error getting Auth0 token:', res.status, err);
+        reject(err);
       } else {
-        var users = res.body || [];
-        users.forEach(function(user) {
-          console.log(user.user_id)
-          getFacebookEvents(user.identities[0].access_token)
-          .then(function(data) {
-            console.log('DATA:' + JSON.stringify(data) + data.length);
-          });
-
+        request.get('https://' + config.auth0.domain + '/api/users')
+        .set('Authorization', 'Bearer ' + res.body.access_token)
+        .end(function(res) {
+          if (res.status > 300) {
+            console.error('Error getting Auth0 users ' + res.status, err);
+            reject(err);
+          } else {
+            resolve(res.body || []);
+          }
         })
       }
-    })
+    });
   });
+}
+
+function getUsers() {
+  getFacebookUsers().then(function(users) {
+    users.forEach(function(user) {
+      console.log(user.user_id)
+      getFacebookEvents(user.identities[0].access_token)
+      .then(function(data) {
+        console.log('DATA:' + JSON.stringify(data) + data.length);
+      });
+    })
+  }).catch(function(err) {
+    console.error(err);
+  })
 }
 
 module.exports = {
