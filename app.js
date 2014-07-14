@@ -14,8 +14,7 @@ var express = require('express'),
   podcastApiUrl = "http://live.webuild.sg/api/podcasts.json";
 
 var githubJson = { repos: [] },
-  eventsJson = [],
-  fbTokens = [];
+  eventsJson = [];
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -79,6 +78,13 @@ app.get('/api/users', function(req, res) {
   events.getUsers();
 })
 
+app.get('/callback', passport.authenticate('auth0', {
+    failureRedirect: '/admin'
+  }), function(req, res) {
+    res.redirect('/');
+  }
+);
+
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
@@ -92,25 +98,19 @@ app.post('/api/events/update', function(req, res) {
   });
 })
 
-app.post('/api/github/update', function(req, res) {
+app.post('/api/repos/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
+    return;
   }
   githubFeed.update()
     .then(function(feed) {
       console.log('GitHub feed generated');
       githubJson = feed;
-      jf.writeFile(__dirname + '/github.json', feed);
+      jf.writeFile(__dirname + ghConfig.outfile, feed);
     });
   res.send(200, 'Updating the repos feed; sit tight!');
 });
-
-app.get('/callback', passport.authenticate('auth0', {
-    failureRedirect: '/admin'
-  }), function(req, res) {
-    res.redirect('/');
-  }
-);
 
 app.use('/api/podcasts', function(req, res) {
  var url = podcastApiUrl;
@@ -119,21 +119,25 @@ app.use('/api/podcasts', function(req, res) {
 
 fs.exists(__dirname + ghConfig.outfile, function(exists) {
   if (exists) {
-    jf.readFile(__dirname + '/github.json', function(err, feed) {
+    jf.readFile(__dirname + ghConfig.outfile, function(err, feed) {
       if (!err) {
         githubJson = feed;
       }
     });
   } else {
-    return;
     console.log('Fetching public repos feed...');
-    request('http://webuild.sg/github.json', function(err, res, body) {
+    request('http://webuild.sg/repos.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
         githubJson = body;
-        jf.writeFile(__dirname + '/github.json', body);
+        jf.writeFile(__dirname + ghConfig.outfile, body);
       } else {
-        console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        if (res) {
+          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        }
+        else {
+          console.warn('Failed to retrieve data (Status code: %s)', err);
+        }
       }
     });
   }
