@@ -1,0 +1,53 @@
+doctype
+html(lang='en')
+
+  head
+    meta(charset='utf-8')
+
+    title We Build SG
+    meta(name='description', content='a list of free open events and open source libraries for the curious folks who love to make things!')
+    meta(name='keywords', content='Singapore, SG, open community, open source, software, hardware, programming, design, maker movement, free events, free tech events')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+
+    meta(property='og:image', content='public/logo.png')
+    meta(property='og:url', content='http://www.webuild.sg')
+    meta(property='og:site_name', content='www.webuild.sg')
+    meta(property='og:title', content='We Build SG')
+    meta(property='og:description', content='a list of free open events and open source libraries for the curious folks who love to make things!')
+    meta(property='og:type', content='website')
+
+    link(href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='public/css/style.css')
+
+    link(rel='apple-touch-icon', href='public/apple-touch-icon.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='public/apple-touch-icon-72x72-precomposed.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='public/apple-touch-icon-114x114-precomposed.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='public/apple-touch-icon-144x144-precomposed.png')
+
+  body
+    //if lt IE 9
+      p.chromeframe Your browser is <em>ancient!</em> <a href='http://browsehappy.com/'>Upgrade to a cool new browser</a> to experience this site!
+
+    div.wrapper
+      header
+        .container
+          h1 we build!
+          h2 Exploring the tech scene in Singapore? Connect with people who are&nbsp;
+            ul.people
+              li ...
+              li designers
+              li developers
+              li makers
+      .main.container
+        //a(class='button', href='google.com') Google
+        div#root(style='width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px;')
+        //button(onclick="widget.signin({ scope: 'openid profile' })") Login
+
+    script(type='text/javascript', src='https://cdn.auth0.com/w2/auth0-widget-4.0.min.js')
+    script(type='text/javascript').
+      var widget = new Auth0Widget({
+        domain:         'alyssa.auth0.com',
+        clientID:       'uMk0LXpEmYxae6OEcWsCJme2f5IsorK0',
+        callbackURL:    'http://localhost:3000/callback'
+      });
+      widget.signin({ container: 'root', chrome: true, scope: 'openid profile' });

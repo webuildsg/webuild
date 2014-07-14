@@ -7,14 +7,16 @@ var express = require('express'),
   request = require('request'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
-  ghConfig = require('./repos/config.js'),
+  passport = require('passport'),
+  strategy = require('./events/setup-passport'),
   app = express();
 
 var githubJson = { repos: [] },
-  eventsJson = [];
+  eventsJson = [],
+  fbTokens = [];
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 4000);
+  app.set('port', process.env.PORT || 3000);
   app.use(express.compress());
   app.use('/public', express.static(__dirname + '/public'));
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
@@ -25,27 +27,29 @@ app.configure(function(){
 
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({secret: 'webuild_session' + new Date().toISOString()}));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
 });
 
 function timeComparer(a, b) {
-  function momentcast(x) {
-    return x.time ? moment(new Date(x.time))
-                  : moment(x.formatted_time, 'DD MMM, ddd, h:mm a');
-  }
-  return (momentcast(a).valueOf() - momentcast(b).valueOf());
+  return (moment(a.formatted_time, events.timeFormat).valueOf() -
+          moment(b.formatted_time, events.timeFormat).valueOf());
 }
 
 function updateEventsJson() {
   console.log('Updating the events feed...');
   return events.getMeetupEvents()
-  .then(function(events) {
-    console.log(events)
-    eventsJson = events.concat(moreEvents);
+  .then(function(data) {
+    console.log(data)
+    eventsJson = data.concat(moreEvents);
     eventsJson.sort(timeComparer);
     console.log(eventsJson.length + ' events have been added!');
   })
   .catch(function(err) {
-    console.error('Failed to update events feeds' + err);
+    console.error('Failed to update events feeds: ' + err);
   })
 }
 
@@ -56,18 +60,26 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/admin', function(req, res) {
+  res.render('facebook_login.jade');
+});
+
 app.get('/api/events', function(req, res) {
+  console.log(JSON.stringify(req.user));
   res.send(eventsJson);
 });
 
-app.get('/api/repos', function(req, res) {
+app.get('/api/github', function(req, res) {
   res.send(githubJson);
 });
+
+app.get('/api/users', function(req, res) {
+  events.getUsers();
+})
 
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
-    return;
   }
   updateEventsJson()
   .then(function() {
@@ -78,46 +90,48 @@ app.post('/api/events/update', function(req, res) {
   });
 })
 
-app.post('/api/repos/update', function(req, res) {
+app.post('/api/github/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
-    return;
   }
   githubFeed.update()
     .then(function(feed) {
       console.log('GitHub feed generated');
       githubJson = feed;
-      jf.writeFile(__dirname + ghConfig.outfile, feed);
+      jf.writeFile(__dirname + '/github.json', feed);
     });
   res.send(200, 'Updating the repos feed; sit tight!');
 });
 
-fs.exists(__dirname + ghConfig.outfile, function(exists) {
+app.get('/callback', passport.authenticate('auth0', {
+    failureRedirect: '/admin'
+  }), function(req, res) {
+    res.redirect('/');
+  }
+);
+
+fs.exists(__dirname + '/github.json', function(exists) {
   if (exists) {
-    jf.readFile(__dirname + ghConfig.outfile, function(err, feed) {
+    jf.readFile(__dirname + '/github.json', function(err, feed) {
       if (!err) {
         githubJson = feed;
       }
     });
   } else {
+    return;
     console.log('Fetching public repos feed...');
-    request('http://webuild.sg/repos.json', function(err, res, body) {
+    request('http://webuild.sg/github.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
         githubJson = body;
-        jf.writeFile(__dirname + ghConfig.outfile, body);
+        jf.writeFile(__dirname + '/github.json', body);
       } else {
-        if (res) {
-          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
-        }
-        else {
-          console.warn('Failed to retrieve data (Status code: %s)', err);
-        }
+        console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
       }
     });
   }
 });
-updateEventsJson();
+//updateEventsJson();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

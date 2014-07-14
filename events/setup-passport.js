@@ -1,20 +1,19 @@
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
+var config = require('./config');
 
 var strategy = new Auth0Strategy({
-    domain:       'alyssa.auth0.com',
-    clientID:     'uMk0LXpEmYxae6OEcWsCJme2f5IsorK0',
-    clientSecret: 'rVMO-cX41_qVVjFyXPph0LUHe6jngiNfFJLZWJLhsw8AWim1waSPWB1zg7U4oveJ',
-    callbackURL:  '/callback'
-  }, function(accessToken, refreshToken, profile, done) {
-    //Some tracing info
-    console.log('profile is', profile);
-    return done(null, profile);
-  });
+  domain: config.auth0.domain,
+  clientID: config.auth0.clientId,
+  clientSecret: config.auth0.clientSecret,
+  callbackURL:  '/callback'
+}, function(accessToken, refreshToken, profile, done) {
+  console.log('Received Facebook profile from: ', profile.displayName);
+  return done(null, profile);
+});
 
 passport.use(strategy);
 
-// This is not a best practice, but we want to keep things simple for now
 passport.serializeUser(function(user, done) {
   done(null, user);
 });

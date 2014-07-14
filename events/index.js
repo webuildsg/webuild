@@ -2,11 +2,13 @@ var querystring = require('querystring');
 var https = require('https');
 var Promise = require('promise');
 var moment = require('moment');
+var request = require('superagent');
+var fbGroups = require('./facebookGroups');
 var config = require('./config');
 
-var meetupQuery = querystring.stringify(config.meetupParams);
+var TIMEFORMAT = 'DD MMM, ddd, h:mm a';
 
-function https_get_json(url) {
+function requestJson(url) {
   console.log('Getting data from ' + url);
   return new Promise(function (resolve, reject) {
     https.get(url, function (res) {
@@ -26,44 +28,6 @@ function https_get_json(url) {
       console.error('Err! HTTP request failed:', err.message, url);
       reject(err);
     });
-  });
-}
-
-function isValidGroup(row) {
-  var blacklistGroups = config.blacklistGroups || [];
-  var blacklistWords = config.blacklistWords || [];
-  var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
-
-  // Enforce country filter. Meetup adds JB groups into SG
-  return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) &&
-         !blacklistGroups.some(function(id) { return row.id === id })
-         && row.country === (config.meetupParams.country || row.country);
-}
-
-function saveEvents(arr, row) {
-  if (!(row.next_event && row.next_event.time)) return
-
-  var entry = row.next_event;
-  entry.group_name = row.name;
-  entry.group_url = row.link;
-  entry.url = 'http://meetup.com/' + row.urlname + '/events/' + entry.id;
-  entry.formatted_time = moment.utc(entry.time + entry.utc_offset).format('DD MMM, ddd, h:mm a');
-  events.push(entry);
-}
-
-function getAllMeetupEvents() { //regardless of venue
-  var url = 'https://api.meetup.com/2/groups?' +
-    querystring.stringify(config.meetupParams);
-
-  return https_get_json(url).then(function(data) {
-    console.log('Fetched ' + data.results.length + ' rows');
-    events = [];
-    data.results
-      .filter(isValidGroup)
-      .reduce(saveEvents, events);
-    return events;
-  }).catch(function(err) {
-    console.error('Error getAllMeetupEvents():' + err);
   });
 }
 
@@ -89,11 +53,49 @@ function waitAllPromises(arr) {
   });
 }
 
+function isValidGroup(row) {
+  var blacklistGroups = config.blacklistGroups || [];
+  var blacklistWords = config.blacklistWords || [];
+  var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
+
+  // Enforce country filter. Meetup adds JB groups into SG
+  return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) &&
+         !blacklistGroups.some(function(id) { return row.id === id })
+         && row.country === (config.meetupParams.country || row.country);
+}
+
+function saveMeetupEvents(arr, row) {
+  if (!(row.next_event && row.next_event.time)) return
+
+  var entry = row.next_event;
+  entry.group_name = row.name;
+  entry.group_url = row.link;
+  entry.url = 'http://meetup.com/' + row.urlname + '/events/' + entry.id;
+  entry.formatted_time = moment.utc(entry.time + entry.utc_offset).format(TIMEFORMAT);
+  events.push(entry);
+}
+
+function getAllMeetupEvents() { //regardless of venue
+  var url = 'https://api.meetup.com/2/groups?' +
+    querystring.stringify(config.meetupParams);
+
+  return requestJson(url).then(function(data) {
+    console.log('Fetched ' + data.results.length + ' rows');
+    events = [];
+    data.results
+      .filter(isValidGroup)
+      .reduce(saveMeetupEvents, events);
+    return events;
+  }).catch(function(err) {
+    console.error('Error getAllMeetupEvents():' + err);
+  });
+}
+
 function getMeetupEvents() { //events with venues
   return getAllMeetupEvents().then(function(events) {
     console.log('Fetched ' + events.length + ' events');
     var venues = events.map(function(event) {
-      return https_get_json('https://api.meetup.com/2/event/'
+      return requestJson('https://api.meetup.com/2/event/'
         + event.id
         + '?fields=venue_visibility&key='
         + config.meetupParams.key);
@@ -104,7 +106,7 @@ function getMeetupEvents() { //events with venues
         return venues[i].hasOwnProperty('venue') ||
           venues[i].venue_visibility === 'members';
       });
-      console.log(eventsWithVenues.length + ' events with venues');
+      console.log(eventsWithVenues.length + ' Meetup events with venues');
       return eventsWithVenues;
     }).catch(function(err) {
       console.error('Error getMeetupEvents(): ' + err);
@@ -112,7 +114,80 @@ function getMeetupEvents() { //events with venues
   });
 }
 
+function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
+  var thisGroupEvents = row.data || [];
+  if (thisGroupEvents.length === 0) return eventsWithVenues;
+
+  thisGroupEvents.forEach(function(row) {
+    if (!row.location) return;
+    eventsWithVenues.push({
+      name: row.name,
+      group_name: fbGroups[grpIdx].name,
+      url: 'https://www.facebook.com/events/' + row.id,
+      formatted_time: moment(row.start_time).format(TIMEFORMAT)
+    });
+  });
+
+  return eventsWithVenues;
+}
+
+function getFacebookEvents(user_access_token) {
+  var base = 'https://graph.facebook.com/v2.0/'
+  var groups = fbGroups.map(function(group) {
+    return requestJson(base + group.id + '/events?' +
+      querystring.stringify({
+        since: moment().utc().zone('+0800').format('X'),
+        access_token: user_access_token
+      })
+    );
+  });
+
+  return waitAllPromises(groups).then(function(groupsEvents) {
+    console.log(groupsEvents.length + ' FB groups');
+    var eventsWithVenues = [];
+    groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
+    console.log(eventsWithVenues.length + ' FB events with venues');
+    return eventsWithVenues;
+  })
+}
+
+function getUsers() {
+  request
+  .post('https://alyssa.auth0.com/oauth/token')
+  .set('Content-Type', 'application/json')
+  .send({
+    "client_id": config.auth0.clientId,
+    "client_secret": config.auth0.clientSecret,
+    "grant_type": "client_credentials"
+  })
+  .end(function(err, res) {
+    if (err) console.error('Error' + err);
+    console.log(res.status, res.body);
+    var auth0_temp_token = res.body.access_token;
+    request
+    .get('https://alyssa.auth0.com/api/users')
+    .set('Authorization', 'Bearer ' + auth0_temp_token)
+    .end(function(err, res) {
+      if (err) {
+        console.error('Error' + err);
+      } else {
+        var users = res.body || [];
+        users.forEach(function(user) {
+          console.log(user.user_id)
+          getFacebookEvents(user.identities[0].access_token)
+          .then(function(data) {
+            console.log('DATA:' + JSON.stringify(data) + data.length);
+          });
+
+        })
+      }
+    })
+  });
+}
+
 module.exports = {
-  getAllMeetupEvents: getAllMeetupEvents,
-  getMeetupEvents: getMeetupEvents
+  getMeetupEvents: getMeetupEvents,
+  getFacebookEvents: getFacebookEvents,
+  timeFormat: TIMEFORMAT,
+  getUsers: getUsers
 }

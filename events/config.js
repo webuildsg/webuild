@@ -8,9 +8,12 @@ module.exports = {
     page: 500,
     fields: 'next_event'
   },
-
   blacklistGroups: [9319232],
   blacklistWords: ['business', 'networking'],
 
-  outfile: 'events.json'
+  auth0: {
+    domain: 'alyssa.auth0.com',
+    clientId: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+  }
 };
