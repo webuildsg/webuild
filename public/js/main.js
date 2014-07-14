@@ -5,21 +5,32 @@ require(
   ],
   function($, Moment) {
 
+  var podcastApi = '/api/podcasts';
+
   // hello to another happy developer
   console.log('Hello fellow developer! :)');
-  console.log('If you have suggestions for this site, get in touch at: https://github.com/webuildsg');
+  console.log('If you have suggestions for this site, get in touch at: https://github.com/webuildsg/webuild');
 
   // click live section to go to the live website
   $('.live').click(function() {
-    window.parent.location.href = 'http://live.webuild.sg';
+    window.parent.location.href = podcastSite;
   });
 
-  // countdown
-  countdown();
-  setInterval(countdown, 1000);
-  function countdown () {
+  var request = new XMLHttpRequest();
+  request.open('GET', podcastApi, true);
+  request.responseType = 'json';
+  request.onload = function() {
+    countdown(request.response.next_live_show);
+    console.log(request.response.next_live_show);
+    setInterval(function() {
+      countdown(request.response.next_live_show);
+    }, 1000);
+  }
+  request.send();
+
+  function countdown(nextLiveShowDate) {
     var now = moment(),
-    podcastDate = "2014-08-02 11:00 +0800",
+    podcastDate = nextLiveShowDate,
     dateFormat = "YYYY-MM-DD HH:mm Z",
     livedate = moment(podcastDate, dateFormat),
     then = moment(podcastDate, dateFormat);

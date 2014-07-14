@@ -2,14 +2,16 @@ var express = require('express'),
   fs = require('fs'),
   http = require('http'),
   moment = require('moment'),
-  events = require('./events')
+  events = require('./events'),
   moreEvents = require('./events/whitelistEvents'),
   request = require('request'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
   passport = require('passport'),
   strategy = require('./events/setup-passport'),
-  app = express();
+  ghConfig = require('./repos/config.js'),
+  app = express(),
+  podcastApiUrl = "http://live.webuild.sg/api/podcasts.json";
 
 var githubJson = { repos: [] },
   eventsJson = [],
@@ -110,7 +112,12 @@ app.get('/callback', passport.authenticate('auth0', {
   }
 );
 
-fs.exists(__dirname + '/github.json', function(exists) {
+app.use('/api/podcasts', function(req, res) {
+ var url = podcastApiUrl;
+ req.pipe(request(url)).pipe(res);
+});
+
+fs.exists(__dirname + ghConfig.outfile, function(exists) {
   if (exists) {
     jf.readFile(__dirname + '/github.json', function(err, feed) {
       if (!err) {
@@ -131,7 +138,7 @@ fs.exists(__dirname + '/github.json', function(exists) {
     });
   }
 });
-//updateEventsJson();
+updateEventsJson();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
