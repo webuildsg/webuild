@@ -36,9 +36,12 @@ function waitAllPromises(arr) {
 
   return new Promise(function (resolve, reject) {
     var numResolved = 0;
+    var numErrors = 0;
     function save(i, val) {
       arr[i] = val
-      if (++numResolved === arr.length) {
+      if (numErrors === arr.length) {
+        reject(arr[0].error);
+      } else if (++numResolved === arr.length) {
         resolve(arr);
       }
     }
@@ -47,6 +50,7 @@ function waitAllPromises(arr) {
       item.then(function(val) {
         save(i, val);
       }).catch(function(err) {
+        ++numErrors;
         save(i, {'error': err}); // resolve errors
       });
     });
@@ -131,28 +135,50 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   return eventsWithVenues;
 }
 
-function getFacebookEvents(user_access_token) {
+function getFacebookUserEvents(user_identity) {
   var base = 'https://graph.facebook.com/v2.0/'
   var groups = fbGroups.map(function(group) {
     return requestJson(base + group.id + '/events?' +
       querystring.stringify({
         since: moment().utc().zone('+0800').format('X'),
-        access_token: user_access_token
+        access_token: user_identity.access_token
       })
     );
   });
 
-  return waitAllPromises(groups).then(function(groupsEvents) {
-    console.log(groupsEvents.length + ' FB groups');
-    var eventsWithVenues = [];
-    groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
-    console.log(eventsWithVenues.length + ' FB events with venues');
-    return eventsWithVenues;
+  return new Promise(function (resolve, reject) {
+    waitAllPromises(groups).then(function(groupsEvents) {
+      console.log(groupsEvents.length + ' FB groups');
+      var eventsWithVenues = [];
+      groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
+      console.log(eventsWithVenues.length + ' FB events with venues');
+      resolve(eventsWithVenues);
+    }).catch(function(err) {
+      console.error('Error getting Facebook Events with: ' + JSON.stringify(user_identity));
+      reject(err);
+    });
+  });
+}
+
+// Recursively try all available user access tokens (some may have expired)
+//  until one is able to return facebook events.
+//  We assume that all access tokens are able to access all white listed fb groups.
+function getAllFacebookEvents(users) {
+  if (users.length === 0) return users;
+
+  user = users.pop();
+  return getFacebookUserEvents(user.identities[0])
+  .then(function(events) {
+    return events;
+  }).catch(function(err) {
+    console.error(err);
+    getAllFacebookEvents(users); // token failed. Try the next user's token
   })
 }
 
+// Get the FB user tokens from auth0
 function getFacebookUsers() {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     request.post('https://' + config.auth0.domain + '/oauth/token')
     .set('Content-Type', 'application/json')
     .send({
@@ -162,15 +188,16 @@ function getFacebookUsers() {
     })
     .end(function(res) {
       if (res.status > 300) {
-        console.error('Error getting Auth0 token:', res.status, err);
-        reject(err);
+        console.error('Error getting Auth0 token:', res.status);
+        reject(res.error);
       } else {
+        console.log('Getting Auth0 users...')
         request.get('https://' + config.auth0.domain + '/api/users')
         .set('Authorization', 'Bearer ' + res.body.access_token)
         .end(function(res) {
           if (res.status > 300) {
-            console.error('Error getting Auth0 users ' + res.status, err);
-            reject(err);
+            console.error('Error getting Auth0 users ' + res.status);
+            reject(res.error);
           } else {
             resolve(res.body || []);
           }
@@ -180,15 +207,9 @@ function getFacebookUsers() {
   });
 }
 
-function getUsers() {
-  getFacebookUsers().then(function(users) {
-    users.forEach(function(user) {
-      console.log(user.user_id)
-      getFacebookEvents(user.identities[0].access_token)
-      .then(function(data) {
-        console.log('DATA:' + JSON.stringify(data) + data.length);
-      });
-    })
+function getFacebookEvents() {
+  return getFacebookUsers().then(function(users) {
+    return getAllFacebookEvents(users);
   }).catch(function(err) {
     console.error(err);
   })
@@ -197,6 +218,5 @@ function getUsers() {
 module.exports = {
   getMeetupEvents: getMeetupEvents,
   getFacebookEvents: getFacebookEvents,
-  timeFormat: TIMEFORMAT,
-  getUsers: getUsers
+  timeFormat: TIMEFORMAT
 }

@@ -11,7 +11,7 @@ var express = require('express'),
   strategy = require('./events/setup-passport'),
   ghConfig = require('./repos/config.js'),
   app = express(),
-  podcastApiUrl = "http://live.webuild.sg/api/podcasts.json";
+  podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json';
 
 var githubJson = { repos: [] },
   eventsJson = [];
@@ -41,17 +41,20 @@ function timeComparer(a, b) {
 }
 
 function updateEventsJson() {
+  eventsJson = moreEvents;
   console.log('Updating the events feed...');
-  return events.getMeetupEvents()
-  .then(function(data) {
-    console.log(data)
-    eventsJson = data.concat(moreEvents);
-    eventsJson.sort(timeComparer);
-    console.log(eventsJson.length + ' events have been added!');
-  })
-  .catch(function(err) {
-    console.error('Failed to update events feeds: ' + err);
-  })
+
+  function addEvents(type) {
+    events['get' + type +'Events']().then(function(data) {
+      eventsJson = eventsJson.concat(data);
+      eventsJson.sort(timeComparer);
+      console.log(data.length + ' %s events added! %s total', type, eventsJson.length);
+    }).catch(function(err) {
+      console.error('Failed to add %s events: %s', type, err);
+    });
+  }
+  addEvents('Meetup');
+  addEvents('Facebook');
 }
 
 app.get('/', function(req, res) {
@@ -61,12 +64,7 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/admin', function(req, res) {
-  res.render('facebook_login.jade');
-});
-
 app.get('/api/events', function(req, res) {
-  console.log(JSON.stringify(req.user));
   res.send(eventsJson);
 });
 
@@ -74,28 +72,22 @@ app.get('/api/github', function(req, res) {
   res.send(githubJson);
 });
 
-app.get('/api/users', function(req, res) {
-  events.getUsers();
-})
+app.get('/admin', function(req, res) {
+  res.render('facebook_login.jade');
+});
 
 app.get('/callback', passport.authenticate('auth0', {
-    failureRedirect: '/admin'
-  }), function(req, res) {
-    res.redirect('/');
-  }
-);
+  failureRedirect: '/admin'
+}), function(req, res) {
+  res.redirect('/');
+});
 
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
   }
-  updateEventsJson()
-  .then(function() {
-    res.send(200, 'Events feed updated');
-  })
-  .catch(function() {
-    res.send(500, 'Failed to update feed');
-  });
+  updateEventsJson();
+  res.send(200, 'Events feed updating...');
 })
 
 app.post('/api/repos/update', function(req, res) {
@@ -142,7 +134,7 @@ fs.exists(__dirname + ghConfig.outfile, function(exists) {
     });
   }
 });
-//updateEventsJson();
+updateEventsJson();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
