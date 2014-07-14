@@ -39,15 +39,13 @@ html(lang='en')
               li developers
               li makers
       .main.container
-        //a(class='button', href='google.com') Google
-        div#root(style='width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px;')
-        //button(onclick="widget.signin({ scope: 'openid profile' })") Login
+        div#auth0(style='width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px;')
 
     script(type='text/javascript', src='https://cdn.auth0.com/w2/auth0-widget-4.0.min.js')
     script(type='text/javascript').
       var widget = new Auth0Widget({
-        domain:         'alyssa.auth0.com',
-        clientID:       'uMk0LXpEmYxae6OEcWsCJme2f5IsorK0',
-        callbackURL:    'http://localhost:3000/callback'
+        domain: '#{auth0.domain}',
+        clientID: '#{auth0.clientId}',
+        callbackURL: 'http://' + window.location.host + '/callback'
       });
-      widget.signin({ container: 'root', chrome: true, scope: 'openid profile' });
+      widget.signin({ container: 'auth0', chrome: true, scope: 'openid profile' });

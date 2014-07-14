@@ -73,7 +73,7 @@ app.get('/api/github', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  res.render('facebook_login.jade');
+  res.render('facebook_login.jade', {auth0: require('./events/config').auth0});
 });
 
 app.get('/callback', passport.authenticate('auth0', {
