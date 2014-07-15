@@ -84,7 +84,7 @@ function getAllMeetupEvents() { //regardless of venue
     querystring.stringify(config.meetupParams);
 
   return requestJson(url).then(function(data) {
-    console.log('Fetched ' + data.results.length + ' rows');
+    console.log('Fetched ' + data.results.length + ' Meetup groups');
     events = [];
     data.results
       .filter(isValidGroup)
@@ -97,7 +97,7 @@ function getAllMeetupEvents() { //regardless of venue
 
 function getMeetupEvents() { //events with venues
   return getAllMeetupEvents().then(function(events) {
-    console.log('Fetched ' + events.length + ' events');
+    console.log('Fetched ' + events.length + ' Meetup events');
     var venues = events.map(function(event) {
       return requestJson('https://api.meetup.com/2/event/'
         + event.id
@@ -207,9 +207,33 @@ function getFacebookUsers() {
   });
 }
 
+function filterValidFacebookUsers(users) { //must have access to groups
+  var base = 'https://graph.facebook.com/v2.0/me/groups?'
+  var groupPromises = users.map(function(user) {
+    return requestJson(base +
+      querystring.stringify({
+        access_token: user.identities[0].access_token
+      })
+    );
+  });
+
+  return waitAllPromises(groupPromises).then(function(userGroups) {
+    console.log(userGroups.length + ' authorized users');
+    var validusers = users.filter(function(user, idx) {
+      return userGroups[idx].data.length > 0
+    });
+    console.log(validusers.length + ' users with accessible groups');
+    return validusers;
+  }).catch(function(err) {
+    console.error('Error getting FB Groups with all user tokens');
+  });
+}
+
 function getFacebookEvents() {
-  return getFacebookUsers().then(function(users) {
-    return getAllFacebookEvents(users);
+  return getFacebookUsers().then(function(allUsers) {
+    return filterValidFacebookUsers(allUsers).then(function(users) {
+      return getAllFacebookEvents(users);
+    });
   }).catch(function(err) {
     console.error(err);
   })

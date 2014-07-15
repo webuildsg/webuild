@@ -20,10 +20,6 @@
     "id": "300351496770239"
   },
   {
-    "name": "DevMerge",
-    "id": "1401565840083062"
-  },
-  {
     "name": "Firefox OS SG",
     "id": "511562158894170"
   },
@@ -98,5 +94,10 @@
   {
     "name": "iOS Dev Scout",
     "id": "132466993542743"
+  },
+  {
+    "name": "Singapore Mini Maker Faire",
+    "id": "249266665168900",
+    "type": "likes"
   }
 ]
