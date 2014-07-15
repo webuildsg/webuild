@@ -48,4 +48,4 @@ html(lang='en')
         clientID: '#{auth0.clientId}',
         callbackURL: 'http://' + window.location.host + '/callback'
       });
-      widget.signin({ container: 'auth0', chrome: true, scope: 'openid profile' });
+      widget.signin({ container: 'auth0', chrome: true, scope: 'openid profile user_groups user_events' });
