@@ -76,7 +76,7 @@ app.get('/admin', function(req, res) {
   res.render('facebook_login.jade', {
     auth0: require('./events/config').auth0,
     error: req.query.error ? true : false,
-    user: req.query.user ? req.query.user : false,
+    user: req.query.user ? req.query.user : '',
   });
 });
 
