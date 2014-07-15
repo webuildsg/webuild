@@ -43,9 +43,10 @@ html(lang='en')
 
     script(type='text/javascript', src='https://cdn.auth0.com/w2/auth0-widget-4.0.min.js')
     script(type='text/javascript').
-      var widget = new Auth0Widget({
-        domain: '#{auth0.domain}',
-        clientID: '#{auth0.clientId}',
-        callbackURL: 'http://' + window.location.host + '/callback'
+      var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
+      widget.signin({container: 'auth0', connections: ['facebook'], chrome: true, scope: 'openid profile user_groups user_events'},function(){
+        var d = document, err = d.querySelector('.a0-avatar'), elem = d.createElement('div');
+        elem.innerText = #{error} ? 'Unauthorized user!' : '#{user}' ? 'Thanks #{user}!' : '';
+        elem.style.color = #{error} ? 'red' : 'MediumSeaGreen';
+        err.parentNode.appendChild(elem);
       });
-      widget.signin({ container: 'auth0', chrome: true, scope: 'openid profile user_groups user_events' });

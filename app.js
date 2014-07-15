@@ -73,13 +73,24 @@ app.get('/api/github', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  res.render('facebook_login.jade', {auth0: require('./events/config').auth0});
+  res.render('facebook_login.jade', {
+    auth0: require('./events/config').auth0,
+    error: req.query.error ? true : false,
+    user: req.query.user ? req.query.user : false,
+  });
 });
 
-app.get('/callback', passport.authenticate('auth0', {
-  failureRedirect: '/admin'
-}), function(req, res) {
-  res.redirect('/');
+app.get('/callback', function(req, res, next) {
+  passport.authenticate('auth0', function(err, user, info) {
+    if (err) {
+      console.log('Auth0 Error:' + err)
+      return next(err); // will generate a 500 error
+    } else if (!user) {
+      console.log('Unknown user logging with FB');
+      return res.redirect('/admin?error=1');
+    }
+    return res.redirect('/admin?user=' + user.displayName);
+  })(req, res, next);
 });
 
 app.post('/api/events/update', function(req, res) {
