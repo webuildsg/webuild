@@ -1,5 +1,29 @@
 [
   {
+    "name": "Agile & DevOps SG",
+    "id": "250576685047160"
+  },
+  {
+    "name": "Creative Coders",
+    "id": "167820853244592"
+  },
+  {
+    "name": "Front End Developers Singapore",
+    "id": "267080343402475"
+  },
+  {
+    "name": "General Hackers",
+    "id": "314660778669731"
+  },
+  {
+    "name": "Growth Hackers",
+    "id": "435686226463555"
+  },
+  {
+    "name": "Hackers and Painters",
+    "id": "326203847521210"
+  },
+  {
     "name": "HackerspaceSG",
     "id": "121463986679"
   },
@@ -8,35 +32,39 @@
     "id": "545948028820917"
   },
   {
+    "name": "RaspberryPI & Co Singapore",
+    "id": "363813467010036"
+  },
+  {
+    "name": "Singapore MongoDB User Group",
+    "id": "421991381208239"
+  },
+  {
+    "name": "Singapore Node.JS User Group",
+    "id": "202151969821875"
+  },
+  {
     "name": "Singapore PHP User Group",
     "id": "14934950373"
   },
   {
-    "name": "Hackers and Painters",
-    "id": "326203847521210"
+    "name": "Singapore Python Platoon",
+    "id": "337504009663063"
   },
   {
-    "name": "Creative Coders",
-    "id": "167820853244592"
+    "name": "Singapore Python User Group",
+    "id": "119975301418927"
   },
   {
-    "name": "General Hackers",
-    "id": "314660778669731"
-  },
-  {
-    "name": "iOS Dev Scout",
-    "id": "132466993542743"
+    "name": "Singapore WordPress User Group",
+    "id": "886098818070598"
   },
   {
     "name": "UXSG",
     "id": "139152279432292"
   },
   {
-    "name": "Front End Developers Singapore",
-    "id": "267080343402475"
-  },
-  {
-    "name": "Singapore Python User Group",
-    "id": "119975301418927"
+    "name": "iOS Dev Scout",
+    "id": "132466993542743"
   }
 ]
