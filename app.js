@@ -14,7 +14,7 @@ var express = require('express'),
   app = express(),
   podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json';
 
-var githubJson = { repos: [] },
+var reposJson = { repos: [] },
   eventsJson = [];
 
 app.configure(function(){
@@ -65,7 +65,7 @@ function updateEventsJson() {
 
 app.get('/', function(req, res) {
   res.render('index.jade', {
-    github: githubJson.repos.slice(0, 10),
+    repos: reposJson.repos.slice(0, 10),
     events: eventsJson.slice(0, 10)
   });
 });
@@ -75,7 +75,7 @@ app.get('/api/events', function(req, res) {
 });
 
 app.get('/api/repos', function(req, res) {
-  res.send(githubJson);
+  res.send(reposJson);
 });
 
 app.get('/admin', function(req, res) {
@@ -115,7 +115,7 @@ app.post('/api/repos/update', function(req, res) {
   githubFeed.update()
     .then(function(feed) {
       console.log('GitHub feed generated');
-      githubJson = feed;
+      reposJson = feed;
       jf.writeFile(__dirname + ghConfig.outfile, feed);
     });
   res.send(200, 'Updating the repos feed; sit tight!');
@@ -130,7 +130,7 @@ fs.exists(__dirname + ghConfig.outfile, function(exists) {
   if (exists) {
     jf.readFile(__dirname + ghConfig.outfile, function(err, feed) {
       if (!err) {
-        githubJson = feed;
+        reposJson = feed;
       }
     });
   } else {
@@ -138,7 +138,7 @@ fs.exists(__dirname + ghConfig.outfile, function(exists) {
     request('http://webuild.sg/repos.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
-        githubJson = body;
+        reposJson = body;
         jf.writeFile(__dirname + ghConfig.outfile, body);
       } else {
         if (res) {

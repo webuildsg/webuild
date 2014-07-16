@@ -71,7 +71,7 @@ html(lang='en')
         section
           h3 open source
           ul.open-list.second
-            each repo in github
+            each repo in repos
               li
                 a(href=repo.html_url)
                   p= repo.name
