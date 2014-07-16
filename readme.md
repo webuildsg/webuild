@@ -4,7 +4,6 @@
 
 [We Build SG](http://www.webuild.sg/) curates a list of free public events and open source projects for the curious folks who love to make things in Singapore!
 
-#We Build SG
 
 Who are we? We are **techies** - developers, designers, programmers, hackers or makers.
 
@@ -13,32 +12,51 @@ Who are we? We are **techies** - developers, designers, programmers, hackers or 
 - **traveling techies** to drop by and connect with the local ones
 - **existing techies** to keep connecting, mentoring and growing the open community
 
-**Open Events** are *free tech events* that are open for public and anyone can drop by! Listed events are within the _next 2 months_.
+**Open Events** are *free tech events* that are open for public and anyone can drop by.
 
-**Open Source** are projects with [free licenses](http://en.wikipedia.org/wiki/Comparison_of_free_software_licences) that [grants recipients extensive rights to modify and redistribute, which would otherwise be prohibited by copyright law](http://en.wikipedia.org/wiki/Free_software_license). Listed [Github]() repos have at least *100 watchers* and have been updated within the *past 2 months*.
+**Open Source** are projects with [free licenses](http://en.wikipedia.org/wiki/Comparison_of_free_software_licences).
 
 
 #Websites
 
 - [Main](http://www.webuild.sg/)
 - [Production](http://webuildsg.herokuapp.com/)
-- [Development](http://webuildsg-dev.herokuapp.com/)
-- [Github Repo](https://github.com/sayanee/webuild)
-- [Pivotal Tracker](https://www.pivotaltracker.com/projects/708377)
+- [Staging](http://webuildsg-dev.herokuapp.com/)
+- [Github Repo](https://github.com/webuildsg/webuild)
+- [Twitter](https://twitter.com/webuildsg)
+- [Facebook](https://www.facebook.com/webuildsg)
 
-#Development
+#API
 
-- open folder `app`
-- run in command line `node app.js`
-- open [localhost:4000](http://localhost:4000/)
+The events, repositories and podcasts data feeds are available as JSON.
 
-#Integration
+- <http://webuild.sg/api/repos>
+- <http://webuild.sg/api/events>
+- <http://webuild.sg/api/podcasts>
 
-The events and GitHub data feeds are available as JSON.
 
-<http://webuild.sg/api/github>
+#Install
 
-<http://webuild.sg/api/events>
+1. clone the app
+
+	```
+	git@github.com:webuildsg/webuild.git
+	```
+1. install package
+
+	```
+	npm install
+	bower install
+	``` 
+1. build frontend css and javascript files with grunt
+
+	```
+	grunt
+	```
+1. run in command line `node app.js`
+1. open [localhost:4000](http://localhost:4000/)
+
+
 
 #Deployment
 
@@ -59,12 +77,20 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
-# Events
-Meetup and Facebook events in Singapore are automatically populated.
+# Listed events and repos
 
-To add additional events, edit `events/whitelistEvents.json`
+###events
 
-To remove a specific event, get the event id from `/api/events` endpoint and edit `events/blacklistEvents.json`
+1. Meetup and Facebook events in Singapore are automatically populated
+1. **White list events**: To add additional events, edit `events/whitelistEvents.json`
+1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and edit `events/blacklistEvents.json`
+
+###repos
+
+1. Github repos from user's location Singapore are automatically populated
+1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected
+1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`
+
 
 #Compile CSS
 
