@@ -12,8 +12,8 @@ module.exports = {
   blacklistWords: ['business', 'networking'],
 
   auth0: {
-    domain: 'alyssa.auth0.com',
-    clientId: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    domain: 'webuildsg.auth0.com',
+    clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
+    clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET,
   }
 };
