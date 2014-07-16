@@ -1,6 +1,12 @@
 var express = require('express'),
+  bodyParser = require('body-parser'),
+  compress = require('compression'),
+  cookieParser = require('cookie-parser'),
+  errorHandler = require('errorhandler'),
+  favicon = require('serve-favicon'),
   fs = require('fs'),
   http = require('http'),
+  methodOverride = require('method-override'),
   moment = require('moment'),
   events = require('./events'),
   whitelistEvents = require('./events/whitelistEvents'),
@@ -9,6 +15,7 @@ var express = require('express'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
   passport = require('passport'),
+  session = require('express-session'),
   strategy = require('./events/setup-passport'),
   ghConfig = require('./repos/config.js'),
   app = express(),
@@ -17,24 +24,21 @@ var express = require('express'),
 var reposJson = { repos: [] },
   eventsJson = [];
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.use(express.compress());
-  app.use('/public', express.static(__dirname + '/public'));
-  app.use(express.favicon(__dirname + '/public/favicon.ico'));
+app.set('port', process.env.PORT || 3000);
+app.use(compress());
+app.use('/public', express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
-  app.use(express.errorHandler());
-  app.locals.pretty = true;
-  app.locals.moment = require('moment');
+app.use(errorHandler());
+app.locals.pretty = true;
+app.locals.moment = require('moment');
 
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser());
-  app.use(express.session({secret: 'webuild_session' + new Date().toISOString()}));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-});
+app.use(bodyParser());
+app.use(methodOverride());
+app.use(cookieParser());
+app.use(session({secret: 'webuild_session' + new Date().toISOString()}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 function timeComparer(a, b) {
   return (moment(a.formatted_time, events.timeFormat).valueOf() -
