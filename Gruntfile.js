@@ -3,7 +3,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    clean: ['public/css/style.css'],
+    clean: [
+      'public/css/style.css',
+      'public/js/script.js'
+    ],
 
     sass: {
       dist: {
