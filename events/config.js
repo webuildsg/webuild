@@ -8,7 +8,7 @@ module.exports = {
     page: 500,
     fields: 'next_event'
   },
-  blacklistGroups: [9319232],
+  blacklistGroups: [9319232, 13903282],
   blacklistWords: ['business', 'networking'],
 
   auth0: {
