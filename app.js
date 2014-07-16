@@ -1,6 +1,12 @@
 var express = require('express'),
+  bodyParser = require('body-parser'),
+  compress = require('compression'),
+  cookieParser = require('cookie-parser'),
+  errorHandler = require('errorhandler'),
+  favicon = require('serve-favicon'),
   fs = require('fs'),
   http = require('http'),
+  methodOverride = require('method-override'),
   moment = require('moment'),
   events = require('./events'),
   whitelistEvents = require('./events/whitelistEvents'),
@@ -9,32 +15,37 @@ var express = require('express'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
   passport = require('passport'),
+  session = require('express-session'),
   strategy = require('./events/setup-passport'),
   ghConfig = require('./repos/config.js'),
   app = express(),
   podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json';
 
-var githubJson = { repos: [] },
+var reposJson = { repos: [] },
   eventsJson = [];
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.use(express.compress());
-  app.use('/public', express.static(__dirname + '/public'));
-  app.use(express.favicon(__dirname + '/public/favicon.ico'));
+app.set('port', process.env.PORT || 3000);
+app.use(compress());
+app.use('/public', express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
-  app.use(express.errorHandler());
-  app.locals.pretty = true;
-  app.locals.moment = require('moment');
+app.use(errorHandler());
+app.locals.pretty = true;
+app.locals.moment = require('moment');
 
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser());
-  app.use(express.session({secret: 'webuild_session' + new Date().toISOString()}));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-});
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(cookieParser());
+app.use(session({
+  secret: 'webuild_session' + new Date().toISOString(),
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 function timeComparer(a, b) {
   return (moment(a.formatted_time, events.timeFormat).valueOf() -
@@ -63,19 +74,33 @@ function updateEventsJson() {
   addEvents('Facebook');
 }
 
-app.get('/', function(req, res) {
-  res.render('index.jade', {
-    github: githubJson.repos.slice(0, 10),
-    events: eventsJson.slice(0, 10)
+function appendHashToEvents(eventsJson, callback) {
+  var count = 0;
+
+  eventsJson.forEach( function (eachEvent) {
+    eachEvent.hash = '#/' + eachEvent.name.replace(/\s+/g, '-').toLowerCase();
+    count++;
+    if(count === eventsJson.length) {
+      callback(eventsJson);
+    }
   });
+}
+
+app.get('/', function(req, res) {
+  appendHashToEvents(eventsJson, function(eventsJson) {
+    res.render('index.jade', {
+      repos: reposJson.repos.slice(0, 10),
+      events: eventsJson.slice(0, 10)
+    });
+  })
 });
 
 app.get('/api/events', function(req, res) {
   res.send(eventsJson);
 });
 
-app.get('/api/github', function(req, res) {
-  res.send(githubJson);
+app.get('/api/repos', function(req, res) {
+  res.send(reposJson);
 });
 
 app.get('/admin', function(req, res) {
@@ -115,7 +140,7 @@ app.post('/api/repos/update', function(req, res) {
   githubFeed.update()
     .then(function(feed) {
       console.log('GitHub feed generated');
-      githubJson = feed;
+      reposJson = feed;
       jf.writeFile(__dirname + ghConfig.outfile, feed);
     });
   res.send(200, 'Updating the repos feed; sit tight!');
@@ -130,7 +155,7 @@ fs.exists(__dirname + ghConfig.outfile, function(exists) {
   if (exists) {
     jf.readFile(__dirname + ghConfig.outfile, function(err, feed) {
       if (!err) {
-        githubJson = feed;
+        reposJson = feed;
       }
     });
   } else {
@@ -138,7 +163,7 @@ fs.exists(__dirname + ghConfig.outfile, function(exists) {
     request('http://webuild.sg/repos.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         console.log('Cached public repos feed');
-        githubJson = body;
+        reposJson = body;
         jf.writeFile(__dirname + ghConfig.outfile, body);
       } else {
         if (res) {

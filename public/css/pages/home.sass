@@ -48,17 +48,33 @@
     width: 95%
     display: block
     margin: 0 10px 15px 10px
-    &:hover
+    position: relative
+    &:hover, &.active
       a
         background-color: lighten($yellow, 10%)
+      .anchor
+        display: block
+        &:hover
+          color: $white
+          background: $blue
     a
       display: block
-      padding: 10px
+      padding: 10px 40px 10px 10px
       @include border-radius(5px)
       text-decoration: none
     .stars
       float: right
       padding-top: 6px
+
+    .anchor
+      width: 30px
+      height: 30px
+      display: none
+      padding: 5px !important
+      position: absolute
+      right: 15px
+      top: 15px
+      color: $grey
 
 .first
   border-right: 2px solid $blue
@@ -67,7 +83,7 @@
   font-family: 'Social'
   font-size: 3rem
   font-size: 4vw
-  margin: 0 auto 2rem auto
+  margin: 2rem auto
   padding: 0 calc(50% - 60%/2)
   li
     width: 30%

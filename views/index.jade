@@ -62,6 +62,8 @@ html(lang='en')
           ul.open-list.first
             each event in events
               li
+                a(href=event.hash, class="anchor")
+                  span.icon-link
                 a(href=event.url)
                   p= event.name
                     span= 'on ' + event.formatted_time
@@ -70,7 +72,7 @@ html(lang='en')
         section
           h3 open source
           ul.open-list.second
-            each repo in github
+            each repo in repos
               li
                 a(href=repo.html_url)
                   p= repo.name
@@ -91,10 +93,10 @@ html(lang='en')
       ul.social
         li
           a(href='https://twitter.com/webuildsg')
-            != '&#xe286;'
+            span.icon-twitter
         li
           a(href='http://www.facebook.com/webuildsg')
-            != '&#xe227;'
+            span.icon-facebook
         li
           a(href='https://github.com/webuildsg')
-            != '&#xe239;'
+            span.icon-github
