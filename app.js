@@ -33,10 +33,17 @@ app.use(errorHandler());
 app.locals.pretty = true;
 app.locals.moment = require('moment');
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cookieParser());
-app.use(session({secret: 'webuild_session' + new Date().toISOString()}));
+app.use(session({
+  secret: 'webuild_session' + new Date().toISOString(),
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
