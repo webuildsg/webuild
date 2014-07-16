@@ -74,7 +74,7 @@ app.get('/api/events', function(req, res) {
   res.send(eventsJson);
 });
 
-app.get('/api/github', function(req, res) {
+app.get('/api/repos', function(req, res) {
   res.send(githubJson);
 });
 
