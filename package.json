@@ -20,8 +20,11 @@
     "markdown": "0.4.0",
     "mess": "0.1.2",
     "moment": "2.7.0",
+    "passport": "0.2.0",
+    "passport-auth0": "0.1.0",
     "promise": "5.0.0",
-    "request": "2.37.0"
+    "request": "2.37.0",
+    "superagent": "0.18.2"
   },
   "engines": {
     "node": "0.10"
