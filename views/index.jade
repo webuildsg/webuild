@@ -62,7 +62,8 @@ html(lang='en')
           ul.open-list.first
             each event in events
               li
-                a(href=event.hash, class="anchor") Anchor Link
+                a(href=event.hash, class="anchor")
+                  span.icon-link
                 a(href=event.url)
                   p= event.name
                     span= 'on ' + event.formatted_time

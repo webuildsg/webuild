@@ -70,7 +70,6 @@ function appendHashToEvents(eventsJson, callback) {
     eachEvent.hash = '#/' + eachEvent.name.replace(/\s+/g, '-').toLowerCase();
     count++;
     if(count === eventsJson.length) {
-      console.log(eventsJson);
       callback(eventsJson);
     }
   });
