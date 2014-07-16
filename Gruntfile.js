@@ -5,12 +5,14 @@ module.exports = function(grunt) {
 
     clean: ['public/css/style.css'],
 
-    shell: {
-      sass: {
+    sass: {
+      dist: {
         options: {
-          stderr: true
+          style: 'compressed'
         },
-        command: 'sass --compass public/css/style.sass:public/css/style.css --style compressed'
+        files: {
+          'public/css/style.css': 'public/css/style.sass'
+        }
       }
     },
 
@@ -32,9 +34,9 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['clean', 'shell', 'uglify']);
+  grunt.registerTask('default', ['clean', 'sass', 'uglify']);
 
 };
