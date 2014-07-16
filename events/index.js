@@ -125,6 +125,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   thisGroupEvents.forEach(function(row) {
     if (!row.location) return;
     eventsWithVenues.push({
+      id: row.id,
       name: row.name,
       group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,

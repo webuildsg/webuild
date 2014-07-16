@@ -3,7 +3,8 @@ var express = require('express'),
   http = require('http'),
   moment = require('moment'),
   events = require('./events'),
-  moreEvents = require('./events/whitelistEvents'),
+  whitelistEvents = require('./events/whitelistEvents'),
+  blacklistEvents = require('./events/blacklistEvents'),
   request = require('request'),
   jf = require('jsonfile'),
   githubFeed = require('./repos/github_feed'),
@@ -41,12 +42,18 @@ function timeComparer(a, b) {
 }
 
 function updateEventsJson() {
-  eventsJson = moreEvents;
+  eventsJson = whitelistEvents;
   console.log('Updating the events feed...');
 
   function addEvents(type) {
     events['get' + type +'Events']().then(function(data) {
-      eventsJson = eventsJson.concat(data);
+      whiteEvents = data.filter(function(evt) { // filter black listed ids
+        return blacklistEvents.some(function(blackEvent) {
+          console.log(blackEvent.id, evt.id);
+          return blackEvent.id !== evt.id;
+        });
+      });
+      eventsJson = eventsJson.concat(whiteEvents);
       eventsJson.sort(timeComparer);
       console.log(data.length + ' %s events added! %s total', type, eventsJson.length);
     }).catch(function(err) {
