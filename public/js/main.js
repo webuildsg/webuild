@@ -17,6 +17,29 @@
   }
   request.send();
 
+  // handles hash change event
+  doHashChange(window.location.hash);
+  $(window).bind('hashchange', function(){
+    doHashChange(window.location.hash);
+  });
+
+
+  function doHashChange(hash){
+    var $openlist = $('.open-list');
+    if(hash){
+      $openlist
+        .find('.anchor[href="'+hash+'"]')
+        .parent()
+        .addClass('active')
+        .siblings()
+        .removeClass('active');
+    } else {
+      $openlist
+        .find('li')
+        .removeClass('active');
+    }
+  }
+
   function countdown(nextLiveShowDate) {
     var now = moment(),
     podcastDate = nextLiveShowDate,

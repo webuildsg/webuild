@@ -26,6 +26,7 @@ module.exports = function(grunt) {
         files: {
           'public/js/script.js': [
             'public/js/vendor/moment/min/moment.min.js',
+            'public/js/vendor/jquery/dist/jquery.min.js',
             'public/js/main.js'
           ]
         }
