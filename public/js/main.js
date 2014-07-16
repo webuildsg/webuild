@@ -1,27 +1,16 @@
-require(
-  [
-  'jQuery',
-  'Moment'
-  ],
-  function($, Moment) {
-
+(function () {
   var podcastApi = '/api/podcasts';
 
   // hello to another happy developer
   console.log('Hello fellow developer! :)');
   console.log('If you have suggestions for this site, get in touch at: https://github.com/webuildsg/webuild');
 
-  // click live section to go to the live website
-  $('.live').click(function() {
-    window.parent.location.href = podcastSite;
-  });
-
+  // read the next podcast date from /api/podcasts
   var request = new XMLHttpRequest();
   request.open('GET', podcastApi, true);
   request.responseType = 'json';
   request.onload = function() {
     countdown(request.response.next_live_show);
-    console.log(request.response.next_live_show);
     setInterval(function() {
       countdown(request.response.next_live_show);
     }, 1000);
@@ -53,10 +42,10 @@ require(
 
       diff = 'in <strong>' + days + '</strong> days <strong>' + hours + '</strong> hours <strong>' + minutes + '</strong> minutes <strong>' + seconds + '</strong> seconds';
 
-      $('.countdown').html(diff);
-      $('#livetime').html( livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT' );
+      document.getElementsByClassName('countdown')[0].innerHTML = diff;
+      document.getElementById('livetime').innerHTML = livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT';
     } else {
-      $('.countdown').html('');
+      document.getElementsByClassName('countdown')[0].innerHTML = '';
     }
   }
-});
+})();
