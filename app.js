@@ -63,11 +63,26 @@ function updateEventsJson() {
   addEvents('Facebook');
 }
 
-app.get('/', function(req, res) {
-  res.render('index.jade', {
-    repos: reposJson.repos.slice(0, 10),
-    events: eventsJson.slice(0, 10)
+function appendHashToEvents(eventsJson, callback) {
+  var count = 0;
+
+  eventsJson.forEach( function (eachEvent) {
+    eachEvent.hash = '#/' + eachEvent.name.replace(/\s+/g, '-').toLowerCase();
+    count++;
+    if(count === eventsJson.length) {
+      console.log(eventsJson);
+      callback(eventsJson);
+    }
   });
+}
+
+app.get('/', function(req, res) {
+  appendHashToEvents(eventsJson, function(eventsJson) {
+    res.render('index.jade', {
+      repos: reposJson.repos.slice(0, 10),
+      events: eventsJson.slice(0, 10)
+    });
+  })
 });
 
 app.get('/api/events', function(req, res) {
