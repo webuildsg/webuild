@@ -46,8 +46,8 @@ Set the following environment variables on your system:
 
 - **WEBUILD_API_SECRET** (required) Used as a password when remotely refreshing the feeds.
 - [**MEETUP_API_KEY**](https://secure.meetup.com/meetup_api/key/) (required) Used to list available meetup events in Singapore.
-- **AUTH0_CLIENT_ID** (required): Used to retrive facebook events in Singapore. Auth0 takes care of OAuth2 social logins.
-- **AUTH0_CLIENT_SECRET** (required): Same as above.
+- **WEBUILD_AUTH0_CLIENT_ID** (required): Used to retrive facebook events in Singapore. [Auth0](https://auth0.com/) takes care of OAuth2 social logins.
+- **WEBUILD_AUTH0_CLIENT_SECRET** (required): Same as above.
 - **PORT** (optional, default: 4000) Configures the port used by the web server.
 - **LOCATION** (optional, default: Singapore) The GitHub feed shows only repositories owned by developers in this area. Matches the GitHub "Location" property in user profiles.
 - **MAX_USERS** (optional, default: 1000) Show only repositories belonging to developers in this ranking. Only the last updated repository of a user is shown.
@@ -58,8 +58,11 @@ Set the following environment variables on your system:
 Use an external "web cron" service to periodically refresh the GitHub data feed. Keep in mind that due to GitHub API rate limiting it may take >15 minutes to retrieve the entire feed. [Register a GitHub OAuth application](https://github.com/settings/applications/new) and configure the `GITHUB_CLIENT_*` environment variables (see above) to increase the rate limit. Do not refresh the feed too often or the rate limit will cause it to take longer.
 
 # Events
-Meetup events in Singapore are automatically populated.
-To add additional events (e.g. Facebook, which will be automated in near future), edit `events\whitelistEvents.json`
+Meetup and Facebook events in Singapore are automatically populated.
+
+To add additional events, edit `events/whitelistEvents.json`
+
+To remove a specific event, get the event id from `/api/events` endpoint and edit `events/blacklistEvents.json`
 
 #Compile CSS
 
