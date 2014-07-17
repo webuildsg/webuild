@@ -58,6 +58,7 @@ function updateEventsJson() {
 
   function addEvents(type) {
     events['get' + type +'Events']().then(function(data) {
+      data = data || [];
       whiteEvents = data.filter(function(evt) { // filter black listed ids
         return blacklistEvents.some(function(blackEvent) {
           return blackEvent.id !== evt.id;

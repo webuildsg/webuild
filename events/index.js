@@ -2,31 +2,28 @@ var querystring = require('querystring');
 var https = require('https');
 var Promise = require('promise');
 var moment = require('moment');
-var request = require('superagent');
+var superagent = require('superagent');
 var fbGroups = require('./facebookGroups');
 var config = require('./config');
+var request = require('request');
 
 var TIMEFORMAT = 'DD MMM, ddd, h:mm a';
 
-function requestJson(url) {
+function requestJson(url, options) {
+  options = options || {};
+  options.url = url;
+  options.json = true;
   console.log('Getting data from ' + url);
   return new Promise(function (resolve, reject) {
-    https.get(url, function (res) {
-      var buffer = [];
-      res.on('data', Array.prototype.push.bind(buffer));
-      res.on('end', function () {
-        var text = buffer.join('');
-        var json = JSON.parse(text);
-        if (res.statusCode < 400) {
-          resolve(json);
-        } else {
-          console.error('Err! HTTP status code:', res.statusCode, url);
-          reject(Error(text));
-        }
-      });
-    }).on('error', function (err) {
-      console.error('Err! HTTP request failed:', err.message, url);
-      reject(err);
+    request(options, function(err, resp, body) {
+      if (err) return reject(err);
+
+      if (resp.statusCode == 200) {
+        resolve(body);
+      } else {
+        console.error('Err! HTTP status code:', resp.statusCode, url);
+        reject(JSON.stringify(body));
+      }
     });
   });
 }
@@ -91,7 +88,7 @@ function getAllMeetupEvents() { //regardless of venue
       .reduce(saveMeetupEvents, events);
     return events;
   }).catch(function(err) {
-    console.error('Error getAllMeetupEvents():' + err);
+    console.error('Error getAllMeetupEvents(): ' + err);
   });
 }
 
@@ -180,31 +177,23 @@ function getAllFacebookEvents(users) {
 // Get the FB user tokens from auth0
 function getFacebookUsers() {
   return new Promise(function(resolve, reject) {
-    request.post('https://' + config.auth0.domain + '/oauth/token')
-    .set('Content-Type', 'application/json')
-    .send({
-      'client_id': config.auth0.clientId,
-      'client_secret': config.auth0.clientSecret,
-      'grant_type': 'client_credentials'
-    })
-    .end(function(res) {
-      if (res.status > 300) {
-        console.error('Error getting Auth0 token:', res.status);
-        reject(res.error);
-      } else {
-        console.log('Getting Auth0 users...')
-        request.get('https://' + config.auth0.domain + '/api/users')
-        .set('Authorization', 'Bearer ' + res.body.access_token)
-        .end(function(res) {
-          if (res.status > 300) {
-            console.error('Error getting Auth0 users ' + res.status);
-            reject(res.error);
-          } else {
-            resolve(res.body || []);
-          }
-        })
+    requestJson('https://' + config.auth0.domain + '/oauth/token', {
+      method: 'POST',
+      body: {
+        'client_id': config.auth0.clientId,
+        'client_secret': config.auth0.clientSecret,
+        'grant_type': 'client_credentials'
       }
-    });
+    }).then(function(data) {
+      requestJson('https://' + config.auth0.domain + '/api/users', {
+        headers: {'Authorization': data.token_type + ' ' + data.access_token}
+      }).then(function(data) {
+        resolve(data || []);
+      });
+    }).catch(function(err) {
+      console.error('Error getting Auth0 users');
+      reject(err);
+    })
   });
 }
 
@@ -236,7 +225,7 @@ function getFacebookEvents() {
       return getAllFacebookEvents(users);
     });
   }).catch(function(err) {
-    console.error(err);
+    console.error('getFacebookEvents(): ' + err);
   })
 }
 
