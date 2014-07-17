@@ -160,7 +160,7 @@ exports.update = function () {
       repos: repos
     };
     exports.feed = feed;
-    jf.writeFile(__dirname + config.outfile, feed);
+    jf.writeFile(config.outfile, feed);
     return feed;
   })
   .catch(function (err) {
@@ -168,9 +168,9 @@ exports.update = function () {
   });
 };
 
-fs.exists(__dirname + config.outfile, function(exists) {
+fs.exists(config.outfile, function(exists) {
   if (exists) {
-    jf.readFile(__dirname + config.outfile, function(err, feed) {
+    jf.readFile(config.outfile, function(err, feed) {
       if (!err) {
         exports.feed = feed;
         console.log('Loaded %d repos from cache', feed.repos.length);
@@ -181,7 +181,7 @@ fs.exists(__dirname + config.outfile, function(exists) {
     request('http://webuild.sg/repos.json', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         exports.feed = body;
-        jf.writeFile(__dirname + config.outfile, body);
+        jf.writeFile(config.outfile, body);
         console.log('Saved %d repos to cache', body.repos.length);
       } else {
         if (res) {
