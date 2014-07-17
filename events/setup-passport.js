@@ -22,4 +22,17 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+passport.callback = function(req, res, next) {
+  passport.authenticate('auth0', function(err, user, info) {
+    if (err) {
+      console.log('Auth0 Error:' + err)
+      return next(err); // will generate a 500 error
+    } else if (!user) {
+      console.log('Unknown user logging with FB');
+      return res.redirect('/admin?error=1');
+    }
+    return res.redirect('/admin?user=' + user.displayName);
+  })(req, res, next);
+}
+
 module.exports = passport;

@@ -13,8 +13,6 @@ var express = require('express'),
   podcastApiUrl = 'http://webuildsg.github.io/live/api/podcasts.json'
   repos = require('./repos');
 
-var eventsJson = [];
-
 app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
@@ -31,8 +29,6 @@ function appendHashToEvents(eventsJson, callback) {
   var count = 0;
   eventsJson.forEach(function (eachEvent) {
     eachEvent.hash = '#/' + eachEvent.name.replace(/\s+/g, '-').toLowerCase();
-    console.log(eachEvent)
-
     count++;
     if(count === eventsJson.length) {
       callback(eventsJson);
@@ -65,18 +61,7 @@ app.get('/admin', function(req, res) {
   });
 });
 
-app.get('/callback', function(req, res, next) {
-  passport.authenticate('auth0', function(err, user, info) {
-    if (err) {
-      console.log('Auth0 Error:' + err)
-      return next(err); // will generate a 500 error
-    } else if (!user) {
-      console.log('Unknown user logging with FB');
-      return res.redirect('/admin?error=1');
-    }
-    return res.redirect('/admin?user=' + user.displayName);
-  })(req, res, next);
-});
+app.get('/callback', passport.callback);
 
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
