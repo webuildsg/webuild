@@ -5,15 +5,10 @@ var express = require('express'),
   errorHandler = require('errorhandler'),
   favicon = require('serve-favicon'),
   http = require('http'),
-  methodOverride = require('method-override'),
   moment = require('moment'),
-  events = require('./events'),
-  whitelistEvents = require('./events/whitelistEvents'),
-  blacklistEvents = require('./events/blacklistEvents'),
   request = require('request'),
-  passport = require('passport'),
-  session = require('express-session'),
-  strategy = require('./events/setup-passport'),
+  events = require('./events'),
+  passport = require('./events/setup-passport'),
   app = express(),
   podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json'
   repos = require('./repos');
@@ -24,58 +19,20 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
-
 app.use(errorHandler());
 app.locals.pretty = true;
 app.locals.moment = require('moment');
-
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(bodyParser.json());
-app.use(methodOverride());
-app.use(cookieParser());
-app.use(session({
-  secret: 'webuild_session' + new Date().toISOString(),
-  resave: true,
-  saveUninitialized: true
-}));
 app.use(passport.initialize());
-app.use(passport.session());
-
-function timeComparer(a, b) {
-  return (moment(a.formatted_time, events.timeFormat).valueOf() -
-          moment(b.formatted_time, events.timeFormat).valueOf());
-}
-
-function updateEventsJson() {
-  eventsJson = whitelistEvents;
-  console.log('Updating the events feed...');
-
-  function addEvents(type) {
-    events['get' + type +'Events']().then(function(data) {
-      data = data || [];
-      whiteEvents = data.filter(function(evt) { // filter black listed ids
-        return blacklistEvents.some(function(blackEvent) {
-          return blackEvent.id !== evt.id;
-        });
-      });
-      eventsJson = eventsJson.concat(whiteEvents);
-      eventsJson.sort(timeComparer);
-      console.log(data.length + ' %s events added! %s total', type, eventsJson.length);
-    }).catch(function(err) {
-      console.error('Failed to add %s events: %s', type, err);
-    });
-  }
-  addEvents('Meetup');
-  addEvents('Facebook');
-}
 
 function appendHashToEvents(eventsJson, callback) {
   var count = 0;
-
-  eventsJson.forEach( function (eachEvent) {
+  eventsJson.forEach(function (eachEvent) {
     eachEvent.hash = '#/' + eachEvent.name.replace(/\s+/g, '-').toLowerCase();
+    console.log(eachEvent)
+
     count++;
     if(count === eventsJson.length) {
       callback(eventsJson);
@@ -84,7 +41,7 @@ function appendHashToEvents(eventsJson, callback) {
 }
 
 app.get('/', function(req, res) {
-  appendHashToEvents(eventsJson, function(eventsJson) {
+  appendHashToEvents(events.feed, function(eventsJson) {
     res.render('index.jade', {
       repos: repos.feed.repos.slice(0, 10),
       events: eventsJson.slice(0, 10)
@@ -93,7 +50,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/events', function(req, res) {
-  res.send(eventsJson);
+  res.send(events.feed);
 });
 
 app.get('/api/repos', function(req, res) {
@@ -125,7 +82,7 @@ app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
   }
-  updateEventsJson();
+  events.update();
   res.send(200, 'Events feed updating...');
 })
 
@@ -145,7 +102,7 @@ app.use('/api/podcasts', function(req, res) {
  req.pipe(request(url)).pipe(res);
 });
 
-updateEventsJson();
+events.update();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
