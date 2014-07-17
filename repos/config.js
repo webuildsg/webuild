@@ -8,5 +8,5 @@ module.exports = {
     maxRepos: process.env.MAX_REPOS || 50,
     starLimit: process.env.STAR_LIMIT || 200
   },
-  outfile: '/cache.json'
+  outfile: __dirname + '/cache.json'
 };
