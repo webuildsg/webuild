@@ -15,7 +15,7 @@ var express = require('express'),
   session = require('express-session'),
   strategy = require('./events/setup-passport'),
   app = express(),
-  podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json'
+  podcastApiUrl = 'http://webuildsg.github.io/live/api/podcasts.json'
   repos = require('./repos');
 
 var eventsJson = [];
