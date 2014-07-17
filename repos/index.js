@@ -1,19 +1,23 @@
+var fs = require('fs');
+var jf = require('jsonfile');
+var mess = require('mess');
+var request = require('request');
 var Promise = require('promise');
 var GitHubApi = require('github');
-var mess = require('mess');
+
 var whitelistUsers = require('./whitelistUsers');
 var config = require('./config.js');
 
 var github = new GitHubApi({
   version: '3.0.0',
-  //debug: true
+  debug: config.debug
 });
 
-if (config.githubParams.clientID && config.githubParams.clientSecret) {
+if (config.github.clientID && config.github.clientSecret) {
   github.authenticate({
       type: 'oauth',
-      key: config.githubParams.clientID,
-      secret: config.githubParams.clientSecret,
+      key: config.github.clientID,
+      secret: config.github.clientSecret,
   });
 }
 
@@ -77,6 +81,10 @@ function insertWhiteList(searchedUsers,whitelistUsers){
   return searchedUsers;
 }
 
+exports.feed = { repos: [] };
+
+exports.config = config;
+
 exports.update = function () {
   var now = new Date();
   var pushedQuery = 'pushed:>'
@@ -88,8 +96,8 @@ exports.update = function () {
 
   console.log('Generating GitHub repos feed... this may take a while...');
   return fetch(github.search.users, {
-    q: 'location:' + config.githubParams.location
-  }, config.githubParams.masUsers)
+    q: 'location:' + config.github.location
+  }, config.github.maxUsers)
   .then(function (users) {
     users = insertWhiteList(users, whitelistUsers);
     console.log('Found %d users', users.length);
@@ -98,7 +106,7 @@ exports.update = function () {
         sort: 'updated',
         order: 'desc',
         q: [
-          'stars:>='+config.githubParams.starLimit,
+          'stars:>='+config.github.starLimit,
           'fork:true',
           pushedQuery
         ].concat(
@@ -110,7 +118,7 @@ exports.update = function () {
               return 'user:"' + user.login + '"';
             })
         ).join('+')
-      }, config.githubParams.maxRepos);
+      }, config.github.maxRepos);
     });
     return Promise.all(searches);
   })
@@ -140,20 +148,49 @@ exports.update = function () {
         owners[repo.owner.login] = 1 + (owners[repo.owner.login] || 0);
         return owners[repo.owner.login] === 1;
       })
-      .slice(0, config.githubParams.maxRepos);
+      .slice(0, config.github.maxRepos);
   })
   .then(function (repos) {
     console.log('Found %d repos', repos.length);
     var feed = {
       generated_at: new Date().toISOString(),
-      location: config.githubParams.location,
-      max_users: config.githubParams.masUsers,
-      max_repos: config.githubParams.maxRepos,
+      location: config.github.location,
+      max_users: config.github.maxUsers,
+      max_repos: config.github.maxRepos,
       repos: repos
     };
+    exports.feed = feed;
+    jf.writeFile(__dirname + config.outfile, feed);
     return feed;
   })
   .catch(function (err) {
     console.error(err);
   });
 };
+
+fs.exists(__dirname + config.outfile, function(exists) {
+  if (exists) {
+    jf.readFile(__dirname + config.outfile, function(err, feed) {
+      if (!err) {
+        exports.feed = feed;
+        console.log('Loaded %d repos from cache', feed.repos.length);
+      }
+    });
+  } else {
+    console.log('Fetching public repos feed...');
+    request('http://webuild.sg/repos.json', function(err, res, body) {
+      if (!err && res.statusCode === 200) {
+        exports.feed = body;
+        jf.writeFile(__dirname + config.outfile, body);
+        console.log('Saved %d repos to cache', body.repos.length);
+      } else {
+        if (res) {
+          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+        }
+        else {
+          console.warn('Failed to retrieve data (Status code: %s)', err);
+        }
+      }
+    });
+  }
+});

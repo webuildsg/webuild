@@ -4,7 +4,6 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   errorHandler = require('errorhandler'),
   favicon = require('serve-favicon'),
-  fs = require('fs'),
   http = require('http'),
   methodOverride = require('method-override'),
   moment = require('moment'),
@@ -12,17 +11,14 @@ var express = require('express'),
   whitelistEvents = require('./events/whitelistEvents'),
   blacklistEvents = require('./events/blacklistEvents'),
   request = require('request'),
-  jf = require('jsonfile'),
-  githubFeed = require('./repos/github_feed'),
   passport = require('passport'),
   session = require('express-session'),
   strategy = require('./events/setup-passport'),
-  ghConfig = require('./repos/config.js'),
   app = express(),
-  podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json';
+  podcastApiUrl = 'http://live.webuild.sg/api/podcasts.json'
+  repos = require('./repos');
 
-var reposJson = { repos: [] },
-  eventsJson = [];
+var eventsJson = [];
 
 app.set('port', process.env.PORT || 3000);
 app.use(compress());
@@ -89,7 +85,7 @@ function appendHashToEvents(eventsJson, callback) {
 app.get('/', function(req, res) {
   appendHashToEvents(eventsJson, function(eventsJson) {
     res.render('index.jade', {
-      repos: reposJson.repos.slice(0, 10),
+      repos: repos.feed.repos.slice(0, 10),
       events: eventsJson.slice(0, 10)
     });
   })
@@ -100,7 +96,7 @@ app.get('/api/events', function(req, res) {
 });
 
 app.get('/api/repos', function(req, res) {
-  res.send(reposJson);
+  res.send(repos.feed);
 });
 
 app.get('/admin', function(req, res) {
@@ -137,12 +133,9 @@ app.post('/api/repos/update', function(req, res) {
     res.send(503, 'Incorrect secret key');
     return;
   }
-  githubFeed.update()
-    .then(function(feed) {
-      console.log('GitHub feed generated');
-      reposJson = feed;
-      jf.writeFile(__dirname + ghConfig.outfile, feed);
-    });
+  repos.update().then(function(feed) {
+    console.log('GitHub feed generated');
+  });
   res.send(200, 'Updating the repos feed; sit tight!');
 });
 
@@ -151,31 +144,6 @@ app.use('/api/podcasts', function(req, res) {
  req.pipe(request(url)).pipe(res);
 });
 
-fs.exists(__dirname + ghConfig.outfile, function(exists) {
-  if (exists) {
-    jf.readFile(__dirname + ghConfig.outfile, function(err, feed) {
-      if (!err) {
-        reposJson = feed;
-      }
-    });
-  } else {
-    console.log('Fetching public repos feed...');
-    request('http://webuild.sg/repos.json', function(err, res, body) {
-      if (!err && res.statusCode === 200) {
-        console.log('Cached public repos feed');
-        reposJson = body;
-        jf.writeFile(__dirname + ghConfig.outfile, body);
-      } else {
-        if (res) {
-          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
-        }
-        else {
-          console.warn('Failed to retrieve data (Status code: %s)', err);
-        }
-      }
-    });
-  }
-});
 updateEventsJson();
 
 http.createServer(app).listen(app.get('port'), function(){
