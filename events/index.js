@@ -1,32 +1,29 @@
 var querystring = require('querystring');
-var https = require('https');
 var Promise = require('promise');
 var moment = require('moment');
-var request = require('superagent');
+var request = require('request');
 var fbGroups = require('./facebookGroups');
 var config = require('./config');
+var whitelistEvents = require('./whitelistEvents');
+var blacklistEvents = require('./blacklistEvents');
 
 var TIMEFORMAT = 'DD MMM, ddd, h:mm a';
 
-function requestJson(url) {
+function prequest(url, options) {
+  options = options || {};
+  options.url = url;
+  options.json = true;
   console.log('Getting data from ' + url);
   return new Promise(function (resolve, reject) {
-    https.get(url, function (res) {
-      var buffer = [];
-      res.on('data', Array.prototype.push.bind(buffer));
-      res.on('end', function () {
-        var text = buffer.join('');
-        var json = JSON.parse(text);
-        if (res.statusCode < 400) {
-          resolve(json);
-        } else {
-          console.error('Err! HTTP status code:', res.statusCode, url);
-          reject(Error(text));
-        }
-      });
-    }).on('error', function (err) {
-      console.error('Err! HTTP request failed:', err.message, url);
-      reject(err);
+    request(options, function(err, resp, body) {
+      if (err) return reject(err);
+
+      if (resp.statusCode == 200) {
+        resolve(body);
+      } else {
+        console.error('Err! HTTP status code:', resp.statusCode, url);
+        reject(JSON.stringify(body));
+      }
     });
   });
 }
@@ -83,7 +80,7 @@ function getAllMeetupEvents() { //regardless of venue
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
 
-  return requestJson(url).then(function(data) {
+  return prequest(url).then(function(data) {
     console.log('Fetched ' + data.results.length + ' Meetup groups');
     events = [];
     data.results
@@ -91,7 +88,7 @@ function getAllMeetupEvents() { //regardless of venue
       .reduce(saveMeetupEvents, events);
     return events;
   }).catch(function(err) {
-    console.error('Error getAllMeetupEvents():' + err);
+    console.error('Error getAllMeetupEvents(): ' + err);
   });
 }
 
@@ -99,7 +96,7 @@ function getMeetupEvents() { //events with venues
   return getAllMeetupEvents().then(function(events) {
     console.log('Fetched ' + events.length + ' Meetup events');
     var venues = events.map(function(event) {
-      return requestJson('https://api.meetup.com/2/event/'
+      return prequest('https://api.meetup.com/2/event/'
         + event.id
         + '?fields=venue_visibility&key='
         + config.meetupParams.key);
@@ -139,7 +136,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 function getFacebookUserEvents(user_identity) {
   var base = 'https://graph.facebook.com/v2.0/'
   var groups = fbGroups.map(function(group) {
-    return requestJson(base + group.id + '/events?' +
+    return prequest(base + group.id + '/events?' +
       querystring.stringify({
         since: moment().utc().zone('+0800').format('X'),
         access_token: user_identity.access_token
@@ -180,38 +177,30 @@ function getAllFacebookEvents(users) {
 // Get the FB user tokens from auth0
 function getFacebookUsers() {
   return new Promise(function(resolve, reject) {
-    request.post('https://' + config.auth0.domain + '/oauth/token')
-    .set('Content-Type', 'application/json')
-    .send({
-      'client_id': config.auth0.clientId,
-      'client_secret': config.auth0.clientSecret,
-      'grant_type': 'client_credentials'
-    })
-    .end(function(res) {
-      if (res.status > 300) {
-        console.error('Error getting Auth0 token:', res.status);
-        reject(res.error);
-      } else {
-        console.log('Getting Auth0 users...')
-        request.get('https://' + config.auth0.domain + '/api/users')
-        .set('Authorization', 'Bearer ' + res.body.access_token)
-        .end(function(res) {
-          if (res.status > 300) {
-            console.error('Error getting Auth0 users ' + res.status);
-            reject(res.error);
-          } else {
-            resolve(res.body || []);
-          }
-        })
+    prequest('https://' + config.auth0.domain + '/oauth/token', {
+      method: 'POST',
+      body: {
+        'client_id': config.auth0.clientId,
+        'client_secret': config.auth0.clientSecret,
+        'grant_type': 'client_credentials'
       }
-    });
+    }).then(function(data) {
+      prequest('https://' + config.auth0.domain + '/api/users', {
+        headers: {'Authorization': data.token_type + ' ' + data.access_token}
+      }).then(function(data) {
+        resolve(data || []);
+      });
+    }).catch(function(err) {
+      console.error('Error getting Auth0 users');
+      reject(err);
+    })
   });
 }
 
 function filterValidFacebookUsers(users) { //must have access to groups
   var base = 'https://graph.facebook.com/v2.0/me/groups?'
   var groupPromises = users.map(function(user) {
-    return requestJson(base +
+    return prequest(base +
       querystring.stringify({
         access_token: user.identities[0].access_token
       })
@@ -236,12 +225,41 @@ function getFacebookEvents() {
       return getAllFacebookEvents(users);
     });
   }).catch(function(err) {
-    console.error(err);
+    console.error('getFacebookEvents(): ' + err);
   })
 }
 
-module.exports = {
-  getMeetupEvents: getMeetupEvents,
+var API = {
   getFacebookEvents: getFacebookEvents,
-  timeFormat: TIMEFORMAT
+  getMeetupEvents: getMeetupEvents
 }
+
+function timeComparer(a, b) {
+  return (moment(a.formatted_time, TIMEFORMAT).valueOf() -
+          moment(b.formatted_time, TIMEFORMAT).valueOf());
+}
+
+function addEvents(type) {
+  API['get' + type + 'Events']().then(function(data) {
+    data = data || [];
+    whiteEvents = data.filter(function(evt) { // filter black listed ids
+      return blacklistEvents.some(function(blackEvent) {
+        return blackEvent.id !== evt.id;
+      });
+    });
+    exports.feed = exports.feed.concat(whiteEvents);
+    exports.feed.sort(timeComparer);
+    console.log(data.length + ' %s events added! %s total', type, exports.feed.length);
+  }).catch(function(err) {
+    console.error('Failed to add %s events: %s', type, err);
+  });
+}
+
+exports.feed = [];
+exports.update = function() {
+  exports.feed = whitelistEvents;
+  console.log('Updating the events feed...');
+  addEvents('Meetup');
+  addEvents('Facebook');
+}
+
