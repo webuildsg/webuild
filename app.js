@@ -54,7 +54,7 @@ app.get('/cal', function(req, res) {
   cal.clear()
   cal.setDomain('webuild.sg').setName('We Build SG Events');
 
-  events.feed.filter(function(){
+  events.feed.filter(function(thisEvent){
     if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)){
       console.log("Not enough information on this event", thisEvent.name, thisEvent.start_time, thisEvent.end_time, thisEvent.description);
     }
