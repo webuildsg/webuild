@@ -23,13 +23,12 @@ module.exports = function(grunt) {
       production: {
         options: {
           mangle: false,
-          compress: true,
-          beautify: false
+          compress: false,
+          beautify: true
         },
         files: {
           'public/js/script.js': [
             'public/js/vendor/moment/min/moment.min.js',
-            'public/js/vendor/jquery/dist/jquery.min.js',
             'public/js/main.js'
           ]
         }
