@@ -149,7 +149,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       description:  html_strip.html_strip(row.description,htmlStripOptions),
       url: 'https://www.facebook.com/events/' + row.id,
       group_name: fbGroups[grpIdx].name,
-      group_url: 'http://www.facebook.come/groups/' + fbGroups[grpIdx].id,
+      group_url: 'http://www.facebook.com/groups/' + fbGroups[grpIdx].id,
       formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT),
       start_time: moment.utc(row.start_time).zone(row.start_time).toISOString(),
       end_time: moment.utc(row.end_time).zone(row.start_time).toISOString()
