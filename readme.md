@@ -142,8 +142,8 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 **Events**
 
 1. `/events/config.js` - basic config for automatically fetching Meetup events
-1. `/events/blacklistEvents.json` - events you might want to remove based on the event `id` found in the api endpoint `/api/events`
 1. `/events/facebookGroups.json` - list of facebook groups you want to automatically query to fetch their upcoming events
+1. `/events/blacklistEvents.json` - events you might want to remove based on the event `id` found in the api endpoint `/api/events`
 1. `/events/whitelistEvents.json` - manually add in an event not fetched automatically 
 
 **Repos**
