@@ -76,15 +76,16 @@ function isValidGroup(row) {
 function saveMeetupEvents(eventsArr, row) {
   if (!(row.next_event && row.next_event.time)) return eventsArr;
 
-  var entry = {};
-  entry.name = row.next_event.name;
-  entry.id = row.next_event.id;
-  entry.group_name = row.name;
-  entry.group_url = row.link;
-  entry.description = html_strip.html_strip(row.description,htmlStripOptions);
-  entry.url = 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id;
-  entry.start_time = moment.utc(row.next_event.time).zone(row.next_event.utc_offset).toISOString();
-  entry.formatted_time = moment.utc(row.next_event.time + row.next_event.utc_offset).format(TIMEFORMAT);
+  var entry = {
+    id: row.next_event.id,
+    name: row.next_event.name,
+    description: html_strip.html_strip(row.description,htmlStripOptions),
+    url: 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id,
+    group_name: row.name,
+    group_url: row.link,
+    formatted_time: moment.utc(row.next_event.time + row.next_event.utc_offset).format(TIMEFORMAT),
+    start_time: moment.utc(row.next_event.time).zone(row.next_event.utc_offset).toISOString()
+  }
   eventsArr.push(entry);
 
   return eventsArr;
@@ -146,11 +147,12 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       id: row.id,
       name: row.name,
       description:  html_strip.html_strip(row.description,htmlStripOptions),
-      group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,
+      group_name: fbGroups[grpIdx].name,
+      group_url: fbGroups[grpIdx].url,
+      formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT),
       start_time: moment.utc(row.start_time).zone(row.start_time).toISOString(),
-      end_time: moment.utc(row.end_time).zone(row.start_time).toISOString(),
-      formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT)
+      end_time: moment.utc(row.end_time).zone(row.start_time).toISOString()
     });
   });
 
