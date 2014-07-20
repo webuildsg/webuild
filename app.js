@@ -55,14 +55,16 @@ app.get('/cal', function(req, res) {
   cal.setDomain('webuild.sg').setName('We Build SG Events');
 
   events.feed.forEach(function(thisEvent) {
-    cal.addEvent({
-      start: new Date(thisEvent.start_time),
-      end: new Date(thisEvent.end_time),
-      summary: thisEvent.name + ' by ' + thisEvent.group_name,
-      description: thisEvent.description,
-      location: 'Singapore',
-      url: thisEvent.url || thisEvent.group_url
-    });
+    if (thisEvent.start_time && thisEvent.end_time && thisEvent.name &&thisEvent.description){
+      cal.addEvent({
+        start: new Date(thisEvent.start_time),
+        end: new Date(thisEvent.end_time),
+        summary: thisEvent.name + ' by ' + thisEvent.group_name,
+        description: thisEvent.description,
+        location: 'Singapore',
+        url: thisEvent.url || thisEvent.group_url
+      });
+    }
   });
   cal.serve(res);
 

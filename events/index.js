@@ -73,13 +73,14 @@ function isValidGroup(row) {
          && row.country === (config.meetupParams.country || row.country);
 }
 
-function saveMeetupEvents(eventsArr, row) {
+function findNextEvents(eventsArr, row) {
   if (!(row.next_event && row.next_event.time)) return eventsArr;
 
   var entry = {
     id: row.next_event.id,
     name: row.next_event.name,
     description: html_strip.html_strip(row.description,htmlStripOptions),
+    location: "",
     url: 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id,
     group_name: row.name,
     group_url: row.link,
@@ -91,7 +92,7 @@ function saveMeetupEvents(eventsArr, row) {
   return eventsArr;
 }
 
-function getAllMeetupEvents() { //regardless of venue
+function getAllMeetupGroups() { //regardless of venue
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
 
@@ -100,36 +101,37 @@ function getAllMeetupEvents() { //regardless of venue
     var events = [];
     data.results
       .filter(isValidGroup)
-      .reduce(saveMeetupEvents, events);
+      .reduce(findNextEvents, events);
     return events;
   }).catch(function(err) {
-    console.error('Error getAllMeetupEvents(): ' + err);
+    console.error('Error getAllMeetupGroups(): ' + err);
   });
 }
 
-function getMeetupEvents() { //events with venues
-  return getAllMeetupEvents().then(function(events) {
+function getMeetupEvents() { //events with eventsData
+  return getAllMeetupGroups().then(function(events) {
     console.log('Fetched ' + events.length + ' Meetup events');
-    var venues = events.map(function(event) {
+    var eventsData = events.map(function(event) {
       return prequest('https://api.meetup.com/2/event/'
         + event.id
-        + '?fields=venue_visibility&key='
+        + '?fields=venue_visibility,venue_id&key='
         + config.meetupParams.key);
     });
 
-    return waitAllPromises(venues).then(function(venues) {
+    return waitAllPromises(eventsData).then(function(eventsData) {
       var eventsWithVenues = events.filter(function(evt, i) {
-        if( venues[i].hasOwnProperty('venue') ||
-          venues[i].venue_visibility === 'members'){
-          if (venues[i].duration === undefined){
-            venues[i].duration = 7200000
+        if( eventsData[i].hasOwnProperty('venue') ||
+          eventsData[i].venue_visibility === 'members'){
+          if (eventsData[i].duration === undefined){
+            eventsData[i].duration = 7200000
           }
-          evt.end_time = moment.utc(evt.start_time).add('milliseconds',venues[i].duration).zone(evt.start_time).toISOString();
+          evt.location = eventsData[i].venue.address_1 + eventsData[i].venue.address_2 + "Singapore";
+          evt.end_time = moment.utc(evt.start_time).add('milliseconds',eventsData[i].duration).zone(evt.start_time).toISOString();
           return true;
         }
 
       });
-      console.log(eventsWithVenues.length + ' Meetup events with venues');
+      console.log(eventsWithVenues.length + ' Meetup events with eventsData');
       return eventsWithVenues;
     }).catch(function(err) {
       console.error('Error getMeetupEvents(): ' + err);
@@ -147,6 +149,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       id: row.id,
       name: row.name,
       description:  html_strip.html_strip(row.description,htmlStripOptions),
+      location : row.location,
       url: 'https://www.facebook.com/events/' + row.id,
       group_name: fbGroups[grpIdx].name,
       group_url: 'http://www.facebook.com/groups/' + fbGroups[grpIdx].id,
@@ -176,7 +179,7 @@ function getFacebookUserEvents(user_identity) {
       console.log(groupsEvents.length + ' FB groups');
       var eventsWithVenues = [];
       groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
-      console.log(eventsWithVenues.length + ' FB events with venues');
+      console.log(eventsWithVenues.length + ' FB events with eventsData');
       resolve(eventsWithVenues);
     }).catch(function(err) {
       console.error('Error getting Facebook Events with: ' + JSON.stringify(user_identity));
