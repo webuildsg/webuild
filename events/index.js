@@ -148,8 +148,8 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       description: row.description,
       group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,
-      start_time: moment.utc(row.start_time).zone(row.start_time).toISOString(),
-      end_time: moment.utc(row.end_time).zone(row.end_time).toISOString(),
+      start_time: moment.utc(row.start_time).zone(row.start_time),
+      end_time: moment.utc(row.end_time).zone(row.end_time),
       formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT)
     });
   });
