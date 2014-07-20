@@ -65,15 +65,16 @@ function isValidGroup(row) {
          && row.country === (config.meetupParams.country || row.country);
 }
 
-function saveMeetupEvents(arr, row) {
-  if (!(row.next_event && row.next_event.time)) return
+function saveMeetupEvents(eventsArr, row) {
+  if (!(row.next_event && row.next_event.time)) return eventsArr;
 
   var entry = row.next_event;
   entry.group_name = row.name;
   entry.group_url = row.link;
   entry.url = 'http://meetup.com/' + row.urlname + '/events/' + entry.id;
   entry.formatted_time = moment.utc(entry.time + entry.utc_offset).format(TIMEFORMAT);
-  events.push(entry);
+  eventsArr.push(entry);
+  return eventsArr;
 }
 
 function getAllMeetupEvents() { //regardless of venue
@@ -82,7 +83,7 @@ function getAllMeetupEvents() { //regardless of venue
 
   return prequest(url).then(function(data) {
     console.log('Fetched ' + data.results.length + ' Meetup groups');
-    events = [];
+    var events = [];
     data.results
       .filter(isValidGroup)
       .reduce(saveMeetupEvents, events);
@@ -242,7 +243,7 @@ function timeComparer(a, b) {
 function addEvents(type) {
   API['get' + type + 'Events']().then(function(data) {
     data = data || [];
-    whiteEvents = data.filter(function(evt) { // filter black listed ids
+    var whiteEvents = data.filter(function(evt) { // filter black listed ids
       return blacklistEvents.some(function(blackEvent) {
         return blackEvent.id !== evt.id;
       });
