@@ -125,7 +125,8 @@ function getMeetupEvents() { //events with eventsData
           if (eventsData[i].duration === undefined){
             eventsData[i].duration = 7200000
           }
-          evt.location = eventsData[i].venue.address_1 + eventsData[i].venue.address_2 + "Singapore";
+          var location = eventsData[i].venue? ((eventsData[i].venue.address_1 || "") + (eventsData[i].venue.address_2 || "" )) : "";
+          location += "Singapore";
           evt.end_time = moment.utc(evt.start_time).add('milliseconds',eventsData[i].duration).zone(evt.start_time).toISOString();
           return true;
         }
