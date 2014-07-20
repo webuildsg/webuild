@@ -2,12 +2,20 @@ var querystring = require('querystring');
 var Promise = require('promise');
 var moment = require('moment');
 var request = require('request');
+var html_strip = require('htmlstrip-native');
+
 var fbGroups = require('./facebookGroups');
 var config = require('./config');
 var whitelistEvents = require('./whitelistEvents');
 var blacklistEvents = require('./blacklistEvents');
 
 var TIMEFORMAT = 'DD MMM, ddd, h:mm a';
+
+var htmlStripOptions = {
+  include_script : false,
+  include_style : false,
+  compact_whitespace : true
+};
 
 function prequest(url, options) {
   options = options || {};
@@ -68,12 +76,17 @@ function isValidGroup(row) {
 function saveMeetupEvents(eventsArr, row) {
   if (!(row.next_event && row.next_event.time)) return eventsArr;
 
-  var entry = row.next_event;
+  var entry = {};
+  entry.name = row.next_event.name;
+  entry.id = row.next_event.id;
   entry.group_name = row.name;
   entry.group_url = row.link;
-  entry.url = 'http://meetup.com/' + row.urlname + '/events/' + entry.id;
-  entry.formatted_time = moment.utc(entry.time + entry.utc_offset).format(TIMEFORMAT);
+  entry.description = html_strip.html_strip(row.description,htmlStripOptions);
+  entry.url = 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id;
+  entry.start_time = row.next_event.time;
+  entry.formatted_time = moment.utc(row.next_event.time + row.next_event.utc_offset).format(TIMEFORMAT);
   eventsArr.push(entry);
+
   return eventsArr;
 }
 
@@ -105,8 +118,15 @@ function getMeetupEvents() { //events with venues
 
     return waitAllPromises(venues).then(function(venues) {
       var eventsWithVenues = events.filter(function(evt, i) {
-        return venues[i].hasOwnProperty('venue') ||
-          venues[i].venue_visibility === 'members';
+        if( venues[i].hasOwnProperty('venue') ||
+          venues[i].venue_visibility === 'members'){
+          if (venues[i].duration === undefined){
+            venues[i].duration = 7200000
+          }
+          evt.end_time = evt.start_time + venues[i].duration;
+          return true;
+        }
+
       });
       console.log(eventsWithVenues.length + ' Meetup events with venues');
       return eventsWithVenues;
@@ -125,8 +145,11 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
     eventsWithVenues.push({
       id: row.id,
       name: row.name,
+      description: row.description,
       group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,
+      start_time: row.start_time,
+      end_time: row.end_time,
       formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT)
     });
   });

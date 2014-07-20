@@ -11,7 +11,9 @@ var express = require('express'),
   passport = require('./events/setup-passport'),
   app = express(),
   podcastApiUrl = 'http://webuildsg.github.io/live/api/podcasts.json'
-  repos = require('./repos');
+  repos = require('./repos'),
+  ical = require('ical-generator'),
+  cal = ical();
 
 app.set('port', process.env.PORT || 3000);
 app.use(compress());
@@ -46,6 +48,24 @@ app.get('/admin', function(req, res) {
     error: req.query.error ? true : false,
     user: req.query.user ? req.query.user : '',
   });
+});
+
+app.get('/cal', function(req, res) {
+  cal.setDomain('webuild.sg').setName('We Build SG Events calendar');
+
+  events.feed.forEach(function(thisEvent) {
+    cal.addEvent({
+      start: new Date(thisEvent.start_time),
+      end: new Date(thisEvent.end_time),
+      summary: thisEvent.name + ' by ' + thisEvent.group_name,
+      description: thisEvent.description,
+      location: 'Singapore',
+      url: thisEvent.url || thisEvent.group_url
+    });
+  });
+
+  cal.serve(res);
+
 });
 
 app.get('/callback', passport.callback);
