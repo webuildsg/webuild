@@ -1,10 +1,10 @@
-[![Dependency Status](https://gemnasium.com/webuild/webuild.png)](https://gemnasium.com/sayanee/webuild)
+[![Dependency Status](https://gemnasium.com/webuildsg/webuild.png)](https://gemnasium.com/webuildsg/webuild)
 
 [![Build Status](https://travis-ci.org/webuildsg/webuild.png)](https://travis-ci.org/webuildsg/webuild)
 
 [We Build SG](http://www.webuild.sg/) automatically curates a list of free public events (Facebook / Meetup / manual) and open source projects (Github / manual) for the curious folks who love to make things in Singapore. 
 
-###**Please feel free to fork this for your own city/country too! :smile:"**
+###**Please feel free to fork this for your own city/country too! :smile:**
 
 
 Who are we? We are **techies** - developers, designers, programmers, hackers or makers. And we want to connect various techies to come together and connect:
