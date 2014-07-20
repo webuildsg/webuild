@@ -56,7 +56,7 @@ app.get('/cal', function(req, res) {
 
   events.feed.forEach(function(thisEvent) {
     var stdate = new Date(thisEvent.start_time);
-    console.log(thisEvent.name, stdate);
+    console.log(thisEvent.name, " - " , stdate, " - " , thisEvent.start_time);
     cal.addEvent({
       start: new Date(thisEvent.start_time),
       end: new Date(thisEvent.end_time),

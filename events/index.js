@@ -123,7 +123,7 @@ function getMeetupEvents() { //events with venues
           if (venues[i].duration === undefined){
             venues[i].duration = 7200000
           }
-          evt.end_time = moment.utc(evt.start_time).add('milliseconds',venues[i].duration).toISOString();
+          evt.end_time = moment.utc(evt.start_time).add('milliseconds',venues[i].duration).zone(evt.start_time).toISOString();
           return true;
         }
 
@@ -149,7 +149,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,
       start_time: moment.utc(row.start_time).zone(row.start_time),
-      end_time: moment.utc(row.end_time).zone(row.end_time),
+      end_time: moment.utc(row.end_time).zone(row.start_time),
       formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT)
     });
   });
