@@ -54,17 +54,20 @@ app.get('/cal', function(req, res) {
   cal.clear()
   cal.setDomain('webuild.sg').setName('We Build SG Events');
 
-  events.feed.forEach(function(thisEvent) {
-    if (thisEvent.start_time && thisEvent.end_time && thisEvent.name &&thisEvent.description){
+  events.feed.filter(function(){
+    if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)){
+      console.log("Not enough information on this event", thisEvent.name, thisEvent.start_time, thisEvent.end_time, thisEvent.description);
+    }
+    return thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description
+  }).forEach(function(thisEvent) {
       cal.addEvent({
         start: new Date(thisEvent.start_time),
         end: new Date(thisEvent.end_time),
         summary: thisEvent.name + ' by ' + thisEvent.group_name,
         description: thisEvent.description,
-        location: 'Singapore',
+        location: thisEvent.location || 'Singapore',
         url: thisEvent.url || thisEvent.group_url
       });
-    }
   });
   cal.serve(res);
 
