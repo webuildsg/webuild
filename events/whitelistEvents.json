@@ -10,5 +10,17 @@
     "formatted_time": "24 Jul, Thu, 2:00 pm",
     "start_time": "2014-07-24T06:00:00.000Z",
     "end_time": "2014-07-24T10:00:00.000Z"
+  },
+  {
+    "id": 1,
+    "name": "Product Camp Singapore Volume 2",
+    "description": "ProductCamp Singapore is about Product Management but is open to all. The event is free to attend thanks to our wonderful sponsors. What is expected of you, if you join the community and attend the event, is to participate. There are no spectators; no one will be putting on a workshop, session, or event for you, but lots of people will come together for learning, networking and having fun with you. Got something to something to help others understand and use? Offer to lead a ProductCamp session. Skilled and semi-skilled folks are needed for the behind-the-scenes work of the events and organizations, so volunteer. More information about getting connected with ProductCamp Singapore is below.",
+    "location": "Silicon Straits, 71 Ayer Rajah Crescent #06-11/12 Singapore 139951",
+    "url": "http://www.productcampsg.com/registration.html",
+    "group_name": "ProductCamp Singapore",
+    "group_url" : "http://www.productcampsg.com",
+    "formatted_time": "2 Aug, Thu, 9:30 am",
+    "start_time": "2014-08-03T01:30:00.000Z",
+    "end_time": "2014-07-24T05:30:00.000Z"
   }
 ]
