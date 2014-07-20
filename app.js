@@ -92,10 +92,12 @@ app.post('/api/repos/update', function(req, res) {
 
 app.use('/api/podcasts', function(req, res) {
  var url = podcastApiUrl;
+ res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
  req.pipe(request(url)).pipe(res);
 });
 
 events.update();
+repos.update();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
