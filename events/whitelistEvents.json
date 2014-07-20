@@ -10,5 +10,17 @@
     "formatted_time": "24 Jul, Thu, 2:00 pm",
     "start_time": "2014-07-24T06:00:00.000Z",
     "end_time": "2014-07-24T10:00:00.000Z"
-  }
+  },
+  {
+    "id": 1180132,
+    "name": "Dribbble Meetup July 2014",
+    "description": "Dribbble meetup #4! Let's all gather to talk shop about design. Come to meet other like-minded designers to connect, share their work and enjoy some great company for the night. In other words, great excuse to get some FREE PIZZA AND BEER!",
+    "location": "Neo Singapore, 53 Craig Rd, Singapore, SG 089691",
+    "url": "http://www.meetup.com/dribbble/Singapore-SG/1180132/",
+    "group_name": "Singapore Dribbble Community",
+    "group_url" : "http://www.meetup.com/dribbble/Singapore-SG/",
+    "formatted_time": "22 Jul, Thu, 7:00 pm",
+    "start_time": "2014-07-22T11:00:00.000Z",
+    "end_time": "2014-07-22T13:00:00.000Z"
+  },
 ]
