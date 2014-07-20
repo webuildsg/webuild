@@ -83,7 +83,7 @@ function saveMeetupEvents(eventsArr, row) {
   entry.group_url = row.link;
   entry.description = html_strip.html_strip(row.description,htmlStripOptions);
   entry.url = 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id;
-  entry.start_time = row.next_event.time;
+  entry.start_time = moment.utc(row.next_event.time).zone(row.next_event.utc_offset).toISOString();
   entry.formatted_time = moment.utc(row.next_event.time + row.next_event.utc_offset).format(TIMEFORMAT);
   eventsArr.push(entry);
 
@@ -123,7 +123,7 @@ function getMeetupEvents() { //events with venues
           if (venues[i].duration === undefined){
             venues[i].duration = 7200000
           }
-          evt.end_time = evt.start_time + venues[i].duration;
+          evt.end_time = moment.utc(evt.start_time).add('milliseconds',venues[i].duration).toISOString();
           return true;
         }
 
@@ -148,8 +148,8 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       description: row.description,
       group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,
-      start_time: row.start_time,
-      end_time: row.end_time,
+      start_time: moment.utc(row.start_time).zone(row.start_time).toISOString(),
+      end_time: moment.utc(row.end_time).zone(row.end_time).toISOString(),
       formatted_time: moment.utc(row.start_time).zone(row.start_time).format(TIMEFORMAT)
     });
   });

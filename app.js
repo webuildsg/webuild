@@ -51,7 +51,8 @@ app.get('/admin', function(req, res) {
 });
 
 app.get('/cal', function(req, res) {
-  cal.setDomain('webuild.sg').setName('We Build SG Events calendar');
+  cal.clear()
+  cal.setDomain('webuild.sg').setName('We Build SG Events');
 
   events.feed.forEach(function(thisEvent) {
     cal.addEvent({
@@ -63,7 +64,6 @@ app.get('/cal', function(req, res) {
       url: thisEvent.url || thisEvent.group_url
     });
   });
-
   cal.serve(res);
 
 });
@@ -73,6 +73,7 @@ app.get('/callback', passport.callback);
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.send(503, 'Incorrect secret key');
+    return;
   }
   events.update();
   res.send(200, 'Events feed updating...');
