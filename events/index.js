@@ -142,8 +142,6 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 
   thisGroupEvents.forEach(function(row) {
     if (!row.location) return;
-    console.log(row);
-    console.log('*********');
     eventsWithVenues.push({
       id: row.id,
       name: row.name,
@@ -165,6 +163,7 @@ function getFacebookUserEvents(user_identity) {
     return prequest(base + group.id + '/events?' +
       querystring.stringify({
         since: moment().utc().zone('+0800').format('X'),
+        fields: 'description,name,end_time,location,timezone',
         access_token: user_identity.access_token
       })
     );
