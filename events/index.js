@@ -145,7 +145,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
     eventsWithVenues.push({
       id: row.id,
       name: row.name,
-      description: row.description,
+      description:  html_strip.html_strip(row.description,htmlStripOptions),
       group_name: fbGroups[grpIdx].name,
       url: 'https://www.facebook.com/events/' + row.id,
       start_time: moment.utc(row.start_time).zone(row.start_time).toISOString(),
