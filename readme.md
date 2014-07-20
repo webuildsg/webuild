@@ -1,18 +1,20 @@
-[![Dependency Status](https://gemnasium.com/sayanee/webuild.png)](https://gemnasium.com/sayanee/webuild)
+[![Dependency Status](https://gemnasium.com/webuild/webuild.png)](https://gemnasium.com/sayanee/webuild)
 
 [![Build Status](https://travis-ci.org/webuildsg/webuild.png)](https://travis-ci.org/webuildsg/webuild)
 
-[We Build SG](http://www.webuild.sg/) curates a list of free public events and open source projects for the curious folks who love to make things in Singapore!
+[We Build SG](http://www.webuild.sg/) automatically curates a list of free public events (Facebook / Meetup / manual) and open source projects (Github / manual) for the curious folks who love to make things in Singapore. 
+
+###**Please feel free to fork this for your own city/country too! :smile:"**
 
 
-Who are we? We are **techies** - developers, designers, programmers, hackers or makers.
+Who are we? We are **techies** - developers, designers, programmers, hackers or makers. And we want to connect various techies to come together and connect:
 
 - **veteran techies** to get introduced to the community of open events and open source
 - **wannabe techies** to get examples of great open source projects and  events to meet mentors
-- **traveling techies** to drop by and connect with the local ones
+- **visiting techies** to drop by and connect with the local ones
 - **existing techies** to keep connecting, mentoring and growing the open community
 
-**Open Events** are *free tech events* that are open for public and anyone can drop by.
+**Open Events** are free events that are open for public and anyone can drop by.
 
 **Open Source** are projects with [free licenses](http://en.wikipedia.org/wiki/Comparison_of_free_software_licences).
 
@@ -20,8 +22,8 @@ Who are we? We are **techies** - developers, designers, programmers, hackers or 
 #Websites
 
 - [Main](http://www.webuild.sg/)
-- [Production](http://webuildsg.herokuapp.com/)
-- [Staging](http://webuildsg-dev.herokuapp.com/)
+- [Production](http://webuildsg.herokuapp.com/) in [Heroku](http://heroku.com/)
+- [Staging](http://webuildsg-dev.herokuapp.com/) in [Heroku](http://heroku.com/)
 - [Github Repo](https://github.com/webuildsg/webuild)
 - [Twitter](https://twitter.com/webuildsg)
 - [Facebook](https://www.facebook.com/webuildsg)
@@ -35,16 +37,25 @@ The events, repositories and podcasts data feeds are available as JSON.
 - <http://webuild.sg/api/podcasts>
 
 
-#Install
+#Install for development
 
 1. clone the app
 
 	```
 	git@github.com:webuildsg/webuild.git
+	cd webuild
 	```
-1. install package
+1. copy `run.sh.sample` script and [setup the various configs](#setup-configs) in the file
 
 	```
+	cp run.sh.sample run.sh
+	chmod u+x run.sh # edit the secrets accordingly
+	```
+1. install required packages
+
+	```
+	npm install -g bower
+	npm install -g grunt-cli
 	npm install
 	bower install
 	``` 
@@ -53,12 +64,22 @@ The events, repositories and podcasts data feeds are available as JSON.
 	```
 	grunt
 	```
-1. run in command line `node app.js`
-1. open [localhost:4000](http://localhost:4000/)
+1. run in command line `./run` to start the app
+1. open [localhost:4000](http://localhost:4000/) in your browser
+1. run the following in another command line to update github
+
+	```
+	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
+	```
 
 
+#Deploy for production
 
-#Deployment
+We used [Heroku](http://heroku.com/) - thank you! And the following are the instructions for heroku
+
+1. 
+
+#Setup configs
 
 Set the following environment variables on your system:
 
@@ -77,7 +98,7 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
-# Listed events and repos
+# Editing events and repos list
 
 ###events
 
@@ -90,11 +111,3 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 1. Github repos from user's location Singapore are automatically populated
 1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected
 1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`
-
-
-#Compile CSS
-
-To compile sass into css and minify:
-
-- open folder `app/public/css`
-- run in command line `sass --compass --watch style.sass:style.css --style compressed`
