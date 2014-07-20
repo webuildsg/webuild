@@ -23,8 +23,8 @@ module.exports = function(grunt) {
       production: {
         options: {
           mangle: false,
-          compress: false,
-          beautify: true
+          compress: true,
+          beautify: false
         },
         files: {
           'public/js/script.js': [

@@ -11,12 +11,20 @@
   request.open('GET', podcastApi, true);
   request.responseType = 'json';
   request.onload = function() {
-    countdown(request.response.next_live_show);
+    countdown(getJSONProperty(request.response,"next_live_show"));
     setInterval(function() {
-      countdown(request.response.next_live_show);
+      countdown(getJSONProperty(request.response,"next_live_show"));
     }, 1000);
   }
   request.send();
+
+  function getJSONProperty(response, property){
+    if (response.hasOwnProperty(property)){
+      return response[property];
+    }else{
+      return JSON.parse(response)[property];
+    }
+  }
 
   function countdown(nextLiveShowDate) {
     var now = moment(),
@@ -58,7 +66,13 @@
   eventDate.onchange = function() {
 
     var clashingEvents = [];
-    var checkEvent = moment(this.value, "YYYY-MM-DD");
+    var checkEvent = moment();
+    if (this.value.match(/\-/)){
+      checkEvent = moment(this.value, "YYYY-MM-DD");
+    }else{
+      // For FF and Safari support
+      checkEvent = moment(this.value, "DD/MM/YYYY");
+    }
 
     ul.innerHTML = '';
 
@@ -67,37 +81,36 @@
       request.open('GET', eventsApi, true);
       request.responseType = 'json';
       request.onload = function() {
-        events = request.response;
+        if (typeof request.response === 'string'){
+          events = JSON.parse(request.response);
+        }else{
+          events = request.response;
+        }
         checkEventClashes(events, checkEvent).forEach(appendClashedEvent);
       };
       request.send();
     } else {
       checkEventClashes(events, checkEvent).forEach(appendClashedEvent);
     }
-
   }
 
   function checkEventClashes(events, checkEvent){
-    var count = 0;
     var note = '<br><strong>Note:</strong> The following are from the list of free, open events for developers, makers or designers only.'
-    return events.filter(function(element) {
-      var eachEvent = moment(element.start_time);
-
-      if(checkEvent.date() === eachEvent.date()
-        && checkEvent.month() === eachEvent.month()
-        && checkEvent.year() === eachEvent.year()) {
-        count++;
+    var clashedEvents = events.filter(function(element) {
+      if(moment(element.start_time).isSame(checkEvent,'day') ) {
         return true;
       }
-
-      if(count === 0) {
-        document.getElementById('results').innerHTML = 'No events are clashing!';
-      } else if(count === 1){
-        document.getElementById('results').innerHTML = count + ' event is clashing!' + note;
-      } else {
-        document.getElementById('results').innerHTML = count + ' events are clashing!' + note;
-      }
     });
+
+    if(clashedEvents.length === 0) {
+      document.getElementById('results').innerHTML = 'No events are clashing!';
+    } else if(clashedEvents.length === 1){
+      document.getElementById('results').innerHTML = clashedEvents.length + ' event is clashing!' + note;
+    } else {
+      document.getElementById('results').innerHTML = clashedEvents.length + ' events are clashing!' + note;
+    }
+
+    return clashedEvents;
   }
 
   function appendClashedEvent(thisEvent){
