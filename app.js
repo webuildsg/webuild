@@ -55,8 +55,6 @@ app.get('/cal', function(req, res) {
   cal.setDomain('webuild.sg').setName('We Build SG Events');
 
   events.feed.forEach(function(thisEvent) {
-    var stdate = new Date(thisEvent.start_time);
-    console.log(thisEvent.name, " - " , stdate, " - " , thisEvent.start_time);
     cal.addEvent({
       start: new Date(thisEvent.start_time),
       end: new Date(thisEvent.end_time),
