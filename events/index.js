@@ -142,6 +142,8 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 
   thisGroupEvents.forEach(function(row) {
     if (!row.location) return;
+    console.log(row);
+    console.log('*********');
     eventsWithVenues.push({
       id: row.id,
       name: row.name,
