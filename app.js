@@ -25,24 +25,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(passport.initialize());
 
-function appendHashToEvents(eventsJson, callback) {
-  var count = 0;
-  eventsJson.forEach(function (eachEvent) {
-    eachEvent.hash = '#/' + eachEvent.name.replace(/\s+/g, '-').toLowerCase();
-    count++;
-    if(count === eventsJson.length) {
-      callback(eventsJson);
-    }
-  });
-}
-
 app.get('/', function(req, res) {
-  appendHashToEvents(events.feed, function(eventsJson) {
-    res.render('index.jade', {
-      repos: repos.feed.repos.slice(0, 10),
-      events: eventsJson.slice(0, 10)
-    });
-  })
+  res.render('index.jade', {
+    repos: repos.feed.repos.slice(0, 10),
+    events: events.feed.slice(0, 10)
+  });
 });
 
 app.get('/api/events', function(req, res) {

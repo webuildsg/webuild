@@ -9,7 +9,6 @@
     "bower_components"
   ],
   "dependencies": {
-    "moment": "2.7.0",
-    "jquery": "2.1.1"
+    "moment": "2.7.0"
   }
 }
