@@ -1226,10 +1226,20 @@
         }
     };
     function checkEventClashes(events, checkEvent) {
+        var count = 0;
+        var note = "<br><strong>Note:</strong> The following are from the list of free, open events for developers, makers or designers only.";
         return events.filter(function(element) {
             var eachEvent = moment(element.start_time);
             if (checkEvent.date() === eachEvent.date() && checkEvent.month() === eachEvent.month() && checkEvent.year() === eachEvent.year()) {
+                count++;
                 return true;
+            }
+            if (count === 0) {
+                document.getElementById("results").innerHTML = "No events are clashing!";
+            } else if (count === 1) {
+                document.getElementById("results").innerHTML = count + " event is clashing!" + note;
+            } else {
+                document.getElementById("results").innerHTML = count + " events are clashing!" + note;
             }
         });
     }
