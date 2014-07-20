@@ -114,7 +114,7 @@ function getMeetupEvents() { //events with eventsData
     var eventsData = events.map(function(event) {
       return prequest('https://api.meetup.com/2/event/'
         + event.id
-        + '?fields=venue_visibility,venue_id&key='
+        + '?fields=venue_visibility&key='
         + config.meetupParams.key);
     });
 
@@ -131,7 +131,7 @@ function getMeetupEvents() { //events with eventsData
         }
 
       });
-      console.log(eventsWithVenues.length + ' Meetup events with eventsData');
+      console.log(eventsWithVenues.length + ' Meetup events with venues');
       return eventsWithVenues;
     }).catch(function(err) {
       console.error('Error getMeetupEvents(): ' + err);
