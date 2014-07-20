@@ -93,7 +93,13 @@ app.post('/api/repos/update', function(req, res) {
 app.use('/api/podcasts', function(req, res) {
  var url = podcastApiUrl;
  res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
- req.pipe(request(url)).pipe(res);
+ request(url, function(err, msg, response){
+  if (err) {
+    res.send(503, 'We Build Live Error');
+    return;
+  }
+  res.end(response);
+ })
 });
 
 events.update();
