@@ -4,6 +4,8 @@ var utils = require('./utils');
 var config = require('./config');
 
 function constructAddress(venue) {
+  'use strict';
+
   var address = '';
 
   if (venue) {
@@ -76,6 +78,8 @@ function findCommunityEvents(eventsArr, row) {
 }
 
 function findEventsWithVenues(eventsData) {
+  'use strict';
+
   return function(evt, i) {
     if (eventsData[i].hasOwnProperty('venue') || eventsData[i].venue_visibility === 'members') {
       if (eventsData[i].duration === undefined) {
