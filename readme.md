@@ -72,6 +72,9 @@ The events, repositories and podcasts data feeds are available as JSON.
 	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
 	```
 
+Use [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=Life&utm_medium=hackonnitrous) to create your own *We Build* in seconds:
+
+[![Hack webuildsg/webuild on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=webuildsg%2Fwebuild&file_to_open=README.md)
 
 #Deploy for production
 
@@ -123,6 +126,7 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
+
 # Editing events and repos list
 
 ###events
@@ -150,3 +154,11 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 1. `/repos/config.js` - basic config for automatically fetching Github repositories
 1. `/repos/whitelistUsers.json` - manually add in usernames from Github if they are not included in the automatic query
+
+#Contribute
+
+1. Fork this project
+1. Create a new feature/patch branch
+1. Code code code
+1. [Pull request](https://help.github.com/articles/using-pull-requests) using the new feature/patch branch
+1. Ensure the [Travis build](https://travis-ci.org/webuildsg/webuild) passes
