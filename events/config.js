@@ -10,6 +10,7 @@ module.exports = {
   },
   blacklistGroups: [9319232, 13903282],
   blacklistWords: ['business', 'networking'],
+  meetupCommunities: ['Dribbble', 'Treehouse'],
 
   auth0: {
     domain: 'webuildsg.auth0.com',
