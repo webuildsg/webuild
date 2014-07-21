@@ -75,7 +75,13 @@ html(lang='en')
                     span.stars!= '&#9733; ' + repo.stargazers_count
                   p.tagline= repo.description
 
+        h3 check for open event clashes
+        input#check.event-checker(type='date', placeholder='dd/mm/yyyy')
+        p.tagline.center#results
+        ul#clashed.open-list
+
         p.explain a list of free public events and open source projects for the curious folks who love to make things!
+
       footer
         .container
           :markdown

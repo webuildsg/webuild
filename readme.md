@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/webuildsg/webuild.png)](https://travis-ci.org/webuildsg/webuild)
 
-[We Build SG](http://www.webuild.sg/) automatically curates a list of free public events (Facebook / Meetup / manual) and open source projects (Github / manual) for the curious folks who love to make things in Singapore. 
+[We Build SG](http://www.webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore. 
 
 ###**Please feel free to fork this for your own city/country too! :smile:**
 
@@ -77,7 +77,32 @@ The events, repositories and podcasts data feeds are available as JSON.
 
 We used [Heroku](http://heroku.com/) - thank you! And the following are the instructions for heroku
 
-1. 
+1. install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
+1. create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+1. Setup the following [config variable](#setup-configs) under the Heroku app Settings:
+
+	```
+	GITHUB_CLIENT_ID
+	GITHUB_CLIENT_SECRET
+	MEETUP_API_KEY
+	PATH
+	WEBUILD_API_SECRET
+	WEBUILD_AUTH0_CLIENT_ID
+	WEBUILD_AUTH0_CLIENT_SECRET
+	```
+1. Get heroku [Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
+
+	- update events every hour
+	
+		```
+		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/events/update
+		```
+	- update repos every hour
+		
+		```
+		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/repos/update
+		```
+
 
 #Setup configs
 
@@ -104,10 +129,24 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 1. Meetup and Facebook events in Singapore are automatically populated
 1. **White list events**: To add additional events, edit `events/whitelistEvents.json`
-1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and edit `events/blacklistEvents.json`
+1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and edit `events/blacklistEvents.json` 
 
 ###repos
 
 1. Github repos from user's location Singapore are automatically populated
 1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected
 1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`
+
+###files to edit to customise for your city / country
+
+**Events**
+
+1. `/events/config.js` - basic config for automatically fetching Meetup events
+1. `/events/facebookGroups.json` - list of facebook groups you want to automatically query to fetch their upcoming events
+1. `/events/blacklistEvents.json` - events you might want to remove based on the event `id` found in the api endpoint `/api/events`
+1. `/events/whitelistEvents.json` - manually add in an event not fetched automatically 
+
+**Repos**
+
+1. `/repos/config.js` - basic config for automatically fetching Github repositories
+1. `/repos/whitelistUsers.json` - manually add in usernames from Github if they are not included in the automatic query

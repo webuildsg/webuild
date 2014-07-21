@@ -54,7 +54,7 @@
         background-color: lighten($yellow, 10%)
     a
       display: block
-      padding: 10px 40px 10px 10px
+      padding: 10px
       @include border-radius(5px)
       text-decoration: none
     .stars
@@ -63,6 +63,20 @@
 
 .first
   border-right: 2px solid $blue
+
+.event-checker
+  display: block
+  margin: 0 auto
+  font-size: 2rem
+  padding: .5rem
+  border: 0
+  background: lighten($yellow, 10%)
+  font-family: $sans
+  color: $grey
+  margin: 2rem auto 1rem
+  outline: none
+  &:focus
+    background: $yellow, 10%
 
 .social
   font-family: 'Social'
