@@ -18,6 +18,8 @@ var htmlStripOptions = {
 };
 
 function prequest(url, options) {
+  'use strict';
+
   options = options || {};
   options.url = url;
   options.json = true;
@@ -26,7 +28,7 @@ function prequest(url, options) {
     request(options, function(err, resp, body) {
       if (err) return reject(err);
 
-      if (resp.statusCode == 200) {
+      if (resp.statusCode === 200) {
         resolve(body);
       } else {
         console.error('Err! HTTP status code:', resp.statusCode, url);
@@ -37,6 +39,8 @@ function prequest(url, options) {
 }
 
 function waitAllPromises(arr) {
+  'use strict';
+
   if (arr.length === 0) return resolve([]);
 
   return new Promise(function (resolve, reject) {
@@ -63,24 +67,26 @@ function waitAllPromises(arr) {
 }
 
 function isValidGroup(row) {
+  'use strict';
+
   var blacklistGroups = config.blacklistGroups || [];
   var blacklistWords = config.blacklistWords || [];
   var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
 
   // Enforce country filter. Meetup adds JB groups into SG
-  return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) &&
-         !blacklistGroups.some(function(id) { return row.id === id })
-         && row.country === (config.meetupParams.country || row.country);
+  return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) && !blacklistGroups.some(function(id) { return row.id === id }) && row.country === (config.meetupParams.country || row.country);
 }
 
 function findNextEvents(eventsArr, row) {
+  'use strict';
+
   if (!(row.next_event && row.next_event.time)) return eventsArr;
 
   var entry = {
     id: row.next_event.id,
     name: row.next_event.name,
     description: html_strip.html_strip(row.description,htmlStripOptions),
-    location: "",
+    location: '',
     url: 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id,
     group_name: row.name,
     group_url: row.link,
@@ -93,6 +99,8 @@ function findNextEvents(eventsArr, row) {
 }
 
 function getAllMeetupGroups() { //regardless of venue
+  'use strict';
+
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
 
@@ -109,13 +117,12 @@ function getAllMeetupGroups() { //regardless of venue
 }
 
 function getMeetupEvents() { //events with eventsData
+  'use strict';
+
   return getAllMeetupGroups().then(function(events) {
     console.log('Fetched ' + events.length + ' Meetup events');
     var eventsData = events.map(function(event) {
-      return prequest('https://api.meetup.com/2/event/'
-        + event.id
-        + '?fields=venue_visibility&key='
-        + config.meetupParams.key);
+      return prequest('https://api.meetup.com/2/event/'+ event.id + '?fields=venue_visibility&key='+ config.meetupParams.key);
     });
 
     return waitAllPromises(eventsData).then(function(eventsData) {
@@ -125,8 +132,8 @@ function getMeetupEvents() { //events with eventsData
           if (eventsData[i].duration === undefined){
             eventsData[i].duration = 7200000
           }
-          var location = eventsData[i].venue? ((eventsData[i].venue.address_1 || "") + (eventsData[i].venue.address_2 || "" )) : "";
-          location += "Singapore";
+          var location = eventsData[i].venue? ((eventsData[i].venue.address_1 || '') + (eventsData[i].venue.address_2 || '' )) : '';
+          location += 'Singapore';
           evt.end_time = moment.utc(evt.start_time).add('milliseconds',eventsData[i].duration).zone(evt.start_time).toISOString();
           return true;
         }
@@ -141,6 +148,8 @@ function getMeetupEvents() { //events with eventsData
 }
 
 function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
+  'use strict';
+
   var thisGroupEvents = row.data || [];
   if (thisGroupEvents.length === 0) return eventsWithVenues;
 
@@ -164,6 +173,8 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 }
 
 function getFacebookUserEvents(user_identity) {
+  'use strict';
+
   var base = 'https://graph.facebook.com/v2.0/'
   var groups = fbGroups.map(function(group) {
     return prequest(base + group.id + '/events?' +
@@ -193,9 +204,11 @@ function getFacebookUserEvents(user_identity) {
 //  until one is able to return facebook events.
 //  We assume that all access tokens are able to access all white listed fb groups.
 function getAllFacebookEvents(users) {
+  'use strict';
+
   if (users.length === 0) return users;
 
-  user = users.pop();
+  var user = users.pop();
   return getFacebookUserEvents(user.identities[0])
   .then(function(events) {
     return events;
@@ -207,6 +220,8 @@ function getAllFacebookEvents(users) {
 
 // Get the FB user tokens from auth0
 function getFacebookUsers() {
+  'use strict';
+
   return new Promise(function(resolve, reject) {
     prequest('https://' + config.auth0.domain + '/oauth/token', {
       method: 'POST',
@@ -229,6 +244,8 @@ function getFacebookUsers() {
 }
 
 function filterValidFacebookUsers(users) { //must have access to groups
+  'use strict';
+
   var base = 'https://graph.facebook.com/v2.0/me/groups?'
   var groupPromises = users.map(function(user) {
     return prequest(base +
@@ -246,11 +263,13 @@ function filterValidFacebookUsers(users) { //must have access to groups
     console.log(validusers.length + ' users with accessible groups');
     return validusers;
   }).catch(function(err) {
-    console.error('Error getting FB Groups with all user tokens');
+    console.error('Error getting FB Groups with all user tokens: ' + err);
   });
 }
 
 function getFacebookEvents() {
+  'use strict';
+
   return getFacebookUsers().then(function(allUsers) {
     return filterValidFacebookUsers(allUsers).then(function(users) {
       return getAllFacebookEvents(users);
@@ -266,11 +285,14 @@ var API = {
 }
 
 function timeComparer(a, b) {
-  return (moment(a.formatted_time, TIMEFORMAT).valueOf() -
-          moment(b.formatted_time, TIMEFORMAT).valueOf());
+  'use strict';
+
+  return (moment(a.formatted_time, TIMEFORMAT).valueOf() - moment(b.formatted_time, TIMEFORMAT).valueOf());
 }
 
 function addEvents(type) {
+  'use strict';
+
   API['get' + type + 'Events']().then(function(data) {
     data = data || [];
     var whiteEvents = data.filter(function(evt) { // filter black listed ids
@@ -288,6 +310,8 @@ function addEvents(type) {
 
 exports.feed = [];
 exports.update = function() {
+  'use strict';
+
   exports.feed = whitelistEvents;
   console.log('Updating the events feed...');
   addEvents('Meetup');

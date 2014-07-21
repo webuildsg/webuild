@@ -8,6 +8,7 @@ var strategy = new Auth0Strategy({
   clientSecret: config.auth0.clientSecret || '-',
   callbackURL:  '/callback'
 }, function(accessToken, refreshToken, profile, done) {
+  'use strict';
   console.log('Received Facebook profile from: ', profile.displayName);
   return done(null, profile);
 });
@@ -15,15 +16,18 @@ var strategy = new Auth0Strategy({
 passport.use(strategy);
 
 passport.serializeUser(function(user, done) {
+  'use strict';
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
+  'use strict';
   done(null, user);
 });
 
 passport.callback = function(req, res, next) {
-  passport.authenticate('auth0', function(err, user, info) {
+  'use strict';
+  passport.authenticate('auth0', function(err, user) {
     if (err) {
       console.log('Auth0 Error:' + err)
       return next(err); // will generate a 500 error
