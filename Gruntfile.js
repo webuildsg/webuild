@@ -1,13 +1,25 @@
 module.exports = function(grunt) {
+  'use strict';
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
     clean: [
       'public/css/style.css',
       'public/js/script.js'
     ],
-
+    jshint: {
+      all: {
+        options: {
+          jshintrc: '.jshintrc'
+        },
+        src: [
+          'Gruntfile.js',
+          'public/js/main.js',
+          'events/*.js'
+        // 'repos/*.js'
+        ]
+      }
+    },
     sass: {
       dist: {
         options: {
@@ -18,7 +30,6 @@ module.exports = function(grunt) {
         }
       }
     },
-
     uglify: {
       production: {
         options: {
@@ -37,6 +48,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 

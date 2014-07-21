@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var podcastApi = '/api/podcasts';
   var eventsApi = '/api/events';
 
@@ -11,9 +13,9 @@
   request.open('GET', podcastApi, true);
   request.responseType = 'json';
   request.onload = function() {
-    countdown(getJSONProperty(request.response,"next_live_show"));
+    countdown(getJSONProperty(request.response,'next_live_show'));
     setInterval(function() {
-      countdown(getJSONProperty(request.response,"next_live_show"));
+      countdown(getJSONProperty(request.response,'next_live_show'));
     }, 1000);
   }
   request.send();
@@ -27,14 +29,18 @@
   }
 
   function countdown(nextLiveShowDate) {
-    var now = moment(),
-    podcastDate = nextLiveShowDate,
-    dateFormat = "YYYY-MM-DD HH:mm Z",
-    livedate = moment(podcastDate, dateFormat),
-    then = moment(podcastDate, dateFormat);
+    var now = moment();
+    var podcastDate = nextLiveShowDate;
+    var dateFormat = 'YYYY-MM-DD HH:mm Z';
+    var livedate = moment(podcastDate, dateFormat);
+    var then = moment(podcastDate, dateFormat);
 
-    ms = then.diff(now, 'milliseconds', true);
-    days = Math.floor(moment.duration(ms).asDays());
+    var ms = then.diff(now, 'milliseconds', true);
+    var days = Math.floor(moment.duration(ms).asDays());
+    var hours;
+    var minutes;
+    var seconds;
+    var diff;
 
     if (days >= 0) {
       then.subtract('days', days);
@@ -64,14 +70,12 @@
   var events = null;
 
   eventDate.onchange = function() {
-
-    var clashingEvents = [];
     var checkEvent = moment();
     if (this.value.match(/\-/)){
-      checkEvent = moment(this.value, "YYYY-MM-DD");
+      checkEvent = moment(this.value, 'YYYY-MM-DD');
     }else{
       // For FF and Safari support
-      checkEvent = moment(this.value, "DD/MM/YYYY");
+      checkEvent = moment(this.value, 'DD/MM/YYYY');
     }
 
     ul.innerHTML = '';
@@ -115,16 +119,7 @@
 
   function appendClashedEvent(thisEvent){
     var li = document.createElement('li');
-    li.innerHTML = '<a href="'
-      + thisEvent.url
-      + '"><p>'
-      + thisEvent.name
-      + '<span>on '
-      + thisEvent.formatted_time
-      + '</span></p><p class="tagline">'
-      + 'by '
-      + thisEvent.group_name
-      + '</p></a>';
+    li.innerHTML = '<a href="'+ thisEvent.url + '"><p>'+ thisEvent.name + '<span>on '+ thisEvent.formatted_time + '</span></p><p class="tagline">'+ 'by '+ thisEvent.group_name + '</p></a>';
     ul.appendChild(li);
   }
 
