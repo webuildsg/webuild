@@ -100,18 +100,6 @@
 @-moz-keyframes cyclefour
   @include cyclefour
 
-@-ms-keyframes cycleone
-  @include cycleone
-
-@-ms-keyframes cycletwo
-  @include cycletwo
-
-@-ms-keyframes cyclethree
-  @include cyclethree
-
-@-ms-keyframes cyclefour
-  @include cyclefour
-
 @keyframes cycleone
   @include cycleone
 
@@ -126,7 +114,6 @@
 
 @mixin animation($name, $duration, $timing, $iteration)
   -webkit-animation: $name $duration $timing $iteration
-  -ms-animation: $name $duration $timing $iteration
   -o-animation: $name $duration $timing $iteration
   -moz-animation: $name $duration $timing $iteration
   animation: $name $duration $timing $iteration

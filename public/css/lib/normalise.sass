@@ -97,7 +97,7 @@ p, pre
 // Corrects font family set oddly in IE 6, Safari 4/5, and Chrome.
 code, kbd, pre, samp
   font-family: monospace, serif
-  _font-family: 'courier new', monospace
+  // _font-family: 'courier new', monospace
   font-size: 1em
 
 // Improves readability of pre-formatted text in all browsers.
@@ -207,6 +207,7 @@ button, input
 //  Known issue: inner spacing remains in IE 6.
 button, html input[type="button"], input[type="reset"], input[type="submit"]
   -webkit-appearance: button
+  -moz-appearance: button
   cursor: pointer
 //   *overflow: visible
 
@@ -227,6 +228,7 @@ input[type="checkbox"], input[type="radio"]
 // 2. Addresses `box-sizing` set to `border-box` in Safari 5 and Chrome (include `-moz` to future-proof).
 input[type="search"]
   -webkit-appearance: textfield
+  -moz-appearance: textfield
   -moz-box-sizing: content-box
   -webkit-box-sizing: content-box
   box-sizing: content-box
@@ -234,6 +236,7 @@ input[type="search"]
 // Removes inner padding and search cancel button in Safari 5 and Chrome on OS X.
 input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration
   -webkit-appearance: none
+  -moz-appearance: none
 
 // Removes inner padding and border in Firefox 3+.
 button::-moz-focus-inner, input::-moz-focus-inner
