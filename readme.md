@@ -2,16 +2,16 @@
 
 [![Build Status](https://travis-ci.org/webuildsg/webuild.png)](https://travis-ci.org/webuildsg/webuild)
 
-[We Build SG](http://www.webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore. 
+[We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore. 
 
-###**Please feel free to fork this for your own city/country too! :smile:**
+###**Please feel free to fork this for your choice of city/country too :smile:**
 
 
 Who are we? We are **techies** - developers, designers, programmers, hackers or makers. And we want to connect various techies to come together and connect:
 
 - **veteran techies** to get introduced to the community of open events and open source
 - **wannabe techies** to get examples of great open source projects and  events to meet mentors
-- **visiting techies** to drop by and connect with the local ones
+- **traveling techies** to drop by and connect with the local ones
 - **existing techies** to keep connecting, mentoring and growing the open community
 
 **Open Events** are free events that are open for public and anyone can drop by.
@@ -141,7 +141,7 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected
 1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`
 
-###files to edit to customise for your city / country
+#Customise for any location
 
 **Events**
 
