@@ -5,3 +5,4 @@ events.json
 
 run.sh
 .sass-cache
+*.swp
