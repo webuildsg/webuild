@@ -26,6 +26,7 @@
   "maxlen": false,
 
   "globals": {
+    "__dirname": true,
     "app": true,
     "console": true,
     "document": true,
@@ -36,6 +37,7 @@
     "require": true,
     "resolve": true,
     "setInterval": true,
+    "setTimeout": true,
     "window": true,
     "XMLHttpRequest": true
   },

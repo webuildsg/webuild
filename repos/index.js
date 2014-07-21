@@ -15,13 +15,15 @@ var github = new GitHubApi({
 
 if (config.github.clientID && config.github.clientSecret) {
   github.authenticate({
-      type: 'oauth',
-      key: config.github.clientID,
-      secret: config.github.clientSecret,
+    type: 'oauth',
+    key: config.github.clientID,
+    secret: config.github.clientSecret,
   });
 }
 
 function fetch(method, args, limit) {
+  'use strict';
+
   return new Promise(function (resolve, reject) {
     var items = [];
     method(args, function recv(err, res) {
@@ -53,7 +55,9 @@ function fetch(method, args, limit) {
 }
 
 function chunk(arr, size) {
-  if (!size > 0) {
+  'use strict';
+
+  if (size < 0) {
     throw Error('Invalid size');
   }
   var chunks = [];
@@ -64,10 +68,12 @@ function chunk(arr, size) {
 }
 
 function pad(d) {
+  'use strict';
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
 
 function insertWhiteList(searchedUsers,whitelistUsers){
+  'use strict';
 
   whitelistUsers.forEach(function(whitelistUser) {
     var found = searchedUsers.filter(function(searchedUser){
@@ -86,13 +92,11 @@ exports.feed = { repos: [] };
 exports.config = config;
 
 exports.update = function () {
+  'use strict';
+
   var now = new Date();
-  var pushedQuery = 'pushed:>'
-    + now.getFullYear()
-    + '-'
-    + pad(now.getMonth() - 2)
-    + '-'
-    + '01'; // pushed:>2014-06-01 - pushed date until 3 months ago only
+  var pushedQuery = 'pushed:>'+ now.getFullYear() + '-'+ pad(now.getMonth() - 2) + '-'+ '01';
+  // pushed:>2014-06-01 - pushed date until 3 months ago only
 
   console.log('Generating GitHub repos feed... this may take a while...');
   return fetch(github.search.users, {
@@ -169,6 +173,8 @@ exports.update = function () {
 };
 
 fs.exists(config.outfile, function(exists) {
+  'use strict';
+
   if (exists) {
     jf.readFile(config.outfile, function(err, feed) {
       if (!err) {
