@@ -162,3 +162,11 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 1. Code code code
 1. [Pull request](https://help.github.com/articles/using-pull-requests) using the new feature/patch branch
 1. Ensure the [Travis build](https://travis-ci.org/webuildsg/webuild) passes
+
+#Versioning
+
+Every production code has a version following the [Semantic Versioning guidelines](http://semver.org/).
+
+#License
+
+We Build is released under the [MIT License](http://opensource.org/licenses/MIT).
