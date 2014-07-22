@@ -98,3 +98,51 @@
     &:hover, &:active
       color: $red
       @include scale(1.2)
+
+.spinner
+  border: 3px solid rgb(51, 51, 51)
+  border: 3px solid rgba(51, 51, 51, 0.2)
+  position: relative
+  margin: 0 auto
+  display: none
+
+.spinner, .spinner > div
+  width: 25px
+  height: 25px
+  border-radius: 50% !important
+
+.spinner > div
+  border: 3px solid $grey
+  border-right-color: lighten($grey, 40%)
+  border-top-color: lighten($grey, 40%)
+  -webkit-animation: spin 1s linear infinite
+  -moz-animation: spin 1s linear infinite
+  -o-animation: spin 1s linear infinite
+  animation: spin 1s linear infinite
+  position: absolute
+  top: -3px
+  left: -3px
+
+@-webkit-keyframes spin
+  0%
+    -webkit-transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(360deg)
+
+@-moz-keyframes spin
+  0%
+    -moz-transform: rotate(0deg)
+  100%
+    -moz-transform: rotate(360deg)
+
+@-o-keyframes spin
+  0%
+    -o-transform: rotate(0deg)
+  100%
+    -o-transform: rotate(360deg)
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
