@@ -1,11 +1,10 @@
-/*jslint node: true */
+'use strict';
+
 var Promise = require('promise');
 var request = require('request');
 var htmlStrip = require('htmlstrip-native');
 
 function prequest(url, options) {
-  'use strict';
-
   options = options || {};
   options.url = url;
   options.json = true;
@@ -25,8 +24,6 @@ function prequest(url, options) {
 }
 
 function waitAllPromises(arr) {
-  'use strict';
-
   if (arr.length === 0) return resolve([]);
 
   return new Promise(function (resolve, reject) {
@@ -53,8 +50,6 @@ function waitAllPromises(arr) {
 }
 
 function htmlStripWrapper(str) {
-  'use strict';
-
   return htmlStrip.html_strip(str, {
     include_script : false,
     include_style : false,

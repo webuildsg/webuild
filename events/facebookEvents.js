@@ -1,3 +1,5 @@
+'use strict';
+
 var querystring = require('querystring');
 var Promise = require('promise');
 var moment = require('moment');
@@ -6,8 +8,6 @@ var utils = require('./utils');
 var config = require('./config');
 
 function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
-  'use strict';
-
   var thisGroupEvents = row.data || [];
   if (thisGroupEvents.length === 0) return eventsWithVenues;
 
@@ -31,8 +31,6 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 }
 
 function getFacebookUserEvents(user_identity) {
-  'use strict';
-
   var base = 'https://graph.facebook.com/v2.0/'
   var groups = fbGroups.map(function(group) {
     return utils.prequest(base + group.id + '/events?' +
@@ -62,8 +60,6 @@ function getFacebookUserEvents(user_identity) {
 //  until one is able to return facebook events.
 //  We assume that all access tokens are able to access all white listed fb groups.
 function getAllFacebookEvents(users) {
-  'use strict';
-
   if (users.length === 0) return users;
 
   var user = users.pop();
@@ -78,8 +74,6 @@ function getAllFacebookEvents(users) {
 
 // Get the FB user tokens from auth0
 function getFacebookUsers() {
-  'use strict';
-
   return new Promise(function(resolve, reject) {
     utils.prequest('https://' + config.auth0.domain + '/oauth/token', {
       method: 'POST',
@@ -102,8 +96,6 @@ function getFacebookUsers() {
 }
 
 function filterValidFacebookUsers(users) { //must have access to groups
-  'use strict';
-
   var base = 'https://graph.facebook.com/v2.0/me/groups?'
   var groupPromises = users.map(function(user) {
     return utils.prequest(base +
@@ -126,8 +118,6 @@ function filterValidFacebookUsers(users) { //must have access to groups
 }
 
 function getFacebookEvents() {
-  'use strict';
-
   return getFacebookUsers().then(function(allUsers) {
     return filterValidFacebookUsers(allUsers).then(function(users) {
       return getAllFacebookEvents(users);

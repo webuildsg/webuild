@@ -1,3 +1,5 @@
+'use strict';
+
 var moment = require('moment');
 var utils = require('./utils');
 var whitelistEvents = require('./whitelistEvents');
@@ -9,15 +11,11 @@ var API = {
 }
 
 function timeComparer(a, b) {
-  'use strict';
-
   return (moment(a.formatted_time, utils.timeformat).valueOf() -
           moment(b.formatted_time, utils.timeformat).valueOf());
 }
 
 function addEvents(type) {
-  'use strict';
-
   API['get' + type + 'Events']().then(function(data) {
     data = data || [];
     var whiteEvents = data.filter(function(evt) { // filter black listed ids
@@ -35,8 +33,6 @@ function addEvents(type) {
 
 exports.feed = [];
 exports.update = function() {
-  'use strict';
-
   exports.feed = whitelistEvents;
   console.log('Updating the events feed...');
   addEvents('Meetup');

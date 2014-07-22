@@ -1,3 +1,5 @@
+'use strict';
+
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var config = require('./config');
@@ -8,7 +10,6 @@ var strategy = new Auth0Strategy({
   clientSecret: config.auth0.clientSecret || '-',
   callbackURL:  '/callback'
 }, function(accessToken, refreshToken, profile, done) {
-  'use strict';
   console.log('Received Facebook profile from: ', profile.displayName);
   return done(null, profile);
 });
@@ -16,17 +17,14 @@ var strategy = new Auth0Strategy({
 passport.use(strategy);
 
 passport.serializeUser(function(user, done) {
-  'use strict';
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  'use strict';
   done(null, user);
 });
 
 passport.callback = function(req, res, next) {
-  'use strict';
   passport.authenticate('auth0', function(err, user) {
     if (err) {
       console.log('Auth0 Error:' + err)

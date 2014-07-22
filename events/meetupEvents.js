@@ -1,17 +1,16 @@
+'use strict';
+
 var querystring = require('querystring');
 var moment = require('moment');
 var utils = require('./utils');
 var config = require('./config');
 
 function constructAddress(venue) {
-  'use strict';
-
   var address = '';
 
   if (venue) {
     address = venue.name + ', ' + venue.address_1 || '' + (venue.address_2 ? ', ' + venue.address_2 : '');
     address += address.indexOf(config.meetupParams.city) === -1 ? ', ' + config.meetupParams.city : '';
-    console.log(address)
   } else {
     address = config.meetupParams.city;
   }
@@ -20,8 +19,6 @@ function constructAddress(venue) {
 }
 
 function isValidGroup(row) {
-  'use strict';
-
   var blacklistGroups = config.blacklistGroups || [];
   var blacklistWords = config.blacklistWords || [];
   var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
@@ -31,8 +28,6 @@ function isValidGroup(row) {
 }
 
 function findGroupEvents(eventsArr, row) {
-  'use strict';
-
   if (!(row.next_event && row.next_event.time)) return eventsArr;
 
   var entry = {
@@ -52,8 +47,6 @@ function findGroupEvents(eventsArr, row) {
 }
 
 function findCommunityEvents(eventsArr, row) {
-  'use strict';
-
   if (!(row.time && row.venue_name)) return eventsArr;
 
   var event_time = moment.utc(row.time).zone('+0800')
@@ -78,8 +71,6 @@ function findCommunityEvents(eventsArr, row) {
 }
 
 function findEventsWithVenues(eventsData) {
-  'use strict';
-
   return function(evt, i) {
     if (eventsData[i].hasOwnProperty('venue') || eventsData[i].venue_visibility === 'members') {
       if (eventsData[i].duration === undefined) {
@@ -93,8 +84,6 @@ function findEventsWithVenues(eventsData) {
 }
 
 function getMeetupGroups() { //regardless of venue
-  'use strict';
-
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
 
@@ -111,8 +100,6 @@ function getMeetupGroups() { //regardless of venue
 }
 
 function getMeetupCommunityEvents() {
-  'use strict';
-
   var url = 'https://api.meetup.com/ew/events?' +
     querystring.stringify({
       key: config.meetupParams.key,
@@ -133,8 +120,6 @@ function getMeetupCommunityEvents() {
 }
 
 function getMeetupEvents() { //events with eventsData
-  'use strict';
-
   return getMeetupGroups().then(function(events) {
     console.log('Fetched ' + events.length + ' Meetup group events');
     var eventReqs = events.map(function(event) {
