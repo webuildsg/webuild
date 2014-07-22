@@ -296,7 +296,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-webkit-keyframes cycletwo {
   0% {
     opacity: 0;
@@ -322,7 +321,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-webkit-keyframes cyclethree {
   0% {
     opacity: 0;
@@ -348,7 +346,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-webkit-keyframes cyclefour {
   0% {
     opacity: 0;
@@ -378,7 +375,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-o-keyframes cycleone {
   0% {
     opacity: 0;
@@ -400,7 +396,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-o-keyframes cycletwo {
   0% {
     opacity: 0;
@@ -426,7 +421,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-o-keyframes cyclethree {
   0% {
     opacity: 0;
@@ -452,7 +446,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-o-keyframes cyclefour {
   0% {
     opacity: 0;
@@ -482,7 +475,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-moz-keyframes cycleone {
   0% {
     opacity: 0;
@@ -504,7 +496,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-moz-keyframes cycletwo {
   0% {
     opacity: 0;
@@ -530,7 +521,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-moz-keyframes cyclethree {
   0% {
     opacity: 0;
@@ -556,7 +546,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @-moz-keyframes cyclefour {
   0% {
     opacity: 0;
@@ -586,7 +575,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @keyframes cycleone {
   0% {
     opacity: 0;
@@ -608,7 +596,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @keyframes cycletwo {
   0% {
     opacity: 0;
@@ -634,7 +621,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @keyframes cyclethree {
   0% {
     opacity: 0;
@@ -660,7 +646,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 @keyframes cyclefour {
   0% {
     opacity: 0;
@@ -690,7 +675,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     opacity: 0;
   }
 }
-
 ::-moz-selection {
   background: #f9f6df;
   color: #666666;
@@ -856,7 +840,6 @@ a.credit:hover, a.credit:active {
   font-weight: normal;
   font-style: normal;
 }
-
 [class^="icon-"], [class*=" icon-"] {
   font-family: "social";
   speak: none;
@@ -896,6 +879,8 @@ a.credit:hover, a.credit:active {
   border-radius: 5px;
   text-align: center;
   padding: 0.5em;
+  display: block;
+  text-decoration: none;
 }
 .live:hover {
   cursor: pointer;
@@ -1127,8 +1112,7 @@ a.credit:hover, a.credit:active {
 
   @page {
     margin: 0.5cm;
-}
-
+  }
   p, h2, h3 {
     orphans: 3;
     widows: 3;
