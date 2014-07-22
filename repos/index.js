@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 var jf = require('jsonfile');
 var mess = require('mess');
@@ -22,8 +24,6 @@ if (config.github.clientID && config.github.clientSecret) {
 }
 
 function fetch(method, args, limit) {
-  'use strict';
-
   return new Promise(function (resolve, reject) {
     var items = [];
     method(args, function recv(err, res) {
@@ -55,8 +55,6 @@ function fetch(method, args, limit) {
 }
 
 function chunk(arr, size) {
-  'use strict';
-
   if (size < 0) {
     throw Error('Invalid size');
   }
@@ -68,13 +66,10 @@ function chunk(arr, size) {
 }
 
 function pad(d) {
-  'use strict';
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
 
 function insertWhiteList(searchedUsers,whitelistUsers){
-  'use strict';
-
   whitelistUsers.forEach(function(whitelistUser) {
     var found = searchedUsers.filter(function(searchedUser){
         return searchedUser.login === whitelistUser.login;
@@ -92,8 +87,6 @@ exports.feed = { repos: [] };
 exports.config = config;
 
 exports.update = function () {
-  'use strict';
-
   var now = new Date();
   var pushedQuery = 'pushed:>'+ now.getFullYear() + '-'+ pad(now.getMonth() - 2) + '-'+ '01';
   // pushed:>2014-06-01 - pushed date until 3 months ago only
@@ -173,8 +166,6 @@ exports.update = function () {
 };
 
 fs.exists(config.outfile, function(exists) {
-  'use strict';
-
   if (exists) {
     jf.readFile(config.outfile, function(err, feed) {
       if (!err) {
