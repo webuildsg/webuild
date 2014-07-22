@@ -22,7 +22,7 @@
     "grunt-contrib-uglify": "0.5.0",
     "grunt-contrib-jshint": "0.10.0",
     "htmlstrip-native": "0.0.2",
-    "ical-generator": "0.1.6",
+    "ical-generator": "0.1.7",
     "jade": "1.4.2",
     "jsonfile": "1.2.0",
     "markdown": "0.5.0",
