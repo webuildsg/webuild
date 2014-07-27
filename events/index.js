@@ -31,9 +31,13 @@ function addEvents(type) {
   });
 }
 
+function afterToday(evt) {
+  return moment(evt.formatted_time, utils.timeformat) > moment()
+}
+
 exports.feed = [];
 exports.update = function() {
-  exports.feed = whitelistEvents;
+  exports.feed = whitelistEvents.filter(afterToday);
   console.log('Updating the events feed...');
   addEvents('Meetup');
   addEvents('Facebook');

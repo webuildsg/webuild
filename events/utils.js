@@ -61,5 +61,6 @@ module.exports = {
   prequest: prequest,
   waitAllPromises: waitAllPromises,
   htmlStrip: htmlStripWrapper,
-  timeformat: 'DD MMM, ddd, h:mm a'
+  timeformat: 'DD MMM, ddd, h:mm a',
+  zone: '+0800'
 }

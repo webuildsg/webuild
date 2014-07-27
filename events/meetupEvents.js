@@ -49,7 +49,7 @@ function findGroupEvents(eventsArr, row) {
 function findCommunityEvents(eventsArr, row) {
   if (!(row.time && row.venue_name)) return eventsArr;
 
-  var event_time = moment.utc(row.time).zone('+0800')
+  var event_time = moment.utc(row.time).zone(utils.zone)
   row.name = row.venue_name;
   row.address_1 = row.address1 || '';
 
