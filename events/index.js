@@ -19,8 +19,8 @@ function addEvents(type) {
   API['get' + type + 'Events']().then(function(data) {
     data = data || [];
     var whiteEvents = data.filter(function(evt) { // filter black listed ids
-      return blacklistEvents.some(function(blackEvent) {
-        return blackEvent.id !== evt.id;
+      return !blacklistEvents.some(function(blackEvent) {
+        return blackEvent.id === evt.id;
       });
     });
     exports.feed = exports.feed.concat(whiteEvents);
