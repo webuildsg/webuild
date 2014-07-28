@@ -8,13 +8,24 @@ module.exports = {
     page: 500,
     fields: 'next_event'
   },
-  blacklistGroups: [9319232, 13903282, 15867652, 15237742],
-  blacklistWords: ['business', 'networking'],
-  meetupCommunities: ['Dribbble', 'Treehouse', 'makermeetup'],
-
+  blacklistGroups: [
+    9319232,
+    13903282,
+    15867652,
+    15237742
+  ],
+  blacklistWords: [
+    'business',
+    'networking'
+  ],
+  meetupCommunities: [
+    'Dribbble',
+    'Treehouse',
+    'makermeetup'
+  ],
   auth0: {
     domain: 'webuildsg.auth0.com',
     clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
-    clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET,
+    clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
   }
 };

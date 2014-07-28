@@ -15,7 +15,18 @@ module.exports = function(grunt) {
         options: {
           import: 2
         },
-        src: ['public/css/style.css']
+        src: [ 'public/css/style.css' ]
+      }
+    },
+    jscs: {
+      src: [
+        'Gruntfile.js',
+        'public/js/main.js',
+        'events/*.js'
+        // 'repos/*.js'
+      ],
+      options: {
+        config: '.jscsrc'
       }
     },
     jshint: {
@@ -61,10 +72,26 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('travis', ['clean', 'sass', 'uglify', 'jshint', 'csslint']);
-  grunt.registerTask('default', ['clean', 'sass', 'uglify', 'jshint', 'csslint']);
+  grunt.registerTask('travis', [
+    'clean',
+    'sass',
+    'uglify',
+    'jshint',
+    'csslint',
+    'jscs'
+  ]);
+
+  grunt.registerTask('default', [
+    'clean',
+    'sass',
+    'uglify',
+    'jshint',
+    'csslint',
+    'jscs'
+  ]);
 
 };

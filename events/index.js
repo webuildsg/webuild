@@ -1,14 +1,13 @@
 'use strict';
 
-var moment = require('moment');
-var utils = require('./utils');
-var whitelistEvents = require('./whitelistEvents');
-var blacklistEvents = require('./blacklistEvents');
-
-var API = {
-  getFacebookEvents: require('./facebookEvents').get,
-  getMeetupEvents: require('./meetupEvents').get
-}
+var moment = require('moment'),
+  utils = require('./utils'),
+  whitelistEvents = require('./whitelistEvents'),
+  blacklistEvents = require('./blacklistEvents'),
+  API = {
+    getFacebookEvents: require('./facebookEvents').get,
+    getMeetupEvents: require('./meetupEvents').get
+  };
 
 function timeComparer(a, b) {
   return (moment(a.formatted_time, utils.timeformat).valueOf() -
@@ -42,4 +41,3 @@ exports.update = function() {
   addEvents('Meetup');
   addEvents('Facebook');
 }
-

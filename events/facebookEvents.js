@@ -1,23 +1,27 @@
 'use strict';
 
-var querystring = require('querystring');
-var Promise = require('promise');
-var moment = require('moment');
-var fbGroups = require('./facebookGroups');
-var utils = require('./utils');
-var config = require('./config');
+var querystring = require('querystring'),
+  Promise = require('promise'),
+  moment = require('moment'),
+  fbGroups = require('./facebookGroups'),
+  utils = require('./utils'),
+  config = require('./config');
 
 function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   var thisGroupEvents = row.data || [];
-  if (thisGroupEvents.length === 0) return eventsWithVenues;
+  if (thisGroupEvents.length === 0) {
+    return eventsWithVenues;
+  }
 
   thisGroupEvents.forEach(function(row) {
-    if (!row.location) return;
+    if (!row.location) {
+      return;
+    }
     eventsWithVenues.push({
       id: row.id,
       name: row.name,
       description: utils.htmlStrip(row.description),
-      location : row.location,
+      location: row.location,
       url: 'https://www.facebook.com/events/' + row.id,
       group_name: fbGroups[grpIdx].name,
       group_url: 'http://www.facebook.com/groups/' + fbGroups[grpIdx].id,
@@ -30,19 +34,21 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   return eventsWithVenues;
 }
 
-function getFacebookUserEvents(user_identity) {
-  var base = 'https://graph.facebook.com/v2.0/'
-  var groups = fbGroups.map(function(group) {
+function getFacebookUserEvents(userIdentity) {
+  var base = 'https://graph.facebook.com/v2.0/',
+    groups;
+
+  groups = fbGroups.map(function(group) {
     return utils.prequest(base + group.id + '/events?' +
       querystring.stringify({
         since: moment().utc().zone('+0800').format('X'),
         fields: 'description,name,end_time,location,timezone',
-        access_token: user_identity.access_token
+        access_token: userIdentity.access_token
       })
     );
   });
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     utils.waitAllPromises(groups).then(function(groupsEvents) {
       console.log(groupsEvents.length + ' FB groups');
       var eventsWithVenues = [];
@@ -50,7 +56,7 @@ function getFacebookUserEvents(user_identity) {
       console.log(eventsWithVenues.length + ' FB events with eventsData');
       resolve(eventsWithVenues);
     }).catch(function(err) {
-      console.error('Error getting Facebook Events with: ' + JSON.stringify(user_identity));
+      console.error('Error getting Facebook Events with: ' + JSON.stringify(userIdentity));
       reject(err);
     });
   });
@@ -60,9 +66,12 @@ function getFacebookUserEvents(user_identity) {
 //  until one is able to return facebook events.
 //  We assume that all access tokens are able to access all white listed fb groups.
 function getAllFacebookEvents(users) {
-  if (users.length === 0) return users;
-
   var user = users.pop();
+
+  if (users.length === 0) {
+    return users;
+  }
+
   return getFacebookUserEvents(user.identities[0])
   .then(function(events) {
     return events;
@@ -84,7 +93,9 @@ function getFacebookUsers() {
       }
     }).then(function(data) {
       utils.prequest('https://' + config.auth0.domain + '/api/users', {
-        headers: {'Authorization': data.token_type + ' ' + data.access_token}
+        headers: {
+          'Authorization': data.token_type + ' ' + data.access_token
+        }
       }).then(function(data) {
         resolve(data || []);
       });
@@ -96,8 +107,10 @@ function getFacebookUsers() {
 }
 
 function filterValidFacebookUsers(users) { //must have access to groups
-  var base = 'https://graph.facebook.com/v2.0/me/groups?'
-  var groupPromises = users.map(function(user) {
+  var base = 'https://graph.facebook.com/v2.0/me/groups?',
+    groupPromises;
+
+  groupPromises = users.map(function(user) {
     return utils.prequest(base +
       querystring.stringify({
         access_token: user.identities[0].access_token
@@ -106,8 +119,10 @@ function filterValidFacebookUsers(users) { //must have access to groups
   });
 
   return utils.waitAllPromises(groupPromises).then(function(userGroups) {
+    var validusers
+
     console.log(userGroups.length + ' authorized users');
-    var validusers = users.filter(function(user, idx) {
+    validusers = users.filter(function(user, idx) {
       return userGroups[idx].data.length > 0
     });
     console.log(validusers.length + ' users with accessible groups');
