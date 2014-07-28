@@ -102,11 +102,11 @@ Chose either one of the 2 ways:
 	```
 	docker build -t webuild .
 	```
-1. run with docker with port mapping
+1. run docker with port mapping
 
 	```
-	docker run -d -p 4000:4000 webuild	```
-	
+	docker run -d -p 4000:4000 webuild
+	```
 1. open `<DOCKER_HOST>:4000` in your host browser E.g. `http://192.168.59.103:4000/`
 
 
