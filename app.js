@@ -76,6 +76,10 @@ app.get('/cal', function(req, res) {
 
 });
 
+app.get('/check', function(req, res) {
+  res.redirect('/#check');
+})
+
 app.get('/callback', passport.callback);
 
 app.post('/api/events/update', function(req, res) {
