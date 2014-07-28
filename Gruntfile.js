@@ -11,7 +11,7 @@ module.exports = function(grunt) {
           'public/humans.txt'
         ],
         updateConfigs: [],
-        commit: false,
+        commit: true,
         commitMessage: 'Release v%VERSION%',
         commitFiles: [
           'package.json',
