@@ -195,7 +195,7 @@ Please see `CONTRIBUTING.md` for details.
 
 #Versioning
 
-Every production code has a version following the [Semantic Versioning guidelines](http://semver.org/).
+Every production code has a version following the [Semantic Versioning guidelines](http://semver.org/). Run the `grunt bump` command to bump the version accordingly and then push to production with `git push production master`.
 
 #License
 
