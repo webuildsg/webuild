@@ -2,7 +2,7 @@
   'use strict';
 
   var podcastApi = '/api/podcasts',
-    eventsApi = '/api/events',
+    eventsCheckApi = '/api/check/',
     request = new XMLHttpRequest(),
     eventDate = document.getElementById('check'),
     ul = document.getElementById('clashed'),
@@ -68,19 +68,12 @@
     }
   }
 
-  function checkEventClashes(events, checkEvent) {
+  function displayClashStatus(clashedEvents) {
     var newline = '<br>',
       displayNote = '<strong>Note:</strong> ',
       noteText = 'These events are free open events for developers, makers or designers only.',
       note = newline + displayNote + noteText,
-      results = document.getElementById('results'),
-      clashedEvents = [];
-
-    clashedEvents = events.filter(function(element) {
-      if (moment(element.start_time).isSame(checkEvent, 'day') ) {
-        return true;
-      }
-    });
+      results = document.getElementById('results');
 
     loader.style.display = 'none';
     if (clashedEvents.length === 0) {
@@ -91,7 +84,7 @@
       results.innerHTML = clashedEvents.length + ' events are clashing!' + note;
     }
 
-    return clashedEvents;
+    return;
   }
 
   function appendClashedEvent(thisEvent) {
@@ -114,33 +107,36 @@
   // event clash checker
   eventDate.onchange = function() {
     var checkEvent = moment(),
+      checkEventCompleteUrl = '',
       request = new XMLHttpRequest();
 
     if (this.value.match(/\-/)) {
-      checkEvent = moment(this.value, 'YYYY-MM-DD');
+      // For Chrome
+      checkEvent = this.value.substring(8, 10) + '-' + this.value.substring(5, 7) + '-' + this.value.substring(0, 4);
     } else {
-      // For FF and Safari support
-      checkEvent = moment(this.value, 'DD/MM/YYYY');
+      // For FF and Safari
+      checkEvent = this.value.replace(/\//g, '-');
     }
 
     ul.innerHTML = '';
     loader.style.display = 'block';
 
-    if (events === null) {
-      request.open('GET', eventsApi, true);
-      request.responseType = 'json';
-      request.onload = function() {
-        if (typeof request.response === 'string') {
-          events = JSON.parse(request.response);
-        } else {
-          events = request.response;
-        }
-        checkEventClashes(events, checkEvent).forEach(appendClashedEvent);
-      };
-      request.send();
-    } else {
-      checkEventClashes(events, checkEvent).forEach(appendClashedEvent);
-    }
+    checkEventCompleteUrl = eventsCheckApi + checkEvent;
+    request.open('GET', checkEventCompleteUrl, true);
+    request.responseType = 'json';
+    request.onload = function() {
+      if (typeof request.response === 'string') {
+        // Chrome
+        events = JSON.parse(request.response);
+        displayClashStatus(events);
+      } else {
+        // FF or Safari
+        events = request.response;
+        displayClashStatus(events);
+      }
+      events.forEach(appendClashedEvent);
+    };
+    request.send();
   }
 
   // read the next podcast date from /api/podcasts

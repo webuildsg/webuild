@@ -35,6 +35,7 @@ The events, repositories and podcasts data feeds are available as JSON.
 - <http://webuild.sg/api/repos>
 - <http://webuild.sg/api/events>
 - <http://webuild.sg/api/podcasts>
+- `http://webuild.sg/api/check/:checkdate` where `checkdate` is in the format `DD-MM-YYYY` to check for clashed events with `checkdate`
 
 
 #Install for development

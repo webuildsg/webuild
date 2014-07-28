@@ -37,6 +37,20 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/api/check/:checkdate', function(req, res) {
+  var checkdate = moment(req.params.checkdate, 'DD-MM-YYYY') ,
+    clashedEvents = [];
+
+  clashedEvents = events.feed.filter(function(element) {
+    if (moment(element.start_time).isSame(checkdate, 'day') ) {
+      return true;
+    }
+  });
+
+  res.send(clashedEvents);
+
+})
+
 app.get('/api/events', function(req, res) {
   res.send(events.feed);
 });

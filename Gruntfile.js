@@ -5,11 +5,19 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     bump: {
       options: {
-        files: ['package.json', 'bower.json', 'public/humans.txt'],
+        files: [
+          'package.json',
+          'bower.json',
+          'public/humans.txt'
+        ],
         updateConfigs: [],
         commit: false,
         commitMessage: 'Release v%VERSION%',
-        commitFiles: ['package.json', 'bower.json', 'public/humans.txt'],
+        commitFiles: [
+          'package.json',
+          'bower.json',
+          'public/humans.txt'
+        ],
         createTag: true,
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
