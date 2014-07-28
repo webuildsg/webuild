@@ -1,0 +1,25 @@
+FROM    ubuntu:14.04
+
+RUN     apt-get update
+RUN     apt-get install -y git curl nano build-essential libssl-dev libreadline-dev libffi-dev libgdbm-dev
+
+# install ruby and node
+ADD     http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.bz2 /
+RUN     tar xvjf ruby-2.1.2.tar.bz2 && cd ruby-2.1.2 && ./configure --disable-install-doc --with-openssl-dir=/usr/bin && make && make install && cd / && rm -rf /ruby-2.1.2
+RUN     apt-get install -y software-properties-common python-software-properties
+RUN     apt-get install -y nodejs nodejs-dev npm
+RUN     gem install sass compass --no-ri --no-rdoc
+RUN     ln -s /usr/bin/nodejs /usr/bin/node
+RUN     npm install -g bower grunt-cli
+
+RUN     mkdir /apps
+ADD     . /apps/webuild
+RUN     chmod +x /apps/webuild/run.sh
+RUN     cd /apps/webuild && npm install && bower install --allow-root && grunt
+RUN     cd /apps/webuild && npm install htmlstrip-native
+
+WORKDIR /apps/webuild
+
+EXPOSE  4000
+
+CMD     /apps/webuild/run.sh

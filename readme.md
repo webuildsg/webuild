@@ -39,10 +39,56 @@ The events, repositories and podcasts data feeds are available as JSON.
 
 #Install for development
 
-1. clone the app
+Chose either one of the 2 ways:
+
+##1. nitrous.io / your host
+
+1. clone this repo either with [nitrous.io](http://nitrous.io/) or in your local machine
+	1. Use [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=Life&utm_medium=hackonnitrous) to create your own *We Build* in seconds:
+	
+		[![Hack webuildsg/webuild on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=webuildsg%2Fwebuild&file_to_open=README.md)
+	1. clone the app
+
+		```
+		git clone git@github.com:webuildsg/webuild.git
+		cd webuild
+		```
+
+1. copy `run.sh.sample` script and [setup the various configs](#setup-configs) in the file
 
 	```
-	git@github.com:webuildsg/webuild.git
+	cp run.sh.sample run.sh
+	chmod u+x run.sh # edit the secrets accordingly
+	```
+
+1. install required packages with [npm](https://www.npmjs.org/) and [rubygem](https://rubygems.org/)
+
+	```
+	gem install sass compass
+	npm install -g bower
+	npm install -g grunt-cli
+	npm install
+	bower install
+	``` 
+1. build frontend css and javascript files, along with other tasks with [grunt](http://gruntjs.com/)
+
+	```
+	grunt
+	```
+1. run in command line `./run.sh` to start the app
+1. open [localhost:4000](http://localhost:4000/) in your browser
+1. run the following in another command line to update github
+
+	```
+	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
+	```
+
+##2. using docker
+
+1. clone this repo
+
+	```
+	git clone git@github.com:webuildsg/webuild.git
 	cd webuild
 	```
 1. copy `run.sh.sample` script and [setup the various configs](#setup-configs) in the file
@@ -51,30 +97,18 @@ The events, repositories and podcasts data feeds are available as JSON.
 	cp run.sh.sample run.sh
 	chmod u+x run.sh # edit the secrets accordingly
 	```
-1. install required packages
+1. build with [docker](http://docker.com/)
 
 	```
-	npm install -g bower
-	npm install -g grunt-cli
-	npm install
-	bower install
-	``` 
-1. build frontend css and javascript files with grunt
+	docker build -t webuild .
+	```
+1. run with docker with port mapping
 
 	```
-	grunt
-	```
-1. run in command line `./run` to start the app
-1. open [localhost:4000](http://localhost:4000/) in your browser
-1. run the following in another command line to update github
+	docker run -d -p 4000:4000 webuild	```
+	
+1. open `<DOCKER_HOST>:4000` in your host browser E.g. `http://192.168.59.103:4000/`
 
-	```
-	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
-	```
-
-Use [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=Life&utm_medium=hackonnitrous) to create your own *We Build* in seconds:
-
-[![Hack webuildsg/webuild on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=webuildsg%2Fwebuild&file_to_open=README.md)
 
 #Deploy for production
 

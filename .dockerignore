@@ -1,0 +1,15 @@
+/node_modules
+.editorconfig
+.gitignore
+.git
+.ruby-gemset
+.ruby-version
+.travis.yml
+CONTRIBUTING.md
+LICENSE
+Procfile
+readme.md
+run.sh.sample
+/public/js/script.js
+/public/css/style.css
+/public/js/vendor
