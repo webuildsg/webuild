@@ -22,8 +22,8 @@ module.exports = function(grunt) {
       src: [
         'Gruntfile.js',
         'public/js/main.js',
-        'events/*.js'
-        // 'repos/*.js'
+        'events/*.js',
+        'repos/*.js'
       ],
       options: {
         config: '.jscsrc'

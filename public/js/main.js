@@ -70,7 +70,7 @@
 
   function checkEventClashes(events, checkEvent) {
     var newline = '<br>',
-      displayNote = '<strong>Note:</strong>',
+      displayNote = '<strong>Note:</strong> ',
       noteText = 'These events are free open events for developers, makers or designers only.',
       note = newline + displayNote + noteText,
       results = document.getElementById('results'),

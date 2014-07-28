@@ -1,16 +1,16 @@
 'use strict';
 
-var fs = require('fs');
-var jf = require('jsonfile');
-var mess = require('mess');
-var request = require('request');
-var Promise = require('promise');
-var GitHubApi = require('github');
+var fs = require('fs'),
+  jf = require('jsonfile'),
+  mess = require('mess'),
+  request = require('request'),
+  Promise = require('promise'),
+  GitHubApi = require('github'),
+  whitelistUsers = require('./whitelistUsers'),
+  config = require('./config.js'),
+  github;
 
-var whitelistUsers = require('./whitelistUsers');
-var config = require('./config.js');
-
-var github = new GitHubApi({
+github = new GitHubApi({
   version: '3.0.0',
   debug: config.debug
 });
@@ -19,18 +19,18 @@ if (config.github.clientID && config.github.clientSecret) {
   github.authenticate({
     type: 'oauth',
     key: config.github.clientID,
-    secret: config.github.clientSecret,
+    secret: config.github.clientSecret
   });
 }
 
 function fetch(method, args, limit) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     var items = [];
     method(args, function recv(err, res) {
       if (err) {
         if (err.code === 403) {
           console.log('Rate limited');
-          setTimeout(function () {
+          setTimeout(function() {
             console.log('Retrying');
             method(args, recv);
           }, 60000);
@@ -41,7 +41,7 @@ function fetch(method, args, limit) {
       }
       res.items
         .slice(0, limit - items.length)
-        .forEach(function (item) {
+        .forEach(function(item) {
           items.push(item);
           // console.log(items.length, item);
         });
@@ -69,9 +69,9 @@ function pad(d) {
   return (d < 10) ? '0' + d.toString() : d.toString();
 }
 
-function insertWhiteList(searchedUsers,whitelistUsers){
+function insertWhiteList(searchedUsers, whitelistUsers) {
   whitelistUsers.forEach(function(whitelistUser) {
-    var found = searchedUsers.filter(function(searchedUser){
+    var found = searchedUsers.filter(function(searchedUser) {
         return searchedUser.login === whitelistUser.login;
       });
     if (found.length === 0) {
@@ -86,32 +86,32 @@ exports.feed = { repos: [] };
 
 exports.config = config;
 
-exports.update = function () {
-  var now = new Date();
-  var pushedQuery = 'pushed:>'+ now.getFullYear() + '-'+ pad(now.getMonth() - 2) + '-'+ '01';
+exports.update = function() {
+  var now = new Date(),
+    pushedQuery = 'pushed:>' + now.getFullYear() + '-' + pad(now.getMonth() - 2) + '-' + '01';
   // pushed:>2014-06-01 - pushed date until 3 months ago only
 
   console.log('Generating GitHub repos feed... this may take a while...');
   return fetch(github.search.users, {
     q: 'location:' + config.github.location
   }, config.github.maxUsers)
-  .then(function (users) {
+  .then(function(users) {
     users = insertWhiteList(users, whitelistUsers);
     console.log('Found %d users', users.length);
-    var searches = chunk(mess(users), 20).map(function (users) {
+    var searches = chunk(mess(users), 20).map(function(users) {
       return fetch(github.search.repos, {
         sort: 'updated',
         order: 'desc',
         q: [
-          'stars:>='+config.github.starLimit,
+          'stars:>=' + config.github.starLimit,
           'fork:true',
           pushedQuery
         ].concat(
           users
-            .filter(function (user) {
+            .filter(function(user) {
               return !/"/.test(user.login);
             })
-            .map(function (user) {
+            .map(function(user) {
               return 'user:"' + user.login + '"';
             })
         ).join('+')
@@ -119,10 +119,10 @@ exports.update = function () {
     });
     return Promise.all(searches);
   })
-  .then(function (results) {
+  .then(function(results) {
     var owners = {};
     return [].concat.apply([], results)
-      .map(function (repo) {
+      .map(function(repo) {
         return {
           name: repo.name,
           html_url: repo.html_url,
@@ -138,16 +138,16 @@ exports.update = function () {
           }
         };
       })
-      .sort(function (a, b) {
+      .sort(function(a, b) {
         return a.pushed_at > b.pushed_at ? -1 : 1;
       })
-      .filter(function (repo) {
+      .filter(function(repo) {
         owners[repo.owner.login] = 1 + (owners[repo.owner.login] || 0);
         return owners[repo.owner.login] === 1;
       })
       .slice(0, config.github.maxRepos);
   })
-  .then(function (repos) {
+  .then(function(repos) {
     console.log('Found %d repos', repos.length);
     var feed = {
       generated_at: new Date().toISOString(),
@@ -160,7 +160,7 @@ exports.update = function () {
     jf.writeFile(config.outfile, feed);
     return feed;
   })
-  .catch(function (err) {
+  .catch(function(err) {
     console.error(err);
   });
 };
@@ -183,8 +183,7 @@ fs.exists(config.outfile, function(exists) {
       } else {
         if (res) {
           console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
-        }
-        else {
+        } else {
           console.warn('Failed to retrieve data (Status code: %s)', err);
         }
       }
