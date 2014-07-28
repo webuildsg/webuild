@@ -1,6 +1,8 @@
 {
   "name": "webuild.sg",
-  "version": "0.0.1",
+  "version": "1.0.5",
+  "homepage": "http://webuild.sg",
+  "keywords": "developer, designer, maker, open source, open events, open community",
   "private": true,
   "scripts": {
     "start": "node app",

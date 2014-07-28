@@ -1,14 +1,32 @@
-# humanstxt.org/
-# The humans responsible & technology colophon
+# The humans responsible & colophon
+# humanstxt.org
 
-# TEAM
+# ACTIVE CONTRIBUTORS
+  Name: Alyssa Quek
+  Twitter: @alyssaquek
 
-    Sayanee -- Developer & Designer -- www.sayan.ee
+  Name: Chinmay Pendharkar
+  Twitter: @ntt
+
+  Name: Sayanee Basu
+  Twitter: @sayanee_
+
+  Name: Sebastiaan Deckers
+  Twitter: @sebdeckers
 
 # THANKS
+  Name: Lakshan Perera
+  Twitter: @laktek
 
-    Chinmay
+  Name: U-Zyn Chua
+  Twitter: @uzyn
 
-# TECHNOLOGY COLOPHON
+  Name: Vinay M
+  Twitter: @rmdort
 
-    HTML5, CSS3, Fittext
+# SITE
+  Version: 1.0.5
+  Site Url: http://webuild.sg
+  Keywords: developer, designer, maker, open source, open events, open community
+  Language: English
+  Technology: node.js, expressjs, facebook api, meetup.com api, github api, sass, jade, docker, heroku
