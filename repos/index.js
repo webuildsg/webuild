@@ -179,7 +179,7 @@ fs.exists(config.outfile, function(exists) {
       if (!err && res.statusCode === 200) {
         exports.feed = body;
         jf.writeFile(config.outfile, body);
-        console.log('Saved %d repos to cache', body.repos.length);
+        // console.log('Saved %d repos to cache', body.repos.length);
       } else {
         if (res) {
           console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
