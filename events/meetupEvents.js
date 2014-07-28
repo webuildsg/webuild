@@ -1,15 +1,20 @@
 'use strict';
 
-var querystring = require('querystring');
-var moment = require('moment');
-var utils = require('./utils');
-var config = require('./config');
+var querystring = require('querystring'),
+  moment = require('moment'),
+  utils = require('./utils'),
+  config = require('./config');
 
 function constructAddress(venue) {
   var address = '';
 
   if (venue) {
-    address = venue.name + ', ' + venue.address_1 || '' + (venue.address_2 ? ', ' + venue.address_2 : '');
+    address = [
+      venue.name,
+      ', ',
+      venue.address_1 || '',
+      (venue.address_2 ? ', ' + venue.address_2 : '')
+    ].join('');
     address += address.indexOf(config.meetupParams.city) === -1 ? ', ' + config.meetupParams.city : '';
   } else {
     address = config.meetupParams.city;
@@ -19,16 +24,18 @@ function constructAddress(venue) {
 }
 
 function isValidGroup(row) {
-  var blacklistGroups = config.blacklistGroups || [];
-  var blacklistWords = config.blacklistWords || [];
-  var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
+  var blacklistGroups = config.blacklistGroups || [],
+    blacklistWords = config.blacklistWords || [],
+    blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
 
   // Enforce country filter. Meetup adds JB groups into SG
   return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) && !blacklistGroups.some(function(id) { return row.id === id }) && row.country === (config.meetupParams.country || row.country);
 }
 
 function findGroupEvents(eventsArr, row) {
-  if (!(row.next_event && row.next_event.time)) return eventsArr;
+  if (!(row.next_event && row.next_event.time)) {
+    return eventsArr;
+  }
 
   var entry = {
     id: row.next_event.id,
@@ -47,13 +54,18 @@ function findGroupEvents(eventsArr, row) {
 }
 
 function findCommunityEvents(eventsArr, row) {
-  if (!(row.time && row.venue_name)) return eventsArr;
+  var eventTime,
+    entry = {};
 
-  var event_time = moment.utc(row.time).zone(utils.zone)
+  if (!(row.time && row.venue_name)) {
+    return eventsArr;
+  }
+
+  eventTime = moment.utc(row.time).zone(utils.zone);
   row.name = row.venue_name;
   row.address_1 = row.address1 || '';
 
-  var entry = {
+  entry = {
     id: row.id.toString(),
     name: row.short_description,
     description: utils.htmlStrip(row.description),
@@ -61,9 +73,9 @@ function findCommunityEvents(eventsArr, row) {
     url: row.meetup_url,
     group_name: row.container.name + ' Community',
     group_url: 'http://meetup.com/' + row.container.urlname + '/' + row.community.urlname,
-    formatted_time: event_time.format(utils.timeformat),
-    start_time: event_time.toISOString(),
-    end_time: event_time.add('milliseconds', 7200000).toISOString()
+    formatted_time: eventTime.format(utils.timeformat),
+    start_time: eventTime.toISOString(),
+    end_time: eventTime.add('milliseconds', 7200000).toISOString()
   }
   eventsArr.push(entry);
 
@@ -110,8 +122,9 @@ function getMeetupCommunityEvents() {
     });
 
   return utils.prequest(url).then(function(data) {
-    console.log(data.results.length + ' Meetup community events with venues');
     var events = [];
+
+    console.log(data.results.length + ' Meetup community events with venues');
     data.results.reduce(findCommunityEvents, events);
     return events;
   }).catch(function(err) {
@@ -123,7 +136,7 @@ function getMeetupEvents() { //events with eventsData
   return getMeetupGroups().then(function(events) {
     console.log('Fetched ' + events.length + ' Meetup group events');
     var eventReqs = events.map(function(event) {
-      return utils.prequest('https://api.meetup.com/2/event/'+ event.id + '?fields=venue_visibility&key='+ config.meetupParams.key);
+      return utils.prequest('https://api.meetup.com/2/event/' + event.id + '?fields=venue_visibility&key=' + config.meetupParams.key);
     });
 
     return utils.waitAllPromises(eventReqs).then(function(eventsData) {

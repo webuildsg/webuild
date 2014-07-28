@@ -1,10 +1,11 @@
 'use strict';
 
-var passport = require('passport');
-var Auth0Strategy = require('passport-auth0');
-var config = require('./config');
+var passport = require('passport'),
+  Auth0Strategy = require('passport-auth0'),
+  config = require('./config'),
+  strategy;
 
-var strategy = new Auth0Strategy({
+strategy = new Auth0Strategy({
   domain: config.auth0.domain,
   clientID: config.auth0.clientId || '-',
   clientSecret: config.auth0.clientSecret || '-',

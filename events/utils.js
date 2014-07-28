@@ -1,17 +1,19 @@
 'use strict';
 
-var Promise = require('promise');
-var request = require('request');
-var htmlStrip = require('htmlstrip-native');
+var Promise = require('promise'),
+  request = require('request'),
+  htmlStrip = require('htmlstrip-native');
 
 function prequest(url, options) {
   options = options || {};
   options.url = url;
   options.json = true;
   console.log('Getting data from ' + url);
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     request(options, function(err, resp, body) {
-      if (err) return reject(err);
+      if (err) {
+        return reject(err);
+      }
 
       if (resp.statusCode === 200) {
         resolve(body);
@@ -24,11 +26,14 @@ function prequest(url, options) {
 }
 
 function waitAllPromises(arr) {
-  if (arr.length === 0) return resolve([]);
+  if (arr.length === 0) {
+    return resolve([]);
+  }
 
-  return new Promise(function (resolve, reject) {
-    var numResolved = 0;
-    var numErrors = 0;
+  return new Promise(function(resolve, reject) {
+    var numResolved = 0,
+      numErrors = 0;
+
     function save(i, val) {
       arr[i] = val
       if (numErrors === arr.length) {
@@ -43,7 +48,9 @@ function waitAllPromises(arr) {
         save(i, val);
       }).catch(function(err) {
         ++numErrors;
-        save(i, {'error': err}); // resolve errors
+        save(i, {
+          'error': err
+        }); // resolve errors
       });
     });
   });
@@ -51,9 +58,9 @@ function waitAllPromises(arr) {
 
 function htmlStripWrapper(str) {
   return htmlStrip.html_strip(str, {
-    include_script : false,
-    include_style : false,
-    compact_whitespace : true
+    include_script: false,
+    include_style: false,
+    compact_whitespace: true
   });
 }
 
