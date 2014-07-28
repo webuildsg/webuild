@@ -1,6 +1,6 @@
 {
   "name": "webuild.sg",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "homepage": "http://webuild.sg",
   "keywords": "developer, designer, maker, open source, open events, open community",
   "private": true,
@@ -22,6 +22,7 @@
     "grunt-contrib-csslint": "0.2.0",
     "grunt-contrib-sass": "0.7.3",
     "grunt-contrib-uglify": "0.5.0",
+    "grunt-bump": "0.0.14",
     "grunt-jscs": "0.6.1",
     "grunt-contrib-jshint": "0.10.0",
     "htmlstrip-native": "0.0.2",
