@@ -16,16 +16,18 @@ var express = require('express'),
   cal = ical();
 
 app.set('port', process.env.PORT || 3000);
+
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(errorHandler());
-app.locals.pretty = true;
-app.locals.moment = require('moment');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(passport.initialize());
+
+app.locals.pretty = true;
+app.locals.moment = require('moment');
 
 app.get('/', function(req, res) {
   res.render('index.jade', {
@@ -105,6 +107,11 @@ app.use('/api/podcasts', function(req, res) {
   }
   res.end(response);
  })
+});
+
+app.use(function(req, res, next){
+  res.redirect('/');
+  return;
 });
 
 events.update();
