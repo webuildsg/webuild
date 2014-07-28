@@ -1,3 +1,9 @@
+                _           _ _     _   _
+__      _____  | |__  _   _(_) | __| | / \
+\ \ /\ / / _ \ | '_ \| | | | | |/ _` |/  /
+ \ V  V /  __/ | |_) | |_| | | | (_| /\_/
+  \_/\_/ \___| |_.__/ \__,_|_|_|\__,_\/
+
 # The humans responsible & colophon
 # humanstxt.org
 
@@ -29,4 +35,4 @@
   Site Url: http://webuild.sg
   Keywords: developer, designer, maker, open source, open events, open community
   Language: English
-  Technology: node.js, expressjs, facebook api, meetup.com api, github api, sass, jade, docker, heroku
+  Technology: node.js, expressjs, facebook api, meetup.com api, github api, sass, jade, docker, heroku, html 5 boilerplate, travis
