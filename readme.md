@@ -79,10 +79,10 @@ Chose either one of the 2 ways:
 	```
 1. Run in command line `./run.sh` to start the app.
 1. Open [localhost:4000](http://localhost:4000/) in your browser.
-1. Run the following in another command line to update github:
+1. Run the following command in another terminal to update events and repos:
 
 	```
-	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
+	./update.sh
 	```
 
 ##2. Using Docker
@@ -113,6 +113,12 @@ Chose either one of the 2 ways:
 	docker run -i -t -p 4000:4000 webuild
 	```
 1. Open `<DOCKER_HOST>:4000` in your host browser e.g. `http://localhost:4000/`
+
+1. Run the following command in another terminal to update events and repos:
+
+	```
+	./update.sh
+	```
 
 #Deploy to production
 
