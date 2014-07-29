@@ -3,6 +3,6 @@ public/js/vendor/*
 
 events.json
 
-run.sh
+.env
 .sass-cache
 *.swp

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-WEBUILD_API_SECRET=secret MEETUP_API_KEY=secret PORT=4000 LOCATION=Singapore MAX_USERS=1000 MAX_REPOS=50 GITHUB_CLIENT_ID=secret GITHUB_CLIENT_SECRET=secret node app.js
-sleep 5
-curl --data "secret=$WEBUILD_API_SECRET" localhost:3000/api/repos/update
