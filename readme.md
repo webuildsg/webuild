@@ -42,27 +42,28 @@ The events, repositories and podcasts data feeds are available as JSON.
 
 Chose either one of the 2 ways:
 
-##1. nitrous.io / your host
+##1. Nitrous.IO / Your Host
 
-1. clone this repo either with [nitrous.io](http://nitrous.io/) or in your local machine
+1. Clone this repo either with [Nitrous.IO](http://nitrous.io/) or in your local machine.
 	1. Use [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=Life&utm_medium=hackonnitrous) to create your own *We Build* in seconds:
 	
 		[![Hack webuildsg/webuild on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=webuildsg%2Fwebuild&file_to_open=README.md)
-	1. clone the app
+	1. Clone the app:
 
 		```
 		git clone git@github.com:webuildsg/webuild.git
 		cd webuild
 		```
 
-1. copy `run.sh.sample` script and [setup the various configs](#setup-configs) in the file
+1. Setup the necessary environment variables.
 
-	```
-	cp run.sh.sample run.sh
-	chmod u+x run.sh # edit the secrets accordingly
-	```
+  ```
+  cp .env-example .env
+  ```
 
-1. install required packages with [npm](https://www.npmjs.org/) and [rubygem](https://rubygems.org/)
+  Refer [Environment Variables](#environment-variables) section for more details.
+
+1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
 
 	```
 	gem install sass compass
@@ -70,35 +71,38 @@ Chose either one of the 2 ways:
 	npm install -g grunt-cli
 	npm install
 	bower install
-	``` 
-1. build frontend css and javascript files, along with other tasks with [grunt](http://gruntjs.com/)
+	```
+1. Build frontend css and javascript files, along with other tasks with [grunt](http://gruntjs.com/)
 
 	```
 	grunt
 	```
-1. run in command line `./run.sh` to start the app
-1. open [localhost:4000](http://localhost:4000/) in your browser
-1. run the following in another command line to update github
+1. Run in command line `./run.sh` to start the app.
+1. Open [localhost:4000](http://localhost:4000/) in your browser.
+1. Run the following in another command line to update github:
 
 	```
 	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
 	```
 
-##2. using docker
+##2. Using Docker
 
-1. clone this repo
+1. Clone this repo
 
 	```
 	git clone git@github.com:webuildsg/webuild.git
 	cd webuild
 	```
-1. copy `run.sh.sample` script and [setup the various configs](#setup-configs) in the file
 
-	```
-	cp run.sh.sample run.sh
-	chmod u+x run.sh # edit the secrets accordingly
-	```
-1. build with [docker](http://docker.com/)
+1. Setup the necessary environment variables.
+
+  ```
+  cp .env-example .env
+  ```
+
+  Refer [Environment Variables](#environment-variables) section for more details.
+
+1. Build with [Docker](http://docker.com/)
 
 	```
 	docker build -t webuild .
@@ -106,18 +110,17 @@ Chose either one of the 2 ways:
 1. run docker with port mapping
 
 	```
-	docker run -d -p 4000:4000 webuild
+	docker run -i -t -p 4000:4000 webuild
 	```
-1. open `<DOCKER_HOST>:4000` in your host browser E.g. `http://192.168.59.103:4000/`
+1. Open `<DOCKER_HOST>:4000` in your host browser e.g. `http://localhost:4000/`
 
+#Deploy to production
 
-#Deploy for production
+We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to deploy:
 
-We used [Heroku](http://heroku.com/) - thank you! And the following are the instructions for heroku
-
-1. install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
-1. create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-1. Setup the following [config variable](#setup-configs) under the Heroku app Settings:
+1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
+1. Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+1. Setup the following [environment variables](#environment-variables) under the Heroku app settings:
 
 	```
 	GITHUB_CLIENT_ID
@@ -128,7 +131,7 @@ We used [Heroku](http://heroku.com/) - thank you! And the following are the inst
 	WEBUILD_AUTH0_CLIENT_ID
 	WEBUILD_AUTH0_CLIENT_SECRET
 	```
-1. Get heroku [Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
+1. Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
 
 	- update events every hour
 	
@@ -142,7 +145,7 @@ We used [Heroku](http://heroku.com/) - thank you! And the following are the inst
 		```
 
 
-#Setup configs
+#Environment variables
 
 Set the following environment variables on your system:
 
@@ -164,17 +167,17 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 # Editing events and repos list
 
-###events
+###Events
 
-1. Meetup and Facebook events in Singapore are automatically populated
-1. **White list events**: To add additional events, edit `events/whitelistEvents.json`
-1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and edit `events/blacklistEvents.json` 
+1. Meetup and Facebook events in Singapore are automatically populated.
+1. **White list events**: To add additional events, edit `events/whitelistEvents.json`.
+1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and edit `events/blacklistEvents.json`.
 
-###repos
+###Repos
 
-1. Github repos from user's location Singapore are automatically populated
-1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected
-1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`
+1. Github repos from user's location Singapore are automatically populated.
+1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected.
+1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`.
 
 #Customise for any location
 
