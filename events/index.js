@@ -9,6 +9,16 @@ var moment = require('moment'),
     getMeetupEvents: require('./meetupEvents').get
   };
 
+function removeDuplicates(feed) {
+  for (var i = 1; i < feed.length; i++) {
+    var prev = feed[i - 1],
+      cur = feed[i];
+    if (prev.formatted_time === cur.formatted_time && prev.name === cur.name) {
+      feed.splice(i, 1);
+    }
+  }
+}
+
 function timeComparer(a, b) {
   return (moment(a.formatted_time, utils.timeformat).valueOf() -
           moment(b.formatted_time, utils.timeformat).valueOf());
@@ -24,7 +34,8 @@ function addEvents(type) {
     });
     exports.feed = exports.feed.concat(whiteEvents);
     exports.feed.sort(timeComparer);
-    console.log(data.length + ' %s events added! %s total', type, exports.feed.length);
+    removeDuplicates(exports.feed);
+    console.log(whiteEvents.length + ' %s events added! %s total', type, exports.feed.length);
   }).catch(function(err) {
     console.error('Failed to add %s events: %s', type, err);
   });

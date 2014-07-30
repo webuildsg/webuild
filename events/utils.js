@@ -8,7 +8,6 @@ function prequest(url, options) {
   options = options || {};
   options.url = url;
   options.json = true;
-  console.log('Getting data from ' + url);
   return new Promise(function(resolve, reject) {
     request(options, function(err, resp, body) {
       if (err) {
