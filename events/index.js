@@ -10,9 +10,10 @@ var moment = require('moment'),
   };
 
 function removeDuplicates(feed) {
-  for (var i = 1; i < feed.length; i++) {
-    var prev = feed[i - 1],
-      cur = feed[i];
+  var prev, cur, i;
+  for (i = 1; i < feed.length; i++) {
+    prev = feed[i - 1];
+    cur = feed[i];
     if (prev.formatted_time === cur.formatted_time && prev.name === cur.name) {
       feed.splice(i, 1);
     }
