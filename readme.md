@@ -94,13 +94,11 @@ Chose either one of the 2 ways:
 	cd webuild
 	```
 
-1. Setup the necessary environment variables.
+1. Setup the necessary environment variables. Refer [Environment Variables](#environment-variables) section for more details.
 
-  ```
-  cp .env-example .env
-  ```
-
-  Refer [Environment Variables](#environment-variables) section for more details.
+	 ```
+	 cp .env-example .env
+	 ```
 
 1. Build with [Docker](http://docker.com/)
 
