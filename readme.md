@@ -55,13 +55,11 @@ Chose either one of the 2 ways:
 		cd webuild
 		```
 
-1. Setup the necessary environment variables.
+1. Setup the necessary environment variables. Refer [Environment Variables](#environment-variables) section for more details.
 
-  ```
-  cp .env-example .env
-  ```
-
-  Refer [Environment Variables](#environment-variables) section for more details.
+	```
+	cp .env-example .env
+	```
 
 1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
 
@@ -84,13 +82,6 @@ Chose either one of the 2 ways:
 	```
 	./update.sh
 	```
-1. (optional) pre-commit hook file `.git/hooks/pre-commit`
-
-	```
-	#!/bin/sh
-	grunt
-	``` 
-
 
 ##2. Using Docker
 
