@@ -175,11 +175,12 @@ fs.exists(config.outfile, function(exists) {
     });
   } else {
     console.log('Fetching public repos feed...');
-    request('http://webuild.sg/repos.json', function(err, res, body) {
+    request('http://webuild.sg/api/repos', function(err, res, body) {
       if (!err && res.statusCode === 200) {
-        exports.feed = body;
-        jf.writeFile(config.outfile, body);
-        // console.log('Saved %d repos to cache', body.repos.length);
+        var data = JSON.parse(body);
+        exports.feed = data;
+        jf.writeFile(config.outfile, data);
+        console.log('Saved %d repos to cache', data.repos.length);
       } else {
         if (res) {
           console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
