@@ -84,6 +84,13 @@ Chose either one of the 2 ways:
 	```
 	./update.sh
 	```
+1. (optional) pre-commit hook file `.git/hooks/pre-commit`
+
+	```
+	#!/bin/sh
+	grunt
+	``` 
+
 
 ##2. Using Docker
 
