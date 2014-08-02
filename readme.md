@@ -83,6 +83,13 @@ Chose either one of the 2 ways:
 	```
 	curl --data "secret=<WEBUILD_API_SECRET>" http://localhost:4000/api/repos/update
 	```
+1. (optional) pre-commit hook file `.git/hooks/pre-commit`
+
+	```
+	#!/bin/sh
+	grunt
+	``` 
+
 
 ##2. using docker
 
