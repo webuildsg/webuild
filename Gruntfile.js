@@ -118,4 +118,8 @@ module.exports = function(grunt) {
     'jscs'
   ]);
 
+  grunt.registerTask('build', [
+    'uglify'
+  ]);
+
 };

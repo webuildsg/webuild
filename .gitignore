@@ -1,6 +1,6 @@
 node_modules/*
 public/js/vendor/*
-
+public/js/script.js
 events.json
 
 .env
