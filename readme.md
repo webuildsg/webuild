@@ -166,6 +166,13 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
+###Newrelic
+
+If you are integrating Newrelic for analytics, the following environment variables are required:
+
+- **NEW_RELIC_APDEX** (required, default: 0.010)
+- **NEW_RELIC_APP_NAME** (required): Use the Heroku app name
+- **NEW_RELIC_LICENSE_KEY** (required): Newrelic license key will be given upon creating a new application
 
 # Editing events and repos list
 
