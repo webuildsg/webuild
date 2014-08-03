@@ -13,6 +13,7 @@ var express = require('express'),
   podcastApiUrl = 'http://webuildsg.github.io/live/api/podcasts.json'
   repos = require('./repos'),
   ical = require('ical-generator'),
+  newrelic = require('newrelic'),
   cal = ical();
 
 app.set('port', process.env.PORT || 3000);
