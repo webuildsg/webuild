@@ -99,22 +99,22 @@ app.get('/callback', passport.callback);
 
 app.post('/api/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
-    res.send(503, 'Incorrect secret key');
+    res.status(503).send('Incorrect secret key');
     return;
   }
   events.update();
-  res.send(200, 'Events feed updating...');
+  res.status(200).send('Events feed updating...');
 })
 
 app.post('/api/repos/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
-    res.send(503, 'Incorrect secret key');
+    res.status(503).send('Incorrect secret key');
     return;
   }
   repos.update().then(function(feed) {
     console.log('GitHub feed generated');
   });
-  res.send(200, 'Updating the repos feed; sit tight!');
+  res.status(200).send('Updating the repos feed; sit tight!');
 });
 
 app.use('/api/podcasts', function(req, res) {
@@ -122,7 +122,7 @@ app.use('/api/podcasts', function(req, res) {
  res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
  request(url, function(err, msg, response){
   if (err) {
-    res.send(503, 'We Build Live Error');
+    res.status(503).send('We Build Live Error');
     return;
   }
   res.end(response);
