@@ -1,13 +1,13 @@
 [
   { "id": 1,
-    "name": "Running your IoT devices on a low power, long range network",
-    "description": "Lee Lup Yuen http://sg.linkedin.com/in/lupyuen , CTO SingTel L!feLabs http://singtellifelabs.com/. The innovation team at SingTel is testing a new low power, long range network that will let you run IoT devices anywhere, with many months of battery life. We’re looking for cool new sensors and gadgets for this new network, and we welcome your participation! Think of the possibilities: wearables that track your health and location, flood and pollution sensors, even sensors for dengue and rats! Check out the Arduino kit that we will be providing to connect your IoT device to the new network. http://snootlab.com/lang-en/snootlab-shields/547-akeru-beta-32-en.html",
-    "location": "HackerspaceSG",
-    "url": "https://www.facebook.com/events/1512203065680395",
-    "group_name": "HackerspaceSG",
-    "group_url" : "http://hackerspace.sg/",
-    "formatted_time": "06 Aug, Wed, 7:00 pm",
-    "start_time": "2014-08-06T11:00:00.000Z",
-    "end_time": "2014-08-06T13:00:00.000Z"
+    "name": "Sensorium 360° Parallel Programme: Listening to the Universe by Honor Harger",
+    "description": "In this talk, Honor Harger will explore the sounds of the sky, using art to connect her audience to the universe.  Sound waves cannot propagate in the vacuum of space, and the stars and planets are not directly audible.  However, radio waves emitted from celestial bodies can be turned into sound by ordinary radio receivers’ speakers that convert electrical signals into sound waves. Using this century-old process, the universe becomes 'soundful' -- this is all possible due to the science of radio astronomy.  This talk will show us how radio enables us to hear something which is physically present, but imperceptible to our senses.",
+    "location": "Singapore Art Museum",
+    "url": "https://www.eventbrite.sg/e/sensorium-360-parallel-programme-listening-to-the-universe-by-honor-harger-registration-12271194473",
+    "group_name": "Singapore Art Museum",
+    "group_url" : "http://www.singaporeartmuseum.sg/",
+    "formatted_time": "05 Sep, Fri, 7:30 pm",
+    "start_time": "2014-09-05T11:30:00.000Z",
+    "end_time": "2014-09-05T12:30:00.000Z"
   }
 ]
