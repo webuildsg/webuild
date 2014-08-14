@@ -49,7 +49,6 @@ function findGroupEvents(eventsArr, row) {
     start_time: moment.utc(row.next_event.time).zone(row.next_event.utc_offset).toISOString()
   }
   eventsArr.push(entry);
-
   return eventsArr;
 }
 
@@ -105,9 +104,10 @@ function getMeetupGroups() { //regardless of venue
     data.results
       .filter(isValidGroup)
       .reduce(findGroupEvents, events);
+
     return events;
   }).catch(function(err) {
-    console.error('Error getMeetupGroups(): ' + err);
+    console.error('Error getMeetupGroups!(): ' + err);
   });
 }
 

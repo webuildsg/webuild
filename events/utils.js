@@ -25,13 +25,13 @@ function prequest(url, options) {
 }
 
 function waitAllPromises(arr) {
-  if (arr.length === 0) {
-    return resolve([]);
-  }
-
   return new Promise(function(resolve, reject) {
     var numResolved = 0,
       numErrors = 0;
+
+    if (arr.length === 0) {
+      return resolve([]);
+    }
 
     function save(i, val) {
       arr[i] = val
@@ -56,6 +56,9 @@ function waitAllPromises(arr) {
 }
 
 function htmlStripWrapper(str) {
+  if (!str) {
+    return ''
+  }
   return htmlStrip.html_strip(str, {
     include_script: false,
     include_style: false,
