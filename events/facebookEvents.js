@@ -5,7 +5,8 @@ var querystring = require('querystring'),
   moment = require('moment'),
   fbGroups = require('./facebookGroups'),
   utils = require('./utils'),
-  config = require('./config');
+  config = require('./config'),
+  fbBaseUrl = 'https://graph.facebook.com/v2.1/';
 
 function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   var thisGroupEvents = row.data || [];
@@ -35,11 +36,8 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 }
 
 function getFacebookUserEvents(userIdentity) {
-  var base = 'https://graph.facebook.com/v2.0/',
-    groups;
-
-  groups = fbGroups.map(function(group) {
-    return utils.prequest(base + group.id + '/events?' +
+  var groups = fbGroups.map(function(group) {
+    return utils.prequest(fbBaseUrl + group.id + '/events?' +
       querystring.stringify({
         since: moment().utc().zone('+0800').format('X'),
         fields: 'description,name,end_time,location,timezone',
@@ -107,7 +105,7 @@ function getFacebookUsers() {
 }
 
 function filterValidFacebookUsers(users) { //must have access to groups
-  var base = 'https://graph.facebook.com/v2.0/me/groups?',
+  var base = fbBaseUrl + '/me/groups?',
     groupPromises;
 
   groupPromises = users.map(function(user) {
