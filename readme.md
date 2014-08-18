@@ -1,6 +1,6 @@
 [![Dependency Status](https://gemnasium.com/webuildsg/webuild.png)](https://gemnasium.com/webuildsg/webuild) [![Build Status](https://travis-ci.org/webuildsg/webuild.png)](https://travis-ci.org/webuildsg/webuild)
 
-[We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore. 
+[We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore.
 
 ###**Please feel free to fork this for your choice of city/country too :smile:**
 
@@ -44,7 +44,7 @@ Chose either one of the 2 ways:
 
 1. Clone this repo either with [Nitrous.IO](http://nitrous.io/) or in your local machine.
 	1. Use [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=Life&utm_medium=hackonnitrous) to create your own *We Build* in seconds:
-	
+
 		[![Hack webuildsg/webuild on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=webuildsg%2Fwebuild&file_to_open=README.md)
 	1. Clone the app:
 
@@ -134,12 +134,12 @@ We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to
 1. Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
 
 	- update events every hour
-	
+
 		```
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/events/update
 		```
 	- update repos every hour
-		
+
 		```
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/repos/update
 		```
@@ -177,14 +177,15 @@ If you are integrating Newrelic for analytics, the following environment variabl
 ###Events
 
 1. Meetup and Facebook events in Singapore are automatically populated.
-1. **White list events**: To add additional events, edit `events/whitelistEvents.json`.
-1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and edit `events/blacklistEvents.json`.
+1. **White list events**: To add more events, edit `events/whitelistEvents.json`.
+1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and add to `events/blacklistEvents.json`.
+1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to <https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1>, get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use <http://lookup-id.com/> to find a facebook group id.
 
 ###Repos
 
 1. Github repos from user's location Singapore are automatically populated.
 1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected.
-1. **White list users**: To add additional users, edit `repos/whitelistUsers.json`.
+1. **White list users**: To add more users, edit `repos/whitelistUsers.json`.
 
 #Customise for any location
 
@@ -193,7 +194,7 @@ If you are integrating Newrelic for analytics, the following environment variabl
 1. `/events/config.js` - basic config for automatically fetching Meetup events
 1. `/events/facebookGroups.json` - list of facebook groups you want to automatically query to fetch their upcoming events
 1. `/events/blacklistEvents.json` - events you might want to remove based on the event `id` found in the api endpoint `/api/events`
-1. `/events/whitelistEvents.json` - manually add in an event not fetched automatically 
+1. `/events/whitelistEvents.json` - manually add in an event not fetched automatically
 
 **Repos**
 

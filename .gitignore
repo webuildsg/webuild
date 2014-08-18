@@ -6,3 +6,4 @@ events.json
 .env
 .sass-cache
 *.swp
+*.log
