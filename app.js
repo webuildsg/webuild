@@ -82,7 +82,7 @@ app.get('/cal', function(req, res) {
         start: new Date(thisEvent.start_time),
         end: new Date(thisEvent.end_time),
         summary: thisEvent.name + ' by ' + thisEvent.group_name,
-        description: thisEvent.description,
+        description: thisEvent.description + ' \n\nEvent URL: ' + thisEvent.url || thisEvent.group_url,
         location: thisEvent.location || 'Singapore',
         url: thisEvent.url || thisEvent.group_url
       });
