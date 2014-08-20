@@ -68,8 +68,21 @@
     "id": "121463986679"
   },
   {
+    "name": "iOS Dev Scout",
+    "id": "132466993542743"
+  },
+  {
     "name": "MakerSpace.sg",
     "id": "545948028820917"
+  },
+  {
+    "name": "NUS Hackers",
+    "id": "164904410234667",
+    "type": "likes"
+  },
+  {
+    "name": "Papers We Love Singapore",
+    "id": "1535170340032623"
   },
   {
     "name": "PyData Singapore",
@@ -90,6 +103,11 @@
   {
     "name": "Singapore Gophers",
     "id": "1406742666273764"
+  },
+  {
+    "name": "Singapore Mini Maker Faire",
+    "id": "249266665168900",
+    "type": "likes"
   },
   {
     "name": "Singapore MongoDB User Group",
@@ -122,23 +140,5 @@
   {
     "name": "UXSG",
     "id": "139152279432292"
-  },
-  {
-    "name": "iDA Data Science",
-    "id": "280871882104159"
-  },
-  {
-    "name": "iOS Dev Scout",
-    "id": "132466993542743"
-  },
-  {
-    "name": "Singapore Mini Maker Faire",
-    "id": "249266665168900",
-    "type": "likes"
-  },
-  {
-    "name": "NUS Hackers",
-    "id": "164904410234667",
-    "type": "likes"
   }
 ]
