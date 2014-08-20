@@ -68,7 +68,7 @@
     }
   }
 
-  function displayClashStatus(clashedEvents) {
+  function displayClashStatus(clashedEvents, wordedCheckDate) {
     var newline = '<br>',
       displayNote = '<strong>Note:</strong> ',
       noteText = 'These events are free open events for developers, makers or designers only.',
@@ -77,11 +77,11 @@
 
     loader.style.display = 'none';
     if (clashedEvents.length === 0) {
-      results.innerHTML = 'No events are clashing!';
+      results.innerHTML = 'There are no events on ' + wordedCheckDate + '!';
     } else if (clashedEvents.length === 1) {
-      results.innerHTML = clashedEvents.length + ' event is clashing!' + note;
+      results.innerHTML = 'There is ' + clashedEvents.length + ' event on ' + wordedCheckDate + '!' + note;
     } else {
-      results.innerHTML = clashedEvents.length + ' events are clashing!' + note;
+      results.innerHTML = 'There are ' + clashedEvents.length + ' events on ' + wordedCheckDate + '!' + note;
     }
 
     return;
@@ -108,15 +108,19 @@
   eventDate.onchange = function() {
     var checkEvent = moment(),
       checkEventCompleteUrl = '',
-      request = new XMLHttpRequest();
+      request = new XMLHttpRequest(),
+      wordedCheckDate = '';
 
     if (this.value.match(/\-/)) {
-      // For Chrome
+      // For Chrome: YYYY-MM-DD
       checkEvent = this.value.substring(8, 10) + '-' + this.value.substring(5, 7) + '-' + this.value.substring(0, 4);
     } else {
-      // For FF and Safari
+      // For FF and Safari: DD/MM/YYYY
       checkEvent = this.value.replace(/\//g, '-');
     }
+
+    wordedCheckDate = '<strong>' + moment(checkEvent, 'DD-MM-YYYY').format('D MMM YYYY, ddd') + '</strong>';
+    console.log(typeof wordedCheckDate);
 
     ul.innerHTML = '';
     loader.style.display = 'block';
@@ -132,7 +136,7 @@
       } else {
         // FF or Safari
         events = request.response;
-        displayClashStatus(events);
+        displayClashStatus(events, wordedCheckDate);
       }
       events.forEach(appendClashedEvent);
     };
