@@ -25,6 +25,7 @@
   "maxcomplexity": false,
   "maxlen": false,
   "node": true,
+  "-W079": false,
 
   "globals": {
     "__dirname": true,
