@@ -9,5 +9,16 @@
     "formatted_time": "05 Sep, Fri, 7:30 pm",
     "start_time": "2014-09-05T11:30:00.000Z",
     "end_time": "2014-09-05T12:30:00.000Z"
+  },
+  { "id": 2,
+    "name": "TechFest SG",
+    "description": "Come and discover Singapore's Tech community. Tech is thriving in Singapore! For one afternoon, we've gathered some of the best and most exciting names in our local tech community, all in one place. Come see what they do, hear their stories, and ask them all the questions you've been meaning to ask! Whether you're an anxious student, a fresh graduate, or simply someone with zero tech-experience just curious about what's out there - Tech Fest is for everyone!",
+    "location": "The Treetop @ *SCAPE Level 5",
+    "url": "http://techfest.sg/",
+    "group_name": "IDA Singapore",
+    "group_url" : "http://techfest.sg/",
+    "formatted_time": "06 Sep, Sat, 12:00 pm",
+    "start_time": "2014-09-06T04:00:00.000Z",
+    "end_time": "2014-09-06T09:30:00.000Z"
   }
 ]

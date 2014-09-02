@@ -2,6 +2,7 @@ node_modules/*
 public/js/vendor/*
 public/js/script.js
 events.json
+run.debug.sh
 
 .env
 .sass-cache
