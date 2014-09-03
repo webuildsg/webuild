@@ -75,6 +75,13 @@ html(lang='en')
                     span.stars!= '&#9733; ' + repo.stargazers_count
                   p.tagline= repo.description
 
+      footer
+        .container
+          p Subscribe to calendar in iCal or GCal with URL
+            input(type="text", value="http://webuild.sg/cal.ics", class="input" id="selectAll")
+            span.helptext Click to select URL
+
+      .main.container
         h3 check for open event clashes
         input#check.event-checker(type='date', placeholder='dd/mm/yyyy')
         .spinner#loader
@@ -93,6 +100,7 @@ html(lang='en')
             [hackerspace](http://hackerspace.sg/calendar/hackerspacesg-events/),
             [bHappening](http://bhappening.wordpress.com/) and
             [tech in asia](http://www.techinasia.com/tech-startup-events/)
+
       ul.social
         li
           a(href='https://twitter.com/webuildsg')

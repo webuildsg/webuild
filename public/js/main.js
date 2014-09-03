@@ -15,6 +15,11 @@
   console.log('- pull request at https://github.com/webuildsg/webuild');
   console.log('- tweet us @webuildsg');
 
+  // select all calendar URL
+  document.getElementById('selectAll').onclick = function() {
+    this.setSelectionRange(0, this.value.length)
+  }
+
   function getJSONProperty(response, property) {
     if (response.hasOwnProperty(property)){
       return response[property];
