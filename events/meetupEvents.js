@@ -32,39 +32,25 @@ function isValidGroup(row) {
   return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) && !blacklistGroups.some(function(id) { return row.id === id }) && row.country === (config.meetupParams.country || row.country);
 }
 
-function findGroupEvents(eventsArr, row) {
-  if (!(row.next_event && row.next_event.time)) {
-    return eventsArr;
-  }
-
-  var entry = {
-    id: row.next_event.id,
-    name: row.next_event.name,
-    description: utils.htmlStrip(row.description),
-    location: '',
-    url: 'http://meetup.com/' + row.urlname + '/events/' + row.next_event.id,
-    group_name: row.name,
-    group_url: row.link,
-    formatted_time: moment.utc(row.next_event.time + row.next_event.utc_offset).format(utils.timeformat),
-    start_time: moment.utc(row.next_event.time).zone(row.next_event.utc_offset).toISOString()
-  }
-  eventsArr.push(entry);
-  return eventsArr;
+// localTime accepts Unix epoch and a zone
+// and returns the time in that zone
+function localTime(time, zone) {
+  return moment.utc(time).zone(zone);
 }
 
-function findCommunityEvents(eventsArr, row) {
+function normalizeCommunityEvents(events, row) {
   var eventTime,
-    entry = {};
+    event = {};
 
   if (!(row.time && row.venue_name)) {
-    return eventsArr;
+    return events;
   }
 
-  eventTime = moment.utc(row.time).zone(utils.zone);
+  eventTime = localTime(row.time, utils.zone);
   row.name = row.venue_name;
   row.address_1 = row.address1 || '';
 
-  entry = {
+  event = {
     id: row.id.toString(),
     name: row.short_description,
     description: utils.htmlStrip(row.description),
@@ -74,44 +60,83 @@ function findCommunityEvents(eventsArr, row) {
     group_url: 'http://meetup.com/' + row.container.urlname + '/' + row.community.urlname,
     formatted_time: eventTime.format(utils.timeformat),
     start_time: eventTime.toISOString(),
-    end_time: eventTime.add('milliseconds', 7200000).toISOString()
+    end_time: eventTime.add(7200000, 'milliseconds').toISOString()
   }
-  eventsArr.push(entry);
+  events.push(event);
 
-  return eventsArr;
+  return events;
 }
 
-function findEventsWithVenues(eventsData) {
-  return function(evt, i) {
-    if (eventsData[i].hasOwnProperty('venue') || eventsData[i].venue_visibility === 'members') {
-      if (eventsData[i].duration === undefined) {
-        eventsData[i].duration = 7200000
-      }
-      evt.location = constructAddress(eventsData[i].venue);
-      evt.end_time = moment.utc(evt.start_time).add('milliseconds', eventsData[i].duration).zone(evt.start_time).toISOString();
-      return true;
-    }
+function normalizeGroupEvents(events, row) {
+  var eventTime,
+      event = {};
+
+  if (!row.hasOwnProperty('venue') || row.venue_visibility === 'members') {
+    return events;
   }
+
+  if (row.duration === undefined) {
+    row.duration = 7200000
+  }
+
+  eventTime = localTime(row.time, utils.zone);
+
+  event = {
+    id: row.id,
+    name: row.name,
+    description: utils.htmlStrip(row.description),
+    location: constructAddress(row.venue),
+    url: row.event_url,
+    group_name: row.group.name,
+    group_url: 'http://meetup.com/' + row.group.urlname,
+    formatted_time: eventTime.format(utils.timeformat),
+    start_time: eventTime.toISOString(),
+    end_time: eventTime.add(row.duration, 'milliseconds').toISOString()
+  }
+
+  events.push(event);
+  return events;
 }
 
-function getMeetupGroups() { //regardless of venue
+// getEventsByGroupIds returns an array of events
+// for the provided groups.
+function getEventsByGroupIds(groupIds) {
+  var url = 'https://api.meetup.com/2/events/?' +
+  querystring.stringify({
+    key: config.meetupParams.key,
+    group_id: groupIds.join(',')
+  });
+
+  return utils.prequest(url).then(function(data) {
+    var events = [];
+    data.results.reduce(normalizeGroupEvents, events);
+    console.log(events.length + ' Meetup group events with venues');
+    return events;
+  }).catch(function(err) {
+    console.error('Error getEventsByGroupIds(): ' + err);
+  });
+}
+
+// getGroupIds returns an array of group IDs
+// matching the given criteria.
+function getGroupIds() { //regardless of venue
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
 
   return utils.prequest(url).then(function(data) {
     console.log('Fetched ' + data.results.length + ' Meetup groups');
-    var events = [];
-    data.results
+    return data.results
       .filter(isValidGroup)
-      .reduce(findGroupEvents, events);
-
-    return events;
+      .reduce(function(groupIds, row) {
+        groupIds.push(row.id);
+        return groupIds;
+      }, []);
   }).catch(function(err) {
-    console.error('Error getMeetupGroups!(): ' + err);
+    console.error('Error getGroupIds(): ' + err);
   });
 }
 
-function getMeetupCommunityEvents() {
+function getCommunityEvents() {
   var url = 'https://api.meetup.com/ew/events?' +
     querystring.stringify({
       key: config.meetupParams.key,
@@ -125,31 +150,33 @@ function getMeetupCommunityEvents() {
     var events = [];
 
     console.log(data.results.length + ' Meetup community events with venues');
-    data.results.reduce(findCommunityEvents, events);
+    data.results.reduce(normalizeCommunityEvents, events);
     return events;
   }).catch(function(err) {
-    console.error('Error getMeetupCommunityEvents(): ' + err);
+    console.error('Error getCommunityEvents(): ' + err);
   });
 }
 
-function getMeetupEvents() { //events with eventsData
-  return getMeetupGroups().then(function(events) {
-    console.log('Fetched ' + events.length + ' Meetup group events');
-    var eventReqs = events.map(function(event) {
-      return utils.prequest('https://api.meetup.com/2/event/' + event.id + '?fields=venue_visibility&key=' + config.meetupParams.key);
+function getGroupEvents() {
+  return getGroupIds()
+    .then(function(groupIds) {
+      return getEventsByGroupIds(groupIds);
+    })
+    .catch(function(err) {
+      console.error('Error getGroupEvents(): ' + err);
     });
+}
 
-    return utils.waitAllPromises(eventReqs).then(function(eventsData) {
-      return getMeetupCommunityEvents().then(function(communityEvents) {
-        var eventsWithVenues = events.filter(findEventsWithVenues(eventsData));
-        eventsWithVenues = eventsWithVenues.concat(communityEvents);
-        console.log(eventsWithVenues.length + ' Meetup events with venues');
-        return eventsWithVenues;
-      });
-    }).catch(function(err) {
+function getMeetupEvents() {
+  return utils.waitAllPromises([ getGroupEvents(), getCommunityEvents() ])
+    .then(function(events) {
+      // events is a nested array of group and community events ([ [], [] ])
+      // lets concat them before returning.
+      return Array.prototype.concat.apply([], events);
+    })
+    .catch(function(err) {
       console.error('Error getMeetupEvents(): ' + err);
     });
-  });
 }
 
 exports.get = getMeetupEvents;

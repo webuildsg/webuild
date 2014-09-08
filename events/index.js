@@ -21,8 +21,8 @@ function removeDuplicates(feed) {
 }
 
 function timeComparer(a, b) {
-  return (moment(a.formatted_time, utils.timeformat).valueOf() -
-          moment(b.formatted_time, utils.timeformat).valueOf());
+  return (moment(a.start_time).valueOf() -
+          moment(b.start_time).valueOf());
 }
 
 function addEvents(type) {
