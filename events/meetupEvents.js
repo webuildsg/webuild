@@ -79,7 +79,7 @@ function normalizeGroupEvents(events, row) {
     row.duration = 7200000
   }
 
-  eventTime = localTime(row.time, row.utc_offset);
+  eventTime = localTime(row.time, utils.zone);
 
   event = {
     id: row.id,
@@ -88,7 +88,7 @@ function normalizeGroupEvents(events, row) {
     location: constructAddress(row.venue),
     url: row.event_url,
     group_name: row.group.name,
-    group_url: 'http://meetup.com/' + row.urlname,
+    group_url: 'http://meetup.com/' + row.group.urlname,
     formatted_time: eventTime.format(utils.timeformat),
     start_time: eventTime.toISOString(),
     end_time: eventTime.add(row.duration, 'milliseconds').toISOString()
