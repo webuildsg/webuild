@@ -3,6 +3,7 @@
 var querystring = require('querystring'),
   Promise = require('promise'),
   moment = require('moment'),
+  prequest = require('prequest'),
   fbGroups = require('./facebookGroups'),
   utils = require('./utils'),
   config = require('./config'),
@@ -37,7 +38,7 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
 
 function getFacebookUserEvents(userIdentity) {
   var groups = fbGroups.map(function(group) {
-    return utils.prequest(fbBaseUrl + group.id + '/events?' +
+    return prequest(fbBaseUrl + group.id + '/events?' +
       querystring.stringify({
         since: moment().utc().zone('+0800').format('X'),
         fields: 'description,name,end_time,location,timezone',
@@ -82,7 +83,7 @@ function getAllFacebookEvents(users) {
 // Get the FB user tokens from auth0
 function getFacebookUsers() {
   return new Promise(function(resolve, reject) {
-    utils.prequest('https://' + config.auth0.domain + '/oauth/token', {
+    prequest('https://' + config.auth0.domain + '/oauth/token', {
       method: 'POST',
       body: {
         'client_id': config.auth0.clientId,
@@ -90,7 +91,7 @@ function getFacebookUsers() {
         'grant_type': 'client_credentials'
       }
     }).then(function(data) {
-      utils.prequest('https://' + config.auth0.domain + '/api/users', {
+      prequest('https://' + config.auth0.domain + '/api/users', {
         headers: {
           'Authorization': data.token_type + ' ' + data.access_token
         }
@@ -109,7 +110,7 @@ function filterValidFacebookUsers(users) { //must have access to groups
     groupPromises;
 
   groupPromises = users.map(function(user) {
-    return utils.prequest(base +
+    return prequest(base +
       querystring.stringify({
         access_token: user.identities[0].access_token
       })

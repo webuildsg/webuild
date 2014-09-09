@@ -2,6 +2,7 @@
 
 var querystring = require('querystring'),
   moment = require('moment'),
+  prequest = require('prequest'),
   utils = require('./utils'),
   config = require('./config');
 
@@ -107,7 +108,7 @@ function getEventsByGroupIds(groupIds) {
     group_id: groupIds.join(',')
   });
 
-  return utils.prequest(url).then(function(data) {
+  return prequest(url).then(function(data) {
     var events = [];
     data.results.reduce(normalizeGroupEvents, events);
     console.log(events.length + ' Meetup group events with venues');
@@ -123,7 +124,7 @@ function getGroupIds() { //regardless of venue
   var url = 'https://api.meetup.com/2/groups?' +
     querystring.stringify(config.meetupParams);
 
-  return utils.prequest(url).then(function(data) {
+  return prequest(url).then(function(data) {
     console.log('Fetched ' + data.results.length + ' Meetup groups');
     return data.results
       .filter(isValidGroup)
@@ -146,7 +147,7 @@ function getCommunityEvents() {
       after: '0d'
     });
 
-  return utils.prequest(url).then(function(data) {
+  return prequest(url).then(function(data) {
     var events = [];
 
     console.log(data.results.length + ' Meetup community events with venues');
