@@ -29,5 +29,8 @@ module.exports = {
     domain: 'webuildsg.auth0.com',
     clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
     clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
+  },
+  eventbrite: {
+    token: process.env.EVENTBRITE_TOKEN
   }
 };

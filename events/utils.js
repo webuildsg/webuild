@@ -1,7 +1,10 @@
 'use strict';
 
 var Promise = require('promise'),
-  htmlStrip = require('htmlstrip-native');
+  htmlStrip = require('htmlstrip-native'),
+  moment = require('moment'),
+  displayTimeformat = 'DD MMM, ddd, h:mm a',
+  localZone = '+0800';
 
 function waitAllPromises(arr) {
   return new Promise(function(resolve, reject) {
@@ -45,9 +48,18 @@ function htmlStripWrapper(str) {
   });
 }
 
+function localTime(time) {
+  return moment.utc(time).zone(localZone);
+}
+
+function formatLocalTime(time) {
+  return moment.utc(time).zone(localZone).format(displayTimeformat);
+}
+
 module.exports = {
   waitAllPromises: waitAllPromises,
   htmlStrip: htmlStripWrapper,
-  timeformat: 'DD MMM, ddd, h:mm a',
-  zone: '+0800'
+  localTime: localTime,
+  formatLocalTime: formatLocalTime,
+  timeformat: displayTimeformat
 }

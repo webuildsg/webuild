@@ -6,7 +6,8 @@ var moment = require('moment'),
   blacklistEvents = require('./blacklistEvents'),
   API = {
     getFacebookEvents: require('./facebookEvents').get,
-    getMeetupEvents: require('./meetupEvents').get
+    getMeetupEvents: require('./meetupEvents').get,
+    getEventbriteEvents: require('./eventbriteEvents').get
   };
 
 function removeDuplicates(feed) {
@@ -52,4 +53,5 @@ exports.update = function() {
   console.log('Updating the events feed...');
   addEvents('Meetup');
   addEvents('Facebook');
+  addEvents('Eventbrite');
 }

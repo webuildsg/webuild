@@ -20,16 +20,5 @@
     "formatted_time": "06 Sep, Sat, 12:00 pm",
     "start_time": "2014-09-06T04:00:00.000Z",
     "end_time": "2014-09-06T09:30:00.000Z"
-  },
-  { "id": 3,
-    "name": "Hack Night - Personal Validation and Growth Edition",
-    "description": "We are having another hack night!  This time my crushing insecurity about the code i've written (ok, not really true -- James) makes we want to have other eyes look at it and help me improve (this is true though). What this actually is: Code Reviews & pair programming.  If you're working on something and want some feedback, come down.  If you're looking to learn, come down and see how everyone else codes.  If you've got something to work on, come down and work with people! Why? We realise that the best way to gain mastery of a craft is to see how the more experienced hands does things. Watching and learning the best practices, habits and even the keyboard shortcuts of others are the quickest way to level up and become better at our craft. My co-hosts and myself are rather passionate about good community, and constructive feedback in hacking culture.  We want to help build this in the community at large.  Come be part of that.",
-    "location": "Neo Innovation Singapore 53A Craig Rd Singapore, 089691",
-    "url": "https://www.eventbrite.com/e/hack-night-personal-validation-and-growth-edition-tickets-12886256139",
-    "group_name": "Neo Singapore",
-    "group_url" : "http://www.eventbrite.com/o/neo-singapore-3243339558?s=28447147",
-    "formatted_time": "11 Sep, Sat, 7:00 pm",
-    "start_time": "2014-09-11T11:00:00.000Z",
-    "end_time": "2014-09-11T09:15:00.000Z"
   }
 ]

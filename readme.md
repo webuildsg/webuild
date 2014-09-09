@@ -151,6 +151,7 @@ Set the following environment variables on your system:
 
 - **WEBUILD_API_SECRET** (required) Used as a password when remotely refreshing the feeds.
 - [**MEETUP_API_KEY**](https://secure.meetup.com/meetup_api/key/) (required) Used to list available meetup events in Singapore.
+- [**EVENTBRITE_TOKEN**](http://developer.eventbrite.com/) (required) Used to list available eventbrite events in Singapore.
 - **WEBUILD_AUTH0_CLIENT_ID** (required): Used to retrive facebook events in Singapore. Auth0 takes care of OAuth2 social logins.
 - **WEBUILD_AUTH0_CLIENT_SECRET** (required): Same as above.
 - **PORT** (optional, default: 4000) Configures the port used by the web server.
@@ -176,10 +177,11 @@ If you are integrating Newrelic for analytics, the following environment variabl
 
 ###Events
 
-1. Meetup and Facebook events in Singapore are automatically populated.
+1. Meetup, Eventbrite and Facebook events in Singapore are automatically populated.
 1. **White list events**: To add more events, edit `events/whitelistEvents.json`.
 1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/events> endpoint and add to `events/blacklistEvents.json`.
 1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to <https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1>, get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use <http://lookup-id.com/> to find a facebook group id.
+1. **Eventbrite categories**: To automatically find events in an Eventbrite category, add the `id` from this list: <http://developer.eventbrite.com/docs/event-categories/>
 
 ###Repos
 

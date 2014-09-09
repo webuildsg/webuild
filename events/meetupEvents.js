@@ -1,7 +1,6 @@
 'use strict';
 
 var querystring = require('querystring'),
-  moment = require('moment'),
   prequest = require('prequest'),
   utils = require('./utils'),
   config = require('./config');
@@ -33,12 +32,6 @@ function isValidGroup(row) {
   return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) && !blacklistGroups.some(function(id) { return row.id === id }) && row.country === (config.meetupParams.country || row.country);
 }
 
-// localTime accepts Unix epoch and a zone
-// and returns the time in that zone
-function localTime(time, zone) {
-  return moment.utc(time).zone(zone);
-}
-
 function normalizeCommunityEvents(events, row) {
   var eventTime,
     event = {};
@@ -47,7 +40,7 @@ function normalizeCommunityEvents(events, row) {
     return events;
   }
 
-  eventTime = localTime(row.time, utils.zone);
+  eventTime = utils.localTime(row.time);
   row.name = row.venue_name;
   row.address_1 = row.address1 || '';
 
@@ -59,7 +52,7 @@ function normalizeCommunityEvents(events, row) {
     url: row.meetup_url,
     group_name: row.container.name + ' Community',
     group_url: 'http://meetup.com/' + row.container.urlname + '/' + row.community.urlname,
-    formatted_time: eventTime.format(utils.timeformat),
+    formatted_time: utils.formatLocalTime(row.time),
     start_time: eventTime.toISOString(),
     end_time: eventTime.add(7200000, 'milliseconds').toISOString()
   }
@@ -80,7 +73,7 @@ function normalizeGroupEvents(events, row) {
     row.duration = 7200000
   }
 
-  eventTime = localTime(row.time, utils.zone);
+  eventTime = utils.localTime(row.time);
 
   event = {
     id: row.id,
@@ -90,7 +83,7 @@ function normalizeGroupEvents(events, row) {
     url: row.event_url,
     group_name: row.group.name,
     group_url: 'http://meetup.com/' + row.group.urlname,
-    formatted_time: eventTime.format(utils.timeformat),
+    formatted_time: utils.formatLocalTime(row.time),
     start_time: eventTime.toISOString(),
     end_time: eventTime.add(row.duration, 'milliseconds').toISOString()
   }
