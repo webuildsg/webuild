@@ -179,7 +179,7 @@ fs.exists(config.outfile, function(exists) {
     });
   } else {
     console.log('Fetching public repos feed...');
-    request('http://webuild.sg/api/repos', function(err, res, body) {
+    request('http://webuild.sg/api/v1/repos', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         var data = JSON.parse(body);
         exports.feed = data;
