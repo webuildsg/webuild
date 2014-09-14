@@ -34,10 +34,11 @@ function addEvents(type) {
         return blackEvent.id === evt.id;
       });
     });
-    exports.feed = exports.feed.concat(whiteEvents);
-    exports.feed.sort(timeComparer);
-    removeDuplicates(exports.feed);
-    console.log(whiteEvents.length + ' %s events added! %s total', type, exports.feed.length);
+    exports.feed.events = exports.feed.events.concat(whiteEvents);
+    exports.feed.events.sort(timeComparer);
+    removeDuplicates(exports.feed.events);
+    console.log(whiteEvents.length + ' %s events added! %s total', type, exports.feed.events.length);
+    exports.feed.meta.total_events = exports.feed.events.length;
   }).catch(function(err) {
     console.error('Failed to add %s events: %s', type, err);
   });
@@ -49,7 +50,15 @@ function afterToday(evt) {
 
 exports.feed = [];
 exports.update = function() {
-  exports.feed = whitelistEvents.filter(afterToday);
+  exports.feed = {
+    'meta': {
+      'generated_at': new Date().toISOString(),
+      'location': 'Singapore',
+      'api_version': 'v1'
+    },
+    'events': {}
+  };
+  exports.feed.events = whitelistEvents.filter(afterToday);
   console.log('Updating the events feed...');
   addEvents('Meetup');
   addEvents('Facebook');

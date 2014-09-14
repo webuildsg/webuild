@@ -34,7 +34,7 @@ app.locals.moment = require('moment');
 app.get('/', function(req, res) {
   res.render('index.jade', {
     repos: repos.feed.repos.slice(0, 10),
-    events: events.feed.slice(0, 10)
+    events: events.feed.events.slice(0, 10)
   });
 });
 
