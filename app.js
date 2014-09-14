@@ -42,7 +42,7 @@ app.get('/api/v1/check/:checkdate', function(req, res) {
   var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD') ,
     clashedEvents = [];
 
-  clashedEvents = events.feed.filter(function(element) {
+  clashedEvents = events.feed.events.filter(function(element) {
     if (moment(element.start_time).isSame(checkdate, 'day') ) {
       return true;
     }
