@@ -26,14 +26,14 @@ Who are we? We are **techies** - developers, designers, programmers, hackers or 
 - [Twitter](https://twitter.com/webuildsg)
 - [Facebook](https://www.facebook.com/webuildsg)
 
-#API
+#API Version 1
 
 The events, repositories and podcasts data feeds are available as JSON.
 
-- <http://webuild.sg/api/repos>
-- <http://webuild.sg/api/events>
-- <http://webuild.sg/api/podcasts>
-- `http://webuild.sg/api/check/:checkdate` where `checkdate` is in the format `DD-MM-YYYY` to check for clashed events with `checkdate`
+- <http://webuild.sg/api/v1/repos>
+- <http://webuild.sg/api/v1/events>
+- <http://webuild.sg/api/b1/podcasts>
+- `http://webuild.sg/api/v1/check/:checkdate` where `checkdate` is in the format `YYYY-MM-DD` to check for clashed events with `checkdate`
 
 
 #Install for development
