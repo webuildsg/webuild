@@ -150,10 +150,14 @@ exports.update = function() {
   .then(function(repos) {
     console.log('Found %d repos', repos.length);
     var feed = {
-      generated_at: new Date().toISOString(),
-      location: config.github.location,
-      max_users: config.github.maxUsers,
-      max_repos: config.github.maxRepos,
+      meta: {
+        generated_at: new Date().toISOString(),
+        location: config.github.location,
+        total_repos: repos.length,
+        api_version: 'v1',
+        max_users: config.github.maxUsers,
+        max_repos: config.github.maxRepos,
+      },
       repos: repos
     };
     exports.feed = feed;
