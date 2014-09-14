@@ -72,7 +72,7 @@ app.get('/cal', function(req, res) {
   cal.clear()
   cal.setDomain('webuild.sg').setName('We Build SG Events');
 
-  events.feed.filter(function(thisEvent){
+  events.feed.events.filter(function(thisEvent){
     if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)){
       console.log("Not enough information on this event", thisEvent.name, thisEvent.start_time, thisEvent.end_time, thisEvent.description);
     }
@@ -87,7 +87,24 @@ app.get('/cal', function(req, res) {
         url: thisEvent.url || thisEvent.group_url
       });
   });
-  cal.serve(res);
+
+  // add next We Build LIVE show dat
+  request(podcastApiUrl, function(err, msg, response){
+    if (err) {
+     console.error('We Build Live Error');
+     return;
+    }
+    response = JSON.parse(response);
+    cal.addEvent({
+      start: new Date(response.meta.next_live_show.start_time),
+      end: new Date(response.meta.next_live_show.end_time),
+      summary: response.meta.next_live_show.summary,
+      description: response.meta.next_live_show.description + ' \n\nEvent URL: ' + response.meta.next_live_show.url,
+      location: 'Singapore',
+      url: response.meta.next_live_show.url
+    });
+    cal.serve(res);
+  });
 
 });
 
