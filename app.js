@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/api/check/:checkdate', function(req, res) {
+app.get('/api/v1/check/:checkdate', function(req, res) {
   var checkdate = moment(req.params.checkdate, 'DD-MM-YYYY') ,
     clashedEvents = [];
 
@@ -52,11 +52,11 @@ app.get('/api/check/:checkdate', function(req, res) {
 
 })
 
-app.get('/api/events', function(req, res) {
+app.get('/api/v1/events', function(req, res) {
   res.send(events.feed);
 });
 
-app.get('/api/repos', function(req, res) {
+app.get('/api/v1/repos', function(req, res) {
   res.send(repos.feed);
 });
 
@@ -97,7 +97,7 @@ app.get('/check', function(req, res) {
 
 app.get('/callback', passport.callback);
 
-app.post('/api/events/update', function(req, res) {
+app.post('/api/v1/events/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
@@ -106,7 +106,7 @@ app.post('/api/events/update', function(req, res) {
   res.status(200).send('Events feed updating...');
 })
 
-app.post('/api/repos/update', function(req, res) {
+app.post('/api/v1/repos/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
@@ -117,7 +117,7 @@ app.post('/api/repos/update', function(req, res) {
   res.status(200).send('Updating the repos feed; sit tight!');
 });
 
-app.use('/api/podcasts', function(req, res) {
+app.use('/api/v1/podcasts', function(req, res) {
  var url = podcastApiUrl;
  res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
  request(url, function(err, msg, response){
