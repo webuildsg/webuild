@@ -39,7 +39,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/v1/check/:checkdate', function(req, res) {
-  var checkdate = moment(req.params.checkdate, 'DD-MM-YYYY') ,
+  var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD') ,
     clashedEvents = [];
 
   clashedEvents = events.feed.filter(function(element) {

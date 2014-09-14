@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  var podcastApi = '/api/podcasts',
-    eventsCheckApi = '/api/check/',
+  var podcastApi = '/api/v1/podcasts',
+    eventsCheckApi = '/api/v1/check/',
     request = new XMLHttpRequest(),
     eventDate = document.getElementById('check'),
     ul = document.getElementById('clashed'),
@@ -117,15 +117,14 @@
       wordedCheckDate = '';
 
     if (this.value.match(/\-/)) {
-      // For Chrome: YYYY-MM-DD
-      checkEvent = this.value.substring(8, 10) + '-' + this.value.substring(5, 7) + '-' + this.value.substring(0, 4);
+      // For Chrome: YYYY-MM-DD - unchanged
+      checkEvent = this.value;
     } else {
-      // For FF and Safari: DD/MM/YYYY
-      checkEvent = this.value.replace(/\//g, '-');
+      // For FF and Safari: DD/MM/YYYY to YYYY-MM-DD
+      checkEvent = this.value.substring(6, 10) + '-' + this.value.substring(3, 5) + '-' + this.value.substring(0, 2);
     }
 
-    wordedCheckDate = '<strong>' + moment(checkEvent, 'DD-MM-YYYY').format('D MMM YYYY, ddd') + '</strong>';
-    console.log(typeof wordedCheckDate);
+    wordedCheckDate = '<strong>' + moment(checkEvent, 'YYYY-MM-DD').format('D MMM YYYY, ddd') + '</strong>';
 
     ul.innerHTML = '';
     loader.style.display = 'block';
