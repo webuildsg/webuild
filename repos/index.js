@@ -156,7 +156,7 @@ exports.update = function() {
         total_repos: repos.length,
         api_version: 'v1',
         max_users: config.github.maxUsers,
-        max_repos: config.github.maxRepos,
+        max_repos: config.github.maxRepos
       },
       repos: repos
     };
