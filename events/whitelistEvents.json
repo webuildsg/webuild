@@ -1,24 +1,24 @@
 [
   { "id": 1,
-    "name": "Sensorium 360° Parallel Programme: Listening to the Universe by Honor Harger",
-    "description": "In this talk, Honor Harger will explore the sounds of the sky, using art to connect her audience to the universe.  Sound waves cannot propagate in the vacuum of space, and the stars and planets are not directly audible.  However, radio waves emitted from celestial bodies can be turned into sound by ordinary radio receivers’ speakers that convert electrical signals into sound waves. Using this century-old process, the universe becomes 'soundful' -- this is all possible due to the science of radio astronomy.  This talk will show us how radio enables us to hear something which is physically present, but imperceptible to our senses.",
-    "location": "Singapore Art Museum",
-    "url": "https://www.eventbrite.sg/e/sensorium-360-parallel-programme-listening-to-the-universe-by-honor-harger-registration-12271194473",
-    "group_name": "Singapore Art Museum",
-    "group_url" : "http://www.singaporeartmuseum.sg/",
-    "formatted_time": "05 Sep, Fri, 7:30 pm",
-    "start_time": "2014-09-05T11:30:00.000Z",
-    "end_time": "2014-09-05T12:30:00.000Z"
+    "name": "GeekCamp SG",
+    "description": "What is it? Conference for the geeks. No startup talks. No how to get rich talks. This is purely a tech conference. Hashtag: #geekcampsg | Date: 18th October 2014 | Time: 9:30am to 6pm (Afterparty afterwards) | Location: NUS School of Computing. Ticket sales can be found over at Peatix http://geekcampsg14.peatix.com/",
+    "location": "NUS School of Computing",
+    "url": "http://geekcamp.sg/",
+    "group_name": "GeekCamp SG",
+    "group_url" : "http://geekcamp.sg/",
+    "formatted_time": "18 Oct, Sat, 9:30 am",
+    "start_time": "2014-10-18T03:30:00.000Z",
+    "end_time": "2014-10-18T10:00:00.000Z"
   },
   { "id": 2,
-    "name": "TechFest SG",
-    "description": "Come and discover Singapore's Tech community. Tech is thriving in Singapore! For one afternoon, we've gathered some of the best and most exciting names in our local tech community, all in one place. Come see what they do, hear their stories, and ask them all the questions you've been meaning to ask! Whether you're an anxious student, a fresh graduate, or simply someone with zero tech-experience just curious about what's out there - Tech Fest is for everyone!",
-    "location": "The Treetop @ *SCAPE Level 5",
-    "url": "http://techfest.sg/",
-    "group_name": "IDA Singapore",
-    "group_url" : "http://techfest.sg/",
-    "formatted_time": "06 Sep, Sat, 12:00 pm",
-    "start_time": "2014-09-06T04:00:00.000Z",
-    "end_time": "2014-09-06T09:30:00.000Z"
+    "name": "SG Hack and Tell",
+    "description": "Present a hack and the tech behind it, not pitch your startup.",
+    "location": "Singapore Hackerspace @KGB",
+    "url": "http://sg.hackandtell.org/",
+    "group_name": "SG Hack and Tell",
+    "group_url" : "http://sg.hackandtell.org/",
+    "formatted_time": "30 Sep, Tue, 8:00 pm",
+    "start_time": "2014-09-30T12:00:00.000Z",
+    "end_time": "2014-09-30T14:00:00.000Z"
   }
 ]
