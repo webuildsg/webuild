@@ -6,7 +6,7 @@ module.exports = {
     location: process.env.LOCATION || 'Singapore',
     maxUsers: process.env.MAX_USERS || 1000,
     maxRepos: process.env.MAX_REPOS || 50,
-    starLimit: process.env.STAR_LIMIT || 150
+    starLimit: process.env.STAR_LIMIT || 50
   },
   outfile: __dirname + '/cache.json'
 };
