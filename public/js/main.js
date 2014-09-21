@@ -20,14 +20,6 @@
     this.setSelectionRange(0, this.value.length)
   }
 
-  function getJSONProperty(response, property) {
-    if (response.hasOwnProperty(property)){
-      return response[property];
-    } else {
-      return JSON.parse(response)[property];
-    }
-  }
-
   function countdown(nextLiveShowDate) {
     var now = moment(),
       podcastDate = nextLiveShowDate,
@@ -47,15 +39,15 @@
       displaySeconds = '';
 
     if (days >= 0) {
-      then.subtract('days', days);
+      then.subtract(days, 'days');
       ms = then.diff(now, 'milliseconds', true);
       hours = Math.floor(moment.duration(ms).asHours());
 
-      then.subtract('hours', hours);
+      then.subtract(hours, 'hours');
       ms = then.diff(now, 'milliseconds', true);
       minutes = Math.floor(moment.duration(ms).asMinutes());
 
-      then.subtract('minutes', minutes);
+      then.subtract(minutes, 'minutes');
       ms = then.diff(now, 'milliseconds', true);
       seconds = Math.floor(moment.duration(ms).asSeconds());
 
@@ -151,9 +143,17 @@
   request.open('GET', podcastApi, true);
   request.responseType = 'json';
   request.onload = function() {
-    countdown(getJSONProperty(request.response, 'next_live_show'));
+    var response = request.response,
+      podcastTimeString;
+    if (typeof request.response === 'string') {
+        // Safari doesn't honor the responseType of 'json'.
+        response = JSON.parse(request.response);
+    }
+
+      podcastTimeString = response.meta.next_live_show.start_time;
+    countdown(podcastTimeString);
     setInterval(function() {
-      countdown(getJSONProperty(request.response, 'next_live_show'));
+      countdown(podcastTimeString);
     }, 1000);
   }
   request.send();

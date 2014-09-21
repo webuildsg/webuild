@@ -118,6 +118,13 @@ module.exports = function(grunt) {
     'jscs'
   ]);
 
+  grunt.registerTask('no-sass', [
+    'uglify',
+    'jshint',
+    'csslint',
+    'jscs'
+  ]);
+
   grunt.registerTask('build', [
     'uglify'
   ]);
