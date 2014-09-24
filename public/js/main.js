@@ -127,11 +127,11 @@
     request.onload = function() {
       if (typeof request.response === 'string') {
         // Chrome
-        events = JSON.parse(request.response);
+        events = JSON.parse(request.response).clashed_events;
         displayClashStatus(events);
       } else {
         // FF or Safari
-        events = request.response;
+        events = request.response.clashed_events;
         displayClashStatus(events, wordedCheckDate);
       }
       events.forEach(appendClashedEvent);
@@ -150,7 +150,7 @@
         response = JSON.parse(request.response);
     }
 
-      podcastTimeString = response.meta.next_live_show.start_time;
+    podcastTimeString = response.meta.next_live_show.start_time;
     countdown(podcastTimeString);
     setInterval(function() {
       countdown(podcastTimeString);

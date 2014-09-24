@@ -40,13 +40,22 @@ app.get('/', function(req, res) {
 
 app.get('/api/v1/check/:checkdate', function(req, res) {
   var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD') ,
-    clashedEvents = [];
+    clashedEvents = {
+    'meta': {
+      'generated_at': new Date().toISOString(),
+      'location': 'Singapore',
+      'api_version': 'v1'
+    },
+    'clashed_events': []
+  };
 
-  clashedEvents = events.feed.events.filter(function(element) {
+  clashedEvents.clashed_events = events.feed.events.filter(function(element) {
     if (moment(element.start_time).isSame(checkdate, 'day') ) {
       return true;
     }
   });
+
+  clashedEvents.meta.total_clashed_events = clashedEvents.clashed_events.length;
 
   res.send(clashedEvents);
 
