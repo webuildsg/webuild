@@ -1,5 +1,6 @@
 [
-  { "id": 1,
+  {
+    "id": 1,
     "name": "GeekCamp SG",
     "description": "What is it? Conference for the geeks. No startup talks. No how to get rich talks. This is purely a tech conference. Hashtag: #geekcampsg | Date: 18th October 2014 | Time: 9:30am to 6pm (Afterparty afterwards) | Location: NUS School of Computing. Ticket sales can be found over at Peatix http://geekcampsg14.peatix.com/",
     "location": "NUS School of Computing",
@@ -10,7 +11,8 @@
     "start_time": "2014-10-18T03:30:00.000Z",
     "end_time": "2014-10-18T10:00:00.000Z"
   },
-  { "id": 2,
+  {
+    "id": 2,
     "name": "SG Hack and Tell",
     "description": "Present a hack and the tech behind it, not pitch your startup.",
     "location": "Singapore Hackerspace @KGB",
@@ -21,9 +23,10 @@
     "start_time": "2014-09-30T12:00:00.000Z",
     "end_time": "2014-09-30T14:00:00.000Z"
   },
-  { "id": 3,
+  {
+    "id": 3,
     "name": "Creative Coding Meetup #2",
-    "description": "Its time for 2nd meetup at our cozy zopim hq! this might be the last time it would be hosted here (we are upgrading venue for the next in nov!) 7 - 730pm: Refreshments + Networking 730: Opening 740 - 8:  Benjamin Low - "The Synesthete's Music Machine"8-9: Screening of Robbert Hodgin - "Default Title" from Eyeo 2014 If you're interested to speak here, please contact Joshua! Venue and Food proudly sponsored by Zopim. Do RSVP so we estimate the amount of food to order!",
+    "description": "Its time for 2nd meetup at our cozy zopim hq! this might be the last time it would be hosted here (we are upgrading venue for the next in nov!) 7 - 730pm: Refreshments + Networking 730: Opening 740 - 8:  Benjamin Low - The Synesthete's Music Machine8-9: Screening of Robbert Hodgin - Default Title from Eyeo 2014 If you're interested to speak here, please contact Joshua! Venue and Food proudly sponsored by Zopim. Do RSVP so we estimate the amount of food to order!",
     "location": "Viki",
     "url": "http://www.meetup.com/Singapore-Creative-Coding-Meetup/events/207355862/",
     "group_name": "Singapore Creative Coding Meetup",
