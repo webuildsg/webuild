@@ -7,13 +7,22 @@
     eventDate = document.getElementById('check'),
     ul = document.getElementById('clashed'),
     events = null,
-    loader = document.getElementById('loader');
+    loader = document.getElementById('loader'),
+    totalVideo = 0,
+    rand1toTotalVideo = 0,
+    newPlaylistAttribute = '';
 
   // hello to another happy developer
   console.log('Hello fellow developer! :)');
   console.log('For suggestions:');
   console.log('- pull request at https://github.com/webuildsg/webuild');
   console.log('- tweet us @webuildsg');
+
+  // randomise video in youtube playlist
+  totalVideo = 32; // Total videos on https://www.youtube.com/playlist?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1
+  rand1toTotalVideo = Math.floor(Math.random() * totalVideo) + 1;
+  newPlaylistAttribute = '//www.youtube.com/embed/_8dAbjQqnT0?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1&index=' + rand1toTotalVideo;
+  document.getElementById('playlist').setAttribute('src', newPlaylistAttribute);
 
   // select all calendar URL
   document.getElementById('selectAll').onclick = function() {
