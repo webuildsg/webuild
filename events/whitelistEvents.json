@@ -25,14 +25,26 @@
   },
   {
     "id": 3,
-    "name": "Creative Coding Meetup #2",
-    "description": "Its time for 2nd meetup at our cozy zopim hq! this might be the last time it would be hosted here (we are upgrading venue for the next in nov!) 7 - 730pm: Refreshments + Networking 730: Opening 740 - 8:  Benjamin Low - The Synesthete's Music Machine8-9: Screening of Robbert Hodgin - Default Title from Eyeo 2014 If you're interested to speak here, please contact Joshua! Venue and Food proudly sponsored by Zopim. Do RSVP so we estimate the amount of food to order!",
-    "location": "Viki",
-    "url": "http://www.meetup.com/Singapore-Creative-Coding-Meetup/events/207355862/",
-    "group_name": "Singapore Creative Coding Meetup",
-    "group_url" : "http://www.meetup.com/Singapore-Creative-Coding-Meetup/",
-    "formatted_time": "25 Sep, Thu, 7:00 pm",
-    "start_time": "2014-09-25T11:00:00.000Z",
-    "end_time": "2014-09-25T12:00:00.000Z"
+    "name": "Fun with Arduino and Sensors - Introductory Workshop",
+    "description": "Have great ideas that use sensors to make your life better? Interested in learning more about Arduino and how you can use it as a building block to your prototype device?  Want to collect data from sensors and analyse them on the cloud? Join us for this introductory workshop in the lead-up to a hands-on session on 11th October where you get to build your own data collecting device!",
+    "location": "IDA Labs@National Design Ctr",
+    "url": "http://peatix.com/event/53348",
+    "group_name": "IDA Labs",
+    "group_url" : "http://www.ida.gov.sg/Collaboration-and-Initiatives/Initiatives/Store/IDA-Labs",
+    "formatted_time": "29 Sep, Thu, 7:00 pm",
+    "start_time": "2014-09-29T11:00:00.000Z",
+    "end_time": "2014-09-29T12:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "name": "Fun with Arduino & Sensors – BUILD! – A hands-on session to make your own data collection device",
+    "description": "Maybe it’s a sensor that analyses air quality at your location, or tracks noise level in your neighborhood, or maybe you’re just looking for a solution to get your IoT devices talking. Come and meet like-minded individuals and build together on the Snootlab Akeru Beta 3.2 – An Arduino platform that uses the Sigfox IoT technology to send small amounts of data via its own proprietary network back to the cloud. This technology is used by companies like FastPark and Whistle. If you have some basic knowledge of Arduino, this workshop is for you! Else, just join us to learn more! Just bring your own laptops with the Arduino IDE, and Arduino-based sensors. SingTel will be providing the Snootlab Akeru Beta 3.2 boards, and 12Geeks will also have some sensors available for purchase on-site. ",
+    "location": "IDA Labs@National Design Ctr",
+    "url": "http://peatix.com/event/53355",
+    "group_name": "IDA Labs",
+    "group_url" : "http://www.ida.gov.sg/Collaboration-and-Initiatives/Initiatives/Store/IDA-Labs",
+    "formatted_time": "11 Oct, Sat, 9:30 am",
+    "start_time": "2014-10-11T01:30:00.000Z",
+    "end_time": "2014-10-11T06:30:00.000Z"
   }
 ]
