@@ -101,6 +101,12 @@
     ul.appendChild(li);
   }
 
+  // responsive video playlist
+  fluidvids.init({
+    selector: [ 'iframe' ], // runs querySelectorAll()
+    players: [ 'www.youtube.com' ] // players to support
+  });
+
   // event clash checker
   eventDate.onchange = function() {
     var checkEvent = moment(),
@@ -127,11 +133,11 @@
     request.onload = function() {
       if (typeof request.response === 'string') {
         // Chrome
-        events = JSON.parse(request.response).clashed_events;
+        events = JSON.parse(request.response).events;
         displayClashStatus(events);
       } else {
         // FF or Safari
-        events = request.response.clashed_events;
+        events = request.response.events;
         displayClashStatus(events, wordedCheckDate);
       }
       events.forEach(appendClashedEvent);

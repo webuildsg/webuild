@@ -68,6 +68,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
+          sourcemap: 'none',
           style: 'compressed'
         },
         files: {
@@ -85,6 +86,7 @@ module.exports = function(grunt) {
         files: {
           'public/js/script.js': [
             'public/js/vendor/moment/min/moment.min.js',
+            'public/js/vendor/fluidvids/dist/fluidvids.min.js',
             'public/js/main.js'
           ]
         }

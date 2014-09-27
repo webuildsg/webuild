@@ -46,16 +46,16 @@ app.get('/api/v1/check/:checkdate', function(req, res) {
       'location': 'Singapore',
       'api_version': 'v1'
     },
-    'clashed_events': []
+    'events': []
   };
 
-  clashedEvents.clashed_events = events.feed.events.filter(function(element) {
+  clashedEvents.events = events.feed.events.filter(function(element) {
     if (moment(element.start_time).isSame(checkdate, 'day') ) {
       return true;
     }
   });
 
-  clashedEvents.meta.total_clashed_events = clashedEvents.clashed_events.length;
+  clashedEvents.meta.total_events = clashedEvents.events.length;
 
   res.send(clashedEvents);
 

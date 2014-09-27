@@ -83,14 +83,18 @@ html(lang='en')
             span.helptext Click to select URL
 
       .main.container
-        h3 check for open event clashes
+        h3 check for open events by date
         input#check.event-checker(type='date', placeholder='dd/mm/yyyy')
         .spinner#loader
           div
         p.tagline.center#results
         ul#clashed.open-list
 
-        p.explain a list of free public events and open source projects for the curious folks who love to make things!
+        h3 open event talks
+        | <div class="video">
+        |   <iframe width="560" height="315" src="//www.youtube.com/embed/_8dAbjQqnT0?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1" frameborder="0" allowfullscreen></iframe>
+        |   <p class="explain">Subscribe to <a href="http://engineers.sg">engineers.sg</a> to get updates on talk videos</p>
+        | </div>
 
       footer
         .container

@@ -33,6 +33,7 @@
     "console": true,
     "document": true,
     "exports": true,
+    "fluidvids": true,
     "module": true,
     "moment": true,
     "process": true,
