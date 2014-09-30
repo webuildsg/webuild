@@ -1,6 +1,6 @@
 {
   "name": "webuild.sg",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "homepage": "http://webuild.sg",
   "keywords": "developer, designer, maker, open source, open events, open community",
   "private": true,
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "body-parser": "1.9.0",
-    "bower": "1.3.11",
+    "bower": "1.3.12",
     "buffer-crc32": "0.2.3",
     "compression": "1.1.0",
     "cookie-parser": "1.3.3",
@@ -35,7 +35,7 @@
     "markdown": "0.5.0",
     "mess": "0.1.2",
     "moment": "2.8.3",
-    "newrelic": "1.10.3",
+    "newrelic": "1.11.3",
     "passport": "0.2.1",
     "passport-auth0": "0.2.0",
     "prequest": "0.0.2",
