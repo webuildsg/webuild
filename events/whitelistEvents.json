@@ -25,15 +25,15 @@
   },
   {
     "id": 3,
-    "name": "Fun with Arduino and Sensors - Introductory Workshop",
-    "description": "Have great ideas that use sensors to make your life better? Interested in learning more about Arduino and how you can use it as a building block to your prototype device?  Want to collect data from sensors and analyse them on the cloud? Join us for this introductory workshop in the lead-up to a hands-on session on 11th October where you get to build your own data collecting device!",
-    "location": "IDA Labs@National Design Ctr",
-    "url": "http://peatix.com/event/53348",
-    "group_name": "IDA Labs",
-    "group_url" : "http://www.ida.gov.sg/Collaboration-and-Initiatives/Initiatives/Store/IDA-Labs",
-    "formatted_time": "29 Sep, Thu, 7:00 pm",
-    "start_time": "2014-09-29T11:00:00.000Z",
-    "end_time": "2014-09-29T12:00:00.000Z"
+    "name": "KopiJS 5th meetup",
+    "description": "It's a meetup for kopi lovers where we'll hang out and talk about Kopi, JS and anything.",
+    "location": "Tong Ah Eating House, 35 Keong Saik Road, Singapore 089143",
+    "url": "https://github.com/KopiJS/kopi.js/issues/10",
+    "group_name": "Kopi.JS",
+    "group_url" : "https://github.com/KopiJS/kopi.js",
+    "formatted_time": "1 Oct, Wed, 7:30 pm",
+    "start_time": "2014-10-01T11:30:00.000Z",
+    "end_time": "2014-10-01T13:30:00.000Z"
   },
   {
     "id": 4,
