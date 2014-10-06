@@ -4,6 +4,6 @@ windows:
   - express:
       layout: main-vertical
       panes:
-        - git pull && ls
+        - git pull && ls && npm outdated --depth 0
         - grunt
         - ./run.sh
