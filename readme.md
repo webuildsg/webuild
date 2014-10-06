@@ -179,8 +179,10 @@ If you are integrating Newrelic for analytics, the following environment variabl
 
 1. Meetup, Eventbrite and Facebook events in Singapore are automatically populated.
 1. **White list events**: To add more events, edit `events/whitelistEvents.json`.
-1. **Black list events**: To remove a specific events (paid / duplicate), get the event `id` from <http://webuild.sg/api/v1/events> endpoint and add to `events/blacklistEvents.json`.
-1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to <https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1>, get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use <http://lookup-id.com/> to find a facebook group id.
+1. **Black list events**: 
+	- To remove a specific events (paid / duplicate), get the event `id` from [events api endpoint](http://webuild.sg/api/v1/events) and add to `events/blacklistEvents.json`.
+	- To remove a Meetup group, go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`. Get the `id` from `results.id` in the response and file `config.js` to add the `id` to `blacklistGroups`
+1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to [Facebook developer tools explorer](https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1), get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use [Lookup ID](http://lookup-id.com) to find a facebook group id.
 1. **Eventbrite categories**: To automatically find events in an Eventbrite category, add the `id` from this list: <http://developer.eventbrite.com/docs/event-categories/>
 
 ###Repos
