@@ -62,7 +62,9 @@ Chose either one of the 2 ways:
 1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
 
 	```
-	bundle install
+	gem install sass foreman thor tmuxinator
+	gem install dotenv -v 0.11.1
+	gem install dotenv-deployment -v 0.0.2
 	npm install -g bower
 	npm install -g grunt-cli
 	npm install
@@ -95,12 +97,12 @@ Chose either one of the 2 ways:
 	 ```
 	 cp .env-example .env
 	 ```
-	 
+
 1. Start docker
 1. Build with [Docker](http://docker.com/) *Time estimate: *
 
 	```
-	docker build -t webuild . 
+	docker build -t webuild .
 	```
 1. run docker with port mapping
 
@@ -180,7 +182,7 @@ If you are integrating Newrelic for analytics, the following environment variabl
 
 1. Meetup, Eventbrite and Facebook events in Singapore are automatically populated.
 1. **White list events**: To add more events, edit `events/whitelistEvents.json`.
-1. **Black list events**: 
+1. **Black list events**:
 	- To remove a specific events (paid / duplicate), get the event `id` from [events api endpoint](http://webuild.sg/api/v1/events) and add to `events/blacklistEvents.json`.
 	- To remove a Meetup group, go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`. Get the `id` from `results.id` in the response and file `config.js` to add the `id` to `blacklistGroups`
 1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to [Facebook developer tools explorer](https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1), get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use [Lookup ID](http://lookup-id.com) to find a facebook group id.
