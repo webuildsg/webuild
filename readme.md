@@ -62,7 +62,7 @@ Chose either one of the 2 ways:
 1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
 
 	```
-	gem install sass compass
+	bundle install
 	npm install -g bower
 	npm install -g grunt-cli
 	npm install
@@ -95,11 +95,12 @@ Chose either one of the 2 ways:
 	 ```
 	 cp .env-example .env
 	 ```
-
-1. Build with [Docker](http://docker.com/)
+	 
+1. Start docker
+1. Build with [Docker](http://docker.com/) *Time estimate: *
 
 	```
-	docker build -t webuild .
+	docker build -t webuild . 
 	```
 1. run docker with port mapping
 

@@ -7,7 +7,6 @@
 .travis.yml
 CONTRIBUTING.md
 LICENSE
-Procfile
 readme.md
 run.sh.sample
 /public/js/script.js
