@@ -1,135 +1,102 @@
-//
-  |        __         ____         ____     ____                     __               __                         ____
-  |       / /_  ___  / / /___     / __/__  / / /___ _      __   ____/ /__ _   _____  / /___  ____  ___  _____   / / /
-  |      / __ \/ _ \/ / / __ \   / /_/ _ \/ / / __ \ | /| / /  / __  / _ \ | / / _ \/ / __ \/ __ \/ _ \/ ___/  / / /
-  |     / / / /  __/ / / /_/ /  / __/  __/ / / /_/ / |/ |/ /  / /_/ /  __/ |/ /  __/ / /_/ / /_/ /  __/ /     /_/_/
-  |    /_/ /_/\___/_/_/\____/  /_/  \___/_/_/\____/|__/|__/   \__,_/\___/|___/\___/_/\____/ .___/\___/_/     (_|_)
-  |                                                                                      /_/
-  //- |
+include ./layout/head.jade
+body
 
-doctype
-html(lang='en')
+  //if lt IE 9
+    p.chromeframe Your browser is <em>ancient!</em> <a href='http://browsehappy.com/'>Upgrade to a cool new browser</a> to experience this site!
 
-  head
-    meta(charset='utf-8')
+  div.wrapper
+    header
+      .container
+        h1 we build!
+        h2 Exploring the tech scene in Singapore? Connect with people who are&nbsp;
+          ul.people
+            li ...
+            li designers
+            li developers
+            li makers
+    .main.container
 
-    title We Build SG
-    meta(name='description', content='a list of free open events and open source libraries for the curious folks who love to make things!')
-    meta(name='keywords', content='Singapore, SG, open community, open source, software, hardware, programming, design, maker movement, free events, free tech events')
-    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+      a.live(href="http://live.webuild.sg")
+        h3 Catch We Build LIVE
+        p.countdown
+        p#livetime.time
 
-    meta(property='og:image', content='public/logo.png')
-    meta(property='og:url', content='http://www.webuild.sg')
-    meta(property='og:site_name', content='www.webuild.sg')
-    meta(property='og:title', content='We Build SG')
-    meta(property='og:description', content='a list of free open events and open source libraries for the curious folks who love to make things!')
-    meta(property='og:type', content='website')
+      section
+        h3 open events
+        ul.open-list.first
+          each event in events
+            li
+              a(href=event.url)
+                p= event.name
+                  span= 'on ' + event.formatted_time
+                p.tagline= 'by ' + event.group_name
 
-    link(href='//fonts.googleapis.com/css?family=Roboto+Slab:400,700', rel='stylesheet', type='text/css')
-    link(rel='stylesheet', href='public/css/style.css')
+      section
+        h3 open source
+        ul.open-list.second
+          each repo in repos
+            li
+              a(href=repo.html_url)
+                p= repo.name
+                  span= 'updated ' + moment(repo.pushed_at).endOf('hour').fromNow()
+                  span.stars!= '&#9733; ' + repo.stargazers_count
+                p.tagline= repo.description
 
-    link(rel='apple-touch-icon', href='public/apple-touch-icon.png')
-    link(rel='apple-touch-icon', sizes='72x72', href='public/apple-touch-icon-72x72-precomposed.png')
-    link(rel='apple-touch-icon', sizes='114x114', href='public/apple-touch-icon-114x114-precomposed.png')
-    link(rel='apple-touch-icon', sizes='144x144', href='public/apple-touch-icon-144x144-precomposed.png')
-  body
+    footer
+      .container
+        p
+          | Subscribe in <a href="http://mcb.berkeley.edu/academic-programs/seminars/ical-feed-instructions">iCal</a> or <a href="https://support.google.com/calendar/answer/37100?hl=en">GCal</a> with URL
+          input(type="text", value="http://webuild.sg/cal", class="input" id="selectAll")
+          span.helptext Click to select URL
 
-    //if lt IE 9
-      p.chromeframe Your browser is <em>ancient!</em> <a href='http://browsehappy.com/'>Upgrade to a cool new browser</a> to experience this site!
+    .main.container
+      h3 check for open events by date
+      input#check.event-checker(type='date', placeholder='dd/mm/yyyy')
+      .spinner#loader
+        div
+      p.tagline.center#results
+      ul#clashed.open-list
 
-    div.wrapper
-      header
-        .container
-          h1 we build!
-          h2 Exploring the tech scene in Singapore? Connect with people who are&nbsp;
-            ul.people
-              li ...
-              li designers
-              li developers
-              li makers
-      .main.container
+      h3 open event talks
+      | <div class="video">
+      |   <iframe id="playlist" width="560" height="315" src="//www.youtube.com/embed/PhYriLMnLHI?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1" frameborder="0" allowfullscreen></iframe>
+      |   <p class="explain">Subscribe to <a href="http://engineers.sg">engineers.sg</a> to get updates on talk videos</p>
+      | </div>
 
-        a.live(href="http://live.webuild.sg")
-          h3 Catch We Build LIVE
-          p.countdown
-          p#livetime.time
+    footer
+      .container
+        :markdown
+          Checkout more cool events and people in startup, arts and tech with
+          [thelist.sg](http://thelist.sg/),
+          [connections.sg](http://connections.sg/),
+          [hackerspace](http://hackerspace.sg/calendar/hackerspacesg-events/),
+          [bHappening](http://bhappening.wordpress.com/) and
+          [tech in asia](http://www.techinasia.com/tech-startup-events/)
 
-        section
-          h3 open events
-          ul.open-list.first
-            each event in events
-              li
-                a(href=event.url)
-                  p= event.name
-                    span= 'on ' + event.formatted_time
-                  p.tagline= 'by ' + event.group_name
+    ul.social
+      li
+        a(href='https://twitter.com/webuildsg')
+          span.icon-twitter
+        p Twitter
+      li
+        a(href='http://www.facebook.com/webuildsg')
+          span.icon-facebook
+        p Facebook
+      li
+        a(href='https://github.com/webuildsg')
+          span.icon-github
+        p GitHub
+      li
+        a(href='/cal')
+          span.icon-calendar
+        p Calendar
 
-        section
-          h3 open source
-          ul.open-list.second
-            each repo in repos
-              li
-                a(href=repo.html_url)
-                  p= repo.name
-                    span= 'updated ' + moment(repo.pushed_at).endOf('hour').fromNow()
-                    span.stars!= '&#9733; ' + repo.stargazers_count
-                  p.tagline= repo.description
+  script(src='public/js/script.js')
+  script.
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      footer
-        .container
-          p
-            | Subscribe in <a href="http://mcb.berkeley.edu/academic-programs/seminars/ical-feed-instructions">iCal</a> or <a href="https://support.google.com/calendar/answer/37100?hl=en">GCal</a> with URL
-            input(type="text", value="http://webuild.sg/cal", class="input" id="selectAll")
-            span.helptext Click to select URL
-
-      .main.container
-        h3 check for open events by date
-        input#check.event-checker(type='date', placeholder='dd/mm/yyyy')
-        .spinner#loader
-          div
-        p.tagline.center#results
-        ul#clashed.open-list
-
-        h3 open event talks
-        | <div class="video">
-        |   <iframe id="playlist" width="560" height="315" src="//www.youtube.com/embed/PhYriLMnLHI?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1" frameborder="0" allowfullscreen></iframe>
-        |   <p class="explain">Subscribe to <a href="http://engineers.sg">engineers.sg</a> to get updates on talk videos</p>
-        | </div>
-
-      footer
-        .container
-          :markdown
-            Checkout more cool events and people in startup, arts and tech with
-            [thelist.sg](http://thelist.sg/),
-            [connections.sg](http://connections.sg/),
-            [hackerspace](http://hackerspace.sg/calendar/hackerspacesg-events/),
-            [bHappening](http://bhappening.wordpress.com/) and
-            [tech in asia](http://www.techinasia.com/tech-startup-events/)
-
-      ul.social
-        li
-          a(href='https://twitter.com/webuildsg')
-            span.icon-twitter
-          p Twitter
-        li
-          a(href='http://www.facebook.com/webuildsg')
-            span.icon-facebook
-          p Facebook
-        li
-          a(href='https://github.com/webuildsg')
-            span.icon-github
-          p GitHub
-        li
-          a(href='/cal')
-            span.icon-calendar
-          p Calendar
-
-    script(src='public/js/script.js')
-    script.
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-37308530-1', 'auto');
-        ga('send', 'pageview');
+      ga('create', 'UA-37308530-1', 'auto');
+      ga('send', 'pageview');
