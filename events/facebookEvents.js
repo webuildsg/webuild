@@ -122,7 +122,7 @@ function filterValidFacebookUsers(users) { //must have access to groups
 
     console.log(userGroups.length + ' authorized users');
     validusers = users.filter(function(user, idx) {
-      return userGroups[idx].data.length > 0
+      return userGroups[idx].data && userGroups[idx].data.length > 0
     });
     console.log(validusers.length + ' users with accessible groups');
     return validusers;
