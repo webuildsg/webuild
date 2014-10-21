@@ -5,7 +5,7 @@ var express = require('express'),
   errorHandler = require('errorhandler'),
   favicon = require('serve-favicon'),
   http = require('http'),
-  moment = require('moment'),
+  moment = require('moment-timezone'),
   request = require('request'),
   events = require('./events'),
   countdown = require('./countdown'),
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 app.use(passport.initialize());
 
 app.locals.pretty = true;
-app.locals.moment = require('moment');
+app.locals.moment = require('moment-timezone');
 
 app.get('/', function(req, res) {
   countdown.calculateCountdown();

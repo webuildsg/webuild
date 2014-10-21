@@ -6,7 +6,10 @@ var querystring = require('querystring'),
   utils = require('./utils'),
   config = require('./config'),
   baseUrl = 'https://www.eventbriteapi.com/v3/events/search',
-  techCategory = [ '102', '119'];
+  techCategory = [
+    '102',
+    '119'
+  ];
 
 function constructAddress(venue) {
   var addr = venue.location,
@@ -31,7 +34,7 @@ function isFreeWithVenue(event) {
   return isFree && hasVenue;
 }
 
-function isInTechCategory(event){
+function isInTechCategory(event) {
   // 'categories': '102, 113, 199',
   return event.category_id && techCategory.indexOf(event.category_id) >= 0;
 }
