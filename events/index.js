@@ -40,7 +40,7 @@ function addEvents(type) {
     console.log(whiteEvents.length + ' %s events added! %s total', type, exports.feed.events.length);
     exports.feed.meta.total_events = exports.feed.events.length;
   }).catch(function(err) {
-    console.error('Failed to add %s events: %s', type, err);
+    console.error('Failed to add %s events: %s', type, err.statusCode || err);
   });
 }
 

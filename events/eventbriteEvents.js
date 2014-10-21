@@ -5,10 +5,11 @@ var querystring = require('querystring'),
   moment = require('moment'),
   utils = require('./utils'),
   config = require('./config'),
-  baseUrl = 'https://www.eventbriteapi.com/v3/events/search';
+  baseUrl = 'https://www.eventbriteapi.com/v3/events/search',
+  techCategory = [ '102', '119'];
 
 function constructAddress(venue) {
-  var addr = venue.address,
+  var addr = venue.location,
     address = [
       venue.name.trimRight(),
       ', ',
@@ -22,12 +23,17 @@ function constructAddress(venue) {
 }
 
 function isFreeWithVenue(event) {
-  var hasVenue = event.venue.address.address_1 !== null,
+  var hasVenue = event.venue.location && event.venue.location.address_1 !== null,
     isFree = event.ticket_classes.some(function(ticket) {
     return ticket.free;
   });
 
   return isFree && hasVenue;
+}
+
+function isInTechCategory(event){
+  // 'categories': '102, 113, 199',
+  return event.category_id && techCategory.indexOf(event.category_id) >= 0;
 }
 
 function addEventbriteEvent(arr, event) {
@@ -50,7 +56,6 @@ function addEventbriteEvent(arr, event) {
 function getEventbriteEvents() {
   return prequest({
     url: baseUrl + '?' + querystring.stringify({
-      'categories': '102, 113, 199',
       'venue.country': 'SG',
       'venue.city': 'Singapore',
       'start_date.range_end': moment().add(2, 'months').format('YYYY-MM-DD') + 'T00:00:00Z'
@@ -60,7 +65,7 @@ function getEventbriteEvents() {
     }
   }).then(function(data) {
     var events = [],
-      freeEventsWithVenue = data.events.filter(isFreeWithVenue);
+      freeEventsWithVenue = data.events.filter(isInTechCategory).filter(isFreeWithVenue);
     freeEventsWithVenue.reduce(addEventbriteEvent, events);
 
     console.log(events.length + ' eventbrite events');
