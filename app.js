@@ -8,6 +8,7 @@ var express = require('express'),
   moment = require('moment'),
   request = require('request'),
   events = require('./events'),
+  countdown = require('./countdown'),
   passport = require('./events/setup-passport'),
   app = express(),
   podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json'
@@ -32,7 +33,13 @@ app.locals.pretty = true;
 app.locals.moment = require('moment');
 
 app.get('/', function(req, res) {
+  countdown.calculateCountdown();
   res.render('index.jade', {
+    formattedTime: countdown.formattedTime,
+    days: countdown.days,
+    hours: countdown.hours,
+    minutes: countdown.minutes,
+    seconds: countdown.seconds,
     repos: repos.feed.repos.slice(0, 10),
     events: events.feed.events.slice(0, 10)
   });
@@ -162,6 +169,7 @@ app.use(function(req, res, next){
 
 events.update();
 repos.update();
+countdown.update();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

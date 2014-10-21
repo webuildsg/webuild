@@ -19,7 +19,8 @@ body
       a.live(href="http://live.webuild.sg")
         h3 Catch We Build LIVE
         p.countdown
-        p#livetime.time
+          | in <strong>#{days}</strong> days <strong>#{hours}</strong> hours <strong>#{minutes}</strong> minutes <strong>#{seconds}</strong> seconds
+        p#livetime.time=formattedTime
 
       section
         h3 open events
