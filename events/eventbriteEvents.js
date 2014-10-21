@@ -2,7 +2,7 @@
 
 var querystring = require('querystring'),
   prequest = require('prequest'),
-  moment = require('moment'),
+  moment = require('moment-timezone'),
   utils = require('./utils'),
   config = require('./config'),
   baseUrl = 'https://www.eventbriteapi.com/v3/events/search';

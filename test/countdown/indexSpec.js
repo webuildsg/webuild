@@ -3,7 +3,7 @@
 
   var expect = require('chai').expect,
   countdown = require('../../countdown'),
-  moment = require('moment');
+  moment = require('moment-timezone');
 
   describe('Countdown', function() {
 

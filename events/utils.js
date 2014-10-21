@@ -2,7 +2,7 @@
 
 var Promise = require('promise'),
   htmlStrip = require('htmlstrip-native'),
-  moment = require('moment'),
+  moment = require('moment-timezone'),
   displayTimeformat = 'DD MMM, ddd, h:mm a',
   localZone = '+0800';
 

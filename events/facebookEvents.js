@@ -2,7 +2,7 @@
 
 var querystring = require('querystring'),
   Promise = require('promise'),
-  moment = require('moment'),
+  moment = require('moment-timezone'),
   prequest = require('prequest'),
   fbGroups = require('./facebookGroups'),
   utils = require('./utils'),

@@ -1,6 +1,6 @@
 'use strict';
 
-var moment = require('moment'),
+var moment = require('moment-timezone'),
   utils = require('./utils'),
   whitelistEvents = require('./whitelistEvents'),
   blacklistEvents = require('./blacklistEvents'),
