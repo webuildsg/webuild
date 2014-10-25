@@ -31,7 +31,7 @@ function isValidGroup(row) {
     isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE)),
     isValidGroupId = !blacklistGroups.some(function(id) { return row.id === id });
 
-  return  isValidCountry && isValidText && isValidGroupId;
+  return isValidCountry && isValidText && isValidGroupId;
 }
 
 function normalizeCommunityEvents(events, row) {
