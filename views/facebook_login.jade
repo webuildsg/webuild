@@ -16,7 +16,7 @@ body
     .main.container
       div#auth0(style='width: 320px; margin: 40px auto;')
 
-  script(type='text/javascript', src='https://cdn.auth0.com/w2/auth0-widget-5.2.min.js')
+  script(type='text/javascript', src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
   script(type='text/javascript').
     var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
     widget.signin({container: 'auth0', connections: ['facebook'], chrome: true, scope: 'openid profile user_groups user_events'},function(){
