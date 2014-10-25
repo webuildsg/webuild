@@ -26,10 +26,12 @@ function constructAddress(venue) {
 function isValidGroup(row) {
   var blacklistGroups = config.blacklistGroups || [],
     blacklistWords = config.blacklistWords || [],
-    blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
+    blacklistRE = new RegExp(blacklistWords.join('|'), 'i'),
+    isValidCountry = row.country === (config.meetupParams.country || row.country),
+    isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE)),
+    isValidGroupId = !blacklistGroups.some(function(id) { return row.id === id });
 
-  // Enforce country filter. Meetup adds JB groups into SG
-  return blacklistWords.length === 0 ? true : !row.name.match(blacklistRE) && !blacklistGroups.some(function(id) { return row.id === id }) && row.country === (config.meetupParams.country || row.country);
+  return  isValidCountry && isValidText && isValidGroupId;
 }
 
 function normalizeCommunityEvents(events, row) {

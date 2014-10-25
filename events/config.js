@@ -19,7 +19,8 @@ module.exports = {
   ],
   blacklistWords: [
     'business',
-    'networking'
+    'networking',
+    'UNICOM'
   ],
   meetupCommunities: [
     'Dribbble',
