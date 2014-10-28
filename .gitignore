@@ -8,3 +8,5 @@ run.debug.sh
 .sass-cache
 *.swp
 *.log
+
+coverage.html

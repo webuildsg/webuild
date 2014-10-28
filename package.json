@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node app",
-    "test": "grunt travis --verbose && mocha test --recursive",
+    "test": "grunt travis --verbose && mocha test --recursive && mocha test --require blanket --reporter html-cov --recursive > coverage.html",
     "postinstall": "bower install && grunt build"
   },
   "dependencies": {
@@ -34,8 +34,10 @@
     "serve-favicon": "2.1.6"
   },
   "devDependencies": {
+    "blanket": "1.1.6",
     "bower": "1.3.12",
     "chai": "1.9.2",
+    "coveralls": "2.11.2",
     "grunt": "0.4.5",
     "grunt-bump": "0.0.16",
     "grunt-cli": "0.1.13",
@@ -49,5 +51,19 @@
   },
   "engines": {
     "node": "0.10"
+  },
+  "config": {
+    "blanket": {
+      "pattern": [
+        "countdown/index.js",
+        "events/eventbriteEvents.js",
+        "events/facebookEvents.js",
+        "events/index.js",
+        "events/meetupEvents.js",
+        "events/utils.js",
+        "repos/index.js"
+      ],
+      "data-cover-never": "node_modules"
+    }
   }
 }
