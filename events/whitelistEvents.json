@@ -1,50 +1,14 @@
 [
   {
     "id": 1,
-    "name": "GeekCamp SG",
-    "description": "What is it? Conference for the geeks. No startup talks. No how to get rich talks. This is purely a tech conference. Hashtag: #geekcampsg | Date: 18th October 2014 | Time: 9:30am to 6pm (Afterparty afterwards) | Location: NUS School of Computing. Ticket sales can be found over at Peatix http://geekcampsg14.peatix.com/",
-    "location": "NUS School of Computing",
-    "url": "http://geekcamp.sg/",
-    "group_name": "GeekCamp SG",
-    "group_url" : "http://geekcamp.sg/",
-    "formatted_time": "18 Oct, Sat, 9:30 am",
-    "start_time": "2014-10-18T03:30:00.000Z",
-    "end_time": "2014-10-18T10:00:00.000Z"
-  },
-  {
-    "id": 2,
-    "name": "SG Hack and Tell",
-    "description": "Present a hack and the tech behind it, not pitch your startup.",
-    "location": "Singapore Hackerspace @KGB",
-    "url": "http://sg.hackandtell.org/",
-    "group_name": "SG Hack and Tell",
-    "group_url" : "http://sg.hackandtell.org/",
-    "formatted_time": "30 Sep, Tue, 8:00 pm",
-    "start_time": "2014-09-30T12:00:00.000Z",
-    "end_time": "2014-09-30T14:00:00.000Z"
-  },
-  {
-    "id": 3,
-    "name": "KopiJS 5th meetup",
-    "description": "It's a meetup for kopi lovers where we'll hang out and talk about Kopi, JS and anything.",
-    "location": "Tong Ah Eating House, 35 Keong Saik Road, Singapore 089143",
-    "url": "https://github.com/KopiJS/kopi.js/issues/10",
-    "group_name": "Kopi.JS",
-    "group_url" : "https://github.com/KopiJS/kopi.js",
-    "formatted_time": "1 Oct, Wed, 7:30 pm",
-    "start_time": "2014-10-01T11:30:00.000Z",
-    "end_time": "2014-10-01T13:30:00.000Z"
-  },
-  {
-    "id": 4,
-    "name": "Fun with Arduino & Sensors – BUILD! – A hands-on session to make your own data collection device",
-    "description": "Maybe it’s a sensor that analyses air quality at your location, or tracks noise level in your neighborhood, or maybe you’re just looking for a solution to get your IoT devices talking. Come and meet like-minded individuals and build together on the Snootlab Akeru Beta 3.2 – An Arduino platform that uses the Sigfox IoT technology to send small amounts of data via its own proprietary network back to the cloud. This technology is used by companies like FastPark and Whistle. If you have some basic knowledge of Arduino, this workshop is for you! Else, just join us to learn more! Just bring your own laptops with the Arduino IDE, and Arduino-based sensors. SingTel will be providing the Snootlab Akeru Beta 3.2 boards, and 12Geeks will also have some sensors available for purchase on-site. ",
-    "location": "IDA Labs@National Design Ctr",
-    "url": "http://peatix.com/event/53355",
-    "group_name": "IDA Labs",
-    "group_url" : "http://www.ida.gov.sg/Collaboration-and-Initiatives/Initiatives/Store/IDA-Labs",
-    "formatted_time": "11 Oct, Sat, 9:30 am",
-    "start_time": "2014-10-11T01:30:00.000Z",
-    "end_time": "2014-10-11T06:30:00.000Z"
+    "name": "Hackatron Asia - Unleash the coding machine in you",
+    "description": "Hackatron Asia Singapore is a 32-hour weekend of problem solving and hacking solutions to real problems. Brought to you by Asia’s largest online publication on technology and startups, Tech in Asia, Hackatron Asia bridges brands with real challenges and technology offerings to developers with a knack for solving technical problems.",
+    "location": "Le Danz, 222 Queen Street, #01-01/02, Singapore, SG",
+    "url": "http://hackatron.techinasia.com/",
+    "group_name": "Tech in Asia",
+    "group_url" : "http://techinasia.com/",
+    "formatted_time": "6 Dec, Sat, 9:00 am",
+    "start_time": "2014-12-06T01:00:00.000Z",
+    "end_time": "2014-12-06T13:00:00.000Z"
   }
 ]
