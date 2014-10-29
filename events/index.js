@@ -4,6 +4,7 @@ var moment = require('moment-timezone'),
   utils = require('./utils'),
   whitelistEvents = require('./whitelistEvents'),
   blacklistEvents = require('./blacklistEvents'),
+  overlap = require('word-overlap'),
   API = {
     getFacebookEvents: require('./facebookEvents').get,
     getMeetupEvents: require('./meetupEvents').get,
@@ -11,14 +12,33 @@ var moment = require('moment-timezone'),
   };
 
 function removeDuplicates(feed) {
-  var prev, cur, i;
+  var prev, cur, prevEvent, curEvent, i,
+    options = {
+      ignoreCase: true,
+      ignoreCommonWords: true,
+      common: [ 'singapore', 'meetup' ],
+      depluralize: true
+    },
+    indexToRemove = [];
+
   for (i = 1; i < feed.length; i++) {
     prev = feed[i - 1];
+    prevEvent = prev.name + ' at ' + prev.location + ' by ' + prev.group_name;
     cur = feed[i];
-    if (prev.formatted_time === cur.formatted_time && prev.name === cur.name) {
-      feed.splice(i, 1);
+    curEvent = cur.name + ' at ' + cur.location + ' by ' + cur.group_name;
+
+    if (prev.formatted_time === cur.formatted_time) {
+      if (overlap(prevEvent, curEvent, options).length > 0) {
+        indexToRemove.push(i);
+      }
     }
   }
+
+  indexToRemove.forEach(function(element) {
+    feed.splice(element - 1, 1);
+  })
+
+  return feed;
 }
 
 function timeComparer(a, b) {
@@ -49,6 +69,7 @@ function afterToday(evt) {
 }
 
 exports.feed = [];
+exports.removeDuplicates = removeDuplicates;
 exports.update = function() {
   exports.feed = {
     'meta': {

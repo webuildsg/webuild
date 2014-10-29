@@ -31,7 +31,8 @@
     "prequest": "0.0.2",
     "promise": "6.0.1",
     "request": "2.47.0",
-    "serve-favicon": "2.1.6"
+    "serve-favicon": "2.1.6",
+    "word-overlap": "^2.2.1"
   },
   "devDependencies": {
     "blanket": "1.1.6",
