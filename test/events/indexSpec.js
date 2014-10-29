@@ -20,4 +20,12 @@ describe('Remove duplicate events', function() {
     events.removeDuplicates(duplicateEventFeed);
     expect(duplicateEventFeed.length).to.be.equal(1);
   })
+
+  it('keeps unique named events', function() {
+    var uniqueEventFeed = factory.data.uniqueEventFeed;
+
+    expect(uniqueEventFeed.length).to.be.equal(3);
+    events.removeDuplicates(uniqueEventFeed);
+    expect(uniqueEventFeed.length).to.be.equal(3);
+  })
 })
