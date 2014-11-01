@@ -21,7 +21,7 @@
   // randomise video in youtube playlist
   totalVideo = 60; // larger than total videos on https://www.youtube.com/playlist?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1
   rand1toTotalVideo = Math.floor(Math.random() * totalVideo);
-  newPlaylistAttribute = '//www.youtube.com/embed/PhYriLMnLHI?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1&index=' + rand1toTotalVideo;
+  newPlaylistAttribute = '//www.youtube.com/embed/MbZZy8GbCUE?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1&index=' + rand1toTotalVideo;
   document.getElementById('playlist').setAttribute('src', newPlaylistAttribute);
 
   // select all calendar URL
