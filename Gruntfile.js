@@ -102,6 +102,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
+  grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function(reply) {
+    var cleanup = require('./events/cleanup'),
+      blacklistFile = 'events/blacklistEvents.json',
+      whitelistFile = 'events/whitelistEvents.json';
+
+    cleanup(blacklistFile);
+    cleanup(whitelistFile);
+    console.log(reply);
+    return;
+  });
+
   grunt.registerTask('travis', [
     'clean',
     'sass',
