@@ -10,5 +10,27 @@
     "formatted_time": "6 Dec, Sat, 9:00 am",
     "start_time": "2014-12-06T01:00:00.000Z",
     "end_time": "2014-12-06T13:00:00.000Z"
+  }, {
+    "id": 2,
+    "name": "The Path of Prototyping to Production",
+    "description": "DESCRIPTION So, you want to build a hardware product? Every so often, a device comes along that changes the way we live our daily lives - and things are never the same again. Every product, before you rest your eyes on them, undergoes a lengthy and vigorous evolution process. There are several checkpoints, that a product to be developed has to clear - on its way to hitting the market. Now that you have a great idea, you need turn your ideas into reality. This could include creating a prototype of your product idea, taking your design into production tooling, or starting to make inventory. No matter how you plan on advancing your product, it is important to consider these product development tips for your fledgling start-up product ideas. This sharing is targeted at entrepreneurs, designers, hackers, makers, DIY-ers, practically people who want to turn their ideas into reality!",
+    "location": "Prototyping Lab @ NDC, 111 Middle Road #01-02, Singapore 188969",
+    "url": "http://omg-hardwarehacking101.peatix.com/",
+    "group_name": "One Maker Group",
+    "group_url" : "https://www.facebook.com/onemakergroup",
+    "formatted_time": "11 Nov, Tue, 7:30 pm",
+    "start_time": "2014-11-11T11:30:00.000Z",
+    "end_time": "2014-11-11T12:30:00.000Z"
+  }, {
+    "id": 3,
+    "name": "Clean & Green Hackathon 2014",
+    "description": "Whether you're an environmental expert or social historian, a developer or designer, policymaker or marketer. This is the challenge for you! Come brainstorm ideas and work with innovative people to create solutions to empower Singaporeans to reduce waste and recycle, and enhance the hawker centre experience!",
+    "location": "237 South Bridge Rd Singapore, 058786 Singapore",
+    "url": "http://www.eventbrite.sg/e/clean-green-hackathon-2014-tickets-13749094913",
+    "group_name": "National Environment Agency",
+    "group_url" : "http://www.nea.gov.sg/",
+    "formatted_time": "14 Nov, Fri, 6:00 pm",
+    "start_time": "2014-11-14T10:00:00.000Z",
+    "end_time": "2014-11-16T09:00:00.000Z"
   }
 ]
