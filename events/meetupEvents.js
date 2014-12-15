@@ -34,35 +34,6 @@ function isValidGroup(row) {
   return isValidCountry && isValidText && isValidGroupId;
 }
 
-function normalizeCommunityEvents(events, row) {
-  var eventTime,
-    event = {};
-
-  if (!(row.time && row.venue_name)) {
-    return events;
-  }
-
-  eventTime = utils.localTime(row.time);
-  row.name = row.venue_name;
-  row.address_1 = row.address1 || '';
-
-  event = {
-    id: row.id.toString(),
-    name: row.short_description,
-    description: utils.htmlStrip(row.description),
-    location: constructAddress(row),
-    url: row.meetup_url,
-    group_name: row.container.name + ' Community',
-    group_url: 'http://meetup.com/' + row.container.urlname + '/' + row.community.urlname,
-    formatted_time: utils.formatLocalTime(row.time),
-    start_time: eventTime.toISOString(),
-    end_time: eventTime.add(7200000, 'milliseconds').toISOString()
-  }
-  events.push(event);
-
-  return events;
-}
-
 function normalizeGroupEvents(events, row) {
   var eventTime,
       event = {};
