@@ -23,11 +23,6 @@ module.exports = {
     'networking',
     'UNICOM'
   ],
-  meetupCommunities: [
-    'Dribbble',
-    'Treehouse',
-    'makermeetup'
-  ],
   auth0: {
     domain: 'webuildsg.auth0.com',
     clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,

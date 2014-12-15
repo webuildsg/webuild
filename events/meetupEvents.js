@@ -132,27 +132,6 @@ function getGroupIds() { //regardless of venue
   });
 }
 
-function getCommunityEvents() {
-  var url = 'https://api.meetup.com/ew/events?' +
-    querystring.stringify({
-      key: config.meetupParams.key,
-      country: config.meetupParams.country,
-      city: config.meetupParams.city,
-      urlname: config.meetupCommunities.join(','),
-      after: '0d'
-    });
-
-  return prequest(url).then(function(data) {
-    var events = [];
-
-    console.log(data.results.length + ' Meetup community events with venues');
-    data.results.reduce(normalizeCommunityEvents, events);
-    return events;
-  }).catch(function(err) {
-    console.error('Error getCommunityEvents(): ' + err);
-  });
-}
-
 function getGroupEvents() {
   return getGroupIds()
     .then(function(groupIds) {
@@ -164,15 +143,8 @@ function getGroupEvents() {
 }
 
 function getMeetupEvents() {
-  return utils.waitAllPromises([ getGroupEvents(), getCommunityEvents() ])
-    .then(function(events) {
-      // events is a nested array of group and community events ([ [], [] ])
-      // lets concat them before returning.
-      return Array.prototype.concat.apply([], events);
-    })
-    .catch(function(err) {
-      console.error('Error getMeetupEvents(): ' + err);
-    });
+  // Since meetup.com deprecated the everywhere communities, we only look for groups.
+  return getGroupEvents();
 }
 
 exports.get = getMeetupEvents;
