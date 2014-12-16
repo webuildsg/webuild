@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node app",
     "test": "grunt travis --verbose && mocha test --recursive && mocha test --recursive --require blanket --reporter html-cov > coverage.html",
-    "postinstall": "bower install"
+    "postinstall": "bower install && grunt build"
   },
   "dependencies": {
     "body-parser": "1.9.2",
