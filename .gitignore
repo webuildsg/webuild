@@ -1,6 +1,7 @@
 node_modules/*
 public/js/vendor/*
 public/js/script.js
+public/css/style.css
 events.json
 run.debug.sh
 

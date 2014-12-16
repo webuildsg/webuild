@@ -63,7 +63,7 @@ Chose either one of the 2 ways:
 1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
 
 	```
-	gem install sass foreman thor tmuxinator
+	gem install foreman thor tmuxinator
 	gem install dotenv -v 0.11.1
 	gem install dotenv-deployment -v 0.0.2
 	npm install -g bower

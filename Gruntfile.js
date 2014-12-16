@@ -65,14 +65,13 @@ module.exports = function(grunt) {
         ]
       }
     },
-    sass: {
+    stylus: {
       dist: {
         options: {
-          sourcemap: 'none',
-          style: 'compressed'
+          compress: false
         },
         files: {
-          'public/css/style.css': 'public/css/style.sass'
+          'public/css/style.css': 'public/css/style.styl'
         }
       }
     },
@@ -99,12 +98,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('travis', [
     'clean',
-    'sass',
+    'stylus',
     'uglify',
     'jshint',
     'csslint',
@@ -113,14 +112,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'clean',
-    'sass',
-    'uglify',
-    'jshint',
-    'csslint',
-    'jscs'
-  ]);
-
-  grunt.registerTask('no-sass', [
+    'stylus',
     'uglify',
     'jshint',
     'csslint',
@@ -128,6 +120,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'stylus',
     'uglify'
   ]);
 
