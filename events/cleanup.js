@@ -1,6 +1,7 @@
 'use strict';
 
-var fs    = require('fs');
+var fs = require('fs');
+// var moment = require('moment');
 
 module.exports = function(filepath, callback) {
   console.log('FILE PATH: ' + filepath);

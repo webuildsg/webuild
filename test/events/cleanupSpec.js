@@ -4,12 +4,16 @@ var expect = require('chai').expect,
   cleanup = require('../../events/cleanup');
 
 describe('Remove past manual events', function() {
-  var blacklistFile = '/Users/sayanee/Workspace/webuild/test/fixtures/blacklistEvents.json',
-    whitelistFile = '/Users/sayanee/Workspace/webuild/test/fixtures/whitelistEvents.json';
+  var blacklistFile = 'test/fixtures/blacklistEvents.json',
+    whitelistFile = 'test/fixtures/whitelistEvents.json';
 
   it.only('returns', function(done) {
+    var eventsToKeep = [];
+
     cleanup(blacklistFile, function(reply) {
-      console.log(reply);
+      reply.forEach(function(element) {
+        // moment(element.formatted_time, 'DD MMM, WWW, hh:mm');
+      })
       done();
     });
 
