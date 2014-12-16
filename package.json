@@ -6,8 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node app",
-    "test": "grunt travis --verbose && mocha test --recursive && mocha test --recursive --require blanket --reporter html-cov > coverage.html",
-    "postinstall": "bower install && grunt build"
+    "test": "grunt travis --verbose && mocha test --recursive && mocha test --recursive --require blanket --reporter html-cov > coverage.html"
   },
   "dependencies": {
     "body-parser": "1.9.2",
