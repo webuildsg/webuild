@@ -98,12 +98,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('travis', [
     'clean',
-    'stylus',
     'uglify',
     'jshint',
     'csslint',
@@ -120,8 +118,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'uglify',
-    'stylus'
+    'uglify'
   ]);
 
 };
