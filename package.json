@@ -32,7 +32,10 @@
     "promise": "6.0.1",
     "request": "2.47.0",
     "serve-favicon": "2.1.6",
-    "word-overlap": "2.2.2"
+    "word-overlap": "2.2.2",
+    "grunt-cli": "0.1.13",
+    "grunt-contrib-uglify": "0.6.0",
+    "grunt-contrib-stylus": "0.20.0"
   },
   "devDependencies": {
     "blanket": "1.1.6",
