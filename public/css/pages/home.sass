@@ -2,6 +2,7 @@
   width: 100%
   margin: 2em 0
   background-color: lighten($yellow, 10%)
+  border: 3px solid $yellow
   @include border-radius(5px)
   text-align: center
   padding: .5em
@@ -10,8 +11,11 @@
   &:hover
     cursor: pointer
     background-color: lighten($yellow, 5%)
+    border: 3px solid $blue
   p
+    color: $grey
     &.countdown
+      color: $red-light
       font-size: 2rem
       margin: 0 0 1.2rem 0
   .time
