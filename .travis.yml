@@ -4,5 +4,6 @@ node_js:
 before_script:
   - npm install -g grunt-cli
   - npm install -g bower
+  - npm install -g stylus
   - bower install
 after_script: NODE_ENV=test YOURPACKAGE_COVERAGE=1 mocha test --require blanket --reporter mocha-lcov-reporter --recursive | ./node_modules/coveralls/bin/coveralls.js
