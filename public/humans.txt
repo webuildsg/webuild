@@ -30,8 +30,8 @@ __      _____  | |__  _   _(_) | __| | / \
   Twitter: @rmdort
 
 # SITE
-  Version: 2.2.24
+  Version: 2.2.28
   Site Url: http://webuild.sg
   Keywords: developer, designer, maker, open source, open events, open community
   Language: English
-  Technology: node.js, expressjs, facebook api, meetup.com api, github api, sass, jade, docker, heroku, html 5 boilerplate, travis
+  Technology: node.js, expressjs, facebook api, meetup.com api, github api, stylus, jade, docker, heroku, html 5 boilerplate, travis

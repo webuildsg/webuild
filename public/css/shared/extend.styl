@@ -1,14 +1,4 @@
-%display-inline
-  display: inline-block
-  vertical-align: top
-  margin: 0 0 0 -4px
-
-%spacing-zero
-  padding: 0
-  margin: 0
-  list-style: none
-
-@mixin cycleone
+cycleone()
   0%
     opacity: 0
   1%
@@ -20,7 +10,7 @@
   100%
     opacity: 0
 
-@mixin cycletwo
+cycletwo()
   0%
     opacity: 0
   25%
@@ -34,7 +24,7 @@
   100%
     opacity: 0
 
-@mixin cyclethree
+cyclethree()
   0%
     opacity: 0
   50%
@@ -48,7 +38,7 @@
   100%
     opacity: 0
 
-@mixin cyclefour
+cyclefour()
   0%
     opacity: 0 // fade out
   25%
@@ -65,54 +55,54 @@
     opacity: 0
 
 @-webkit-keyframes cycleone
-  @include cycleone
+  cycleone()
 
 @-webkit-keyframes cycletwo
-  @include cycletwo
+  cycletwo()
 
 @-webkit-keyframes cyclethree
-  @include cyclethree
+  cyclethree()
 
 @-webkit-keyframes cyclefour
-  @include cyclefour
+  cyclefour()
 
 @-o-keyframes cycleone
-  @include cycleone
+  cycleone()
 
 @-o-keyframes cycletwo
-  @include cycletwo
+  cycletwo()
 
 @-o-keyframes cyclethree
-  @include cyclethree
+  cyclethree()
 
 @-o-keyframes cyclefour
-  @include cyclefour
+  cyclefour()
 
 @-moz-keyframes cycleone
-  @include cycleone
+  cycleone()
 
 @-moz-keyframes cycletwo
-  @include cycletwo
+  cycletwo()
 
 @-moz-keyframes cyclethree
-  @include cyclethree
+  cyclethree()
 
 @-moz-keyframes cyclefour
-  @include cyclefour
+  cyclefour()
 
 @keyframes cycleone
-  @include cycleone
+  cycleone()
 
 @keyframes cycletwo
-  @include cycletwo
+  cycletwo()
 
 @keyframes cyclethree
-  @include cyclethree
+  cyclethree()
 
 @keyframes cyclefour
-  @include cyclefour
+  cyclefour()
 
-@mixin animation($name, $duration, $timing, $iteration)
+animation($name, $duration, $timing, $iteration)
   -webkit-animation: $name $duration $timing $iteration
   -o-animation: $name $duration $timing $iteration
   -moz-animation: $name $duration $timing $iteration
