@@ -103,20 +103,15 @@ module.exports = function(grunt) {
 
   grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
     var cleanup = require('./events/cleanup'),
-      eventFiles = [
-        'events/whitelistEvents.json',
-        'events/blacklistEvents.json'
-      ];
+      blacklistEventsFile = './blacklistEvents.json',
+    // var whitelistEventsFile = './whitelistEvents.json';
+      done = this.async();
 
-    eventFiles.forEach(function(element) {
-      cleanup.readEvents(element, function(fileData) {
-        cleanup.writeEvents(element, cleanup.getEventsToKeep(fileData), function(reply) {
-          console.log(reply);
-        })
-      });
+    cleanup.writeEvents(blacklistEventsFile, cleanup.getEventsToKeep(blacklistEventsFile), function(reply) {
+      grunt.log.writeln(JSON.stringify(cleanup.getEventsToKeep(blacklistEventsFile)));
+      grunt.log.writeln(reply);
+      done();
     })
-
-    return;
 
   });
 
