@@ -139,6 +139,15 @@ app.post('/api/v1/events/update', function(req, res) {
   res.status(200).send('Events feed updating...');
 })
 
+app.post('/api/v1/archives/update', function(req, res) {
+  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
+    res.status(503).send('Incorrect secret key');
+    return;
+  }
+  archives.update();
+  res.status(200).send('Archives feed updating...');
+})
+
 app.post('/api/v1/repos/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
