@@ -3,23 +3,39 @@
 var fs = require('fs'),
   moment = require('moment-timezone');
 
-exports.getEventsToKeep = function(eventsFile) {
-  var events = require(eventsFile);
+function getEventsToKeep(filepath) {
+  filepath = filepath.substring(0, filepath.length - 5)
+  var events = require(filepath);
+
   return events.filter(function(event) {
     if (!event.formatted_time) {
       return false;
     }
-    return !moment(event.formatted_time, 'DD MMM, ddd, hh:mm a').isBefore(moment().subtract(1, 'day'))
+    return !moment(event.formatted_time, 'DD MMM YYYY, ddd, hh:mm a').isBefore(moment().subtract(1, 'day'))
   })
 }
 
-exports.writeEvents = function(filepath, eventsToKeep, callback) {
+function writeEvents(filepath, eventsToKeep, callback) {
+  if (eventsToKeep.length < 1) {
+    eventsToKeep = require('./samplelistEvents')
+  }
+
   fs.writeFile(filepath, JSON.stringify(eventsToKeep, null, 2), function(err) {
     if (err) {
       throw err;
     }
-
     var message = 'Successful in writing ' + eventsToKeep.length + ' events into ' + filepath;
-    return callback(message);
+    callback(message);
   });
+
 }
+
+function all(filepath, events, callback) {
+  writeEvents(filepath, getEventsToKeep(filepath), function(message) {
+    callback(message);
+  })
+}
+
+exports.all = all;
+exports.getEventsToKeep = getEventsToKeep;
+exports.writeEvents = writeEvents;
