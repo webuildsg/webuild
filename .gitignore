@@ -11,3 +11,5 @@ run.debug.sh
 *.log
 
 coverage.html
+
+test/fixtures/blacklistEvents2future.json

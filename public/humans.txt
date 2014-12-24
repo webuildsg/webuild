@@ -30,7 +30,7 @@ __      _____  | |__  _   _(_) | __| | / \
   Twitter: @rmdort
 
 # SITE
-  Version: 2.2.30
+  Version: 2.3.1
   Site Url: http://webuild.sg
   Keywords: developer, designer, maker, open source, open events, open community
   Language: English

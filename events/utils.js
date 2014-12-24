@@ -3,7 +3,7 @@
 var Promise = require('promise'),
   htmlStrip = require('htmlstrip-native'),
   moment = require('moment-timezone'),
-  displayTimeformat = 'DD MMM, ddd, h:mm a',
+  displayTimeformat = 'DD MMM YYYY, ddd, h:mm a',
   localZone = '+0800';
 
 function waitAllPromises(arr) {

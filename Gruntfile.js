@@ -101,6 +101,22 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
+  grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
+    var cleanup = require('./events/cleanup'),
+      blacklistEventsFilepath = __dirname  + '/events/blacklistEvents.json',
+      whitelistEventsFilepath =  __dirname  + '/events/whitelistEvents.json',
+      done = this.async();
+
+    cleanup.all(blacklistEventsFilepath, cleanup.getEventsToKeep(blacklistEventsFilepath), function(reply) {
+      grunt.log.writeln(reply);
+      cleanup.all(whitelistEventsFilepath, cleanup.getEventsToKeep(whitelistEventsFilepath), function(reply) {
+        grunt.log.writeln(reply);
+        done();
+      })
+    })
+
+  });
+
   grunt.registerTask('travis', [
     'clean',
     'stylus',
