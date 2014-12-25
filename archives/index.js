@@ -15,9 +15,9 @@ function getFilename(type) {
   var prefix = '';
 
   if (type === 'events') {
-    prefix = 'events/events';
+    prefix = 'events/events/v1';
   } else {
-    prefix = 'repos/repos';
+    prefix = 'repos/repos/v1';
   }
 
   return prefix + '_archive_' + moment().format('YYYY_MM_DD_HHmmss') + '.json';
@@ -40,7 +40,7 @@ function storeToArchives(type, callback) {
     }
 
     var filename = getFilename(type),
-      uri = 'https://api.github.com/repos/webuildsg/test/contents/' + filename,
+      uri = 'https://api.github.com/repos/webuildsg/archives/contents/' + filename,
       token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64'),
       content = new Buffer(response).toString('base64'),
       body = {
