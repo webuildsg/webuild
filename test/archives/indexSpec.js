@@ -27,7 +27,7 @@ describe('Archives', function() {
   describe('#getFilename', function() {
     it('returns formatted filename YYYY_MM_DD_HHmmss', function() {
       var formattedDate = moment().format('YYYY_MM_DD_HHmmss');
-      expect(archives.getFilename('events').substring(25, 42)).to.equal(formattedDate)
+      expect(archives.getFilename('events').substring(15, 32)).to.equal(formattedDate)
     })
   })
 

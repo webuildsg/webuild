@@ -15,9 +15,9 @@ function getFilename(type) {
   var prefix = '';
 
   if (type === 'events') {
-    prefix = 'events/events/v1';
+    prefix = 'events';
   } else {
-    prefix = 'repos/repos/v1';
+    prefix = 'repos';
   }
 
   return prefix + '_archive_' + moment().format('YYYY_MM_DD_HHmmss') + '.json';
@@ -40,7 +40,7 @@ function storeToArchives(type, callback) {
     }
 
     var filename = getFilename(type),
-      uri = 'https://api.github.com/repos/webuildsg/archives/contents/' + filename,
+      uri = 'https://api.github.com/repos/webuildsg/archives/contents/' + type + '/v1/' + filename,
       token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64'),
       content = new Buffer(response).toString('base64'),
       body = {
@@ -67,7 +67,7 @@ function storeToArchives(type, callback) {
     function(error, response) {
       if (error) {
         callback(error, null);
-      } else if (response.statusCode !== 200) {
+      } else if (response.statusCode !== 201 && response.statusCode !== 200) {
         callback(new Error(), JSON.parse(response.body).message);
       } else {
         var reply = 'Uploaded ' + filename + ' to Github webuildsg/archives/' + type + ' in branch ' + getBranchName(type);
@@ -82,7 +82,7 @@ function update() {
   function createCallbackHandler(type) {
     return function(error, reply) {
       if (error) {
-        console.error('Error: Cannot push to We Build Archives for ' + type + ': ' + reply);
+        console.error('Error: Cannot push to We Build Archives for ' + type + ': ' + error + '. Reply: ' + reply);
       } else {
         console.log(reply);
       }
