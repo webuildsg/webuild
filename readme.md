@@ -146,6 +146,12 @@ We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/repos/update
 		```
 
+	- store to archives repos and events every day
+
+		```
+		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/archives/update
+		```
+
 
 #Environment variables
 
@@ -162,6 +168,8 @@ Set the following environment variables on your system:
 - **MAX_REPOS** (optional, default: 50) Show up to this many total repositories.
 - **GITHUB_CLIENT_ID** (optional) App OAuth client ID for GitHub.
 - **GITHUB_CLIENT_SECRET** (optional) App OAuth client secret for GitHub.
+- **NODE_ENV** Environment variable. By default it is `staging` and for production it is `production`
+- **BOT_TOKEN** This token is used by the [We Build SG Bot](https://github.com/webuildsg-bot) to store the api endpoint responses for [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) to the [archives](https://github.com/webuildsg/archives) every day. [Generate a token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) for the Github user [We Build SG Bot](https://github.com/webuildsg-bot).
 
 Use an external "web cron" service to periodically refresh the GitHub data feed. Keep in mind that due to GitHub API rate limiting it may take >15 minutes to retrieve the entire feed. [Register a GitHub OAuth application](https://github.com/settings/applications/new) and configure the `GITHUB_CLIENT_*` environment variables (see above) to increase the rate limit. Do not refresh the feed too often or the rate limit will cause it to take longer.
 
