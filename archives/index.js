@@ -90,7 +90,10 @@ function update() {
   }
 
   storeToArchives('repos', createCallbackHandler('repos'));
-  storeToArchives('events', createCallbackHandler('events'))
+  setTimeout(function() {
+    storeToArchives('events', createCallbackHandler('events'))
+  }, 5000)
+
 }
 
 exports.getBranchName = getBranchName;
