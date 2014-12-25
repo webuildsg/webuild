@@ -4,6 +4,7 @@ var querystring = require('querystring'),
   prequest = require('prequest'),
   moment = require('moment-timezone'),
   utils = require('./utils'),
+  Promise = require('promise'),
   config = require('./config'),
   baseUrl = 'https://www.eventbriteapi.com/v3/events/search',
   techCategory = [
@@ -12,7 +13,7 @@ var querystring = require('querystring'),
   ];
 
 function constructAddress(venue) {
-  var addr = venue.location,
+  var addr = venue.address,
     address = [
       venue.name.trimRight(),
       ', ',
@@ -26,7 +27,7 @@ function constructAddress(venue) {
 }
 
 function isFreeWithVenue(event) {
-  var hasVenue = event.venue.location && event.venue.location.address_1 !== null,
+  var hasVenue = event.venue.address && event.venue.address.address_1 !== null,
     isFree = event.ticket_classes.some(function(ticket) {
     return ticket.free;
   });
@@ -57,22 +58,53 @@ function addEventbriteEvent(arr, event) {
 }
 
 function getEventbriteEvents() {
-  return prequest({
-    url: baseUrl + '?' + querystring.stringify({
-      'venue.country': 'SG',
-      'venue.city': 'Singapore',
-      'start_date.range_end': moment().add(2, 'months').format('YYYY-MM-DD') + 'T00:00:00Z'
-    }),
-    headers: {
-      Authorization: 'Bearer ' + config.eventbrite.token
-    }
-  }).then(function(data) {
-    var events = [],
-      freeEventsWithVenue = data.events.filter(isInTechCategory).filter(isFreeWithVenue);
-    freeEventsWithVenue.reduce(addEventbriteEvent, events);
+  var allEvents,
+    getEventsForPage = function(pageNum) {
+    return prequest({
+      url: baseUrl + '?' + querystring.stringify({
+        'venue.country': 'SG',
+        'venue.city': 'Singapore',
+        'start_date.range_end': moment().add(2, 'months').format('YYYY-MM-DD') + 'T00:00:00Z',
+        'page': pageNum
+      }),
+      headers: {
+        Authorization: 'Bearer ' + config.eventbrite.token
+      }
+    })
+  };
 
-    console.log(events.length + ' eventbrite events');
-    return events;
+  return getEventsForPage(1).then(function(data) {
+    console.log(data.pagination.object_count + ' Eventbrite events found in SG in ' + data.pagination.page_count + ' pages.');
+    allEvents = data.events;
+
+    var promisesArray = [], pageCount;
+
+    for (pageCount = 2; pageCount <= data.pagination.page_count; pageCount++) {
+      promisesArray.push(getEventsForPage(pageCount));
+    }
+
+    return new Promise(function(resolve, reject) {
+      utils.waitAllPromises(promisesArray).then(function(dataArray) {
+        dataArray.forEach(function(data) {
+          allEvents = allEvents.concat(data.events);
+        });
+
+        var techEvents, freeTechEvents, events = [];
+
+        techEvents = allEvents.filter(isInTechCategory);
+        console.log(techEvents.length + ' Eventbrite events in the Tech category in SG');
+
+        freeTechEvents = techEvents.filter(isFreeWithVenue);
+        console.log(freeTechEvents.length + ' free Eventbrite events in the Tech category in SG');
+
+        freeTechEvents.reduce(addEventbriteEvent, events);
+        resolve(events);
+
+      }).catch(function(err) {
+        console.error('Error getting Eventbrite Events ');
+        reject(err);
+      });
+    });
   });
 }
 

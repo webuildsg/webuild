@@ -7,14 +7,17 @@ var express = require('express'),
   http = require('http'),
   moment = require('moment-timezone'),
   request = require('request'),
-  events = require('./events'),
-  countdown = require('./countdown'),
-  passport = require('./events/setup-passport'),
-  app = express(),
-  podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json'
-  repos = require('./repos'),
   ical = require('ical-generator'),
   newrelic = require('newrelic'),
+
+  events = require('./events'),
+  archives = require('./archives'),
+  countdown = require('./countdown'),
+  repos = require('./repos'),
+  passport = require('./events/setup-passport'),
+
+  app = express(),
+  podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json'
   cal = ical();
 
 app.set('port', process.env.PORT || 3000);
@@ -139,15 +142,6 @@ app.post('/api/v1/events/update', function(req, res) {
   res.status(200).send('Events feed updating...');
 })
 
-app.post('/api/v1/archives/update', function(req, res) {
-  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
-    res.status(503).send('Incorrect secret key');
-    return;
-  }
-  archives.update();
-  res.status(200).send('Archives feed updating...');
-})
-
 app.post('/api/v1/repos/update', function(req, res) {
   if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
@@ -158,6 +152,17 @@ app.post('/api/v1/repos/update', function(req, res) {
   });
   res.status(200).send('Updating the repos feed; sit tight!');
 });
+
+app.post('/api/v1/archives/update', function(req, res) {
+  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
+    res.status(503).send('Incorrect secret key');
+    return;
+  }
+  archives.update(function() {
+    res.status(200).send('Archives updating...');
+  });
+
+})
 
 app.use('/api/v1/podcasts', function(req, res) {
  var url = podcastApiUrl;

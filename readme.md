@@ -138,12 +138,12 @@ We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to
 	- update events every hour
 
 		```
-		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/events/update
+		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/events/update
 		```
 	- update repos every hour
 
 		```
-		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/repos/update
+		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/repos/update
 		```
 
 

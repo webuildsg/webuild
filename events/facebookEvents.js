@@ -65,18 +65,18 @@ function getFacebookUserEvents(userIdentity) {
 //  until one is able to return facebook events.
 //  We assume that all access tokens are able to access all white listed fb groups.
 function getAllFacebookEvents(users) {
-  var user = users.pop();
-
   if (users.length === 0) {
-    return users;
+    return [];
   }
+
+  var user = users.pop();
 
   return getFacebookUserEvents(user.identities[0])
   .then(function(events) {
     return events;
   }).catch(function(err) {
     console.error(err);
-    getAllFacebookEvents(users); // token failed. Try the next user's token
+    return getAllFacebookEvents(users); // token failed. Try the next user's token
   })
 }
 

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "body-parser": "1.10.0",
+    "bower": "1.3.12",
     "buffer-crc32": "0.2.5",
     "compression": "1.2.2",
     "cookie-parser": "1.3.3",
@@ -18,6 +19,10 @@
     "errorhandler": "1.3.0",
     "express": "4.10.6",
     "github": "0.2.3",
+    "github-api": "^0.10.3",
+    "grunt-cli": "0.1.13",
+    "grunt-contrib-stylus": "0.20.0",
+    "grunt-contrib-uglify": "0.6.0",
     "htmlstrip-native": "0.0.6",
     "ical-generator": "0.1.10",
     "jade": "1.8.2",
@@ -32,11 +37,7 @@
     "promise": "6.0.1",
     "request": "2.51.0",
     "serve-favicon": "2.2.0",
-    "word-overlap": "2.2.2",
-    "bower": "1.3.12",
-    "grunt-cli": "0.1.13",
-    "grunt-contrib-uglify": "0.6.0",
-    "grunt-contrib-stylus": "0.20.0"
+    "word-overlap": "2.2.2"
   },
   "devDependencies": {
     "blanket": "1.1.6",
