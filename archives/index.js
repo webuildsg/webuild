@@ -1,10 +1,7 @@
-var Github = require('github-api'),
-  moment = require('moment-timezone'),
-  request = require('request'),
-  github,
-  repo = '',
-  data = ''
-  contents = '';
+'use strict';
+
+var moment = require('moment-timezone'),
+  request = require('request');
 
 function getBranchName() {
   if (process.env.NODE_ENV === 'production') {
@@ -32,44 +29,70 @@ function getCommitMessage(type) {
 }
 
 function storeToArchives(type, callback) {
-  var github = new Github({
-    type: 'oauth',
-    token: process.env.BOT_TOKEN
-  });
-  var repo = github.getRepo('webuildsg', 'test');
+  var url = 'https://webuild.sg/api/v1/' + type;
 
-  request('http://localhost:8000/s.json', function(err, msg, response) {
+  request(url, function(err, msg, response) {
     if (err) {
+      console.error('We Build SG API reading Error:');
       console.log(err);
       console.log(msg);
-      console.error('We Build SG API reading Error');
-      return;
+      callback(err);
     }
 
-    console.log(response);
+    var filename = getFilename(type),
+      uri = 'https://api.github.com/repos/webuildsg/test/contents/' + filename,
+      token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64'),
+      content = new Buffer(response).toString('base64'),
+      body = {
+        'message': getCommitMessage(type),
+        'committer': {
+          'name': 'We Build SG Bot',
+          'email': 'webuildsg@gmail.com'
+        },
+      'content': content,
+      'branch': getBranchName(type)
+    }
 
-    callback(null);
-
-    // repo.write(getBranchName(type), getFilename(type), response, getCommitMessage(type), function(err) {
-    //   if (err) {
-    //     console.error(err.request.responseText);
-    //     callback('We Build SG Archives storing to Github Error');
-    //     return;
-    //   }
-    //   callback('Archives for ' + type + ' stored successfully in github.com/webuildsg/archives');
-    // });
+    request({
+      method: 'PUT',
+      uri: uri,
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+        'User-Agent': 'We Build SG Archives',
+        'Authorization': 'Basic ' + token
+      },
+      body: JSON.stringify(body)
+    },
+    function(error) {
+      if (error) {
+        return console.error('upload failed:', error);
+      }
+      callback('Uploaded ' + filename + ' to Github webuildsg/archives/' + type + ' in branch ' + getBranchName(type));
+    })
   });
 
 }
 
 function update(callback) {
-  console.log('Starting to store to Archives');
+  var count = 0;
+
+  storeToArchives('repos', function(message) {
+    console.log(message);
+    count++;
+
+    if (count > 1) {
+      callback(null);
+    }
+  })
+
   storeToArchives('events', function(message) {
     console.log(message);
-    // storeToArchives('repos', function(message) {
-    //   console.log(message);
+    count++;
+
+    if (count > 1) {
       callback(null);
-    // })
+    }
   })
 }
 

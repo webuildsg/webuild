@@ -45,6 +45,7 @@ module.exports = function(grunt) {
       src: [
         'Gruntfile.js',
         'public/js/main.js',
+        'archives/*.js',
         'events/*.js',
         'repos/*.js'
       ],
@@ -60,6 +61,7 @@ module.exports = function(grunt) {
         src: [
           'Gruntfile.js',
           'public/js/main.js',
+          'archives/*.js',
           'events/*.js',
           'repos/*.js'
         ]

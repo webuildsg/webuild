@@ -39,6 +39,8 @@ describe('Archives', function() {
   })
 
   describe.skip('#storeToArchives', function() {
+    // sends an actual API call to github
+    // run with BOT_TOKEN=secret mocha
     it('returns commit message with date', function(done) {
       archives.storeToArchives('events', function(res) {
         console.log(res);
