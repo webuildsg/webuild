@@ -66,37 +66,31 @@ function storeToArchives(type, callback) {
     },
     function(error, response) {
       if (error) {
-        callback(error, response);
-        return;
+        callback(error, null);
+      } else if (response.statusCode !== 200) {
+        callback(new Error(), JSON.parse(response.body).message);
+      } else {
+        var reply = 'Uploaded ' + filename + ' to Github webuildsg/archives/' + type + ' in branch ' + getBranchName(type);
+        callback(null, reply);
       }
-
-      var reply = 'Uploaded ' + filename + ' to Github webuildsg/archives/' + type + ' in branch ' + getBranchName(type);
-      callback(null, reply);
-
     })
   });
 
 }
 
-function update(callback) {
-  var count = 0,
-    registerCallback = function(error, reply) {
+function update() {
+  function createCallbackHandler(type) {
+    return function(error, reply) {
       if (error) {
-        console.error(reply);
-        callback(error);
-        return;
-      }
-
-      console.log(reply);
-      count++;
-
-      if (count > 1) {
-        callback(null);
+        console.error('Error: Cannot push to We Build Archives for ' + type + ': ' + reply);
+      } else {
+        console.log(reply);
       }
     }
+  }
 
-  storeToArchives('repos', registerCallback);
-  storeToArchives('events', registerCallback)
+  storeToArchives('repos', createCallbackHandler('repos'));
+  storeToArchives('events', createCallbackHandler('events'))
 }
 
 exports.getBranchName = getBranchName;

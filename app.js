@@ -158,9 +158,8 @@ app.post('/api/v1/archives/update', function(req, res) {
     res.status(503).send('Incorrect secret key');
     return;
   }
-  archives.update(function() {
-    res.status(200).send('Archives updating...');
-  });
+  archives.update();
+  res.status(200).send('Updating the archives; sit tight!');
 
 })
 
