@@ -34,7 +34,7 @@ describe('Archives', function() {
   describe('#getCommitMessage', function() {
     it('returns commit message with date', function() {
       var formattedDate = moment().format('DD MMM YYYY h:mm a');
-      expect(archives.getCommitMessage('events').substring(24, 43)).to.equal(formattedDate)
+      expect(archives.getCommitMessage('events').substring(24, 44)).to.equal(formattedDate)
     })
   })
 

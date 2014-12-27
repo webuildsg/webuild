@@ -8,7 +8,8 @@ var moment = require('moment-timezone'),
   API = {
     getFacebookEvents: require('./facebookEvents').get,
     getMeetupEvents: require('./meetupEvents').get,
-    getEventbriteEvents: require('./eventbriteEvents').get
+    getEventbriteEvents: require('./eventbriteEvents').get,
+    getIcsEvents: require('./icsEvents').get
   };
 
 function removeDuplicates(feed) {
@@ -47,6 +48,7 @@ function timeComparer(a, b) {
 }
 
 function addEvents(type) {
+  console.log(API['get' + type + 'Events']);
   API['get' + type + 'Events']().then(function(data) {
     data = data || [];
     var whiteEvents = data.filter(function(evt) { // filter black listed ids
@@ -84,4 +86,5 @@ exports.update = function() {
   addEvents('Meetup');
   addEvents('Facebook');
   addEvents('Eventbrite');
+  addEvents('Ics');
 }

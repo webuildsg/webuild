@@ -36,7 +36,7 @@ function isValidGroup(row) {
 
 function normalizeGroupEvents(events, row) {
   var eventTime,
-      event = {};
+    event = {};
 
   if (!row.hasOwnProperty('venue') || row.venue_visibility === 'members') {
     return events;
