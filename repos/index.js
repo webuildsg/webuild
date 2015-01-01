@@ -1,15 +1,15 @@
 'use strict';
 
-var fs = require('fs'),
-  jf = require('jsonfile'),
-  mess = require('mess'),
-  request = require('request'),
-  Promise = require('promise'),
-  GitHubApi = require('github'),
-  whitelistUsers = require('./whitelistUsers'),
-  config = require('./config.js'),
-  moment = require('moment-timezone'),
-  github;
+var fs = require('fs');
+var jf = require('jsonfile');
+var mess = require('mess');
+var request = require('request');
+var Promise = require('promise');
+var GitHubApi = require('github');
+var whitelistUsers = require('./whitelistUsers');
+var config = require('./config.js');
+var moment = require('moment-timezone');
+var github;
 
 github = new GitHubApi({
   version: '3.0.0',

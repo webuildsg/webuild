@@ -1,16 +1,17 @@
 'use strict';
 
-var querystring = require('querystring'),
-  Promise = require('promise'),
-  moment = require('moment-timezone'),
-  prequest = require('prequest'),
-  fbGroups = require('./facebookGroups'),
-  utils = require('./utils'),
-  config = require('./config'),
-  fbBaseUrl = 'https://graph.facebook.com/v2.1/';
+var querystring = require('querystring');
+var Promise = require('promise');
+var moment = require('moment-timezone');
+var prequest = require('prequest');
+var fbGroups = require('./facebookGroups');
+var utils = require('./utils');
+var config = require('./config');
+var fbBaseUrl = 'https://graph.facebook.com/v2.1/';
 
 function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   var thisGroupEvents = row.data || [];
+
   if (thisGroupEvents.length === 0) {
     return eventsWithVenues;
   }
@@ -51,6 +52,7 @@ function getFacebookUserEvents(userIdentity) {
     utils.waitAllPromises(groups).then(function(groupsEvents) {
       console.log(groupsEvents.length + ' FB groups');
       var eventsWithVenues = [];
+
       groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
       console.log(eventsWithVenues.length + ' FB events with eventsData');
       resolve(eventsWithVenues);
@@ -106,8 +108,8 @@ function getFacebookUsers() {
 }
 
 function filterValidFacebookUsers(users) { //must have access to groups
-  var base = fbBaseUrl + '/me/groups?',
-    groupPromises;
+  var base = fbBaseUrl + '/me/groups?';
+  var groupPromises;
 
   groupPromises = users.map(function(user) {
     return prequest(base +

@@ -1,7 +1,7 @@
 'use strict';
 
-var moment = require('moment-timezone'),
-  request = require('request');
+var moment = require('moment-timezone');
+var request = require('request');
 
 function getBranchName() {
   if (process.env.NODE_ENV === 'production') {
@@ -39,19 +39,19 @@ function storeToArchives(type, callback) {
       callback(err);
     }
 
-    var filename = getFilename(type),
-      uri = 'https://api.github.com/repos/webuildsg/archives/contents/' + type + '/v1/' + filename,
-      token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64'),
-      content = new Buffer(response).toString('base64'),
-      body = {
-        'message': getCommitMessage(type),
-        'committer': {
-          'name': 'We Build SG Bot',
-          'email': 'webuildsg@gmail.com'
-        },
+    var filename = getFilename(type);
+    var uri = 'https://api.github.com/repos/webuildsg/archives/contents/' + type + '/v1/' + filename;
+    var token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64');
+    var content = new Buffer(response).toString('base64');
+    var body = {
+      'message': getCommitMessage(type),
+      'committer': {
+        'name': 'We Build SG Bot',
+        'email': 'webuildsg@gmail.com'
+      },
       'content': content,
       'branch': getBranchName(type)
-    }
+    };
 
     request({
       method: 'PUT',

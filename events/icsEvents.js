@@ -1,12 +1,12 @@
 'use strict';
 
-var icsGroups = require('./icsGroups'),
-  WBEvent = require('./WBEvent'),
-  ical = require('ical'),
-  getUrl = require('get-urls'),
-  utils = require('./utils'),
-  Promise = require('promise'),
-  moment = require('moment-timezone');
+var icsGroups = require('./icsGroups');
+var WBEvent = require('./WBEvent');
+var ical = require('ical');
+var getUrl = require('get-urls');
+var utils = require('./utils');
+var Promise = require('promise');
+var moment = require('moment-timezone');
 
 function trimAfterAt(uid) {
   var trimAfterAtRegex = /(\w*)@.*/;
@@ -42,8 +42,8 @@ function isInFuture(eventToCheck) {
 }
 
 function getAllIcsGroups(callback) {
-  var events = [],
-    countReplies = 0;
+  var events = [];
+  var countReplies = 0;
 
   icsGroups.forEach(function(group) {
     ical.fromURL(group.ics_url, {}, function(err, data) {

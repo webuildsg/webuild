@@ -1,8 +1,8 @@
 'use strict';
 
-var expect = require('chai').expect,
-  events = require('../../events'),
-  factory = require('../factory');
+var expect = require('chai').expect;
+var events = require('../../events');
+var factory = require('../factory');
 
 describe('Remove duplicate events', function() {
   it('removes similar named events', function() {

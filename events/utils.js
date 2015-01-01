@@ -1,15 +1,15 @@
 'use strict';
 
-var Promise = require('promise'),
-  htmlStrip = require('htmlstrip-native'),
-  moment = require('moment-timezone'),
-  displayTimeformat = 'DD MMM YYYY, ddd, h:mm a',
-  localZone = '+0800';
+var Promise = require('promise');
+var htmlStrip = require('htmlstrip-native');
+var moment = require('moment-timezone');
+var displayTimeformat = 'DD MMM YYYY, ddd, h:mm a';
+var localZone = '+0800';
 
 function waitAllPromises(arr) {
   return new Promise(function(resolve, reject) {
-    var numResolved = 0,
-      numErrors = 0;
+    var numResolved = 0;
+    var numErrors = 0;
 
     if (arr.length === 0) {
       return resolve([]);

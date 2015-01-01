@@ -1,9 +1,9 @@
 'use strict';
 
-var querystring = require('querystring'),
-  prequest = require('prequest'),
-  utils = require('./utils'),
-  config = require('./config');
+var querystring = require('querystring');
+var prequest = require('prequest');
+var utils = require('./utils');
+var config = require('./config');
 
 function constructAddress(venue) {
   var address = '';
@@ -24,19 +24,19 @@ function constructAddress(venue) {
 }
 
 function isValidGroup(row) {
-  var blacklistGroups = config.blacklistGroups || [],
-    blacklistWords = config.blacklistWords || [],
-    blacklistRE = new RegExp(blacklistWords.join('|'), 'i'),
-    isValidCountry = row.country === (config.meetupParams.country || row.country),
-    isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE)),
-    isValidGroupId = !blacklistGroups.some(function(id) { return row.id === id });
+  var blacklistGroups = config.blacklistGroups || [];
+  var blacklistWords = config.blacklistWords || [];
+  var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
+  var isValidCountry = row.country === (config.meetupParams.country || row.country);
+  var isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE));
+  var isValidGroupId = !blacklistGroups.some(function(id) { return row.id === id });
 
   return isValidCountry && isValidText && isValidGroupId;
 }
 
 function normalizeGroupEvents(events, row) {
-  var eventTime,
-    event = {};
+  var eventTime;
+  var event = {};
 
   if (!row.hasOwnProperty('venue') || row.venue_visibility === 'members') {
     return events;

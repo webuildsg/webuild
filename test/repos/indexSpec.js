@@ -1,9 +1,9 @@
 'use strict';
 
-var expect = require('chai').expect,
-  repos = require('../../repos'),
-  moment = require('moment-timezone'),
-  factory = require('../factory');
+var expect = require('chai').expect;
+var repos = require('../../repos');
+var moment = require('moment-timezone');
+var factory = require('../factory');
 
 describe('#pushed3MonthsAgo', function() {
   var reply;
@@ -27,7 +27,7 @@ describe('#pushed3MonthsAgo', function() {
   })
 
   it('returns date in dashes', function() {
-    expect(reply.substring(4,5)).to.equal('-')
-    expect(reply.substring(7,8)).to.equal('-')
+    expect(reply.substring(4, 5)).to.equal('-')
+    expect(reply.substring(7, 8)).to.equal('-')
   })
 })

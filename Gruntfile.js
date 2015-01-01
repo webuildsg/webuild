@@ -45,9 +45,12 @@ module.exports = function(grunt) {
       src: [
         'Gruntfile.js',
         'public/js/main.js',
-        'archives/*.js',
-        'events/*.js',
-        'repos/*.js'
+        'archives/**/*.js',
+        'events/**/*.js',
+        'repos/**/*.js',
+        'test/archives/*.js',
+        'test/events/*.js',
+        'test/repos/*.js'
       ],
       options: {
         config: '.jscsrc'
@@ -104,10 +107,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
-    var cleanup = require('./events/cleanup'),
-      blacklistEventsFilepath = __dirname  + '/events/blacklistEvents.json',
-      whitelistEventsFilepath =  __dirname  + '/events/whitelistEvents.json',
-      done = this.async();
+    var cleanup = require('./events/cleanup');
+    var blacklistEventsFilepath = __dirname  + '/events/blacklistEvents.json';
+    var whitelistEventsFilepath =  __dirname  + '/events/whitelistEvents.json';
+    var done = this.async();
 
     cleanup.all(blacklistEventsFilepath, cleanup.getEventsToKeep(blacklistEventsFilepath), function(reply) {
       grunt.log.writeln(reply);

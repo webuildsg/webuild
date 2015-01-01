@@ -1,8 +1,8 @@
 'use strict';
 
-var expect = require('chai').expect,
-  archives = require('../../archives'),
-  moment = require('moment-timezone');
+var expect = require('chai').expect;
+var archives = require('../../archives');
+var moment = require('moment-timezone');
 
 describe('Archives', function() {
 
@@ -50,4 +50,3 @@ describe('Archives', function() {
     })
   })
 });
-

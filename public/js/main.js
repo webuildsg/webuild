@@ -1,16 +1,16 @@
 (function() {
   'use strict';
 
-  var podcastApi = '/api/v1/podcasts',
-    eventsCheckApi = '/api/v1/check/',
-    request = new XMLHttpRequest(),
-    eventDate = document.getElementById('check'),
-    ul = document.getElementById('clashed'),
-    events = null,
-    loader = document.getElementById('loader'),
-    totalVideo = 0,
-    rand1toTotalVideo = 0,
-    newPlaylistAttribute = '';
+  var podcastApi = '/api/v1/podcasts';
+  var eventsCheckApi = '/api/v1/check/';
+  var request = new XMLHttpRequest();
+  var eventDate = document.getElementById('check');
+  var ul = document.getElementById('clashed');
+  var events = null;
+  var loader = document.getElementById('loader');
+  var totalVideo = 0;
+  var rand1toTotalVideo = 0;
+  var newPlaylistAttribute = '';
 
   // hello to another happy developer
   console.log('Hello fellow developer! :)');
@@ -30,22 +30,22 @@
   }
 
   function countdown(nextLiveShowDate) {
-    var now = moment(),
-      podcastDate = nextLiveShowDate,
-      dateFormat = 'YYYY-MM-DD HH:mm Z',
-      livedate = moment(podcastDate, dateFormat),
-      displayLivedate = livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT',
-      then = moment(podcastDate, dateFormat),
-      ms = then.diff(now, 'milliseconds', true),
-      days = Math.floor(moment.duration(ms).asDays()),
-      hours = 0,
-      minutes = 0,
-      seconds = 0,
-      diff = '',
-      displayDays = '',
-      displayHours = '',
-      displayMinutes = '',
-      displaySeconds = '';
+    var  now = moment();
+    var podcastDate = nextLiveShowDate;
+    var dateFormat = 'YYYY-MM-DD HH:mm Z';
+    var livedate = moment(podcastDate, dateFormat);
+    var displayLivedate = livedate.format('D MMM YYYY, ddd @h:mm a Z' ) + ' GMT';
+    var then = moment(podcastDate, dateFormat);
+    var ms = then.diff(now, 'milliseconds', true);
+    var days = Math.floor(moment.duration(ms).asDays());
+    var hours = 0;
+    var minutes = 0;
+    var seconds = 0;
+    var diff = '';
+    var displayDays = '';
+    var displayHours = '';
+    var displayMinutes = '';
+    var displaySeconds = '';
 
     if (days >= 0) {
       then.subtract(days, 'days');
@@ -75,11 +75,11 @@
   }
 
   function displayClashStatus(clashedEvents, wordedCheckDate) {
-    var newline = '<br>',
-      displayNote = '<strong>Note:</strong> ',
-      noteText = 'These events are free open events for developers, makers or designers only.',
-      note = newline + displayNote + noteText,
-      results = document.getElementById('results');
+    var newline = '<br>';
+    var displayNote = '<strong>Note:</strong> ';
+    var noteText = 'These events are free open events for developers, makers or designers only.';
+    var note = newline + displayNote + noteText;
+    var results = document.getElementById('results');
 
     loader.style.display = 'none';
     if (clashedEvents.length === 0) {
@@ -95,6 +95,7 @@
 
   function appendClashedEvent(thisEvent) {
     var li = document.createElement('li');
+
     li.innerHTML = [
       '<a href="',
       thisEvent.url,
@@ -118,10 +119,10 @@
 
   // event clash checker
   eventDate.onchange = function() {
-    var checkEvent = moment(),
-      checkEventCompleteUrl = '',
-      request = new XMLHttpRequest(),
-      wordedCheckDate = '';
+    var checkEvent = moment();
+    var checkEventCompleteUrl = '';
+    var request = new XMLHttpRequest();
+    var wordedCheckDate = '';
 
     if (this.value.match(/\-/)) {
       // For Chrome: YYYY-MM-DD - unchanged
@@ -158,11 +159,12 @@
   request.open('GET', podcastApi, true);
   request.responseType = 'json';
   request.onload = function() {
-    var response = request.response,
-      podcastTimeString;
+    var response = request.response;
+    var podcastTimeString;
+
     if (typeof request.response === 'string') {
-        // Safari doesn't honor the responseType of 'json'.
-        response = JSON.parse(request.response);
+      // Safari doesn't honor the responseType of 'json'.
+      response = JSON.parse(request.response);
     }
 
     podcastTimeString = response.meta.next_live_show.start_time;

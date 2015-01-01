@@ -1,7 +1,7 @@
 'use strict';
 
-var fs = require('fs'),
-  moment = require('moment-timezone');
+var fs = require('fs');
+var  moment = require('moment-timezone');
 
 function getEventsToKeep(filepath) {
   filepath = filepath.substring(0, filepath.length - 5)

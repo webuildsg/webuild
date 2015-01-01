@@ -1,26 +1,30 @@
 'use strict';
 
-var moment = require('moment-timezone'),
-  utils = require('./utils'),
-  whitelistEvents = require('./whitelistEvents'),
-  blacklistEvents = require('./blacklistEvents'),
-  overlap = require('word-overlap'),
-  API = {
-    getFacebookEvents: require('./facebookEvents').get,
-    getMeetupEvents: require('./meetupEvents').get,
-    getEventbriteEvents: require('./eventbriteEvents').get,
-    getIcsEvents: require('./icsEvents').get
-  };
+var moment = require('moment-timezone');
+var utils = require('./utils');
+var whitelistEvents = require('./whitelistEvents');
+var blacklistEvents = require('./blacklistEvents');
+var overlap = require('word-overlap');
+var API = {
+  getFacebookEvents: require('./facebookEvents').get,
+  getMeetupEvents: require('./meetupEvents').get,
+  getEventbriteEvents: require('./eventbriteEvents').get,
+  getIcsEvents: require('./icsEvents').get
+};
 
 function removeDuplicates(feed) {
-  var prev, cur, prevEvent, curEvent, i,
-    options = {
-      ignoreCase: true,
-      ignoreCommonWords: true,
-      common: [ 'singapore', 'meetup' ],
-      depluralize: true
-    },
-    indexToRemove = [];
+  var prev;
+  var cur;
+  var prevEvent;
+  var curEvent;
+  var i;
+  var options = {
+    ignoreCase: true,
+    ignoreCommonWords: true,
+    common: [ 'singapore', 'meetup' ],
+    depluralize: true
+  }
+  var indexToRemove = [];
 
   for (i = 1; i < feed.length; i++) {
     prev = feed[i - 1];
