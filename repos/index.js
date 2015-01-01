@@ -8,6 +8,7 @@ var fs = require('fs'),
   GitHubApi = require('github'),
   whitelistUsers = require('./whitelistUsers'),
   config = require('./config.js'),
+  moment = require('moment-timezone'),
   github;
 
 github = new GitHubApi({
@@ -65,8 +66,8 @@ function chunk(arr, size) {
   return chunks;
 }
 
-function pad(d) {
-  return (d < 10) ? '0' + d.toString() : d.toString();
+function pushed3MonthsAgo() {
+  return moment().subtract(3, 'months').format('YYYY-MM-DD');
 }
 
 function insertWhiteList(searchedUsers, whitelistUsers) {
@@ -87,9 +88,7 @@ exports.feed = { repos: [] };
 exports.config = config;
 
 exports.update = function() {
-  var now = new Date(),
-    pushedQuery = 'pushed:>' + now.getFullYear() + '-' + pad(now.getMonth() - 2) + '-' + '01';
-  // pushed:>2014-06-01 - pushed date until 3 months ago only
+  var pushedQuery = 'pushed:>' + pushed3MonthsAgo();
 
   console.log('Generating GitHub repos feed... this may take a while...');
   return fetch(github.search.users, {
@@ -195,3 +194,5 @@ fs.exists(config.outfile, function(exists) {
     });
   }
 });
+
+exports.pushed3MonthsAgo = pushed3MonthsAgo;
