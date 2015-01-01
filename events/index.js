@@ -48,7 +48,6 @@ function timeComparer(a, b) {
 }
 
 function addEvents(type) {
-  console.log(API['get' + type + 'Events']);
   API['get' + type + 'Events']().then(function(data) {
     data = data || [];
     var whiteEvents = data.filter(function(evt) { // filter black listed ids
