@@ -8,6 +8,7 @@ var fbGroups = require('./facebookGroups');
 var utils = require('./utils');
 var config = require('./config');
 var fbBaseUrl = 'https://graph.facebook.com/v2.1/';
+var clc = require('cli-color');
 
 function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
   var thisGroupEvents = row.data || [];
@@ -50,21 +51,21 @@ function getFacebookUserEvents(userIdentity) {
 
   return new Promise(function(resolve, reject) {
     utils.waitAllPromises(groups).then(function(groupsEvents) {
-      console.log(groupsEvents.length + ' FB groups');
+      console.log('Info: Found ' + groupsEvents.length + ' facebook.com groups');
       var eventsWithVenues = [];
 
       groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
-      console.log(eventsWithVenues.length + ' FB events with eventsData');
+      console.log('Info: Found ' + eventsWithVenues.length + ' facebook.com events');
       resolve(eventsWithVenues);
     }).catch(function(err) {
-      console.error('Error getting Facebook Events with: ' + JSON.stringify(userIdentity));
+      console.error(clc.red('Error: Getting facebook.com events with: ' + JSON.stringify(userIdentity)));
       reject(err);
     });
   });
 }
 
 // Recursively try all available user access tokens (some may have expired)
-//  until one is able to return facebook events.
+//  until one is able to return facebook.com events.
 //  We assume that all access tokens are able to access all white listed fb groups.
 function getAllFacebookEvents(users) {
   if (users.length === 0) {
@@ -101,7 +102,7 @@ function getFacebookUsers() {
         resolve(data || []);
       });
     }).catch(function(err) {
-      console.error('Error getting Auth0 users');
+      console.error(clc.red('Error: Getting Auth0 facebook.com users'));
       reject(err);
     })
   });
@@ -122,14 +123,14 @@ function filterValidFacebookUsers(users) { //must have access to groups
   return utils.waitAllPromises(groupPromises).then(function(userGroups) {
     var validusers
 
-    console.log(userGroups.length + ' authorized users');
+    console.log('Info: Found ' + userGroups.length + ' facebook.com authorized users');
     validusers = users.filter(function(user, idx) {
       return userGroups[idx].data && userGroups[idx].data.length > 0
     });
-    console.log(validusers.length + ' users with accessible groups');
+    console.log('Info: Found ' + validusers.length + ' facebook.com users with accessible groups');
     return validusers;
   }).catch(function(err) {
-    console.error('Error getting FB Groups with all user tokens: ' + err);
+    console.error(clc.red('Error: Getting facebook.com groups with all user tokens: ' + err));
   });
 }
 

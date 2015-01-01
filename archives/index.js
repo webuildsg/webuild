@@ -2,6 +2,7 @@
 
 var moment = require('moment-timezone');
 var request = require('request');
+var clc = require('cli-color');
 
 function getBranchName() {
   if (process.env.NODE_ENV === 'production') {
@@ -33,7 +34,7 @@ function storeToArchives(type, callback) {
 
   request(url, function(err, msg, response) {
     if (err) {
-      console.error('We Build SG API reading Error:');
+      console.error(clc.red('Error: Reading We Build SG API '));
       console.log(err);
       console.log(msg);
       callback(err);
@@ -82,7 +83,7 @@ function update() {
   function createCallbackHandler(type) {
     return function(error, reply) {
       if (error) {
-        console.error('Error: Cannot push to We Build Archives for ' + type + ': ' + error + '. Reply: ' + reply);
+        console.error(clc.red('Error: Cannot push to We Build Archives for ' + type + ': ' + error + '. Reply: ' + reply));
       } else {
         console.log(reply);
       }

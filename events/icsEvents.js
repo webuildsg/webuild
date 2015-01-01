@@ -48,7 +48,7 @@ function getAllIcsGroups(callback) {
   icsGroups.forEach(function(group) {
     ical.fromURL(group.ics_url, {}, function(err, data) {
       if (err) {
-        console.log('Error in reading ICS Group from ' + group.group_name + ': ' + err);
+        console.log('Error: Reading ICS Group from ' + group.group_name + ': ' + err);
       }
 
       for (var key in data) {
@@ -92,9 +92,9 @@ function getIcsEvents() {
       })
 
       normEvents = normEvents.filter(hasLocation);
-      console.log('ICS events: Found ' + normEvents.length + ' events in total');
+      console.log('Info: Found ' + normEvents.length + ' ics events in total');
       normEvents = normEvents.filter(isInFuture);
-      console.log('ICS events: Found ' + normEvents.length + ' future events in SG with location');
+      console.log('Info: Found ' + normEvents.length + ' ics future events in SG with location');
 
       resolve(normEvents);
     })

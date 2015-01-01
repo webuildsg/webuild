@@ -4,6 +4,7 @@ var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var config = require('./config');
 var strategy;
+var clc = require('cli-color');
 
 strategy = new Auth0Strategy({
   domain: config.auth0.domain,
@@ -28,7 +29,7 @@ passport.deserializeUser(function(user, done) {
 passport.callback = function(req, res, next) {
   passport.authenticate('auth0', function(err, user) {
     if (err) {
-      console.log('Auth0 Error:' + err)
+      console.log(clc.red('Error: Auth0 ' + err));
       return next(err); // will generate a 500 error
     } else if (!user) {
       console.log('Unknown user logging with FB');

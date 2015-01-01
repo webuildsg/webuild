@@ -9,6 +9,7 @@ var newrelic = require('newrelic'),
   moment = require('moment-timezone'),
   request = require('request'),
   ical = require('ical-generator'),
+  clc = require('cli-color'),
 
   events = require('./events'),
   archives = require('./archives'),
@@ -110,7 +111,7 @@ app.get('/cal', function(req, res) {
   // add next We Build LIVE show dat
   request(podcastApiUrl, function(err, msg, response){
     if (err) {
-     console.error('We Build Live Error');
+     console.error(clc.red('Error: Fetching We Build Live podcast api'));
      return;
     }
     response = JSON.parse(response);

@@ -6,6 +6,7 @@ var moment = require('moment-timezone');
 var utils = require('./utils');
 var Promise = require('promise');
 var config = require('./config');
+var clc = require('cli-color');
 var baseUrl = 'https://www.eventbriteapi.com/v3/events/search';
 var techCategory = [
   '102',
@@ -74,7 +75,7 @@ function getEventbriteEvents() {
   };
 
   return getEventsForPage(1).then(function(data) {
-    console.log(data.pagination.object_count + ' Eventbrite events found in SG in ' + data.pagination.page_count + ' pages.');
+    console.log('Info: Found ' + data.pagination.object_count + ' eventbrite.com events found in SG in ' + data.pagination.page_count + ' pages');
     allEvents = data.events;
 
     var promisesArray = [];
@@ -95,16 +96,16 @@ function getEventbriteEvents() {
         var events = [];
 
         techEvents = allEvents.filter(isInTechCategory);
-        console.log(techEvents.length + ' Eventbrite events in the Tech category in SG');
+        console.log('Info: Found ' + techEvents.length + ' eventbrite.com tech category events');
 
         freeTechEvents = techEvents.filter(isFreeWithVenue);
-        console.log(freeTechEvents.length + ' free Eventbrite events in the Tech category in SG');
+        console.log('Info: Found ' + freeTechEvents.length + ' free eventbrite.com tech category events');
 
         freeTechEvents.reduce(addEventbriteEvent, events);
         resolve(events);
 
       }).catch(function(err) {
-        console.error('Error getting Eventbrite Events ');
+        console.error(clc.red('Error: Getting eventbrite.com events'));
         reject(err);
       });
     });

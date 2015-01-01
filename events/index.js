@@ -5,12 +5,14 @@ var utils = require('./utils');
 var whitelistEvents = require('./whitelistEvents');
 var blacklistEvents = require('./blacklistEvents');
 var overlap = require('word-overlap');
+var clc = require('cli-color');
 var API = {
   getFacebookEvents: require('./facebookEvents').get,
   getMeetupEvents: require('./meetupEvents').get,
   getEventbriteEvents: require('./eventbriteEvents').get,
   getIcsEvents: require('./icsEvents').get
 };
+var clc = require('cli-color');
 
 function removeDuplicates(feed) {
   var prev;
@@ -62,10 +64,10 @@ function addEvents(type) {
     exports.feed.events = exports.feed.events.concat(whiteEvents);
     exports.feed.events.sort(timeComparer);
     removeDuplicates(exports.feed.events);
-    console.log(whiteEvents.length + ' %s events added! %s total', type, exports.feed.events.length);
+    console.log(clc.green('Success: Added ' + whiteEvents.length + ' ' + type + ' events'));
     exports.feed.meta.total_events = exports.feed.events.length;
   }).catch(function(err) {
-    console.error('Failed to add %s events: %s', type, err.statusCode || err);
+    console.error(clc.red('Error: Failed to add %s events: %s', type, err.statusCode || err));
   });
 }
 
@@ -85,7 +87,7 @@ exports.update = function() {
     'events': {}
   };
   exports.feed.events = whitelistEvents.filter(afterToday);
-  console.log('Updating the events feed...');
+  console.log('Info: Updating the events feed... this may take a while');
   addEvents('Meetup');
   addEvents('Facebook');
   addEvents('Eventbrite');

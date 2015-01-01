@@ -10,6 +10,7 @@ var whitelistUsers = require('./whitelistUsers');
 var config = require('./config.js');
 var moment = require('moment-timezone');
 var github;
+var clc = require('cli-color');
 
 github = new GitHubApi({
   version: '3.0.0',
@@ -30,9 +31,9 @@ function fetch(method, args, limit) {
     method(args, function recv(err, res) {
       if (err) {
         if (err.code === 403) {
-          console.log('Rate limited');
+          console.log(clc.yellow('Warn: Github rate limited. Will try again.'));
           setTimeout(function() {
-            console.log('Retrying');
+            console.log('Info: Retrying github');
             method(args, recv);
           }, 60000);
         } else {
@@ -90,13 +91,13 @@ exports.config = config;
 exports.update = function() {
   var pushedQuery = 'pushed:>' + pushed3MonthsAgo();
 
-  console.log('Generating GitHub repos feed... this may take a while...');
+  console.log('Info: Updating the repos feed... this may take a while');
   return fetch(github.search.users, {
     q: 'location:' + config.github.location
   }, config.github.maxUsers)
   .then(function(users) {
     users = insertWhiteList(users, whitelistUsers);
-    console.log('Found %d users', users.length);
+    console.log('Info: Found %d github.com users', users.length);
     var searches = chunk(mess(users), 20).map(function(users) {
       return fetch(github.search.repos, {
         sort: 'updated',
@@ -147,7 +148,7 @@ exports.update = function() {
       .slice(0, config.github.maxRepos);
   })
   .then(function(repos) {
-    console.log('Found %d repos', repos.length);
+    console.log(clc.green('Success: Added ' + repos.length + ' GitHub repos'));
     var feed = {
       meta: {
         generated_at: new Date().toISOString(),
@@ -173,22 +174,22 @@ fs.exists(config.outfile, function(exists) {
     jf.readFile(config.outfile, function(err, feed) {
       if (!err) {
         exports.feed = feed;
-        console.log('Loaded %d repos from cache', feed.repos.length);
+        console.log('Info: Loaded %d repos from cache', feed.repos.length);
       }
     });
   } else {
-    console.log('Fetching public repos feed...');
+    console.log('Info: Fetching public repos feed...');
     request('http://webuild.sg/api/v1/repos', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         var data = JSON.parse(body);
         exports.feed = data;
         jf.writeFile(config.outfile, data);
-        console.log('Saved %d repos to cache', data.repos.length);
+        console.log('Info: Saved %d repos to cache', data.repos.length);
       } else {
         if (res) {
-          console.warn('Failed to retrieve data (Status code: %s)', res.statusCode);
+          console.warn(clc.red('Error: Failed to retrieve data (Status code: %s)', res.statusCode));
         } else {
-          console.warn('Failed to retrieve data (Status code: %s)', err);
+          console.warn(clc.red('Error: Failed to retrieve data (Status code: %s)', err));
         }
       }
     });

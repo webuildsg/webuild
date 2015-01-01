@@ -4,6 +4,7 @@ var querystring = require('querystring');
 var prequest = require('prequest');
 var utils = require('./utils');
 var config = require('./config');
+var clc = require('cli-color');
 
 function constructAddress(venue) {
   var address = '';
@@ -77,10 +78,10 @@ function getEventsByGroupIds(groupIds) {
   return prequest(url).then(function(data) {
     var events = [];
     data.results.reduce(normalizeGroupEvents, events);
-    console.log(events.length + ' Meetup group events with venues');
+    console.log('Info: Found ' + events.length + ' meetup.com group events with venues');
     return events;
   }).catch(function(err) {
-    console.error('Error getEventsByGroupIds(): ' + err);
+    console.error(clc.red('Error: getEventsByGroupIds(): ' + err));
   });
 }
 
@@ -91,7 +92,7 @@ function getGroupIds() { //regardless of venue
     querystring.stringify(config.meetupParams);
 
   return prequest(url).then(function(data) {
-    console.log('Fetched ' + data.results.length + ' Meetup groups');
+    console.log('Info: Found ' + data.results.length + ' meetup.com groups');
     return data.results
       .filter(isValidGroup)
       .reduce(function(groupIds, row) {
@@ -99,7 +100,7 @@ function getGroupIds() { //regardless of venue
         return groupIds;
       }, []);
   }).catch(function(err) {
-    console.error('Error getGroupIds(): ' + err);
+    console.error(clc.red('Error: getGroupIds(): ' + err));
   });
 }
 
@@ -109,7 +110,7 @@ function getGroupEvents() {
       return getEventsByGroupIds(groupIds);
     })
     .catch(function(err) {
-      console.error('Error getGroupEvents(): ' + err);
+      console.error(clc.red('Error: getGroupEvents(): ' + err));
     });
 }
 
