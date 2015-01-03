@@ -1,3 +1,20 @@
+var versionFiles = [
+  'package.json',
+  'bower.json',
+  'public/humans.txt'
+];
+var jsFilesToCheck = [
+  'Gruntfile.js',
+  'app.js',
+  'public/js/main.js',
+  'archives/**/*.js',
+  'events/**/*.js',
+  'repos/**/*.js',
+  'test/archives/*.js',
+  'test/events/*.js',
+  'test/repos/*.js'
+];
+
 module.exports = function(grunt) {
   'use strict';
 
@@ -5,19 +22,11 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     bump: {
       options: {
-        files: [
-          'package.json',
-          'bower.json',
-          'public/humans.txt'
-        ],
+        files: versionFiles,
         updateConfigs: [],
         commit: true,
         commitMessage: 'Release v%VERSION%',
-        commitFiles: [
-          'package.json',
-          'bower.json',
-          'public/humans.txt'
-        ],
+        commitFiles: versionFiles,
         createTag: true,
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
@@ -42,16 +51,7 @@ module.exports = function(grunt) {
       }
     },
     jscs: {
-      src: [
-        'Gruntfile.js',
-        'public/js/main.js',
-        'archives/**/*.js',
-        'events/**/*.js',
-        'repos/**/*.js',
-        'test/archives/*.js',
-        'test/events/*.js',
-        'test/repos/*.js'
-      ],
+      src: jsFilesToCheck,
       options: {
         config: '.jscsrc'
       }
@@ -61,19 +61,13 @@ module.exports = function(grunt) {
         options: {
           jshintrc: '.jshintrc'
         },
-        src: [
-          'Gruntfile.js',
-          'public/js/main.js',
-          'archives/*.js',
-          'events/*.js',
-          'repos/*.js'
-        ]
+        src: jsFilesToCheck
       }
     },
     stylus: {
       dist: {
         options: {
-          compress: false
+          compress: true
         },
         files: {
           'public/css/style.css': 'public/css/style.styl'

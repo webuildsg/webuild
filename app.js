@@ -1,25 +1,27 @@
-var newrelic = require('newrelic'),
-  express = require('express'),
-  bodyParser = require('body-parser'),
-  compress = require('compression'),
-  cookieParser = require('cookie-parser'),
-  errorHandler = require('errorhandler'),
-  favicon = require('serve-favicon'),
-  http = require('http'),
-  moment = require('moment-timezone'),
-  request = require('request'),
-  ical = require('ical-generator'),
-  clc = require('cli-color'),
+'use strict';
 
-  events = require('./events'),
-  archives = require('./archives'),
-  countdown = require('./countdown'),
-  repos = require('./repos'),
-  passport = require('./events/setup-passport'),
+require('newrelic');
 
-  app = express(),
-  podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json'
-  cal = ical();
+var express = require('express');
+var bodyParser = require('body-parser');
+var compress = require('compression');
+var errorHandler = require('errorhandler');
+var favicon = require('serve-favicon');
+var http = require('http');
+var moment = require('moment-timezone');
+var request = require('request');
+var ical = require('ical-generator');
+var clc = require('cli-color');
+
+var events = require('./events');
+var archives = require('./archives');
+var countdown = require('./countdown');
+var repos = require('./repos');
+var passport = require('./events/setup-passport');
+
+var app = express();
+var podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json';
+var cal = ical();
 
 app.set('port', process.env.PORT || 3000);
 
@@ -50,8 +52,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/v1/check/:checkdate', function(req, res) {
-  var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD') ,
-    clashedEvents = {
+  var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD');
+  var clashedEvents = {
     'meta': {
       'generated_at': new Date().toISOString(),
       'location': 'Singapore',
@@ -84,7 +86,7 @@ app.get('/admin', function(req, res) {
   res.render('facebook_login.jade', {
     auth0: require('./events/config').auth0,
     error: req.query.error ? true : false,
-    user: req.query.user ? req.query.user : '',
+    user: req.query.user ? req.query.user : ''
   });
 });
 
@@ -92,9 +94,9 @@ app.get('/cal', function(req, res) {
   cal.clear()
   cal.setDomain('webuild.sg').setName('We Build SG Events');
 
-  events.feed.events.filter(function(thisEvent){
-    if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)){
-      console.log("Not enough information on this event", thisEvent.name, thisEvent.start_time, thisEvent.end_time, thisEvent.description);
+  events.feed.events.filter(function(thisEvent) {
+    if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)) {
+      console.log('Not enough information on this event', thisEvent.name, thisEvent.start_time, thisEvent.end_time, thisEvent.description);
     }
     return thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description
   }).forEach(function(thisEvent) {
@@ -109,7 +111,7 @@ app.get('/cal', function(req, res) {
   });
 
   // add next We Build LIVE show dat
-  request(podcastApiUrl, function(err, msg, response){
+  request(podcastApiUrl, function(err, msg, response) {
     if (err) {
      console.error(clc.red('Error: Fetching We Build Live podcast api'));
      return;
@@ -148,7 +150,7 @@ app.post('/api/v1/repos/update', function(req, res) {
     res.status(503).send('Incorrect secret key');
     return;
   }
-  repos.update().then(function(feed) {
+  repos.update().then(function() {
     console.log('GitHub feed generated');
   });
   res.status(200).send('Updating the repos feed; sit tight!');
@@ -167,7 +169,7 @@ app.post('/api/v1/archives/update', function(req, res) {
 app.use('/api/v1/podcasts', function(req, res) {
  var url = podcastApiUrl;
  res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
- request(url, function(err, msg, response){
+ request(url, function(err, msg, response) {
   if (err) {
     res.status(503).send('We Build Live Error');
     return;
@@ -176,7 +178,7 @@ app.use('/api/v1/podcasts', function(req, res) {
  })
 });
 
-app.use(function(req, res, next){
+app.use(function(req, res) {
   res.redirect('/');
   return;
 });
@@ -185,6 +187,6 @@ events.update();
 repos.update();
 countdown.update();
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });

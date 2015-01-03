@@ -2,8 +2,6 @@
 
 var expect = require('chai').expect;
 var repos = require('../../repos');
-var moment = require('moment-timezone');
-var factory = require('../factory');
 
 describe('#pushed3MonthsAgo', function() {
   var reply;
@@ -17,7 +15,6 @@ describe('#pushed3MonthsAgo', function() {
   })
 
   it('returns year 3 months ago', function() {
-    var now = new Date();
     expect(reply.substring(0, 4)).to.contain(201)
   })
 
