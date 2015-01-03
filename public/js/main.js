@@ -70,7 +70,7 @@
       document.getElementsByClassName('countdown')[0].innerHTML = diff;
       document.getElementById('livetime').innerHTML = displayLivedate;
     } else {
-      document.getElementsByClassName('countdown')[0].innerHTML = '';
+      document.getElementsByClassName('countdown')[0].innerHTML = 'next episode is coming soon';
     }
   }
 
