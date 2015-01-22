@@ -10,5 +10,17 @@
     "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
     "start_time": "2014-11-14T10:00:00.000Z",
     "end_time": "2014-11-16T09:00:00.000Z"
+  },
+  {
+    "id": 1,
+    "name": "Fireplace stories from a Space Artisan",
+    "description": "Giulio Manzoni will talk about methodologies, tools and some anecdotes from 10+ years of work and a video from the satellite making experience (http://www.pop-sat.com/)",
+    "location": "HackerspaceSG",
+    "url": "http://hackerspace.sg/",
+    "group_name": "HackerspaceSG",
+    "group_url": "http://hackerspace.sg/",
+    "formatted_time": "23 Jan 2015, Fri, 7:00 pm",
+    "start_time": "2015-01-23T11:00:00.000Z",
+    "end_time": "2015-01-23T13:00:00.000Z"
   }
 ]
