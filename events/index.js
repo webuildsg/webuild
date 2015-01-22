@@ -29,9 +29,9 @@ function removeDuplicates(feed) {
   var indexToRemove = [];
 
   for (i = 1; i < feed.length; i++) {
-    prev = feed[i - 1];
+    prev = feed[ i - 1 ];
     prevEvent = prev.name + ' at ' + prev.location + ' by ' + prev.group_name;
-    cur = feed[i];
+    cur = feed[ i ];
     curEvent = cur.name + ' at ' + cur.location + ' by ' + cur.group_name;
 
     if (prev.formatted_time === cur.formatted_time) {
@@ -54,7 +54,7 @@ function timeComparer(a, b) {
 }
 
 function addEvents(type) {
-  API['get' + type + 'Events']().then(function(data) {
+  API[ 'get' + type + 'Events' ]().then(function(data) {
     data = data || [];
     var whiteEvents = data.filter(function(evt) { // filter black listed ids
       return !blacklistEvents.some(function(blackEvent) {

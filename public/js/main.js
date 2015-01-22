@@ -67,10 +67,10 @@
 
       diff =  displayDays + displayHours + displayMinutes + displaySeconds;
 
-      document.getElementsByClassName('countdown')[0].innerHTML = diff;
+      document.getElementsByClassName('countdown')[ 0 ].innerHTML = diff;
       document.getElementById('livetime').innerHTML = displayLivedate;
     } else {
-      document.getElementsByClassName('countdown')[0].innerHTML = 'next episode is coming soon';
+      document.getElementsByClassName('countdown')[ 0 ].innerHTML = 'next episode is coming soon';
     }
   }
 

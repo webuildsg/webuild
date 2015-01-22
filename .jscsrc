@@ -14,6 +14,7 @@
   "requireParenthesesAroundIIFE": true,
   "requireCommaBeforeLineBreak": true,
   "requireDotNotation": true,
+  "requireSpacesInsideArrayBrackets": "all",
   "maximumLineLength": {
     "value": 1000,
     "tabSize": 4,

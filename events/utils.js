@@ -16,9 +16,9 @@ function waitAllPromises(arr) {
     }
 
     function save(i, val) {
-      arr[i] = val
+      arr[ i ] = val
       if (numErrors === arr.length) {
-        reject(arr[0].error);
+        reject(arr[ 0 ].error);
       } else if (++numResolved === arr.length) {
         resolve(arr);
       }

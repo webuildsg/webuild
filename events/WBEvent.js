@@ -16,7 +16,7 @@ function WBEvent(options) {
   options = options || {};
   for (var prop in options) {
     if (options.hasOwnProperty(prop)) {
-      this[prop] = options[prop];
+      this[ prop ] = options[ prop ];
     }
   }
 

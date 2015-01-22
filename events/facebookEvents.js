@@ -27,8 +27,8 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
       description: utils.htmlStrip(row.description),
       location: row.location,
       url: 'https://www.facebook.com/events/' + row.id,
-      group_name: fbGroups[grpIdx].name,
-      group_url: 'http://www.facebook.com/groups/' + fbGroups[grpIdx].id,
+      group_name: fbGroups[ grpIdx ].name,
+      group_url: 'http://www.facebook.com/groups/' + fbGroups[ grpIdx ].id,
       formatted_time: utils.formatLocalTime(row.start_time),
       start_time: utils.localTime(row.start_time).toISOString(),
       end_time: utils.localTime(row.end_time).toISOString()
@@ -74,7 +74,7 @@ function getAllFacebookEvents(users) {
 
   var user = users.pop();
 
-  return getFacebookUserEvents(user.identities[0])
+  return getFacebookUserEvents(user.identities[ 0 ])
   .then(function(events) {
     return events;
   }).catch(function(err) {
@@ -115,7 +115,7 @@ function filterValidFacebookUsers(users) { //must have access to groups
   groupPromises = users.map(function(user) {
     return prequest(base +
       querystring.stringify({
-        access_token: user.identities[0].access_token
+        access_token: user.identities[ 0 ].access_token
       })
     );
   });
@@ -125,7 +125,7 @@ function filterValidFacebookUsers(users) { //must have access to groups
 
     console.log('Info: Found ' + userGroups.length + ' facebook.com authorized users');
     validusers = users.filter(function(user, idx) {
-      return userGroups[idx].data && userGroups[idx].data.length > 0
+      return userGroups[ idx ].data && userGroups[ idx ].data.length > 0
     });
     console.log('Info: Found ' + validusers.length + ' facebook.com users with accessible groups');
     return validusers;

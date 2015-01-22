@@ -10,7 +10,7 @@ var moment = require('moment-timezone');
 
 function trimAfterAt(uid) {
   var trimAfterAtRegex = /(\w*)@.*/;
-  return uid.match(trimAfterAtRegex)[1];
+  return uid.match(trimAfterAtRegex)[ 1 ];
 }
 
 function getUrlfromDescriptionOrGroupUrl(eventToCheck) {
@@ -18,8 +18,8 @@ function getUrlfromDescriptionOrGroupUrl(eventToCheck) {
     return eventToCheck.url;
   } else if (!eventToCheck.description || eventToCheck.description.length < 1) {
     return eventToCheck.group_url;
-  } else if (getUrl(eventToCheck.description)[0]) {
-    return getUrl(eventToCheck.description)[0];
+  } else if (getUrl(eventToCheck.description)[ 0 ]) {
+    return getUrl(eventToCheck.description)[ 0 ];
   } else {
     return eventToCheck.group_url;
   }
@@ -53,11 +53,11 @@ function getAllIcsGroups(callback) {
 
       for (var key in data) {
         if (data.hasOwnProperty(key)) {
-          data[key].group_name = group.group_name;
-          data[key].group_url = group.group_url;
-          data[key].start_time = data[key].start;
-          data[key].end_time = data[key].end;
-          events.push(data[key]);
+          data[ key ].group_name = group.group_name;
+          data[ key ].group_url = group.group_url;
+          data[ key ].start_time = data[ key ].start;
+          data[ key ].end_time = data[ key ].end;
+          events.push(data[ key ]);
         }
       }
       countReplies++;

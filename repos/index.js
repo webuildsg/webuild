@@ -142,8 +142,8 @@ exports.update = function() {
         return a.pushed_at > b.pushed_at ? -1 : 1;
       })
       .filter(function(repo) {
-        owners[repo.owner.login] = 1 + (owners[repo.owner.login] || 0);
-        return owners[repo.owner.login] === 1;
+        owners[ repo.owner.login ] = 1 + (owners[ repo.owner.login ] || 0);
+        return owners[ repo.owner.login ] === 1;
       })
       .slice(0, config.github.maxRepos);
   })
