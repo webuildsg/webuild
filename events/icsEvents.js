@@ -84,7 +84,7 @@ function getIcsEvents() {
         wbEvent.url = getUrlfromDescriptionOrGroupUrl(ev);
         wbEvent.group_name = ev.group_name;
         wbEvent.group_url = ev.group_url;
-        wbEvent.formatted_time = utils.formatLocalTime(ev.formatted_time);
+        wbEvent.formatted_time = utils.formatLocalTime(ev.start_time);
         wbEvent.start_time = utils.localTime(ev.start_time).toISOString();
         wbEvent.end_time = utils.localTime(ev.end_time).toISOString();
 
