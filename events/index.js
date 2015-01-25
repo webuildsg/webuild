@@ -1,7 +1,6 @@
 'use strict';
 
-var moment = require('moment-timezone');
-var utils = require('./utils');
+var moment = require('moment-timezone')
 var whitelistEvents = require('./whitelistEvents');
 var blacklistEvents = require('./blacklistEvents');
 var overlap = require('word-overlap');
@@ -71,8 +70,8 @@ function addEvents(type) {
   });
 }
 
-function afterToday(evt) {
-  return moment(evt.formatted_time, utils.timeformat) > moment()
+function pastEvents(evt) {
+  return moment.utc(evt.end_time) > moment.utc()
 }
 
 exports.feed = [];
@@ -86,7 +85,7 @@ exports.update = function() {
     },
     'events': {}
   };
-  exports.feed.events = whitelistEvents.filter(afterToday);
+  exports.feed.events = whitelistEvents.filter(pastEvents);
   console.log('Info: Updating the events feed... this may take a while');
   addEvents('Meetup');
   addEvents('Facebook');
