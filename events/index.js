@@ -27,7 +27,7 @@ function removeDuplicates(feed) {
   }
   var indexToRemove = [];
 
-  for (i = 1; i < feed.length; i++) {
+  for (i = 1; i < feed.length-1; i++) {
     prev = feed[ i - 1 ];
     prevEvent = prev.name + ' at ' + prev.location + ' by ' + prev.group_name;
     cur = feed[ i ];
@@ -35,6 +35,7 @@ function removeDuplicates(feed) {
 
     if (prev.formatted_time === cur.formatted_time) {
       if (overlap(prevEvent, curEvent, options).length > 0) {
+        console.log('Info: Removing duplicate event from feed : ', prev.name, " :: ", cur.name );
         indexToRemove.push(i);
       }
     }
@@ -66,7 +67,7 @@ function addEvents(type) {
     console.log(clc.green('Success: Added ' + whiteEvents.length + ' ' + type + ' events'));
     exports.feed.meta.total_events = exports.feed.events.length;
   }).catch(function(err) {
-    console.error(clc.red('Error: Failed to add %s events: %s', type, err.statusCode || err));
+    console.error(clc.red('Error: Failed to add %s events: %s'), type, err.statusCode || err);
   });
 }
 
