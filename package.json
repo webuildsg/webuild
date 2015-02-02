@@ -14,10 +14,10 @@
     "bower": "1.3.12",
     "buffer-crc32": "0.2.5",
     "cli-color": "0.3.2",
-    "compression": "1.3.1",
+    "compression": "1.4.0",
     "cookie-signature": "1.0.5",
-    "errorhandler": "1.3.2",
-    "express": "4.11.1",
+    "errorhandler": "1.3.3",
+    "express": "4.11.2",
     "get-urls": "4.0.0",
     "github": "0.2.3",
     "grunt-cli": "0.1.13",
@@ -36,9 +36,9 @@
     "passport-auth0": "0.2.1",
     "prequest": "0.0.2",
     "promise": "6.1.0",
-    "request": "2.51.0",
+    "request": "2.52.0",
     "serve-favicon": "2.2.0",
-    "word-overlap": "2.2.2"
+    "word-overlap": "2.2.3"
   },
   "devDependencies": {
     "blanket": "1.1.6",

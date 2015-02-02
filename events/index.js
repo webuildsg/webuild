@@ -22,12 +22,12 @@ function removeDuplicates(feed) {
   var options = {
     ignoreCase: true,
     ignoreCommonWords: true,
-    common: [ 'singapore', 'meetup', 'first', '-', 'and' ],
+    common: [ 'singapore', 'meetup', 'first', '-' ],
     depluralize: true
   }
   var indexToRemove = [];
 
-  for (i = 1; i < feed.length-1; i++) {
+  for (i = 1; i < feed.length; i++) {
     prev = feed[ i - 1 ];
     prevEvent = prev.name + ' at ' + prev.location + ' by ' + prev.group_name;
     cur = feed[ i ];
@@ -36,7 +36,10 @@ function removeDuplicates(feed) {
     if (prev.formatted_time === cur.formatted_time) {
       var overlappedWords = overlap(prevEvent, curEvent, options);
       if (overlappedWords.length > 0) {
-        console.log('Info: Removing duplicate event from feed :', prev.name, " :<>: ", cur.name, "for overlap words :", overlappedWords);
+        console.log('Info: Removing duplicate event from feed :');
+        console.log('Info: [Event A] ' + prev.name + ' (' + prev.url + ') ');
+        console.log('Info: [Event B] ' + cur.name + ' (' + cur.url + ') ');
+        console.log('Info: Overlapped words - ' + overlappedWords);
         indexToRemove.push(i);
       }
     }
