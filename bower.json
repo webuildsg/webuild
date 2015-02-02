@@ -1,6 +1,6 @@
 {
   "name": "webuild",
-  "version": "2.5.8",
+  "version": "2.5.9",
   "main": "index.html",
   "private": true,
   "ignore": [
