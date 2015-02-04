@@ -9,23 +9,20 @@ describe('Remove duplicate events', function() {
     var similarEventFeed = factory.data.similarEventFeed;
 
     expect(similarEventFeed.length).to.be.equal(2);
-    events.removeDuplicates(similarEventFeed);
-    expect(similarEventFeed.length).to.be.equal(1);
+    expect(events.removeDuplicates(similarEventFeed).length).to.be.equal(1);
   })
 
   it('removes exact named events', function() {
     var duplicateEventFeed = factory.data.duplicateEventFeed;
 
     expect(duplicateEventFeed.length).to.be.equal(3);
-    events.removeDuplicates(duplicateEventFeed);
-    expect(duplicateEventFeed.length).to.be.equal(1);
+    expect(events.removeDuplicates(duplicateEventFeed).length).to.be.equal(1);
   })
 
   it('keeps unique named events', function() {
     var uniqueEventFeed = factory.data.uniqueEventFeed;
 
     expect(uniqueEventFeed.length).to.be.equal(3);
-    events.removeDuplicates(uniqueEventFeed);
-    expect(uniqueEventFeed.length).to.be.equal(3);
+    expect(events.removeDuplicates(uniqueEventFeed).length).to.be.equal(3);
   })
 })

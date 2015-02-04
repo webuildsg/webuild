@@ -13,12 +13,7 @@ var API = {
 };
 var clc = require('cli-color');
 
-function removeDuplicates(feed) {
-  var prev;
-  var cur;
-  var prevEvent;
-  var curEvent;
-  var i;
+function isDuplicateEvent(event1, event2) {
   var options = {
     ignoreCase: true,
     ignoreCommonWords: true,
@@ -44,32 +39,41 @@ function removeDuplicates(feed) {
       '-'
     ],
     depluralize: true
+  };
+  var event1Compare = event1.name + ' at ' + event1.location + ' by ' + event1.group_name;
+  var event2Compare = event2.name + ' at ' + event2.location + ' by ' + event2.group_name;
+  var overlappedWords = overlap(event1Compare, event2Compare, options);
+
+  var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 0;
+
+  if (reply) {
+    console.log('Info: Found duplicate events:');
+    console.log('Info: [Event A] ' + event1.url);
+    console.log('Info: [Event B] ' + event2.url);
+    console.log('Info: Overlapped words (' + overlappedWords.length + ') ' + overlappedWords);
   }
-  var indexToRemove = [];
 
-  for (i = 1; i < feed.length; i++) {
-    prev = feed[ i - 1 ];
-    prevEvent = prev.name + ' at ' + prev.location + ' by ' + prev.group_name;
-    cur = feed[ i ];
-    curEvent = cur.name + ' at ' + cur.location + ' by ' + cur.group_name;
+  return reply;
 
-    if (prev.formatted_time === cur.formatted_time) {
-      var overlappedWords = overlap(prevEvent, curEvent, options);
-      if (overlappedWords.length > 0) {
-        console.log('Info: Removing duplicate event from feed:');
-        console.log('Info: [Event A] ' + prev.url);
-        console.log('Info: [Event B] ' + cur.url);
-        console.log('Info: Overlapped words - ' + overlappedWords);
-        indexToRemove.push(i);
-      }
+}
+
+function removeDuplicates(feed) {
+  var uniqueEvents = [];
+  var isDuplicate;
+
+  feed.forEach(function(thisEvent) {
+    isDuplicate = uniqueEvents.some(function(thatEvent) {
+      return isDuplicateEvent(thisEvent, thatEvent);
+    })
+
+    if (!isDuplicate) {
+      uniqueEvents.push(thisEvent);
+    } else {
+      console.log('Info: Removing ' + thisEvent.url);
     }
-  }
-
-  indexToRemove.forEach(function(element) {
-    feed.splice(element - 1, 1);
   })
 
-  return feed;
+  return uniqueEvents;
 }
 
 function timeComparer(a, b) {
@@ -87,7 +91,7 @@ function addEvents(type) {
     });
     exports.feed.events = exports.feed.events.concat(whiteEvents);
     exports.feed.events.sort(timeComparer);
-    removeDuplicates(exports.feed.events);
+    exports.feed.events = removeDuplicates(exports.feed.events);
     console.log(clc.green('Success: Added ' + whiteEvents.length + ' ' + type + ' events'));
     exports.feed.meta.total_events = exports.feed.events.length;
   }).catch(function(err) {
