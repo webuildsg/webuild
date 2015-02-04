@@ -22,7 +22,27 @@ function removeDuplicates(feed) {
   var options = {
     ignoreCase: true,
     ignoreCommonWords: true,
-    common: [ 'singapore', 'meetup', 'first', '-' ],
+    common: [
+      'singapore',
+      'meetup',
+      'group',
+      'first',
+      'second',
+      'third',
+      'jan', 'january',
+      'feb', 'february',
+      'mar', 'march',
+      'apr', 'april',
+      'may',
+      'jun', 'june',
+      'jul', 'july',
+      'aug', 'august',
+      'sep', 'sept', 'september',
+      'oct', 'october',
+      'nov', 'november',
+      'dec', 'december',
+      '-'
+    ],
     depluralize: true
   }
   var indexToRemove = [];
@@ -37,8 +57,8 @@ function removeDuplicates(feed) {
       var overlappedWords = overlap(prevEvent, curEvent, options);
       if (overlappedWords.length > 0) {
         console.log('Info: Removing duplicate event from feed :');
-        console.log('Info: [Event A] ' + prev.name + ' (' + prev.url + ') ');
-        console.log('Info: [Event B] ' + cur.name + ' (' + cur.url + ') ');
+        console.log('Info: [Event A] ' + prev.url);
+        console.log('Info: [Event B] ' + cur.url);
         console.log('Info: Overlapped words - ' + overlappedWords);
         indexToRemove.push(i);
       }
