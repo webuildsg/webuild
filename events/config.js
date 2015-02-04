@@ -29,6 +29,14 @@ module.exports = {
     clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
   },
   eventbrite: {
-    token: process.env.EVENTBRITE_TOKEN
+    token: process.env.EVENTBRITE_TOKEN,
+    blacklistOrganiserId: [
+      4456586249,
+      7875748007,
+      7872992855,
+      7606683649,
+      7554720435,
+      7598389997
+    ]
   }
 };

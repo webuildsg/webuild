@@ -42,7 +42,7 @@ function getFacebookUserEvents(userIdentity) {
   var groups = fbGroups.map(function(group) {
     return prequest(fbBaseUrl + group.id + '/events?' +
       querystring.stringify({
-        since: moment().utc().zone('+0800').format('X'),
+        since: moment().utc().utcOffset('+0800').format('X'),
         fields: 'description,name,end_time,location,timezone',
         access_token: userIdentity.access_token
       })

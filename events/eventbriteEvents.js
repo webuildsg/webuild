@@ -41,6 +41,23 @@ function isInTechCategory(event) {
   return event.category_id && techCategory.indexOf(event.category_id) >= 0;
 }
 
+function isInWhitelist(thisEvent) {
+  var countMatchId = 0;
+
+  config.eventbrite.blacklistOrganiserId.forEach(function(id) {
+    if (thisEvent.organizer.resource_uri.substring(44, 54) === id.toString()) {
+      countMatchId++;
+      console.log('Info: Remove Eventbrite organizer ' + thisEvent.organizer.url);
+    }
+  })
+
+  if (countMatchId > 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function addEventbriteEvent(arr, event) {
   arr.push({
     id: event.id,
@@ -93,6 +110,7 @@ function getEventbriteEvents() {
 
         var techEvents;
         var freeTechEvents;
+        var whitelistEvents;
         var events = [];
 
         techEvents = allEvents.filter(isInTechCategory);
@@ -101,7 +119,10 @@ function getEventbriteEvents() {
         freeTechEvents = techEvents.filter(isFreeWithVenue);
         console.log('Info: Found ' + freeTechEvents.length + ' free eventbrite.com tech category events');
 
-        freeTechEvents.reduce(addEventbriteEvent, events);
+        whitelistEvents = freeTechEvents.filter(isInWhitelist);
+        console.log('Info: Found ' + whitelistEvents.length + ' free allowed eventbrite.com tech category events');
+
+        whitelistEvents.reduce(addEventbriteEvent, events);
         resolve(events);
 
       }).catch(function(err) {

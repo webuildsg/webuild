@@ -19,11 +19,17 @@ function isDuplicateEvent(event1, event2) {
     ignoreCommonWords: true,
     common: [
       'singapore',
+
       'meetup',
       'group',
+      'centre',
+      'center',
+      'event',
+
       'first',
       'second',
       'third',
+
       'jan', 'january',
       'feb', 'february',
       'mar', 'march',

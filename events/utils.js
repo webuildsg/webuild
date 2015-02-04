@@ -49,11 +49,11 @@ function htmlStripWrapper(str) {
 }
 
 function localTime(time) {
-  return moment.utc(time).zone(localZone);
+  return moment.utc(time).utcOffset(localZone);
 }
 
 function formatLocalTime(time) {
-  return moment.utc(time).zone(localZone).format(displayTimeformat);
+  return moment.utc(time).utcOffset(localZone).format(displayTimeformat);
 }
 
 module.exports = {
