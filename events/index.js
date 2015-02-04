@@ -56,7 +56,7 @@ function removeDuplicates(feed) {
     if (prev.formatted_time === cur.formatted_time) {
       var overlappedWords = overlap(prevEvent, curEvent, options);
       if (overlappedWords.length > 0) {
-        console.log('Info: Removing duplicate event from feed :');
+        console.log('Info: Removing duplicate event from feed:');
         console.log('Info: [Event A] ' + prev.url);
         console.log('Info: [Event B] ' + cur.url);
         console.log('Info: Overlapped words - ' + overlappedWords);
