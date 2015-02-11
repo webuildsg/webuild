@@ -22,9 +22,11 @@ function isDuplicateEvent(event1, event2) {
 
       'meetup',
       'group',
+      'event',
+
       'centre',
       'center',
-      'event',
+      'tower',
 
       'first',
       'second',
@@ -46,8 +48,8 @@ function isDuplicateEvent(event1, event2) {
     ],
     depluralize: true
   };
-  var event1Compare = event1.name + ' at ' + event1.location + ' by ' + event1.group_name;
-  var event2Compare = event2.name + ' at ' + event2.location + ' by ' + event2.group_name;
+  var event1Compare = event1.name + ' at ' + event1.location;
+  var event2Compare = event2.name + ' at ' + event2.location;
   var overlappedWords = overlap(event1Compare, event2Compare, options);
 
   var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 0;
