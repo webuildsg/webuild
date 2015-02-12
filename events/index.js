@@ -63,7 +63,10 @@ function isDuplicateEvent(event1, event2) {
   }
 
   return reply;
+}
 
+function afterToday(evt) {
+  return moment(evt.formatted_time, utils.timeformat) > moment();
 }
 
 function removeDuplicates(feed) {
@@ -99,6 +102,7 @@ function addEvents(type) {
       });
     });
     exports.feed.events = exports.feed.events.concat(whiteEvents);
+    exports.feed.events = exports.feed.events.filter(afterToday);
     exports.feed.events.sort(timeComparer);
     exports.feed.events = removeDuplicates(exports.feed.events);
     console.log(clc.green('Success: Added ' + whiteEvents.length + ' ' + type + ' events'));
@@ -106,10 +110,6 @@ function addEvents(type) {
   }).catch(function(err) {
     console.error(clc.red('Error: Failed to add %s events: %s'), type, err.statusCode || err);
   });
-}
-
-function afterToday(evt) {
-  return moment(evt.formatted_time, utils.timeformat) > moment();
 }
 
 exports.feed = [];
