@@ -7,6 +7,7 @@ var getUrl = require('get-urls');
 var utils = require('./utils');
 var Promise = require('promise');
 var moment = require('moment-timezone');
+var clc = require('cli-color');
 
 function trimAfterAt(uid) {
   var trimAfterAtRegex = /(\w*)@.*/;
@@ -92,9 +93,9 @@ function getIcsEvents() {
       })
 
       normEvents = normEvents.filter(hasLocation);
-      console.log('Info: Found ' + normEvents.length + ' ics events in total');
+      console.log(clc.blue('Info: Found ' + normEvents.length + ' ics events in total'));
       normEvents = normEvents.filter(isInFuture);
-      console.log('Info: Found ' + normEvents.length + ' ics future events in SG with location');
+      console.log(clc.blue('Info: Found ' + normEvents.length + ' ics future events in SG with location'));
 
       resolve(normEvents);
     })

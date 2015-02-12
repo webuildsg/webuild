@@ -78,7 +78,7 @@ function getEventsByGroupIds(groupIds) {
   return prequest(url).then(function(data) {
     var events = [];
     data.results.reduce(normalizeGroupEvents, events);
-    console.log('Info: Found ' + events.length + ' meetup.com group events with venues');
+    console.log(clc.blue('Info: Found ' + events.length + ' meetup.com group events with venues'));
     return events;
   }).catch(function(err) {
     console.error(clc.red('Error: getEventsByGroupIds(): ' + err));
@@ -92,7 +92,7 @@ function getGroupIds() { //regardless of venue
     querystring.stringify(config.meetupParams);
 
   return prequest(url).then(function(data) {
-    console.log('Info: Found ' + data.results.length + ' meetup.com groups');
+    console.log(clc.blue('Info: Found ' + data.results.length + ' meetup.com groups'));
     return data.results
       .filter(isValidGroup)
       .reduce(function(groupIds, row) {

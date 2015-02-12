@@ -47,7 +47,7 @@ function isInWhitelist(thisEvent) {
   config.eventbrite.blacklistOrganiserId.forEach(function(id) {
     if (thisEvent.organizer.resource_uri.substring(44, 54) === id.toString()) {
       countMatchId++;
-      console.log('Info: Remove Eventbrite organizer ' + thisEvent.organizer.url);
+      console.log(clc.magenta('Info: Remove Eventbrite organizer ' + thisEvent.organizer.url));
     }
   })
 
@@ -92,7 +92,7 @@ function getEventbriteEvents() {
   };
 
   return getEventsForPage(1).then(function(data) {
-    console.log('Info: Found ' + data.pagination.object_count + ' eventbrite.com events found in SG in ' + data.pagination.page_count + ' pages');
+    console.log(clc.blue('Info: Found ' + data.pagination.object_count + ' eventbrite.com events found in SG in ' + data.pagination.page_count + ' pages'));
     allEvents = data.events;
 
     var promisesArray = [];
@@ -114,13 +114,13 @@ function getEventbriteEvents() {
         var events = [];
 
         techEvents = allEvents.filter(isInTechCategory);
-        console.log('Info: Found ' + techEvents.length + ' eventbrite.com tech category events');
+        console.log(clc.blue('Info: Found ' + techEvents.length + ' eventbrite.com tech category events'));
 
         freeTechEvents = techEvents.filter(isFreeWithVenue);
-        console.log('Info: Found ' + freeTechEvents.length + ' free eventbrite.com tech category events');
+        console.log(clc.blue('Info: Found ' + freeTechEvents.length + ' free eventbrite.com tech category events'));
 
         whitelistEvents = freeTechEvents.filter(isInWhitelist);
-        console.log('Info: Found ' + whitelistEvents.length + ' free allowed eventbrite.com tech category events');
+        console.log(clc.blue('Info: Found ' + whitelistEvents.length + ' free allowed eventbrite.com tech category events'));
 
         whitelistEvents.reduce(addEventbriteEvent, events);
         resolve(events);

@@ -51,11 +51,11 @@ function getFacebookUserEvents(userIdentity) {
 
   return new Promise(function(resolve, reject) {
     utils.waitAllPromises(groups).then(function(groupsEvents) {
-      console.log('Info: Found ' + groupsEvents.length + ' facebook.com groups');
+      console.log(clc.blue('Info: Found ' + groupsEvents.length + ' facebook.com groups'));
       var eventsWithVenues = [];
 
       groupsEvents.reduce(saveFacebookEvents, eventsWithVenues);
-      console.log('Info: Found ' + eventsWithVenues.length + ' facebook.com events');
+      console.log(clc.blue('Info: Found ' + eventsWithVenues.length + ' facebook.com events'));
       resolve(eventsWithVenues);
     }).catch(function(err) {
       console.error(clc.red('Error: Getting facebook.com events with: ' + JSON.stringify(userIdentity)));
@@ -123,11 +123,11 @@ function filterValidFacebookUsers(users) { //must have access to groups
   return utils.waitAllPromises(groupPromises).then(function(userGroups) {
     var validusers
 
-    console.log('Info: Found ' + userGroups.length + ' facebook.com authorized users');
+    console.log(clc.blue('Info: Found ' + userGroups.length + ' facebook.com authorized users'));
     validusers = users.filter(function(user, idx) {
       return userGroups[ idx ].data && userGroups[ idx ].data.length > 0
     });
-    console.log('Info: Found ' + validusers.length + ' facebook.com users with accessible groups');
+    console.log(clc.blue('Info: Found ' + validusers.length + ' facebook.com users with accessible groups'));
     return validusers;
   }).catch(function(err) {
     console.error(clc.red('Error: Getting facebook.com groups with all user tokens: ' + err));

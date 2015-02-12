@@ -56,10 +56,10 @@ function isDuplicateEvent(event1, event2) {
   var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 0;
 
   if (reply) {
-    console.log('Info: Found duplicate events:');
-    console.log('Info: [Event A] ' + event1.url);
-    console.log('Info: [Event B] ' + event2.url);
-    console.log('Info: Overlapped words (' + overlappedWords.length + ') ' + overlappedWords);
+    console.log(clc.magenta('Info: Found duplicate events:'));
+    console.log(clc.magenta('Info: [Event A] ' + event1.url));
+    console.log(clc.magenta('Info: [Event B] ' + event2.url));
+    console.log(clc.magenta('Info: Overlapped words (' + overlappedWords.length + ') ' + overlappedWords));
   }
 
   return reply;
@@ -81,7 +81,7 @@ function removeDuplicates(feed) {
     if (!isDuplicate) {
       uniqueEvents.push(thisEvent);
     } else {
-      console.log('Info: Removing ' + thisEvent.url);
+      console.log(clc.magenta('Info: Remove ' + thisEvent.url));
     }
   })
 

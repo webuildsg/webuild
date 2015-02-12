@@ -33,7 +33,7 @@ function fetch(method, args, limit) {
         if (err.code === 403) {
           console.log(clc.yellow('Warn: Github rate limited. Will try again.'));
           setTimeout(function() {
-            console.log('Info: Retrying github');
+            console.log(clc.blue('Info: Retrying github'));
             method(args, recv);
           }, 60000);
         } else {
@@ -97,7 +97,7 @@ exports.update = function() {
   }, config.github.maxUsers)
   .then(function(users) {
     users = insertWhiteList(users, whitelistUsers);
-    console.log('Info: Found %d github.com users', users.length);
+    console.log(clc.blue('Info: Found ' + users.length + ' github.com users'));
     var searches = chunk(mess(users), 20).map(function(users) {
       return fetch(github.search.repos, {
         sort: 'updated',
@@ -174,17 +174,17 @@ fs.exists(config.outfile, function(exists) {
     jf.readFile(config.outfile, function(err, feed) {
       if (!err) {
         exports.feed = feed;
-        console.log('Info: Loaded %d repos from cache', feed.repos.length);
+        console.log('Info: Loaded ' + feed.repos.length + ' repos from cache');
       }
     });
   } else {
-    console.log('Info: Fetching public repos feed...');
+    console.log(clc.blue('Info: Fetching public repos feed...'));
     request('http://webuild.sg/api/v1/repos', function(err, res, body) {
       if (!err && res.statusCode === 200) {
         var data = JSON.parse(body);
         exports.feed = data;
         jf.writeFile(config.outfile, data);
-        console.log('Info: Saved %d repos to cache', data.repos.length);
+        console.log(clc.blue('Info: Saved %d repos to cache', data.repos.length));
       } else {
         if (res) {
           console.warn(clc.red('Error: Failed to retrieve data (Status code: %s)', res.statusCode));
