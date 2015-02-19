@@ -19,7 +19,8 @@ module.exports = {
     17604562,
     4280832,
     14995732,
-    15750332
+    15750332,
+    18312857
   ],
   blacklistWords: [
     'business',
