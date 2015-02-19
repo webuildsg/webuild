@@ -10,5 +10,17 @@
     "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
     "start_time": "2014-11-14T10:00:00.000Z",
     "end_time": "2014-11-16T09:00:00.000Z"
+  },
+  {
+    "id": 1,
+    "name": "SG Geek Girls Maker Series: Revival of Mechanical Arts in the Maker movement",
+    "description": "Welcome to the first Singapore Geek Girls event of 2015! The Maker series highlights women in the technology who are passionate about building and sharing their work. We kick off the year by inviting Denisa Kera, Associate Prof at NUS, who is an integral part of the Maker Movement in Asia to talk about her personal journey through various DIY, maker and hacker communities around the world, which transformed her from a philosopher to designer. Join her in the first SG Geek Girls Makers Series to discuss projects in open science, traditional crafts and art.",
+    "location": "National Design Centre, Level 2",
+    "url": "http://peatix.com/event/74993",
+    "group_name": "Singapore Geek Girls",
+    "group_url": "http://www.sggeekgirls.com/",
+    "formatted_time": "2 Mar 2015, Mon, 7:00 pm",
+    "start_time": "2015-03-02T11:00:00.000Z",
+    "end_time": "2015-03-02T13:00:00.000Z"
   }
 ]
