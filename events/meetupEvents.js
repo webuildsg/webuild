@@ -29,7 +29,14 @@ function isValidGroup(row) {
   var blacklistWords = config.blacklistWords || [];
   var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
   var isValidCountry = row.country === (config.meetupParams.country || row.country);
-  var isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE));
+  var isValidText;
+
+  if (row.name && row.description) {
+    isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE));
+  } else {
+    isValidText = false;
+  }
+
   var isValidGroupId = !blacklistGroups.some(function(id) { return row.id === id });
 
   return isValidCountry && isValidText && isValidGroupId;
