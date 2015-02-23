@@ -13,6 +13,11 @@ var API = {
   getIcsEvents: require('./icsEvents').get
 };
 var clc = require('cli-color');
+var isNumber = require('is-number');
+
+function isNum(check) {
+  return !isNumber(check);
+}
 
 function isDuplicateEvent(event1, event2) {
   var options = {
@@ -51,15 +56,14 @@ function isDuplicateEvent(event1, event2) {
   };
   var event1Compare = event1.name + ' at ' + event1.location;
   var event2Compare = event2.name + ' at ' + event2.location;
-  var overlappedWords = overlap(event1Compare, event2Compare, options);
+  var overlappedWords = overlap(event1Compare, event2Compare, options).filter(isNum);
 
-  var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 0;
+  var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 1;
 
   if (reply) {
-    console.log(clc.magenta('Info: Found duplicate events:'));
     console.log(clc.magenta('Info: [Event A] ' + event1.url));
     console.log(clc.magenta('Info: [Event B] ' + event2.url));
-    console.log(clc.magenta('Info: Overlapped words (' + overlappedWords.length + ') ' + overlappedWords));
+    console.log(clc.magenta('Info: Overlapped words (' + overlappedWords.length + '): ' + overlappedWords));
   }
 
   return reply;

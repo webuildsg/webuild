@@ -26,6 +26,7 @@
     "htmlstrip-native": "0.0.6",
     "ical": "0.3.1",
     "ical-generator": "0.1.10",
+    "is-number": "1.1.0",
     "jade": "1.9.2",
     "jsonfile": "2.0.0",
     "markdown": "0.5.0",
