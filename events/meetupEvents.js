@@ -6,6 +6,10 @@ var utils = require('./utils');
 var config = require('./config');
 var clc = require('cli-color');
 
+var blacklistGroups = config.blacklistGroups || [];
+var blacklistWords = config.blacklistWords || [];
+var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
+
 function constructAddress(venue) {
   var address = '';
 
@@ -25,11 +29,8 @@ function constructAddress(venue) {
 }
 
 function isValidGroup(row) {
-  var blacklistGroups = config.blacklistGroups || [];
-  var blacklistWords = config.blacklistWords || [];
-  var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
   var isValidCountry = row.country === (config.meetupParams.country || row.country);
-  var isValidText;
+  var isValidText = blacklistWords.length === 0 || !(row.name.match(blacklistRE) || (row.description !== undefined && row.description.match(blacklistRE)));
 
   if (row.name && row.description) {
     isValidText = blacklistWords.length === 0 ? true : !(row.name.match(blacklistRE) || row.description.match(blacklistRE));
