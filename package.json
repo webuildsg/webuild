@@ -60,7 +60,7 @@
     "nconf": "0.7.1"
   },
   "engines": {
-    "node": "0.10"
+    "iojs": "1.0.x"
   },
   "config": {
     "blanket": {
