@@ -16,9 +16,9 @@ var techCategory = [
 function constructAddress(venue) {
   var addr = venue.address;
   var address = [
-    venue.name.trimRight(),
+    venue.name ? venue.name.trimRight() : '',
     ', ',
-    addr.address_1.trimRight(),
+    addr.address_1 ? ', ' + addr.address_1.trimRight() : '',
     addr.address_2 ? ', ' + addr.address_2.trimRight() : '',
     ', ',
     addr.city + ' ' + addr.postal_code
