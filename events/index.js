@@ -19,6 +19,10 @@ function isNum(check) {
   return !isNumber(check);
 }
 
+function isNotEmptyString(check) {
+  return check.length > 0;
+}
+
 function isDuplicateEvent(event1, event2) {
   var options = {
     ignoreCase: true,
@@ -56,7 +60,9 @@ function isDuplicateEvent(event1, event2) {
   };
   var event1Compare = event1.name + ' at ' + event1.location;
   var event2Compare = event2.name + ' at ' + event2.location;
-  var overlappedWords = overlap(event1Compare, event2Compare, options).filter(isNum);
+  var overlappedWords = overlap(event1Compare, event2Compare, options)
+    .filter(isNum)
+    .filter(isNotEmptyString);
 
   var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 1;
 
