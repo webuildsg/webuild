@@ -56,7 +56,7 @@
     "grunt-contrib-uglify": "0.8.0",
     "grunt-jscs": "1.5.0",
     "mocha": "2.1.0",
-    "mocha-lcov-reporter": "0.0.1",
+    "mocha-lcov-reporter": "0.0.2",
     "nconf": "0.7.1"
   },
   "engines": {
