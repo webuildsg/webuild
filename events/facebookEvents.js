@@ -21,6 +21,10 @@ function saveFacebookEvents(eventsWithVenues, row, grpIdx) {
     if (!row.location) {
       return;
     }
+    if (!row.end_time){
+     //TODO : add more sanitization checks for end_time
+     row.end_time = utils.localTime(row.start_time).add(2, 'hours').toISOString();
+    }
     eventsWithVenues.push({
       id: row.id,
       name: row.name,
