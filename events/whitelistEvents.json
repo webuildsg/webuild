@@ -22,5 +22,41 @@
     "formatted_time": "2 Mar 2015, Mon, 7:00 pm",
     "start_time": "2015-03-02T11:00:00.000Z",
     "end_time": "2015-03-02T13:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "FOSSASIA",
+    "description": "The Smart City with Open Source, Big Data, Design Thinking and Free Knowledge Tools at Asia's Premier Open Technology Event",
+    "location": "National Design Centre, Level 2",
+    "url": "https://fossasia.eventbrite.com/",
+    "group_name": "FOSSASIA",
+    "group_url": "http://fossasia.org/",
+    "formatted_time": "13 Mar 2015, Mon, 9:00 am",
+    "start_time": "2015-03-13T01:00:00.000Z",
+    "end_time": "2015-03-15T08:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "March Dribbble Meetup",
+    "description": "Sessions Xiaodan is sharing a case study of millennium hotel where the design was well received by the clients and users. The talk will cover rapid design, prototyping and research example. James is sharing a short talk on content-driven– and continuous design. Or, How I Learned to Love Uncertainty & Stop Designing Everything Upfront. Some case studies from the trenches.",
+    "location": "ThoughtWorks Pte. Ltd. 87B Amoy Street, Level 3 Singapore 069906",
+    "url": "https://nvite.com/dribbblemeetup/c508",
+    "group_name": "Singapore Dribbble Group",
+    "group_url": "https://nvite.com/dribbblemeetup",
+    "formatted_time": "19 Mar 2015, Mon, 7:00 pm",
+    "start_time": "2015-03-19T11:00:00.000Z",
+    "end_time": "2015-03-19T13:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Battlehack",
+    "description": "Sessions Xiaodan is sharing a case study of millennium hotel where the design was well received by the clients and users. The talk will cover rapid design, prototyping and research example. James is sharing a short talk on content-driven– and continuous design. Or, How I Learned to Love Uncertainty & Stop Designing Everything Upfront. Some case studies from the trenches.",
+    "location": "CLIFTONS SINGAPORE Level 11, Finexis Building 108 Robinson Road Singapore",
+    "url": "https://2015.battlehack.org/singapore",
+    "group_name": "Paypal and Braintree",
+    "group_url": "https://2015.battlehack.org/singapore",
+    "formatted_time": "28 Mar 2015, Sat, 10:00 1m",
+    "start_time": "2015-03-28T11:02:00.000Z",
+    "end_time": "2015-03-29T13:10:00.000Z"
   }
 ]
