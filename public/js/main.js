@@ -176,14 +176,12 @@
   request.send();
 
   if (window.location.hash){
-     var fragment = window.location.hash;
-     if (fragment.indexOf('#check') === 0 && fragment.length > 6){
-       var dateToCheck = fragment.substring(6);
-       eventDate.value = dateToCheck;
-       eventDate.onchange();
-       eventDate.scrollIntoView(true);
-     }
-   }
-
-
+    var fragment = window.location.hash;
+    if (fragment.indexOf('#check') === 0 && fragment.length > 6){
+      var dateToCheck = fragment.substring(6);
+      eventDate.value = dateToCheck;
+      eventDate.onchange();
+      eventDate.scrollIntoView(true);
+    }
+  }
 })();
