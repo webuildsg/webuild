@@ -89,6 +89,12 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    jsbeautifier: {
+      files: [ 'public/js/main.js' ],
+      options: {
+        config: '.jsbeautifyrc'
+      }
     }
   });
 
@@ -99,6 +105,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-jsbeautifier');
 
   grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
     var cleanup = require('./events/cleanup');
@@ -127,14 +134,16 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'clean',
-    'stylus',
-    'uglify',
     'jshint',
     'csslint',
-    'jscs'
+    'jsbeautifier',
+    'jscs',
+    'uglify',
+    'stylus'
   ]);
 
   grunt.registerTask('build', [
+    'jsbeautifier',
     'uglify',
     'stylus'
   ]);
