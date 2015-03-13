@@ -21,6 +21,7 @@
     "get-urls": "4.0.1",
     "github": "0.2.3",
     "grunt-cli": "0.1.13",
+    "grunt-jsbeautifier": "0.2.10",
     "grunt-contrib-stylus": "0.20.0",
     "grunt-contrib-uglify": "0.8.0",
     "htmlstrip-native": "0.1.1",
