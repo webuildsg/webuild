@@ -175,7 +175,7 @@
     }
     request.send();
 
-    if ( window.location.hash ) {
+    function updateDateCheck() {
         var fragment = window.location.hash;
         if ( fragment.indexOf( '#check' ) === 0 && fragment.length > 6 ) {
             var dateToCheck = fragment.substring( 6 );
@@ -183,5 +183,13 @@
             eventDate.onchange();
             eventDate.scrollIntoView( true );
         }
+    }
+
+    window.addEventListener( 'hashchange', function () {
+        updateDateCheck();
+    } );
+
+    if ( window.location.hash ) {
+        updateDateCheck();
     }
 } )();
