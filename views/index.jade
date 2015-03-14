@@ -41,8 +41,8 @@ body
               a(href=repo.html_url)
                 p= repo.name
                   span= 'updated ' + moment(repo.pushed_at).endOf('hour').fromNow()
-                  span.stars!= '&#9733; ' + repo.stargazers_count
                 p.tagline= repo.description
+                p.label!= '&#9733; ' + repo.stargazers_count + '&nbsp;&nbsp;&nbsp;&nbsp;' + (repo.language || '')
 
     footer
       .container
