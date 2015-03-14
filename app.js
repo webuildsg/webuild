@@ -82,6 +82,27 @@ app.get('/api/v1/repos', function(req, res) {
   res.send(repos.feed);
 });
 
+app.get('/api/v1/repos/:language', function(req, res) {
+  var language = req.params.language.toLowerCase();
+  var reposWIthLanguage = repos.feed.repos.filter(function(repo) {
+    if (!repo.language) {
+      return false;
+    }
+    return repo.language.toLowerCase() === language;
+  });
+
+  res.send({
+    meta: {
+      generated_at: new Date().toISOString(),
+      location: 'Singapore',
+      total_repos: repos.length,
+      api_version: 'v1',
+      max_repos: reposWIthLanguage.length
+    },
+    repos: reposWIthLanguage
+  });
+});
+
 app.get('/admin', function(req, res) {
   res.render('facebook_login.jade', {
     auth0: require('./events/config').auth0,
