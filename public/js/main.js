@@ -177,7 +177,9 @@
 
   function updateDateCheck() {
     var fragment = window.location.hash;
-    if ( fragment.indexOf( '#check' ) === 0 && fragment.length > 6 ) {
+    var dateRegex = /^\d{4}-\d{1,2}-\d{1,2}$/; // match YYYY-MM-DD
+
+    if ( fragment.indexOf( '#check' ) === 0 && fragment.length > 8 && fragment.substring( 6 ).match( dateRegex ) ) {
       var dateToCheck = fragment.substring( 6 );
       eventDate.value = dateToCheck;
       eventDate.onchange();
