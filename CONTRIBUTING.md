@@ -26,6 +26,6 @@ Contribute and share :)
       - :lock: `:lock:` when dealing with `security`
       - :arrow_up: `:arrow_up:` when upgrading `dependencies`
       - :arrow_down: `:arrow_down:` when downgrading `dependencies`
-      - :shirt: `:shirt:` when removing linter warnings
+      - :shirt: `:shirt:` when removing `linter` warnings
 - [Pull request](https://help.github.com/articles/using-pull-requests) using the new feature/patch branch
 - Ensure the [Travis build](https://travis-ci.org/webuildsg/webuild) passes
