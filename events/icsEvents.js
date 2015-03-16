@@ -49,7 +49,7 @@ function getAllIcsGroups(callback) {
   icsGroups.forEach(function(group) {
     ical.fromURL(group.ics_url, {}, function(err, data) {
       if (err) {
-        console.log('Error: Reading ICS Group from ' + group.group_name + ': ' + err);
+        console.log(clc.yellow('Warn: Cannot read ICS Group ' + group.group_name + ': ' + err));
       }
 
       for (var key in data) {
