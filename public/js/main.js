@@ -11,6 +11,24 @@
   var totalVideo = 0;
   var rand1toTotalVideo = 0;
   var newPlaylistAttribute = '';
+  var buildEmoji = [
+    '🚀',
+    '🔌',
+    '🔩',
+    '📱',
+    '💻',
+    '✏️',
+    '🚤',
+    '🔨',
+    '💡',
+    '⛄',
+    '🎈',
+    '📡',
+    '🎤'
+  ];
+
+  // title with emoji
+  document.title = 'We Build ' + buildEmoji[ Math.floor( Math.random() * ( buildEmoji.length - 1 ) ) ];
 
   // hello to another happy developer
   console.log( 'Hello fellow developer! :)' );
