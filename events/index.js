@@ -50,11 +50,11 @@ function isDuplicateEvent(event1, event2) {
     ],
     depluralize: true
   };
-  var event1Compare = event1.name + ' at ' + event1.location;
-  var event2Compare = event2.name + ' at ' + event2.location;
+  var event1Compare = event1.name;
+  var event2Compare = event2.name;
   var overlappedWords = overlap(event1Compare, event2Compare, options);
 
-  var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 1;
+  var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 0;
 
   if (reply) {
     console.log(clc.magenta('Info: Overlapped Event A: ' + event1.url));
