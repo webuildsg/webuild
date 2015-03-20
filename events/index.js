@@ -26,9 +26,15 @@ function isDuplicateEvent(event1, event2) {
       'group',
       'event',
 
-      'centre',
-      'center',
-      'tower',
+      'centre', 'center', 'tower', 'road',
+      'avenue', 'ave',
+      'building', 'city',
+      'jalan', 'jln',
+      'lane', 'ln',
+      'street', 'st',
+      'plaza',
+      'town',
+      'new',
 
       'first',
       'second',
@@ -50,19 +56,21 @@ function isDuplicateEvent(event1, event2) {
     ],
     depluralize: true
   };
-  var event1Compare = event1.name;
-  var event2Compare = event2.name;
-  var overlappedWords = overlap(event1Compare, event2Compare, options);
 
-  var reply = event1.formatted_time === event2.formatted_time && overlappedWords.length > 0;
+  var overlappedEventName = overlap(event1.name, event2.name, options);
+  var overlappedEventLocation = overlap(event1.location, event2.location, options);
 
-  if (reply) {
+  if ((event1.formatted_time === event2.formatted_time) &&
+      (overlappedEventLocation.length > 0) &&
+      (overlappedEventName.length > 0)) {
     console.log(clc.magenta('Info: Overlapped Event A: ' + event1.url));
     console.log(clc.magenta('Info: Overlapped Event B: ' + event2.url));
-    console.log(clc.magenta('Info: Overlapped Words(' + overlappedWords.length + '): ' + overlappedWords));
+    console.log(clc.magenta('Info: Overlapped Words(' + overlappedEventName.length + '): ' + overlappedEventName));
+    return true;
+
   }
 
-  return reply;
+  return false;
 }
 
 function afterToday(evt) {
