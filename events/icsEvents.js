@@ -50,21 +50,31 @@ function getAllIcsGroups(callback) {
     ical.fromURL(group.ics_url, {}, function(err, data) {
       if (err) {
         console.log(clc.yellow('Warn: Cannot read ICS Group ' + group.group_name + ': ' + err));
-      }
+      } else {
+        var thisEvent = {};
 
-      for (var key in data) {
-        if (data.hasOwnProperty(key)) {
-          data[ key ].group_name = group.group_name;
-          data[ key ].group_url = group.group_url;
-          data[ key ].start_time = data[ key ].start;
-          data[ key ].end_time = data[ key ].end;
-          events.push(data[ key ]);
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            if (data[ key ].start && data[ key ].end) {
+              thisEvent = {};
+              thisEvent.group_name = group.group_name;
+              thisEvent.group_url = group.group_url;
+              thisEvent.start_time = data[ key ].start;
+              thisEvent.end_time = data[ key ].end;
+              thisEvent.uid = data[ key ].uid;
+              thisEvent.name = data[ key ].summary;
+              thisEvent.description = data[ key ].description;
+              thisEvent.location = data[ key ].location;
+              events.push(thisEvent);
+            }
+          }
         }
       }
+
       countReplies++;
 
       if (countReplies >= icsGroups.length) {
-        callback(events)
+        callback(events);
       }
     });
   })
