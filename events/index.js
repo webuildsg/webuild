@@ -59,15 +59,16 @@ function isDuplicateEvent(event1, event2) {
 
   var overlappedEventName = overlap(event1.name, event2.name, options);
   var overlappedEventLocation = overlap(event1.location, event2.location, options);
+  var overlappedEventDescription = overlap(event1.description, event2.description, options);
 
   if ((event1.formatted_time === event2.formatted_time) &&
-      (overlappedEventLocation.length > 0) &&
-      (overlappedEventName.length > 0)) {
-    console.log(clc.magenta('Info: Overlapped Event A (removed): ' + event1.url));
-    console.log(clc.magenta('Info: Overlapped Event B: ' + event2.url));
-    console.log(clc.magenta('Info: Overlapped Words(' + overlappedEventName.length + '): ' + overlappedEventName));
-    return true;
-
+      (overlappedEventLocation.length > 0)) {
+    if (overlappedEventName.length > 0 || overlappedEventDescription.length > 2) {
+      console.log(clc.magenta('Info: Overlapped Event A (removed): ' + event1.url));
+      console.log(clc.magenta('Info: Overlapped Event B: ' + event2.url));
+      console.log(clc.magenta('Info: Overlapped Words: ' + overlappedEventName + overlappedEventDescription));
+      return true;
+    }
   }
 
   return false;

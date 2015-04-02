@@ -3,6 +3,7 @@ exports.data = {
     {
       "id": 1,
       "name": "1st Singapore Docker Meetup",
+      "description": "",
       "location": "Viki",
       "group_name": "Singapore Docker Group",
       "formatted_time": "29 Oct, Wed, 6:30 pm",
@@ -12,6 +13,7 @@ exports.data = {
     {
       "id": 2,
       "name": "Docker Singapore Meetup #1",
+      "description": "",
       "location": "the Viki Office",
       "group_name": "Docker Singapore",
       "formatted_time": "29 Oct, Wed, 6:30 pm",
@@ -23,6 +25,7 @@ exports.data = {
     {
       "id": 1,
       "name": "Singapore software testing conference",
+      "description": "",
       "location": "Suntec",
       "group_name": "Singapore software testing",
       "formatted_time": "29 Oct, Wed, 6:30 pm",
@@ -32,6 +35,7 @@ exports.data = {
     {
       "id": 2,
       "name": "Singapore software testing conference",
+      "description": "",
       "location": "Tower 1, Suntec City",
       "group_name": "Singapore Cloud, Big Data, DevOps ",
       "formatted_time": "29 Oct, Wed, 6:30 pm",
@@ -41,6 +45,7 @@ exports.data = {
     {
       "id": 3,
       "name": "Singapore software testing conference",
+      "description": "",
       "location": "Singapore Suntec City",
       "group_name": "Singapore Testers - The Next Generation of Testing",
       "formatted_time": "29 Oct, Wed, 6:30 pm",
@@ -53,6 +58,7 @@ exports.data = {
     {
       "id": 21195882,
       "name": "Data Science Pechakucha MIT SENSEable City Labs",
+      "description": "",
       "location": "SMU School of Economics and Social Science, Seminar Room 5.2 (lift access only), Singapore Management University",
       "group_name": "DataScience SG",
       "formatted_time": "30 Oct, Thu, 7:15 pm",
@@ -62,6 +68,7 @@ exports.data = {
     {
       "id": 658689290916506,
       "name": "The Art and Science behind Drone Technology by @Gabriel Kang",
+      "description": "",
       "location": "Plug-In@Blk71",
       "group_name": "Hackers and Painters",
       "formatted_time": "31 Oct, Fri, 12:00 pm",
@@ -71,6 +78,7 @@ exports.data = {
     {
       "id": 742883875799191,
       "name": "Friday Hacks #81: In Murphy('s Law) We Trust",
+      "description": "",
       "location": "SR3, Town Plaza (Level 2), University Town, NUS",
       "group_name": "NUS Hackers",
       "formatted_time": "31 Oct, Fri, 6:30 pm",
