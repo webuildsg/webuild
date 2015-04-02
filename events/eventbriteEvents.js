@@ -61,8 +61,8 @@ function isInWhitelist(thisEvent) {
 function addEventbriteEvent(arr, event) {
   arr.push({
     id: event.id,
-    name: event.name.text,
-    description: event.description.text,
+    name: event.name.text || '',
+    description: event.description.text || '',
     location: constructAddress(event.venue),
     url: event.url,
     group_name: event.organizer.name,
