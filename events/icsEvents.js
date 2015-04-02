@@ -89,9 +89,9 @@ function getIcsEvents() {
         var wbEvent = new WBEvent();
 
         wbEvent.id = trimAfterAt(ev.uid);
-        wbEvent.name = ev.summary;
-        wbEvent.description = ev.description;
-        wbEvent.location = ev.location;
+        wbEvent.name = ev.name || '';
+        wbEvent.description = ev.description || '';
+        wbEvent.location = ev.location || '';
         wbEvent.url = getUrlfromDescriptionOrGroupUrl(ev);
         wbEvent.group_name = ev.group_name;
         wbEvent.group_url = ev.group_url;
