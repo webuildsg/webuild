@@ -66,7 +66,7 @@ function isDuplicateEvent(event1, event2) {
     if (overlappedEventName.length > 0 || overlappedEventDescription.length > 2) {
       console.log(clc.magenta('Info: Overlapped Event A (removed): ' + event1.url));
       console.log(clc.magenta('Info: Overlapped Event B: ' + event2.url));
-      console.log(clc.magenta('Info: Overlapped Words: ' + overlappedEventName + overlappedEventDescription));
+      console.log(clc.magenta('Info: Overlapped Words: ' + (overlappedEventName.length + overlappedEventDescription.length)));
       return true;
     }
   }
