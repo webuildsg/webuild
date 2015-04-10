@@ -33,7 +33,7 @@
     "markdown": "0.5.0",
     "mess": "0.1.2",
     "moment-timezone": "0.3.1",
-    "newrelic": "1.18.1",
+    "newrelic": "1.18.2",
     "passport": "0.2.1",
     "passport-auth0": "0.2.1",
     "prequest": "0.0.3",
