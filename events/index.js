@@ -35,8 +35,7 @@ function isDuplicateEvent(event1, event2) {
       'plaza',
       'town',
       'new',
-      'level','floor',
-
+      'level', 'floor',
 
       'first',
       'second',
@@ -56,9 +55,9 @@ function isDuplicateEvent(event1, event2) {
       'dec', 'december',
       '-',
 
-      'topic','server','create','talk','session','workshop'
+      'topic', 'server', 'create', 'talk', 'session', 'workshop',
 
-      'a','i','will','be','who','want','or','have','if','go'
+      'a', 'i', 'will', 'be', 'who', 'want', 'or', 'have', 'if', 'go'
     ],
     depluralize: true
   };
