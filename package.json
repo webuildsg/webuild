@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node app",
     "test": "grunt travis --verbose && mocha test --recursive && mocha test --recursive --require blanket --reporter html-cov > coverage.html",
-    "postinstall": "bower install && grunt build"
+    "postinstall": "bower install && grunt build",
+    "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated"
   },
   "dependencies": {
     "body-parser": "1.12.2",
@@ -57,7 +58,7 @@
     "grunt-contrib-uglify": "0.9.1",
     "grunt-jsbeautifier": "0.2.10",
     "grunt-jscs": "1.6.0",
-    "mocha": "2.2.3",
+    "mocha": "2.2.4",
     "mocha-lcov-reporter": "0.0.2",
     "nconf": "0.7.1"
   },
