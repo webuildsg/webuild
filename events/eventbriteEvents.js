@@ -47,7 +47,7 @@ function isInWhitelist(thisEvent) {
   config.eventbrite.blacklistOrganiserId.forEach(function(id) {
     if (thisEvent.organizer.resource_uri.substring(44, 54) === id.toString()) {
       countMatchId++;
-      console.log(clc.magenta('Info: Remove ' + thisEvent.organizer.url));
+      // console.log(clc.magenta('Info: Remove ' + thisEvent.organizer.url));
     }
   })
 
