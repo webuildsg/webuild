@@ -69,9 +69,7 @@ function isDuplicateEvent(event1, event2) {
   if ((event1.formatted_time === event2.formatted_time) &&
       (overlappedEventLocation.length > 0)) {
     if (overlappedEventName.length > 0 || overlappedEventDescription.length > 2) {
-      console.log(clc.magenta('Info: Overlapped Event A (removed): ' + event1.url));
-      console.log(clc.magenta('Info: Overlapped Event B: ' + event2.url));
-      console.log(clc.magenta('Info: Overlapped Words: ' + (overlappedEventName.length + overlappedEventDescription.length)));
+      console.log(clc.magenta('Info: Duplicate event removed [' + overlappedEventDescription.length + ']: ' + event1.url));
       return true;
     }
   }
