@@ -31,8 +31,8 @@
   document.title = 'We Build ' + buildEmoji[ Math.floor( Math.random() * ( buildEmoji.length - 1 ) ) ];
 
   // hello to another happy developer
-  console.log( 'Hello fellow developer! :)' );
-  console.log( 'For suggestions:' );
+  console.log( '%cHello fellow developer! :)', 'background: #222; color: #bada55' );
+  console.log( 'For suggestions:', 'background' );
   console.log( '- pull request at https://github.com/webuildsg/webuild' );
   console.log( '- tweet us @webuildsg' );
 
