@@ -32,8 +32,8 @@
 
   // hello to another happy developer
   console.log( '%cHello fellow developer! :)', 'background: #222; color: #bada55' );
-  console.log( 'For suggestions:', 'background: black; color: white' );
-  console.log( '- pull request at https://github.com/webuildsg/webuild', 'background: pink; color: red' );
+  console.log( '%cFor suggestions:', 'background: black; color: white' );
+  console.log( '%c- pull request at https://github.com/webuildsg/webuild', 'background: pink; color: red' );
   console.log( '- tweet us @webuildsg' );
 
   // randomise video in youtube playlist
