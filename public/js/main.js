@@ -31,9 +31,9 @@
   document.title = 'We Build ' + buildEmoji[ Math.floor( Math.random() * ( buildEmoji.length - 1 ) ) ];
 
   // hello to another happy developer
-  console.log( 'Hello fellow developer! :)' );
-  console.log( 'For suggestions:' );
-  console.log( '- pull request at https://github.com/webuildsg/webuild' );
+  console.log( '%cHello fellow developer! :)', 'background: #222; color: #bada55' );
+  console.log( '%cFor suggestions:', 'background: black; color: white' );
+  console.log( '%c- pull request at https://github.com/webuildsg/webuild', 'background: pink; color: red' );
   console.log( '- tweet us @webuildsg' );
 
   // randomise video in youtube playlist
