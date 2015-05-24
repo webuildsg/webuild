@@ -1,9 +1,21 @@
+var city = 'Singapore';
+var country = 'Singapore';
+var locationSymbol = 'SG';
+
 module.exports = {
+  api_version: 'v1',
+  displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
+  timezone: '+0800',
+  location: city,
+  city: city,
+  country: country,
+  symbol: locationSymbol,
+
   meetupParams: {
     key: process.env.MEETUP_API_KEY,
-    country: 'SG',
-    state: 'SG',
-    city: 'Singapore',
+    country: locationSymbol,
+    state: locationSymbol,
+    city: city,
     category_id: 34, //Tech category
     page: 500,
     fields: 'next_event'

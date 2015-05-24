@@ -13,6 +13,7 @@ var request = require('request');
 var ical = require('ical-generator');
 var clc = require('cli-color');
 
+var config = require('./config');
 var events = require('./events');
 var archives = require('./archives');
 var countdown = require('./countdown');
@@ -56,8 +57,8 @@ app.get('/api/v1/check/:checkdate', function(req, res) {
   var clashedEvents = {
     'meta': {
       'generated_at': new Date().toISOString(),
-      'location': 'Singapore',
-      'api_version': 'v1'
+      'location': config.city,
+      'api_version': config.api_version
     },
     'events': []
   };
@@ -94,9 +95,9 @@ app.get('/api/v1/repos/:language', function(req, res) {
   res.send({
     meta: {
       generated_at: new Date().toISOString(),
-      location: 'Singapore',
+      location: config.city,
       total_repos: repos.length,
-      api_version: 'v1',
+      api_version: config.api_version,
       max_repos: reposWIthLanguage.length
     },
     repos: reposWIthLanguage
@@ -126,7 +127,7 @@ app.get('/cal', function(req, res) {
         end: new Date(thisEvent.end_time),
         summary: thisEvent.name + ' by ' + thisEvent.group_name,
         description: thisEvent.description + ' \n\nEvent URL: ' + thisEvent.url || thisEvent.group_url,
-        location: thisEvent.location || 'Singapore',
+        location: thisEvent.location || config.city,
         url: thisEvent.url || thisEvent.group_url
       });
   });
@@ -143,7 +144,7 @@ app.get('/cal', function(req, res) {
       end: new Date(response.meta.next_live_show.end_time),
       summary: response.meta.next_live_show.summary,
       description: response.meta.next_live_show.description + ' \n\nEvent URL: ' + response.meta.next_live_show.url,
-      location: 'Singapore',
+      location: config.city,
       url: response.meta.next_live_show.url
     });
     cal.serve(res);

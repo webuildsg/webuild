@@ -3,8 +3,9 @@
 var Promise = require('promise');
 var htmlStrip = require('htmlstrip-native');
 var moment = require('moment-timezone');
-var displayTimeformat = 'DD MMM YYYY, ddd, h:mm a';
-var localZone = '+0800';
+var config = require('../config');
+var displayTimeformat = config.displayTimeformat;
+var localZone = config.timezone;
 
 function waitAllPromises(arr) {
   return new Promise(function(resolve, reject) {

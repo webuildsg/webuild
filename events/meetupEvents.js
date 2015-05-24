@@ -3,7 +3,7 @@
 var querystring = require('querystring');
 var prequest = require('prequest');
 var utils = require('./utils');
-var config = require('./config');
+var config = require('../config');
 var clc = require('cli-color');
 
 var blacklistGroups = config.blacklistGroups || [];

@@ -8,6 +8,7 @@ var utils = require('./utils');
 var Promise = require('promise');
 var moment = require('moment-timezone');
 var clc = require('cli-color');
+var config = require('../config');
 
 function trimAfterAt(uid) {
   var trimAfterAtRegex = /(\w*)@.*/;
@@ -27,12 +28,12 @@ function getUrlfromDescriptionOrGroupUrl(eventToCheck) {
 }
 
 function hasLocation(eventToCheck) {
-  if (eventToCheck.location.indexOf('Singapore') >= 0) {
+  if (eventToCheck.location.indexOf(config.city) >= 0) {
     return true;
-  } else if (eventToCheck.location.indexOf('singapore') >= 0) {
+  } else if (eventToCheck.location.indexOf(config.city.toLowerCase()) >= 0) {
     return true;
   } else if (eventToCheck.group_name === 'SG Hack & Tell') {
-    return eventToCheck.location += ', Singapore';
+    return eventToCheck.location += ', ' + config.city;
   } else {
     return false;
   }

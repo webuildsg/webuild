@@ -2,7 +2,7 @@
 
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
-var config = require('./config');
+var config = require('../config');
 var strategy;
 var clc = require('cli-color');
 
