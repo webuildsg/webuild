@@ -44,7 +44,7 @@ function isInTechCategory(event) {
 function isInWhitelist(thisEvent) {
   var countMatchId = 0;
 
-  config.eventbrite.blacklistOrganiserId.forEach(function(id) {
+  config.eventbriteParams.blacklistOrganiserId.forEach(function(id) {
     if (thisEvent.organizer.resource_uri.substring(44, 54) === id.toString()) {
       countMatchId++;
       // console.log(clc.magenta('Info: Remove ' + thisEvent.organizer.url));
@@ -86,7 +86,7 @@ function getEventbriteEvents() {
         'page': pageNum
       }),
       headers: {
-        Authorization: 'Bearer ' + config.eventbrite.token
+        Authorization: 'Bearer ' + config.eventbriteParams.token
       }
     })
   };

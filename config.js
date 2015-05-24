@@ -11,6 +11,12 @@ module.exports = {
   country: country,
   symbol: locationSymbol,
 
+  auth0: {
+    domain: 'webuildsg.auth0.com',
+    clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
+    clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
+  },
+
   meetupParams: {
     key: process.env.MEETUP_API_KEY,
     country: locationSymbol,
@@ -18,43 +24,40 @@ module.exports = {
     city: city,
     category_id: 34, //Tech category
     page: 500,
-    fields: 'next_event'
+    fields: 'next_event',
+
+    blacklistGroups: [
+      9319232,
+      13903282,
+      15867652,
+      15237742,
+      10989282,
+      13917282,
+      12117622,
+      17604562,
+      4280832,
+      14995732,
+      15750332,
+      18312857,
+      18446496,
+      18429432,
+      18312607,
+      18312266,
+      18543965,
+      18536657,
+      18553183,
+      16869012,
+      18589883,
+      18180754
+    ],
+    blacklistWords: [
+      'business',
+      'networking',
+      'UNICOM'
+    ],
   },
-  blacklistGroups: [
-    9319232,
-    13903282,
-    15867652,
-    15237742,
-    10989282,
-    13917282,
-    12117622,
-    17604562,
-    4280832,
-    14995732,
-    15750332,
-    18312857,
-    18446496,
-    18429432,
-    18312607,
-    18312266,
-    18543965,
-    18536657,
-    18553183,
-    16869012,
-    18589883,
-    18180754
-  ],
-  blacklistWords: [
-    'business',
-    'networking',
-    'UNICOM'
-  ],
-  auth0: {
-    domain: 'webuildsg.auth0.com',
-    clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
-    clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
-  },
-  eventbrite: {
+
+  eventbriteParams: {
     token: process.env.EVENTBRITE_TOKEN,
     blacklistOrganiserId: [
       4456586249,

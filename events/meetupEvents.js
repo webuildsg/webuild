@@ -6,8 +6,8 @@ var utils = require('./utils');
 var config = require('../config');
 var clc = require('cli-color');
 
-var blacklistGroups = config.blacklistGroups || [];
-var blacklistWords = config.blacklistWords || [];
+var blacklistGroups = config.meetupParams.blacklistGroups || [];
+var blacklistWords = config.meetupParams.blacklistWords || [];
 var blacklistRE = new RegExp(blacklistWords.join('|'), 'i');
 
 function constructAddress(venue) {
