@@ -22,9 +22,9 @@
     "get-urls": "4.0.1",
     "github": "0.2.4",
     "grunt-cli": "0.1.13",
-    "grunt-jsbeautifier": "0.2.10",
     "grunt-contrib-stylus": "0.21.0",
     "grunt-contrib-uglify": "0.9.1",
+    "grunt-jsbeautifier": "0.2.10",
     "htmlstrip-native": "0.1.1",
     "ical": "0.4.0",
     "ical-generator": "0.2.1",
@@ -41,6 +41,7 @@
     "promise": "7.0.1",
     "request": "2.55.0",
     "serve-favicon": "2.2.1",
+    "sitemap": "^0.8.1",
     "word-overlap": "2.3.2"
   },
   "devDependencies": {

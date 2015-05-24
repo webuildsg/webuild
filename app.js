@@ -12,6 +12,7 @@ var moment = require('moment-timezone');
 var request = require('request');
 var ical = require('ical-generator');
 var clc = require('cli-color');
+var sm = require('sitemap');
 
 var config = require('./config');
 var events = require('./events');
@@ -24,12 +25,25 @@ var app = express();
 var podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json';
 var cal = ical();
 
+var sitemap = sm.createSitemap ({
+  hostname: 'https://webuild.sg',
+  cacheTime: 600000,
+  urls: [
+    {
+      url: '/',
+      changefreq: 'daily',
+      priority: 0.3
+    }
+  ]
+});
+
 app.set('port', process.env.PORT || 3000);
 
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/humans.txt', express.static(__dirname + '/public/humans.txt'));
 app.use('/robots.txt', express.static(__dirname + '/public/robots.txt'));
+app.use('/sitemap.xml', express.static(__dirname + '/public/sitemap.xml'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(errorHandler());
 app.use(bodyParser.urlencoded({
@@ -39,6 +53,13 @@ app.use(passport.initialize());
 
 app.locals.pretty = true;
 app.locals.moment = require('moment-timezone');
+
+app.get('/sitemap.xml', function(req, res) {
+  sitemap.toXML( function (xml) {
+    res.header('Content-Type', 'application/xml');
+    res.send( xml );
+  });
+});
 
 app.get('/', function(req, res) {
   countdown.calculateCountdown();
