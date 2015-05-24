@@ -8,26 +8,7 @@ __      _____  | |__  _   _(_) | __| | / \
 # humanstxt.org
 
 # CONTRIBUTORS
-  Name: Alyssa Quek
-  Twitter: @alyssaquek
-
-  Name: Chinmay Pendharkar
-  Twitter: @ntt
-
-  Name: Lakshan Perera
-  Twitter: @laktek
-
-  Name: Sayanee Basu
-  Twitter: @sayanee_
-
-  Name: Sebastiaan Deckers
-  Twitter: @sebdeckers
-
-  Name: U-Zyn Chua
-  Twitter: @uzyn
-
-  Name: Vinay M
-  Twitter: @rmdort
+  https://github.com/webuildsg/webuild/graphs/contributors
 
 # SITE
   Version: 2.10.24
