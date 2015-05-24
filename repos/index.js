@@ -7,21 +7,21 @@ var request = require('request');
 var Promise = require('promise');
 var GitHubApi = require('github');
 var whitelistUsers = require('./whitelistUsers');
-var config = require('./config.js');
+var config = require('../config.js');
 var moment = require('moment-timezone');
 var github;
 var clc = require('cli-color');
 
 github = new GitHubApi({
-  version: '3.0.0',
+  version: config.githubParams.version,
   debug: config.debug
 });
 
-if (config.github.clientID && config.github.clientSecret) {
+if (config.githubParams.clientID && config.githubParams.clientSecret) {
   github.authenticate({
     type: 'oauth',
-    key: config.github.clientID,
-    secret: config.github.clientSecret
+    key: config.githubParams.clientID,
+    secret: config.githubParams.clientSecret
   });
 }
 
@@ -93,8 +93,8 @@ exports.update = function() {
 
   console.log('Info: Updating the repos feed... this may take a while');
   return fetch(github.search.users, {
-    q: 'location:' + config.github.location
-  }, config.github.maxUsers)
+    q: 'location:' + config.githubParams.location
+  }, config.githubParams.maxUsers)
   .then(function(users) {
     users = insertWhiteList(users, whitelistUsers);
     console.log(clc.blue('Info: Found ' + users.length + ' github.com users'));
@@ -103,7 +103,7 @@ exports.update = function() {
         sort: 'updated',
         order: 'desc',
         q: [
-          'stars:>=' + config.github.starLimit,
+          'stars:>=' + config.githubParams.starLimit,
           'fork:true',
           pushedQuery
         ].concat(
@@ -115,7 +115,7 @@ exports.update = function() {
               return 'user:"' + user.login + '"';
             })
         ).join('+')
-      }, config.github.maxRepos);
+      }, config.githubParams.maxRepos);
     });
     return Promise.all(searches);
   })
@@ -145,23 +145,23 @@ exports.update = function() {
         owners[ repo.owner.login ] = 1 + (owners[ repo.owner.login ] || 0);
         return owners[ repo.owner.login ] === 1;
       })
-      .slice(0, config.github.maxRepos);
+      .slice(0, config.githubParams.maxRepos);
   })
   .then(function(repos) {
     console.log(clc.green('Success: Added ' + repos.length + ' GitHub repos'));
     var feed = {
       meta: {
         generated_at: new Date().toISOString(),
-        location: config.github.location,
+        location: config.githubParams.location,
         total_repos: repos.length,
         api_version: 'v1',
-        max_users: config.github.maxUsers,
-        max_repos: config.github.maxRepos
+        max_users: config.githubParams.maxUsers,
+        max_repos: config.githubParams.maxRepos
       },
       repos: repos
     };
     exports.feed = feed;
-    jf.writeFile(config.outfile, feed);
+    jf.writeFile(config.githubParams.outfile, feed);
     return feed;
   })
   .catch(function(err) {
@@ -169,9 +169,9 @@ exports.update = function() {
   });
 };
 
-fs.exists(config.outfile, function(exists) {
+fs.exists(config.githubParams.outfile, function(exists) {
   if (exists) {
-    jf.readFile(config.outfile, function(err, feed) {
+    jf.readFile(config.githubParams.outfile, function(err, feed) {
       if (!err) {
         exports.feed = feed;
         console.log('Info: Loaded ' + feed.repos.length + ' repos from cache');
@@ -183,7 +183,7 @@ fs.exists(config.outfile, function(exists) {
       if (!err && res.statusCode === 200) {
         var data = JSON.parse(body);
         exports.feed = data;
-        jf.writeFile(config.outfile, data);
+        jf.writeFile(config.githubParams.outfile, data);
         console.log(clc.blue('Info: Saved %d repos to cache', data.repos.length));
       } else {
         if (res) {

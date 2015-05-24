@@ -1,7 +1,8 @@
 'use strict';
 
 var request = require('request'),
-  moment = require('moment-timezone');
+  moment = require('moment-timezone'),
+  config = require('../config');
 
 exports.update = function(done) {
   nextPodcastDateTime(function(response) {
@@ -15,8 +16,8 @@ exports.update = function(done) {
 
 exports.calculateCountdown = function(testNow) {
   var now = testNow || moment(),
-    dateFormat = 'YYYY-MM-DD HH:mm Z',
-    livedate = moment.tz(exports.liveDateResponse, dateFormat, 'Asia/Singapore'),
+    dateFormat = config.dateFormat,
+    livedate = moment.tz(exports.liveDateResponse, dateFormat, config.timezoneInfo),
     then = moment(exports.liveDateResponse, dateFormat),
     ms = then.diff(now, 'milliseconds', true),
     days = Math.floor(moment.duration(ms).asDays()),

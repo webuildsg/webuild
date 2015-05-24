@@ -5,11 +5,14 @@ var locationSymbol = 'SG';
 module.exports = {
   api_version: 'v1',
   displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
+  dateFormat: 'YYYY-MM-DD HH:mm Z',
   timezone: '+0800',
+  timezoneInfo: 'Asia/Singapore',
   location: city,
   city: city,
   country: country,
   symbol: locationSymbol,
+  debug: process.env.NODE_ENV === 'development',
 
   auth0: {
     domain: 'webuildsg.auth0.com',
@@ -17,12 +20,23 @@ module.exports = {
     clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
   },
 
+  githubParams: {
+    version: '3.0.0',
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    location: process.env.LOCATION || city,
+    maxUsers: process.env.MAX_USERS || 1000,
+    maxRepos: process.env.MAX_REPOS || 50,
+    starLimit: process.env.STAR_LIMIT || 50,
+    outfile: __dirname + '/cache.json'
+  },
+
   meetupParams: {
     key: process.env.MEETUP_API_KEY,
     country: locationSymbol,
     state: locationSymbol,
     city: city,
-    category_id: 34, //Tech category
+    category_id: 34, // Tech category
     page: 500,
     fields: 'next_event',
 
@@ -59,6 +73,11 @@ module.exports = {
 
   eventbriteParams: {
     token: process.env.EVENTBRITE_TOKEN,
+    url: 'https://www.eventbriteapi.com/v3/events/search',
+    categories: [
+      '102',
+      '119'
+    ],
     blacklistOrganiserId: [
       4456586249,
       7875748007,
