@@ -6,7 +6,7 @@ var moment = require('moment-timezone');
 var prequest = require('prequest');
 var fbGroups = require('./facebookGroups');
 var utils = require('./utils');
-var config = require('./config');
+var config = require('../config');
 var fbBaseUrl = 'https://graph.facebook.com/v2.1/';
 var clc = require('cli-color');
 

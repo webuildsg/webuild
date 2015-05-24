@@ -1,5 +1,6 @@
 'use strict';
 
+var config = require('../config');
 var moment = require('moment-timezone');
 var utils = require('./utils');
 var whitelistEvents = require('./whitelistEvents');
@@ -128,8 +129,8 @@ exports.update = function() {
   exports.feed = {
     'meta': {
       'generated_at': new Date().toISOString(),
-      'location': 'Singapore',
-      'api_version': 'v1'
+      'location': config.city,
+      'api_version': config.api_version
     },
     'events': {}
   };

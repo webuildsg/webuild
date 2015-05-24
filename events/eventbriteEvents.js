@@ -5,13 +5,10 @@ var prequest = require('prequest');
 var moment = require('moment-timezone');
 var utils = require('./utils');
 var Promise = require('promise');
-var config = require('./config');
+var config = require('../config');
 var clc = require('cli-color');
-var baseUrl = 'https://www.eventbriteapi.com/v3/events/search';
-var techCategory = [
-  '102',
-  '119'
-];
+var baseUrl = config.eventbriteParams.url;
+var techCategories = config.eventbriteParams.categories;
 
 function constructAddress(venue) {
   var addr = venue.address;
@@ -38,16 +35,15 @@ function isFreeWithVenue(event) {
 
 function isInTechCategory(event) {
   // 'categories': '102, 113, 199',
-  return event.category_id && techCategory.indexOf(event.category_id) >= 0;
+  return event.category_id && techCategories.indexOf(event.category_id) >= 0;
 }
 
 function isInWhitelist(thisEvent) {
   var countMatchId = 0;
 
-  config.eventbrite.blacklistOrganiserId.forEach(function(id) {
+  config.eventbriteParams.blacklistOrganiserId.forEach(function(id) {
     if (thisEvent.organizer.resource_uri.substring(44, 54) === id.toString()) {
       countMatchId++;
-      // console.log(clc.magenta('Info: Remove ' + thisEvent.organizer.url));
     }
   })
 
@@ -80,13 +76,13 @@ function getEventbriteEvents() {
   var getEventsForPage = function(pageNum) {
     return prequest({
       url: baseUrl + '?' + querystring.stringify({
-        'venue.country': 'SG',
-        'venue.city': 'Singapore',
+        'venue.country': config.symbol,
+        'venue.city': config.city,
         'start_date.range_end': moment().add(2, 'months').format('YYYY-MM-DD') + 'T00:00:00Z',
         'page': pageNum
       }),
       headers: {
-        Authorization: 'Bearer ' + config.eventbrite.token
+        Authorization: 'Bearer ' + config.eventbriteParams.token
       }
     })
   };
@@ -127,6 +123,7 @@ function getEventbriteEvents() {
 
       }).catch(function(err) {
         console.error(clc.red('Error: Getting eventbrite.com events'));
+        console.error(clc.red(err));
         reject(err);
       });
     });
