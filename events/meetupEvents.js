@@ -89,7 +89,8 @@ function getEventsByGroupIds(groupIds) {
     console.log(clc.blue('Info: Found ' + events.length + ' meetup.com group events with venues'));
     return events;
   }).catch(function(err) {
-    console.error(clc.red('Error: getEventsByGroupIds(): ' + err));
+    console.error(clc.red('Error: getEventsByGroupIds():'));
+    console.error(clc.red(err));
   });
 }
 
@@ -108,7 +109,8 @@ function getGroupIds() { //regardless of venue
         return groupIds;
       }, []);
   }).catch(function(err) {
-    console.error(clc.red('Error: getGroupIds(): ' + err));
+    console.error(clc.red('Error: getGroupIds():'));
+    console.error(clc.red(err));
   });
 }
 
@@ -118,7 +120,8 @@ function getGroupEvents() {
       return getEventsByGroupIds(groupIds);
     })
     .catch(function(err) {
-      console.error(clc.red('Error: getGroupEvents(): ' + err));
+      console.error(clc.red('Error: getGroupEvents():'));
+      console.error(clc.red(err));
     });
 }
 
