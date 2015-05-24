@@ -29,6 +29,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/humans.txt', express.static(__dirname + '/public/humans.txt'));
+app.use('/robots.txt', express.static(__dirname + '/public/robots.txt'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(errorHandler());
 app.use(bodyParser.urlencoded({
