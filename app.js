@@ -10,6 +10,7 @@ var favicon = require('serve-favicon');
 var http = require('http');
 var moment = require('moment-timezone');
 var request = require('request');
+var cors = require('cors')
 var ical = require('ical-generator');
 var clc = require('cli-color');
 var sm = require('sitemap');
@@ -74,7 +75,7 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/api/v1/check/:checkdate', function(req, res) {
+app.get('/api/v1/check/:checkdate', cors(), function(req, res) {
   var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD');
   var clashedEvents = {
     'meta': {
@@ -97,15 +98,15 @@ app.get('/api/v1/check/:checkdate', function(req, res) {
 
 })
 
-app.get('/api/v1/events', function(req, res) {
+app.get('/api/v1/events', cors(), function(req, res) {
   res.send(events.feed);
 });
 
-app.get('/api/v1/repos', function(req, res) {
+app.get('/api/v1/repos', cors(), function(req, res) {
   res.send(repos.feed);
 });
 
-app.get('/api/v1/repos/:language', function(req, res) {
+app.get('/api/v1/repos/:language', cors(), function(req, res) {
   var language = req.params.language.toLowerCase();
   var reposWIthLanguage = repos.feed.repos.filter(function(repo) {
     if (!repo.language) {
@@ -210,7 +211,7 @@ app.post('/api/v1/archives/update', function(req, res) {
 
 })
 
-app.use('/api/v1/podcasts', function(req, res) {
+app.use('/api/v1/podcasts', cors(), function(req, res) {
  var url = podcastApiUrl;
  res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
  request(url, function(err, msg, response) {
