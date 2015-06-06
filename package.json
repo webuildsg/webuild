@@ -28,7 +28,7 @@
     "grunt-jsbeautifier": "0.2.10",
     "htmlstrip-native": "0.1.1",
     "ical": "0.4.0",
-    "ical-generator": "0.2.1",
+    "ical-generator": "notthetup/ical-generator",
     "is-number": "2.0.2",
     "jade": "1.9.2",
     "jsonfile": "2.0.0",
