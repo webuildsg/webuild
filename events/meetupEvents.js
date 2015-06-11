@@ -43,9 +43,18 @@ function isValidGroup(row) {
   return isValidCountry && isValidText && isValidGroupId;
 }
 
+function isFree(event) {
+  return !event.fee;
+}
+
 function normalizeGroupEvents(events, row) {
+
   var eventTime;
   var event = {};
+
+  if (!isFree(row)) {
+    return events;
+  }
 
   if (!row.hasOwnProperty('venue') || row.venue_visibility === 'members') {
     return events;
