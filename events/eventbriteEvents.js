@@ -26,7 +26,7 @@ function constructAddress(venue) {
 
 function isFreeWithVenue(event) {
   var hasVenue = event.venue && event.venue.address && event.venue.address.address_1 !== null;
-  var isFree = event.ticket_classes.some(function(ticket) {
+  var isFree = event.ticket_classes && event.ticket_classes.some(function(ticket) {
     return ticket.free;
   });
 
