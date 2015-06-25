@@ -56,7 +56,7 @@ function isDuplicateEvent(event1, event2) {
       'dec', 'december',
       '-',
 
-      'topic', 'server', 'create', 'talk', 'session', 'workshop',
+      'topic', 'server', 'create', 'talk', 'session', 'workshop', 'tell', 'share', 'coding', 'venue', 'speaker', 'about',
 
       'a', 'i', 'will', 'be', 'who', 'want', 'or', 'have', 'if', 'go'
     ],

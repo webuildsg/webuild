@@ -62,11 +62,12 @@ module.exports = {
       18553183,
       16869012,
       18589883,
-      18180754
+      18180754,
+      18567644,
+      18695668
     ],
     blacklistWords: [
       'business',
-      'networking',
       'UNICOM'
     ],
   },
