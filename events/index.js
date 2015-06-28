@@ -20,46 +20,7 @@ function isDuplicateEvent(event1, event2) {
     ignoreCase: true,
     ignoreCommonWords: true,
     ignoreNumber: true,
-    common: [
-      'singapore',
-
-      'meetup',
-      'group',
-      'event',
-
-      'centre', 'center', 'tower', 'road',
-      'avenue', 'ave',
-      'building', 'city',
-      'jalan', 'jln',
-      'lane', 'ln',
-      'street', 'st',
-      'plaza',
-      'town',
-      'new',
-      'level', 'floor',
-
-      'first',
-      'second',
-      'third',
-
-      'jan', 'january',
-      'feb', 'february',
-      'mar', 'march',
-      'apr', 'april',
-      'may',
-      'jun', 'june',
-      'jul', 'july',
-      'aug', 'august',
-      'sep', 'sept', 'september',
-      'oct', 'october',
-      'nov', 'november',
-      'dec', 'december',
-      '-',
-
-      'topic', 'server', 'create', 'talk', 'session', 'workshop', 'tell', 'share', 'coding', 'venue', 'speaker', 'about',
-
-      'a', 'i', 'will', 'be', 'who', 'want', 'or', 'have', 'if', 'go'
-    ],
+    common: config.ignoreWordsInDuplicateEvents.concat(config.city.toLowerCase()),
     depluralize: true
   };
 
@@ -71,6 +32,9 @@ function isDuplicateEvent(event1, event2) {
       (overlappedEventLocation.length > 0)) {
     if (overlappedEventName.length > 0 || overlappedEventDescription.length > 2) {
       console.log(clc.magenta('Info: Duplicate event removed [' + overlappedEventDescription.length + ']: ' + event1.url));
+      // console.log(clc.magenta('Info: Duplicate event added: ' + event2.url));
+      // console.log(clc.magenta('Info: Duplicate event overlaps: ' + overlappedEventDescription));
+      // console.log(clc.magenta('-----------'))
       return true;
     }
   }
