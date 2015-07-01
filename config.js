@@ -3,17 +3,21 @@ var country = 'Singapore';
 var locationSymbol = 'SG';
 
 module.exports = {
-  api_version: 'v1',
-  apiUrl: 'https://webuild.sg/api/v1/',
-  displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
-  dateFormat: 'YYYY-MM-DD HH:mm Z',
-  timezone: '+0800',
-  timezoneInfo: 'Asia/Singapore',
   location: city,
   city: city,
   country: country,
   symbol: locationSymbol,
+
+  api_version: 'v1',
+  apiUrl: 'https://webuild.sg/api/v1/',
+
+  displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
+  dateFormat: 'YYYY-MM-DD HH:mm Z',
+  timezone: '+0800',
+  timezoneInfo: 'Asia/Singapore',
+
   debug: process.env.NODE_ENV === 'development',
+
   calendarTitle: 'We Build SG Events',
   podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
   domain: 'webuild.sg',

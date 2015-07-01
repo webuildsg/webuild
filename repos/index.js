@@ -170,6 +170,8 @@ exports.update = function() {
 };
 
 fs.exists(config.githubParams.outfile, function(exists) {
+  var repoApiUrl = config.apiUrl + 'repos';
+
   if (exists) {
     jf.readFile(config.githubParams.outfile, function(err, feed) {
       if (!err) {
@@ -179,7 +181,7 @@ fs.exists(config.githubParams.outfile, function(exists) {
     });
   } else {
     console.log(clc.blue('Info: Fetching public repos feed...'));
-    request('http://webuild.sg/api/v1/repos', function(err, res, body) {
+    request(repoApiUrl, function(err, res, body) {
       if (!err && res.statusCode === 200) {
         var data = JSON.parse(body);
         exports.feed = data;
