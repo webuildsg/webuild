@@ -1,8 +1,16 @@
 'use strict';
 
-var request = require('request'),
-  moment = require('moment-timezone'),
-  config = require('../config');
+var request = require('request');
+var moment = require('moment-timezone');
+var config = require('../config');
+
+function nextPodcastDateTime(callback) {
+  var podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json';
+  request(podcastApiUrl, function(err, msg, response) {
+    var answer = JSON.parse(response).meta.next_live_show.start_time;
+    callback(answer);
+  })
+}
 
 exports.update = function(done) {
   nextPodcastDateTime(function(response) {
@@ -15,15 +23,15 @@ exports.update = function(done) {
 }
 
 exports.calculateCountdown = function(testNow) {
-  var now = testNow || moment(),
-    dateFormat = config.dateFormat,
-    livedate = moment.tz(exports.liveDateResponse, dateFormat, config.timezoneInfo),
-    then = moment(exports.liveDateResponse, dateFormat),
-    ms = then.diff(now, 'milliseconds', true),
-    days = Math.floor(moment.duration(ms).asDays()),
-    hours = 0,
-    minutes = 0,
-    seconds = 0;
+  var now = testNow || moment();
+  var dateFormat = config.dateFormat;
+  var livedate = moment.tz(exports.liveDateResponse, dateFormat, config.timezoneInfo);
+  var then = moment(exports.liveDateResponse, dateFormat);
+  var ms = then.diff(now, 'milliseconds', true);
+  var days = Math.floor(moment.duration(ms).asDays());
+  var hours = 0;
+  var minutes = 0;
+  var seconds = 0;
 
   if (days >= 0) {
     then.subtract(days, 'days');
@@ -48,10 +56,3 @@ exports.calculateCountdown = function(testNow) {
   return;
 }
 
-function nextPodcastDateTime(callback) {
-  var podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json';
-  request(podcastApiUrl, function(err, msg, response) {
-    var answer = JSON.parse(response).meta.next_live_show.start_time;
-    callback(answer);
-  })
-}

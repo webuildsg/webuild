@@ -8,6 +8,7 @@ var jsFilesToCheck = [
   'app.js',
   'public/js/main.js',
   'archives/**/*.js',
+  'countdown/**/*.js',
   'events/**/*.js',
   'repos/**/*.js',
   'test/archives/*.js',
