@@ -23,11 +23,11 @@ var repos = require('./repos');
 var passport = require('./events/setup-passport');
 
 var app = express();
-var podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json';
+var podcastApiUrl = config.podcastApiUrl;
 var cal = ical();
 
 var sitemap = sm.createSitemap ({
-  hostname: 'https://webuild.sg',
+  hostname: 'https://' + config.domain,
   cacheTime: 600000,
   urls: [
     {
@@ -137,7 +137,7 @@ app.get('/admin', function(req, res) {
 
 app.get('/cal', function(req, res) {
   cal.clear()
-  cal.setDomain('webuild.sg').setName('We Build SG Events');
+  cal.setDomain(config.domain).setName(config.calendarTitle);
 
   events.feed.events.filter(function(thisEvent) {
     if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)) {

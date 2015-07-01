@@ -13,6 +13,10 @@ module.exports = {
   country: country,
   symbol: locationSymbol,
   debug: process.env.NODE_ENV === 'development',
+  calendarTitle: 'We Build SG Events',
+  podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
+  domain: 'webuild.sg',
+
   ignoreWordsInDuplicateEvents: [
     'meetup', 'group', 'event',
 
