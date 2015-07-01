@@ -5,7 +5,7 @@ var moment = require('moment-timezone');
 var config = require('../config');
 
 function nextPodcastDateTime(callback) {
-  var podcastApiUrl = 'http://webuildsg.github.io/live/api/v1/podcasts.json';
+  var podcastApiUrl = config.podcastApiUrl;
   request(podcastApiUrl, function(err, msg, response) {
     var answer = JSON.parse(response).meta.next_live_show.start_time;
     callback(answer);
