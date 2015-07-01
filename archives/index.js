@@ -3,6 +3,7 @@
 var moment = require('moment-timezone');
 var request = require('request');
 var clc = require('cli-color');
+var config = require('../config');
 
 function getBranchName() {
   if (process.env.NODE_ENV === 'production') {
@@ -30,25 +31,25 @@ function getCommitMessage(type) {
 }
 
 function storeToArchives(type, callback) {
-  var url = 'https://webuild.sg/api/v1/' + type;
+  var url = config.apiUrl + type;
 
   request(url, function(err, msg, response) {
     if (err) {
-      console.error(clc.red('Error: Reading We Build SG API '));
+      console.error(clc.red('Error: Reading We Build API '));
       console.log(err);
       console.log(msg);
       callback(err);
     }
 
     var filename = getFilename(type);
-    var uri = 'https://api.github.com/repos/webuildsg/archives/contents/' + type + '/v1/' + filename;
+    var uri = 'https://api.github.com/repos/' + config.archives.githubRepoFolder + type + '/v1/' + filename;
     var token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64');
     var content = new Buffer(response).toString('base64');
     var body = {
       'message': getCommitMessage(type),
       'committer': {
-        'name': 'We Build SG Bot',
-        'email': 'webuildsg@gmail.com'
+        'name': config.archives.committer.name,
+        'email': config.archives.committer.email
       },
       'content': content,
       'branch': getBranchName(type)
@@ -60,7 +61,7 @@ function storeToArchives(type, callback) {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Content-Type': 'application/json',
-        'User-Agent': 'We Build SG Archives',
+        'User-Agent': 'We Build ' + config.symbol + ' Archives',
         'Authorization': 'Basic ' + token
       },
       body: JSON.stringify(body)
@@ -71,7 +72,7 @@ function storeToArchives(type, callback) {
       } else if (response.statusCode !== 201 && response.statusCode !== 200) {
         callback(new Error(), JSON.parse(response.body).message);
       } else {
-        var reply = 'Uploaded ' + filename + ' to Github webuildsg/archives/' + type + ' in branch ' + getBranchName(type);
+        var reply = 'Uploaded ' + filename + ' to Github ' + config.archivesRepoFolder + type + ' in branch ' + getBranchName(type);
         callback(null, reply);
       }
     })

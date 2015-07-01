@@ -4,6 +4,7 @@ var locationSymbol = 'SG';
 
 module.exports = {
   api_version: 'v1',
+  apiUrl: 'https://webuild.sg/api/v1/',
   displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
   dateFormat: 'YYYY-MM-DD HH:mm Z',
   timezone: '+0800',
@@ -16,6 +17,14 @@ module.exports = {
   calendarTitle: 'We Build SG Events',
   podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
   domain: 'webuild.sg',
+
+  archives: {
+    githubRepoFolder: 'webuildsg/archives/contents/',
+    committer: {
+      name: 'We Build SG Bot',
+      email: 'webuildsg@gmail.com'
+    }
+  },
 
   ignoreWordsInDuplicateEvents: [
     'meetup', 'group', 'event',
