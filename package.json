@@ -1,6 +1,6 @@
 {
   "name": "webuild.sg",
-  "version": "2.10.36",
+  "version": "2.10.37",
   "homepage": "http://webuild.sg",
   "keywords": "developer, designer, maker, open source, open events, open community",
   "private": true,
@@ -11,15 +11,15 @@
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated"
   },
   "dependencies": {
-    "body-parser": "1.13.1",
+    "body-parser": "1.13.2",
     "bower": "1.4.1",
     "buffer-crc32": "0.2.5",
     "cli-color": "1.0.0",
-    "compression": "1.5.0",
+    "compression": "1.5.1",
     "cookie-signature": "1.0.6",
     "cors": "^2.7.1",
-    "errorhandler": "1.4.0",
-    "express": "4.13.0",
+    "errorhandler": "1.4.1",
+    "express": "4.13.1",
     "get-urls": "5.0.0",
     "github": "0.2.4",
     "grunt-cli": "0.1.13",
@@ -31,7 +31,7 @@
     "ical-generator": "notthetup/ical-generator",
     "is-number": "2.0.2",
     "jade": "1.11.0",
-    "jsonfile": "2.1.2",
+    "jsonfile": "2.2.1",
     "markdown": "0.5.0",
     "mess": "0.1.2",
     "moment-timezone": "0.4.0",
@@ -43,7 +43,7 @@
     "request": "2.58.0",
     "serve-favicon": "2.3.0",
     "sitemap": "^0.9.0",
-    "word-overlap": "2.3.2"
+    "word-overlap": "2.3.3"
   },
   "devDependencies": {
     "blanket": "1.1.7",
