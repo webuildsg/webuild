@@ -10,29 +10,5 @@
     "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
     "start_time": "2014-11-14T10:00:00.000Z",
     "end_time": "2014-11-16T09:00:00.000Z"
-  },
-  {
-    "id": 1,
-    "name": "PyLadies SG July 2015 Meetup - Introduction to Python",
-    "description": "Martin Brochhaus, one of PyCon SG's organizers, will join us and give a little presentation about how to install Python on Windows, OSX or Ubuntu. He will also show how to use the free editor Atom.io as a Python IDE and guide us through the first steps of writing a Python program.",
-    "location": "PayPal office at 5 Temasek Boulevard, Level 7, Suntec Tower 5, Singapore 038985",
-    "url": "https://docs.google.com/forms/d/15hr8r8f-2K53bpmQ7AQ0UcUo9qZgUat-I9LpAcbgKOM/viewform?c=0&w=1",
-    "group_name": "PyLadies SG",
-    "group_url": "https://docs.google.com/forms/d/15hr8r8f-2K53bpmQ7AQ0UcUo9qZgUat-I9LpAcbgKOM/viewform?c=0&w=1",
-    "formatted_time": "29 Jul 2015, Wed, 7:30 pm",
-    "start_time": "2015-07-29T11:30:00.000Z",
-    "end_time": "2015-07-29T13:30:00.000Z"
-  },
-  {
-    "id": 2,
-    "name": "Amateur Radio July Meetup",
-    "description": "Amateur Radio, or Ham Radio, is a hobby with activities involving communication via radio waves. Most enthusiasts are fascinated with operating radio transmitters, receivers and antennas or how radio waves are able to get from one corner of the earth to another.",
-    "location": "Alumni Medical Centre, No.2 College Road, Singapore 169850",
-    "url": "http://sarts.org.sg/",
-    "group_name": "Singapore Amateur Radio Transmitting Society",
-    "group_url": "http://sarts.org.sg/",
-    "formatted_time": "30 Jul 2015, Thu, 8:00 pm",
-    "start_time": "2015-07-30T12:00:00.000Z",
-    "end_time": "2015-07-30T14:30:00.000Z"
   }
 ]
