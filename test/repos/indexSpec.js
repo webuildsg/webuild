@@ -20,7 +20,13 @@ describe('#pushed3MonthsAgo', function() {
 
   it('returns same day 3 months ago', function() {
     var now = new Date();
-    expect(reply.substring(8, 10)).to.contain(now.getDate());
+    var day = reply.substring(8, 10);
+
+    if (now.getDate() > 30) {
+      expect(parseInt(day) + 1).to.equal(now.getDate());
+    } else {
+      expect(day).to.contain(now.getDate());
+    }
   })
 
   it('returns date in dashes', function() {
