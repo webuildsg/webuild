@@ -10,5 +10,17 @@
     "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
     "start_time": "2014-11-14T10:00:00.000Z",
     "end_time": "2014-11-16T09:00:00.000Z"
+  },
+  {
+    "id": 1,
+    "name": "PyLadies Python Introduction - Vol. 2",
+    "description": "Last months event met overwhelming demand, so we are running it again. Come and meet at the PayPal office for a quick introduction to Python programming, pizza drinks are provided. Martin Brochhaus, one of PyCon SGs organizers and Victor Neo, lead engineer at Carousell will be there to guide you.",
+    "location": "PayPal office at 5 Temasek Boulevard, Level 7, Suntec Tower 5, Singapore 038985",
+    "url": "http://goo.gl/forms/R0FCMzJhO3",
+    "group_name": "PyLadies Singapore",
+    "group_url": "https://www.facebook.com/PyLadiesSG",
+    "formatted_time": "12 Aug 2015, Wed, 7:00 pm",
+    "start_time": "2015-08-12T19:00:00.000Z",
+    "end_time": "2015-08-12T22:00:00.000Z"
   }
 ]
