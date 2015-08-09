@@ -1,7 +1,7 @@
 'use strict';
 
 var Promise = require('promise');
-var htmlStrip = require('htmlstrip-native');
+var htmlStrip = require('striptags');
 var moment = require('moment-timezone');
 var config = require('../config');
 var displayTimeformat = config.displayTimeformat;
@@ -42,11 +42,7 @@ function htmlStripWrapper(str) {
   if (!str) {
     return ''
   }
-  return htmlStrip.html_strip(str, {
-    include_script: false,
-    include_style: false,
-    compact_whitespace: true
-  });
+  return htmlStrip(str);
 }
 
 function localTime(time) {

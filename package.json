@@ -26,7 +26,6 @@
     "grunt-contrib-stylus": "0.21.0",
     "grunt-contrib-uglify": "0.9.1",
     "grunt-jsbeautifier": "0.2.10",
-    "htmlstrip-native": "0.1.1",
     "ical": "0.4.0",
     "ical-generator": "notthetup/ical-generator",
     "is-number": "2.0.2",
@@ -41,7 +40,8 @@
     "promise": "7.0.3",
     "request": "2.58.0",
     "serve-favicon": "2.3.0",
-    "sitemap": "^0.9.0",
+    "sitemap": "0.9.0",
+    "striptags": "2.0.2",
     "word-overlap": "2.3.3"
   },
   "devDependencies": {
