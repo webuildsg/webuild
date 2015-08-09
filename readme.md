@@ -180,14 +180,6 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
-###Newrelic
-
-If you are integrating Newrelic for analytics, the following environment variables are required:
-
-- **NEW_RELIC_APDEX** (required, default: 0.010)
-- **NEW_RELIC_APP_NAME** (required): Use the Heroku app name
-- **NEW_RELIC_LICENSE_KEY** (required): Newrelic license key will be given upon creating a new application
-
 # Editing events and repos list
 
 ###Adding events manually
@@ -196,9 +188,9 @@ If you are integrating Newrelic for analytics, the following environment variabl
 - **Black list events**:
 	- To remove a specific events (paid / duplicate), get the event `id` from [events api endpoint](http://webuild.sg/api/v1/events) and add to `events/blacklistEvents.json`.
 	- To remove a Meetup group, go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`. Get the `id` from `results.id` in the response and file `config.js` to add the `id` to `blacklistGroups`
-	
+
 ###Adding groups manually
-	
+
 1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to [Facebook developer tools explorer](https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1), get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use [Lookup ID](http://lookup-id.com) to find a facebook group id.
 - **ICS URL events**: To query `*.ics` formats, add the group details to file `events/icsGroups.json`
 - **Eventbrite categories**: To automatically find events in an Eventbrite category, add the `id` from this list: <http://developer.eventbrite.com/docs/event-categories/>
