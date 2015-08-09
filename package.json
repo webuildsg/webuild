@@ -42,7 +42,7 @@
     "serve-favicon": "2.3.0",
     "sitemap": "0.9.0",
     "striptags": "2.0.2",
-    "word-overlap": "2.3.3"
+    "word-overlap": "2.4.0"
   },
   "devDependencies": {
     "blanket": "1.1.7",
