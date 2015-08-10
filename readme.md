@@ -1,23 +1,23 @@
 [![Dependency Status](https://img.shields.io/gemnasium/webuildsg/webuild.svg)](https://gemnasium.com/webuildsg/webuild) [![Build Status](https://img.shields.io/travis/webuildsg/webuild/master.svg)](https://travis-ci.org/webuildsg/webuild) [![Code Climate](https://codeclimate.com/github/webuildsg/webuild/badges/gpa.svg)](https://codeclimate.com/github/webuildsg/webuild) [![Coverage Status](https://img.shields.io/coveralls/webuildsg/webuild.svg)](https://coveralls.io/r/webuildsg/webuild) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/webuildsg/webuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore.
+[We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS / manual) and open source projects ([Github](https://developer.github.com/v3/)) for the curious folks who love to make things in a particular city. This repository is an example for Singapore.
 
-###Repositories curated automatically every hour:
+**Please feel free to fork this for your choice of city/country too :smile:**
+
+**Repositories curated automatically every hour:**
 
 1. Github repositories
 - user location contains `Singapore`
 - repos with more than 50 watchers
 - repos pushed date less than 3 months ago
 
-###Events curated automatically every hour:
+**Events curated automatically every hour:**
 
 1. Facebook [selected groups](/events/facebookGroups.json)
 - Meetup.com event category `Technology`, free, has a valid location
 - Eventbrite event category `Technology`, free, has a valid location
 - ICS url
 - Manually added events
-
-###**Please feel free to fork this for your choice of city/country too :smile:**
 
 Who are we? We are **geeks** - engineers, designers, programmers, hackers or makers. And we want to connect various geeks to come together and connect:
 
@@ -56,21 +56,20 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 #Install for development
 
 1. Clone the app:
-
-	```
+	```sh
 	git clone git@github.com:webuildsg/webuild.git
 	cd webuild
 	```
 
 1. Setup the necessary environment variables. Refer [Environment Variables](#environment-variables) section for more details.
 
-	```
+	```sh
 	cp .env-example .env
 	```
 
 1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
 
-	```
+	```sh
 	gem install foreman thor tmuxinator
 	gem install dotenv -v 0.11.1
 	gem install dotenv-deployment -v 0.0.2
@@ -81,14 +80,14 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 	```
 1. Build frontend css and javascript files, along with other tasks with [grunt](http://gruntjs.com/)
 
-	```
+	```sh
 	grunt
 	```
 1. Run in command line `./run.sh` to start the app.
 1. Open [localhost:4000](http://localhost:4000/) in your browser.
 1. Run the following command in another terminal to update events and repos:
 
-	```
+	```sh
 	./update.sh
 	```
 
@@ -99,37 +98,36 @@ We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to
 1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
 1. Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
 1. Setup the following [environment variables](#environment-variables) under the Heroku app settings:
+	```sh
+	BOT_TOKEN=secret
+	EVENTBRITE_TOKEN=secret
+	GITHUB_CLIENT_ID=secret
+	GITHUB_CLIENT_SECRET=secret
+	MEETUP_API_KEY=secret
+	NODE_ENV=production
+	TZ=Asia/Singapore
+	WEBUILD_API_SECRET=secret
+	WEBUILD_AUTH0_CLIENT_ID=secret
+	WEBUILD_AUTH0_CLIENT_SECRET=secret
+	```
 
-	```
-	GITHUB_CLIENT_ID
-	GITHUB_CLIENT_SECRET
-	MEETUP_API_KEY
-	PATH
-	WEBUILD_API_SECRET
-	WEBUILD_AUTH0_CLIENT_ID
-	WEBUILD_AUTH0_CLIENT_SECRET
-	NODE_ENV
-	BOT_TOKEN
-	```
 1. Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
-
 	- update events every hour
 
-		```
+		```sh
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/events/update
 		```
 	- update repos every hour
 
-		```
+		```sh
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/repos/update
 		```
 
 	- store to archives repos and events every day
 
-		```
+		```sh
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/archives/update
 		```
-
 
 #Environment variables
 
@@ -153,36 +151,27 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
-# Editing events and repos list
+# Editing events list
 
-###Adding events manually
-
-1. **White list events**: To add more events, edit `events/whitelistEvents.json`.
-- **Black list events**:
-	- To remove a specific events (paid / duplicate), get the event `id` from [events api endpoint](http://webuild.sg/api/v1/events) and add to `events/blacklistEvents.json`.
-	- To remove a Meetup group, go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`. Get the `id` from `results.id` in the response and file `config.js` to add the `id` to `blacklistGroups`
-
-###Adding groups manually
-
-1. **Facebook groups**: To automatically retrive facebook events from a facebook group or page, its `id` and `name` must be added in `events/facebookGroups.json`. Your list of facebook groups can be obtain with the FB Graph API `me/groups` endpoint. Go to [Facebook developer tools explorer](https://developers.facebook.com/tools/explorer/?method=GET&path=me%2Fgroups&version=v2.1), get an access_token with `user_groups` permissions and submit. Do the same for facebook pages with `me/likes` endpoint. Alternatively, you may use [Lookup ID](http://lookup-id.com) to find a facebook group id.
-- **ICS URL events**: To query `*.ics` formats, add the group details to file `events/icsGroups.json`
-- **Eventbrite categories**: To automatically find events in an Eventbrite category, add the `id` from this list: <http://developer.eventbrite.com/docs/event-categories/>
-
-###Removing events that were added manually
-
-- Automate cleanup of old events added manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with a grunt task
-
-	```sh
-	$ grunt cleanup
-	```
+1. Add any events manually in file `events/whitelistEvents.json`.
+- Remove events already added manually (paid / duplicate ones) in file `events/blacklistEvents.json`
+- Remove a Meetup group:
+	1. Go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`
+	- Get the `id` from `results.id` in the response
+	- add the `id` to `meetupParams.blacklistGroups` array in file `config.js`
+- Add a Facebook groups
+	1. Go to [Lookup ID](http://lookup-id.com) to find a facebook group id
+	- - Edit file `/events/facebookGroups.json`
+- Add an `*.ics` format URL to file `events/icsGroups.json`
+- Cleanup old events manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with a grunt task: `$ grunt cleanup`
 
 #Contribute
 
-Please see `CONTRIBUTING.md` for details.
+Please see `[CONTRIBUTING.md](CONTRIBUTING.md)` for details.
 
 #Versioning
 
-Every production code has a version following the [Semantic Versioning guidelines](http://semver.org/). Run the `grunt bump` command to bump the version accordingly and then push to production with `git push production master`.
+Every production code has a version following the [Semantic Versioning guidelines](http://semver.org/). Run the `grunt bump`, `grunt bump:minor` or `grunt bump:major` command to bump the version accordingly and then push to production with `git push production master`.
 
 #License
 
