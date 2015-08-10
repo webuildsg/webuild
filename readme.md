@@ -40,20 +40,12 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 
 #Install for development
 
-Chose either one of the 2 ways:
+1. Clone the app:
 
-##1. Nitrous.IO / Your Host
-
-1. Clone this repo either with [Nitrous.IO](http://nitrous.io/) or in your local machine.
-	1. Use [Nitrous.IO](https://www.nitrous.io/?utm_source=github.com&utm_campaign=Life&utm_medium=hackonnitrous) to create your own *We Build* in seconds:
-
-		[![Hack webuildsg/webuild on Nitrous.IO](https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png)](https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=webuildsg%2Fwebuild&file_to_open=README.md)
-	1. Clone the app:
-
-		```
-		git clone git@github.com:webuildsg/webuild.git
-		cd webuild
-		```
+	```
+	git clone git@github.com:webuildsg/webuild.git
+	cd webuild
+	```
 
 1. Setup the necessary environment variables. Refer [Environment Variables](#environment-variables) section for more details.
 
