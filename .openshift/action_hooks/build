@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Change home directory (bower puts a lot of cache and tmp directories here)
+HOME=$OPENSHIFT_REPO_DIR
+cd $OPENSHIFT_REPO_DIR
+
+# Cache npm components on main gear
+if [ "$OPENSHIFT_GEAR_UUID" == "$OPENSHIFT_APP_UUID" ]; then
+  mkdir -p "$OPENSHIFT_DATA_DIR"node_modules
+  ln -s "$OPENSHIFT_DATA_DIR"node_modules node_modules
+fi
+
+npm install --loglevel error
+
+# Prune unused node node_modules
+npm prune

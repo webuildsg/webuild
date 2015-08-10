@@ -36,7 +36,7 @@ var sitemap = sm.createSitemap ({
   ]
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000);
 
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
@@ -230,6 +230,6 @@ events.update();
 repos.update();
 countdown.update();
 
-http.createServer(app).listen(app.get('port'), function() {
+http.createServer(app).listen(app.get('port'), process.env.OPENSHIFT_IOJS_IP || '0.0.0.0', function() {
   console.log(clc.black('Express server started at http://localhost:' + app.get('port')));
 });
