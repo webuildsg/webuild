@@ -72,7 +72,7 @@ function storeToArchives(type, callback) {
       } else if (response.statusCode !== 201 && response.statusCode !== 200) {
         callback(new Error(), JSON.parse(response.body).message);
       } else {
-        var reply = 'Uploaded ' + filename + ' to Github ' + config.archivesRepoFolder + type + ' in branch ' + getBranchName(type);
+        var reply = 'Uploaded ' + filename + ' to Github ' + config.archives.githubRepoFolder + type + ' in branch ' + getBranchName(type);
         callback(null, reply);
       }
     })
