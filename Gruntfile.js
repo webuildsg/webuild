@@ -127,10 +127,11 @@ module.exports = function(grunt) {
   grunt.registerTask('travis', [
     'clean',
     'stylus',
-    'uglify',
     'jshint',
-    'csslint',
+    'jsbeautifier',
     'jscs'
+    'uglify',
+    'csslint'
   ]);
 
   grunt.registerTask('default', [
