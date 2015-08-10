@@ -129,7 +129,7 @@ module.exports = function(grunt) {
     'stylus',
     'jshint',
     'jsbeautifier',
-    'jscs'
+    'jscs',
     'uglify',
     'csslint'
   ]);
