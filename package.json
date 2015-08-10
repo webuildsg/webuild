@@ -2,7 +2,7 @@
   "name": "webuild.sg",
   "version": "2.11.0",
   "homepage": "http://webuild.sg",
-  "keywords": "developer, designer, maker, open source, open events, open community",
+  "keywords": "developer, designer, maker, engineer, open source, open events, open community",
   "private": true,
   "scripts": {
     "start": "node app",

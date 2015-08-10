@@ -2,14 +2,29 @@
 
 [We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS / manual) and open source projects ([Github](https://developer.github.com/v3/) / manual) for the curious folks who love to make things in a particular city. This repository is an example for Singapore.
 
+###Repositories curated automatically every hour:
+
+1. Github repositories
+- user location contains `Singapore`
+- repos with more than 50 watchers
+- repos pushed date less than 3 months ago
+
+###Events curated automatically every hour:
+
+1. Facebook [selected groups](/events/facebookGroups.json)
+- Meetup.com event category `Technology`, free, has a valid location
+- Eventbrite event category `Technology`, free, has a valid location
+- ICS url
+- Manually added events
+
 ###**Please feel free to fork this for your choice of city/country too :smile:**
 
-Who are we? We are **techies** - developers, designers, programmers, hackers or makers. And we want to connect various techies to come together and connect:
+Who are we? We are **geeks** - engineers, designers, programmers, hackers or makers. And we want to connect various geeks to come together and connect:
 
-- **veteran techies** to get introduced to the community of open events and open source
-- **wannabe techies** to get examples of great open source projects and  events to meet mentors
-- **traveling techies** to drop by and connect with the local ones
-- **existing techies** to keep connecting, mentoring and growing the open community
+- **veteran geeks** to get introduced to the community of open events and open source
+- **beginner geeks** to get examples of great open source projects and events to meet mentors/seniors
+- **traveling geeks** to drop by and connect with the local ones
+- **existing geeks** to keep connecting, mentoring and growing the open community
 
 **Open Events** are free events that are open for public and anyone can drop by.
 
@@ -77,41 +92,7 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 	./update.sh
 	```
 
-##2. Using Docker
-
-1. Clone this repo
-
-	```
-	git clone git@github.com:webuildsg/webuild.git
-	cd webuild
-	```
-
-1. Setup the necessary environment variables. Refer [Environment Variables](#environment-variables) section for more details.
-
-	 ```
-	 cp .env-example .env
-	 ```
-
-1. Start docker
-1. Build with [Docker](http://docker.com/) *Time estimate: *
-
-	```
-	docker build -t webuild .
-	```
-1. run docker with port mapping
-
-	```
-	docker run -i -t -p 4000:4000 webuild
-	```
-1. Open `<DOCKER_HOST>:4000` in your host browser e.g. `http://localhost:4000/`
-
-1. Run the following command in another terminal to update events and repos:
-
-	```
-	./update.sh
-	```
-
-#Deploy to production
+#Deploy to Heroku
 
 We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to deploy:
 
@@ -191,29 +172,9 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 - Automate cleanup of old events added manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with a grunt task
 
-	```shell
+	```sh
 	$ grunt cleanup
 	```
-
-###Repos
-
-1. Github repos from user's location Singapore are automatically populated.
-1. Repos with more than 200 watchers and pushed date less than 3 months ago are selected.
-1. **White list users**: To add more users, edit `repos/whitelistUsers.json`.
-
-#Customise for any location
-
-**Events**
-
-1. `/events/config.js` - basic config for automatically fetching Meetup events
-1. `/events/facebookGroups.json` - list of facebook groups you want to automatically query to fetch their upcoming events
-1. `/events/blacklistEvents.json` - events you might want to remove based on the event `id` found in the api endpoint `/api/events`
-1. `/events/whitelistEvents.json` - manually add in an event not fetched automatically
-
-**Repos**
-
-1. `/repos/config.js` - basic config for automatically fetching Github repositories
-1. `/repos/whitelistUsers.json` - manually add in usernames from Github if they are not included in the automatic query
 
 #Contribute
 
