@@ -36,7 +36,11 @@ var sitemap = sm.createSitemap ({
   ]
 });
 
-app.set('port', process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000);
+
+config.port = process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
+config.ip = process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
+
+app.set('port', config.port);
 
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
@@ -180,16 +184,16 @@ app.get('/check', function(req, res) {
 app.get('/callback', passport.callback);
 
 app.post('/api/v1/events/update', function(req, res) {
-  if (req.params.secret !== process.env.WEBUILD_API_SECRET) {
+  if (!req.body || req.body.secret !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
   events.update();
   res.status(200).send('Events feed updating...');
-})
+});
 
 app.post('/api/v1/repos/update', function(req, res) {
-  if (req.params.secrem !== process.env.WEBUILD_API_SECRET) {
+  if (!req.body || req.body.secret !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
@@ -200,14 +204,14 @@ app.post('/api/v1/repos/update', function(req, res) {
 });
 
 app.post('/api/v1/archives/update', function(req, res) {
-  if (req.params.secret !== process.env.WEBUILD_API_SECRET) {
+  if (!req.body || req.body.secret !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
   archives.update();
   res.status(200).send('Updating the archives; sit tight!');
 
-})
+});
 
 app.use('/api/v1/podcasts', cors(), function(req, res) {
  var url = podcastApiUrl;
@@ -230,6 +234,6 @@ events.update();
 repos.update();
 countdown.update();
 
-http.createServer(app).listen(app.get('port'), process.env.OPENSHIFT_IOJS_IP || '0.0.0.0', function() {
+http.createServer(app).listen(config.port, config.ip, function() {
   console.log(clc.black('Express server started at http://localhost:' + app.get('port')));
 });
