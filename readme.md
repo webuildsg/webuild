@@ -26,11 +26,6 @@ Who are we? We are **geeks** - engineers, designers, programmers, hackers or mak
 - **traveling geeks** to drop by and connect with the local ones
 - **existing geeks** to keep connecting, mentoring and growing the open community
 
-**Open Events** are free events that are open for public and anyone can drop by.
-
-**Open Source** are projects with [free licenses](http://en.wikipedia.org/wiki/Comparison_of_free_software_licences).
-
-
 #Websites
 
 - [Main](http://www.webuild.sg/)
@@ -153,7 +148,7 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 # Editing events list
 
-1. Add any events manually in file `events/whitelistEvents.json`.
+1. Add any events manually in file `events/whitelistEvents.json`
 - Remove events already added manually (paid / duplicate ones) in file `events/blacklistEvents.json`
 - Remove a Meetup group:
 	1. Go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`
@@ -161,13 +156,13 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 	- add the `id` to `meetupParams.blacklistGroups` array in file `config.js`
 - Add a Facebook groups
 	1. Go to [Lookup ID](http://lookup-id.com) to find a facebook group id
-	- - Edit file `/events/facebookGroups.json`
+	- Edit file `/events/facebookGroups.json`
 - Add an `*.ics` format URL to file `events/icsGroups.json`
 - Cleanup old events manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with a grunt task: `$ grunt cleanup`
 
 #Contribute
 
-Please see `[CONTRIBUTING.md](CONTRIBUTING.md)` for details.
+Please see `CONTRIBUTING.md` for details.
 
 #Versioning
 
