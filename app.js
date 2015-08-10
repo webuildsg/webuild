@@ -36,7 +36,6 @@ var sitemap = sm.createSitemap ({
   ]
 });
 
-
 config.port = process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
 config.ip = process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
 
