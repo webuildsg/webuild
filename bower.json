@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "fluidvids": "2.4.1",
-    "moment": "2.10.2",
+    "moment": "2.10.6",
     "auth0-widget.js": "5.2.13"
   }
 }
