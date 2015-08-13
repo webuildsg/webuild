@@ -96,6 +96,7 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 - create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
 - ssh `rhc ssh {APP_NAME}`
 - add a git remote to the git config
+
   ```sh
   [remote "staging-rhc"]
     url = {GIT_REMOTE_URL}
@@ -109,6 +110,7 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 - push the app `git push staging-rhc master --force`
 - check if the app website is up
 - set environment variables with
+
   ```sh
   rhc env-set BOT_TOKEN={secret} EVENTBRITE_TOKEN={secret} GITHUB_CLIENT_ID={secret} GITHUB_CLIENT_SECRET={secret} MEETUP_API_KEY={secret} NODE_ENV={APP_NAME} TZ=Asia/Singapore WEBUILD_API_SECRET={secret} WEBUILD_AUTH0_CLIENT_ID={secret} WEBUILD_AUTH0_CLIENT_SECRET={secret} --app {APP_NAME}
   ```
