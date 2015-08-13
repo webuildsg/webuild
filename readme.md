@@ -98,7 +98,7 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 - add a git remote to the git config
 
   ```sh
-  [remote "staging-rhc"]
+  [remote "{APP_NAME}"]
     url = {GIT_REMOTE_URL}
     fetch = +refs/heads/*:refs/remotes/origin/*
   ```
@@ -107,7 +107,7 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 - show app info with `rhc app-show {APP_NAME} -v`
 - stop app with `rhc app-stop {APP_NAME}`
 - show logs with `rhc tail {APP_NAME}`
-- push the app `git push staging-rhc master --force`
+- push the app `git push {APP_NAME} master --force`
 - check if the app website is up
 - set environment variables with
 
