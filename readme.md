@@ -91,6 +91,7 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 We are using [Open Shift](https://www.openshift.com/) for production. These are the steps for setting it up for Open Shift:
 
 1. create an application with folder `.openshift` with various Open Shift related configurations
+- [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
 - setup the app with `rhc setup`
 - check [settings](https://openshift.redhat.com/app/console/settings)
 - create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
