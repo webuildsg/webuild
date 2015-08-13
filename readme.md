@@ -93,30 +93,28 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 1. create an application with folder `.openshift` with various Open Shift related configurations
 - [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
 - setup the app with `rhc setup`
-- check [settings](https://openshift.redhat.com/app/console/settings)
 - create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
-- ssh `rhc ssh {APP_NAME}`
-- add a git remote to the git config
-
-  ```sh
-  [remote "{APP_NAME}"]
-    url = {GIT_REMOTE_URL}
-    fetch = +refs/heads/*:refs/remotes/origin/*
-  ```
-- create a [build file](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build) in path `.openshift/action_hooks/build` for your app
-- change the permissions for the file with `chmod +x .openshift/action_hooks/build`
-- show app info with `rhc app-show {APP_NAME} -v`
-- stop app with `rhc app-stop {APP_NAME}`
-- show logs with `rhc tail {APP_NAME}`
-- push the app `git push {APP_NAME} master --force`
-- check if the app website is up
+- to ssh into your gear, use `rhc ssh {APP_NAME}`
+- add the cron cratridge with `rhc cartridge add cron -a {APP_NAME}`
 - set environment variables with
 
   ```sh
   rhc env-set BOT_TOKEN={secret} EVENTBRITE_TOKEN={secret} GITHUB_CLIENT_ID={secret} GITHUB_CLIENT_SECRET={secret} MEETUP_API_KEY={secret} NODE_ENV={APP_NAME} TZ=Asia/Singapore WEBUILD_API_SECRET={secret} WEBUILD_AUTH0_CLIENT_ID={secret} WEBUILD_AUTH0_CLIENT_SECRET={secret} --app {APP_NAME}
   ```
-- restart app with `rhc app-restart {APP_NAME}`
-- add cron with `rhc cartridge add cron -a {APP_NAME}`
+- add a git remote to the git config, so you can push your code to the gear
+
+  ```sh
+  [remote "{APP_NAME}"]
+    url = {GIT_REMOTE_URL}
+    fetch = +refs/heads/*:refs/remotes/{APP_NAME}/*
+  ```
+- create a [build file](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build) in path `.openshift/action_hooks/build` for your app (if you're forking webuildsg, this is already inside the repo)
+- make sure the build file permissions for is executable `chmod +x .openshift/action_hooks/build`
+- push the app `git push {APP_NAME} master --force`
+- check if the app website is up
+- if you need to restart the app use `rhc app-restart {APP_NAME}`
+- to see app info use `rhc app-show {APP_NAME} -v`
+- to check out the logs from the app use `rhc tail {APP_NAME}`
 
 
 #Deploy to Heroku
