@@ -35,7 +35,7 @@ Who are we? We are **geeks** - engineers, designers, programmers, hackers or mak
 - [Twitter](https://twitter.com/webuildsg)
 - [Facebook](https://www.facebook.com/webuildsg)
 
-#API Version 1
+#API endpints
 
 The events, repositories and podcasts data feeds are available as JSON.
 
@@ -44,7 +44,7 @@ The events, repositories and podcasts data feeds are available as JSON.
 - <https://webuild.sg/api/v1/podcasts>
 - `https://webuild.sg/api/v1/check/:checkdate` where `checkdate` is in the format `YYYY-MM-DD` to check for clashed events with `checkdate`
 
-#Archives Version 1
+#Archived snapshots
 
 A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) API V1 endpoints are stored in the [archives](https://github.com/webuildsg/archives) for future data analaysis.
 
@@ -86,13 +86,44 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 	./update.sh
 	```
 
+#Deploy to Open Shift
+
+We are using [Open Shift](https://www.openshift.com/) for production. These are the steps for setting it up for Open Shift:
+
+1. create an application with folder `.openshift` with various Open Shift related configurations
+- [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
+- setup the app with `rhc setup`
+- create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
+- to ssh into your gear, use `rhc ssh {APP_NAME}`
+- add the cron cratridge with `rhc cartridge add cron -a {APP_NAME}`
+- set environment variables with
+
+  ```sh
+  rhc env-set BOT_TOKEN={secret} EVENTBRITE_TOKEN={secret} GITHUB_CLIENT_ID={secret} GITHUB_CLIENT_SECRET={secret} MEETUP_API_KEY={secret} NODE_ENV={APP_NAME} TZ=Asia/Singapore WEBUILD_API_SECRET={secret} WEBUILD_AUTH0_CLIENT_ID={secret} WEBUILD_AUTH0_CLIENT_SECRET={secret} --app {APP_NAME}
+  ```
+- add a git remote to the git config, so you can push your code to the gear
+
+  ```sh
+  [remote "{APP_NAME}"]
+    url = {GIT_REMOTE_URL}
+    fetch = +refs/heads/*:refs/remotes/{APP_NAME}/*
+  ```
+- create a [build file](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build) in path `.openshift/action_hooks/build` for your app (if you're forking webuildsg, this is already inside the repo)
+- make sure the build file permissions for is executable `chmod +x .openshift/action_hooks/build`
+- push the app `git push {APP_NAME} master --force`
+- check if the app website is up
+- if you need to restart the app use `rhc app-restart {APP_NAME}`
+- to see app info use `rhc app-show {APP_NAME} -v`
+- to check out the logs from the app use `rhc tail {APP_NAME}`
+
+
 #Deploy to Heroku
 
-We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to deploy:
+Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we took to deploy:
 
 1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
-1. Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-1. Setup the following [environment variables](#environment-variables) under the Heroku app settings:
+- Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+- Setup the following [environment variables](#environment-variables) under the Heroku app settings:
 	```sh
 	BOT_TOKEN=secret
 	EVENTBRITE_TOKEN=secret
@@ -106,7 +137,7 @@ We used [Heroku](http://heroku.com/) - thank you! These are the steps we took to
 	WEBUILD_AUTH0_CLIENT_SECRET=secret
 	```
 
-1. Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
+- Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
 	- update events every hour
 
 		```sh
