@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -214,9 +214,7 @@ app.use('/api/v1/podcasts', cors(), function(req, res) {
 
 app.use(function(req, res) {
   res.redirect('/');
-  return;
 });
-
 
 var ip = process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
 var port = process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
