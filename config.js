@@ -2,10 +2,28 @@ var city = 'Singapore';
 var country = 'Singapore';
 var locationSymbol = 'SG';
 
-var facebookGroups = require('./config/facebookGroups.json');
-var blacklistEvents = require('./config/blacklistEvents.json');
-var icsGroups = require('./config/icsGroups.json');
-var whitelistEvents = require('./config/whitelistEvents.json');
+// var facebookGroups = require('./config/facebookGroups.json');
+// var blacklistEvents = require('./config/blacklistEvents.json');
+// var icsGroups = require('./config/icsGroups.json');
+// var whitelistEvents = require('./config/whitelistEvents.json');
+
+function failSafeRequire(filename){
+  var requiredData;
+  try {
+   requiredData  = require(filename);
+  }
+  catch(e){
+    requiredData = [];
+  }
+  return requiredData;
+}
+
+var facebookGroups = failSafeRequire('./config/facebookGroups.json');
+var blacklistEvents = failSafeRequire('./config/blacklistEvents.json')
+var icsGroups = failSafeRequire('./config/icsGroups.json');
+var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
+
+
 
 module.exports = {
   location: city,
