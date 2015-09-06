@@ -2,6 +2,11 @@ var city = 'Singapore';
 var country = 'Singapore';
 var locationSymbol = 'SG';
 
+var facebookGroups = require('./config/facebookGroups.json');
+var blacklistEvents = require('./config/blacklistEvents.json');
+var icsGroups = require('./config/icsGroups.json');
+var whitelistEvents = require('./config/whitelistEvents.json');
+
 module.exports = {
   location: city,
   city: city,
@@ -84,6 +89,11 @@ module.exports = {
     clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
     clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
   },
+
+  facebookGroups : facebookGroups,
+  blacklistEvents: blacklistEvents,
+  whitelistEvents: whitelistEvents,
+  icsGroups: icsGroups,
 
   githubParams: {
     version: '3.0.0',
