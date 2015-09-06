@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -8,21 +8,19 @@ var favicon = require('serve-favicon');
 var http = require('http');
 var moment = require('moment-timezone');
 var request = require('request');
-var cors = require('cors')
+var cors = require('cors');
 var ical = require('ical-generator');
 var clc = require('cli-color');
 var sm = require('sitemap');
-
-var config = require('./config');
-var events = require('./events');
 var archives = require('./archives');
-var countdown = require('./countdown');
-var repos = require('./repos');
-var passport = require('./events/setup-passport');
 
-var app = express();
-var podcastApiUrl = config.podcastApiUrl;
 var cal = ical();
+
+var config = require('./config.js');
+var wb = require('webuild-events').init(config);
+wb.repos = require('webuild-repos').init(config).repos;
+
+var podcastApiUrl = config.podcastApiUrl;
 
 var sitemap = sm.createSitemap ({
   hostname: 'https://' + config.domain,
@@ -36,22 +34,18 @@ var sitemap = sm.createSitemap ({
   ]
 });
 
-config.port = process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
-config.ip = process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
-
-app.set('port', config.port);
+var app = express();
 
 app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/humans.txt', express.static(__dirname + '/public/humans.txt'));
 app.use('/robots.txt', express.static(__dirname + '/public/robots.txt'));
-app.use('/sitemap.xml', express.static(__dirname + '/public/sitemap.xml'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(errorHandler());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(passport.initialize());
+app.use(wb.passport.initialize());
 
 app.locals.pretty = true;
 app.locals.moment = require('moment-timezone');
@@ -64,15 +58,9 @@ app.get('/sitemap.xml', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  countdown.calculateCountdown();
-  res.render('index.jade', {
-    formattedTime: countdown.formattedTime,
-    days: countdown.days,
-    hours: countdown.hours,
-    minutes: countdown.minutes,
-    seconds: countdown.seconds,
-    repos: repos.feed.repos.slice(0, 10),
-    events: events.feed.events.slice(0, 10)
+  res.render('./index.jade', {
+    repos: wb.repos.feed.repos.slice(0, 10),
+    events: wb.events.feed.events.slice(0, 10)
   });
 });
 
@@ -87,7 +75,7 @@ app.get('/api/v1/check/:checkdate', cors(), function(req, res) {
     'events': []
   };
 
-  clashedEvents.events = events.feed.events.filter(function(element) {
+  clashedEvents.events = wb.events.feed.events.filter(function(element) {
     if (moment(element.start_time).isSame(checkdate, 'day') ) {
       return true;
     }
@@ -97,19 +85,19 @@ app.get('/api/v1/check/:checkdate', cors(), function(req, res) {
 
   res.send(clashedEvents);
 
-})
+});
 
 app.get('/api/v1/events', cors(), function(req, res) {
-  res.send(events.feed);
+  res.send(wb.events.feed);
 });
 
 app.get('/api/v1/repos', cors(), function(req, res) {
-  res.send(repos.feed);
+  res.send(wb.repos.feed);
 });
 
 app.get('/api/v1/repos/:language', cors(), function(req, res) {
   var language = req.params.language.toLowerCase();
-  var reposWIthLanguage = repos.feed.repos.filter(function(repo) {
+  var reposWIthLanguage = wb.repos.feed.repos.filter(function(repo) {
     if (!repo.language) {
       return false;
     }
@@ -120,7 +108,7 @@ app.get('/api/v1/repos/:language', cors(), function(req, res) {
     meta: {
       generated_at: new Date().toISOString(),
       location: config.city,
-      total_repos: repos.length,
+      total_repos: wb.repos.length,
       api_version: config.api_version,
       max_repos: reposWIthLanguage.length
     },
@@ -129,22 +117,22 @@ app.get('/api/v1/repos/:language', cors(), function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  res.render('facebook_login.jade', {
-    auth0: require('./config').auth0,
+  res.render('./facebook_login.jade', {
+    auth0: config.auth0,
     error: req.query.error ? true : false,
     user: req.query.user ? req.query.user : ''
   });
 });
 
 app.get('/cal', function(req, res) {
-  cal.clear()
+  cal.clear();
   cal.setDomain(config.domain).setName(config.calendarTitle);
 
-  events.feed.events.filter(function(thisEvent) {
+  wb.events.feed.events.filter(function(thisEvent) {
     if (!(thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description)) {
       console.log('Not enough information on this event', thisEvent.name, thisEvent.start_time, thisEvent.end_time, thisEvent.description);
     }
-    return thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description
+    return thisEvent.start_time && thisEvent.end_time && thisEvent.name && thisEvent.description;
   }).forEach(function(thisEvent) {
       cal.addEvent({
         start: new Date(thisEvent.start_time),
@@ -178,32 +166,32 @@ app.get('/cal', function(req, res) {
 
 app.get('/check', function(req, res) {
   res.redirect('/#check');
-})
+});
 
-app.get('/callback', passport.callback);
+app.get('/callback', wb.passport.callback);
 
 app.post('/api/v1/events/update', function(req, res) {
-  if (!req.body || req.body.secret !== process.env.WEBUILD_API_SECRET) {
+  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
-  events.update();
+  wb.events.update();
   res.status(200).send('Events feed updating...');
 });
 
 app.post('/api/v1/repos/update', function(req, res) {
-  if (!req.body || req.body.secret !== process.env.WEBUILD_API_SECRET) {
+  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
-  repos.update().then(function() {
+  wb.repos.update().then(function() {
     console.log('GitHub feed generated');
   });
   res.status(200).send('Updating the repos feed; sit tight!');
 });
 
 app.post('/api/v1/archives/update', function(req, res) {
-  if (!req.body || req.body.secret !== process.env.WEBUILD_API_SECRET) {
+  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
@@ -221,7 +209,7 @@ app.use('/api/v1/podcasts', cors(), function(req, res) {
     return;
   }
   res.end(response);
- })
+ });
 });
 
 app.use(function(req, res) {
@@ -229,10 +217,10 @@ app.use(function(req, res) {
   return;
 });
 
-events.update();
-repos.update();
-countdown.update();
 
-http.createServer(app).listen(config.port, config.ip, function() {
-  console.log(clc.black('Express server started at http://localhost:' + app.get('port')));
+var ip = process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
+var port = process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
+
+http.createServer(app).listen(port, ip, function() {
+  console.log(clc.black('Express server started at ', ip, ':', port));
 });
