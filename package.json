@@ -32,7 +32,7 @@
     "serve-favicon": "2.3.0",
     "sitemap": "1.1.0",
     "webuild-events": "1.1.0",
-    "webuild-repos": "webuildorg/webuild-repos.git"
+    "webuild-repos": "1.0.0"
   },
   "devDependencies": {
     "blanket": "1.1.7",
