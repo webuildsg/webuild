@@ -109,9 +109,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
 
   grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
-    var cleanup = require('./events/cleanup');
-    var blacklistEventsFilepath = __dirname  + '/events/blacklistEvents.json';
-    var whitelistEventsFilepath =  __dirname  + '/events/whitelistEvents.json';
+    var cleanup = require('./tasks/cleanup');
+    var blacklistEventsFilepath = __dirname  + '/config/blacklistEvents.json';
+    var whitelistEventsFilepath =  __dirname  + '/config/whitelistEvents.json';
     var done = this.async();
 
     cleanup.all(blacklistEventsFilepath, cleanup.getEventsToKeep(blacklistEventsFilepath), function(reply) {

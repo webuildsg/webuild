@@ -6,7 +6,7 @@
     "location": "sample location",
     "url": "http://www.sample.com/event",
     "group_name": "sample group name",
-    "group_url": "http://www.group.com",
+    "group_url" : "http://www.group.com",
     "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
     "start_time": "2014-11-14T10:00:00.000Z",
     "end_time": "2014-11-16T09:00:00.000Z"
