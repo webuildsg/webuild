@@ -14,9 +14,10 @@ function failSafeRequire(filename){
 }
 
 var facebookGroups = failSafeRequire('./config/facebookGroups.json');
-var blacklistEvents = failSafeRequire('./config/blacklistEvents.json')
+var blacklistEvents = failSafeRequire('./config/blacklistEvents.json');
 var icsGroups = failSafeRequire('./config/icsGroups.json');
 var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
+var duplicateWords = require('./config/duplicateWords.json');
 
 module.exports = {
   location: city,
@@ -46,54 +47,7 @@ module.exports = {
     }
   },
 
-  ignoreWordsInDuplicateEvents: [
-    'meetup', 'group', 'event',
-
-    'centre', 'center', 'tower', 'road',
-    'avenue', 'ave',
-    'building', 'city',
-    'jalan', 'jln',
-    'lane', 'ln',
-    'street', 'st',
-    'plaza', 'town', 'new',
-    'level', 'floor',
-
-    'first',
-    'second',
-    'third',
-
-    'jan', 'january',
-    'feb', 'february',
-    'mar', 'march',
-    'apr', 'april',
-    'may',
-    'jun', 'june',
-    'jul', 'july',
-    'aug', 'august',
-    'sep', 'sept', 'september',
-    'oct', 'october',
-    'nov', 'november',
-    'dec', 'december',
-    '-',
-
-    'mon', 'monday',
-    'tue', 'tues', 'tuesday',
-    'wed', 'wednesday',
-    'thu', 'thurs', 'thursday',
-    'fri', 'friday',
-    'sat', 'saturday',
-    'sun', 'sunday',
-
-    'topic', 'create', 'talk', 'session', 'workshop', 'tell', 'share', 'coding', 'venue', 'about',
-
-    'speaker', 'memeber',
-
-    'a', 'i', 'will', 'be', 'who', 'want', 'or', 'have', 'if', 'go', 'of', 'with', 'from', 'for',
-
-    'the', 'others', 'another', 'all',
-
-    'your', 'you', 'our', 'you\'re', 'we\'re'
-  ],
+  ignoreWordsInDuplicateEvents: duplicateWords[0].words,
 
   auth0: {
     domain: 'webuildsg.auth0.com',
