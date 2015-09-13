@@ -216,8 +216,8 @@ app.use(function(req, res) {
   res.redirect('/');
 });
 
-var ip = process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
-var port = process.env.PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
+var ip = process.env.OPENSHIFT_NODE4_IP || process.env.OPENSHIFT_IOJS_IP || '0.0.0.0';
+var port = process.env.PORT || process.env.OPENSHIFT_NODE4_PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
 
 http.createServer(app).listen(port, ip, function() {
   console.log(clc.black('Express server started at ', ip, ':', port));
