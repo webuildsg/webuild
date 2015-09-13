@@ -17,4 +17,3 @@ npm install --loglevel error
 
 # Prune unused node node_modules
 npm prune
-bower install -q
