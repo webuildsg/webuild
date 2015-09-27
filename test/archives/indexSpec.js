@@ -1,10 +1,10 @@
 'use strict';
 
 var expect = require('chai').expect;
-var archives = require('../../archives');
+var archives = require('../../archives').init();
 var moment = require('moment-timezone');
 
-describe('Archives', function() {
+describe.only('Archives', function() {
 
   describe('#getBranchName', function() {
 

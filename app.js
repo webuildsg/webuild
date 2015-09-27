@@ -12,14 +12,12 @@ var cors = require('cors');
 var ical = require('ical-generator');
 var clc = require('cli-color');
 var sm = require('sitemap');
-var archives = require('./archives');
-
 var cal = ical();
 
 var config = require('./config.js');
 var wb = require('webuild-events').init(config);
 wb.repos = require('webuild-repos').init(config).repos;
-
+var archives = require('./archives').init(config);
 var podcastApiUrl = config.podcastApiUrl;
 
 var sitemap = sm.createSitemap ({
@@ -200,7 +198,6 @@ app.post('/api/v1/archives/update', function(req, res) {
   }
   archives.update();
   res.status(200).send('Updating the archives; sit tight!');
-
 });
 
 app.use('/api/v1/podcasts', cors(), function(req, res) {
