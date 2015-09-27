@@ -181,10 +181,7 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 1. Add any events manually in file `events/whitelistEvents.json`
 - Remove events already added manually (paid / duplicate ones) in file `events/blacklistEvents.json`
-- Remove a Meetup group:
-	1. Go to [Meetup API console for groups](http://www.meetup.com/meetup_api/console/?path=/2/groups) and fill in the `group_urlname`
-	- Get the `id` from `results.id` in the response
-	- add the `id` to `meetupParams.blacklistGroups` array in file `config.js`
+- Remove Meetup.com group by adding the `group_id` (found in the `/api/v1/events`) to the file `config/meetupBlacklistGroups.json`
 - Add a Facebook groups
 	1. Go to [Lookup ID](http://lookup-id.com) to find a facebook group id
 	- Edit file `/events/facebookGroups.json`
