@@ -18,7 +18,7 @@ var blacklistEvents = failSafeRequire('./config/blacklistEvents.json');
 var icsGroups = failSafeRequire('./config/icsGroups.json');
 var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
 var duplicateWords = require('./config/duplicateWords.json');
-var meetupBlacklistGroups = failSafeRequire('./config/meetupBlacklistGroups.json').groups;
+var meetupBlacklistGroups = failSafeRequire('./config/meetupBlacklistGroups.json')[0].groups;
 var eventbriteBlacklistOrganiserIds = failSafeRequire('./config/eventbriteBlacklistOrganiserIds.json').ids;
 
 module.exports = {
