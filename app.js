@@ -144,24 +144,27 @@ app.get('/cal', function(req, res) {
       });
   });
 
-  // add next We Build LIVE show dat
+  // add next We Build LIVE show date
   request(podcastApiUrl, function(err, msg, response) {
     if (err) {
      console.error(clc.red('Error: Fetching We Build Live podcast api'));
      return;
     }
     response = JSON.parse(response);
-    cal.addEvent({
-      start: new Date(response.meta.next_live_show.start_time),
-      end: new Date(response.meta.next_live_show.end_time),
-      summary: response.meta.next_live_show.summary,
-      description: response.meta.next_live_show.description + ' \n\nEvent URL: ' + response.meta.next_live_show.url,
-      location: config.city,
-      url: response.meta.next_live_show.url
-    });
+
+    if (response.meta.next_live_show) {
+      cal.addEvent({
+        start: new Date(response.meta.next_live_show.start_time),
+        end: new Date(response.meta.next_live_show.end_time),
+        summary: response.meta.next_live_show.summary,
+        description: response.meta.next_live_show.description + ' \n\nEvent URL: ' + response.meta.next_live_show.url,
+        location: config.city,
+        url: response.meta.next_live_show.url
+      });
+    }
+
     cal.serve(res);
   });
-
 });
 
 app.get('/check', function(req, res) {
