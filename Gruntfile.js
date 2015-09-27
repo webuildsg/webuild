@@ -9,11 +9,7 @@ var jsFilesToCheck = [
   'public/js/main.js',
   'archives/**/*.js',
   'countdown/**/*.js',
-  'events/**/*.js',
-  'repos/**/*.js',
-  'test/archives/*.js',
-  'test/events/*.js',
-  'test/repos/*.js'
+  'test/archives/*.js'
 ];
 
 module.exports = function(grunt) {
@@ -121,7 +117,6 @@ module.exports = function(grunt) {
         done();
       })
     })
-
   });
 
   grunt.registerTask('travis', [
@@ -149,5 +144,4 @@ module.exports = function(grunt) {
     'uglify',
     'stylus'
   ]);
-
 };

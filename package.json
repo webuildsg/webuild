@@ -60,13 +60,7 @@
     "blanket": {
       "pattern": [
         "archives/index.js",
-        "countdown/index.js",
-        "events/eventbriteEvents.js",
-        "events/facebookEvents.js",
-        "events/index.js",
-        "events/meetupEvents.js",
-        "events/utils.js",
-        "repos/index.js"
+        "countdown/index.js"
       ],
       "data-cover-never": "node_modules"
     }
