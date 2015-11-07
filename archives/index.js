@@ -40,7 +40,6 @@ module.exports = {
       answer.meta = data.meta;
       answer[ type ] = [];
 
-
       data[ type ].forEach(function(element) {
         if (today.diff(moment(element[ compareTime ]), 'days') === compare) {
           answer[ type ].push(element);
