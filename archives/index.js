@@ -30,6 +30,26 @@ module.exports = {
       return 'data: ' + type + ' archive on ' + moment().format('DD MMM YYYY h:mm a');
     }
 
+    // NOTE: not required when the api provides /events/today and /repos/yesterday
+    function getCurrentDayData(response, type) {
+      var data = JSON.parse(response);
+      var today = moment(data.meta.generated_at);
+      var compare = type === 'events' ? 0 : 1;
+      var compareTime = type === 'events' ? 'start_time' : 'pushed_at';
+      var answer = {};
+      answer.meta = data.meta;
+      answer[ type ] = [];
+
+
+      data[ type ].forEach(function(element) {
+        if (today.diff(moment(element[ compareTime ]), 'days') === compare) {
+          answer[ type ].push(element);
+        }
+      })
+
+      return JSON.stringify(answer);
+    }
+
     function storeToArchives(type, callback) {
       var url = config.apiUrl + type;
 
@@ -44,7 +64,7 @@ module.exports = {
         var filename = getFilename(type);
         var uri = 'https://api.github.com/repos/' + config.archives.githubRepoFolder + 'contents/' + type + '/v1/' + filename;
         var token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64');
-        var content = new Buffer(response).toString('base64');
+        var content = new Buffer(getCurrentDayData(response, type)).toString('base64');
         var body = {
           'message': getCommitMessage(type),
           'committer': {
@@ -65,8 +85,7 @@ module.exports = {
             'Authorization': 'Basic ' + token
           },
           body: JSON.stringify(body)
-        },
-        function(error, response) {
+        }, function(error, response) {
           if (error) {
             callback(error, null);
           } else if (response.statusCode !== 201 && response.statusCode !== 200) {
@@ -100,6 +119,7 @@ module.exports = {
       'getBranchName': getBranchName,
       'getFilename': getFilename,
       'getCommitMessage': getCommitMessage,
+      'getCurrentDayData': getCurrentDayData,
       'storeToArchives': storeToArchives,
       'update': update
     }
