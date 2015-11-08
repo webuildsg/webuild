@@ -46,6 +46,7 @@ module.exports = {
         }
       })
 
+      answer.meta['total_' + type] = answer[ type ].length;
       return JSON.stringify(answer);
     }
 
