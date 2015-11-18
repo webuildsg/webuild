@@ -6,9 +6,10 @@
   "private": true,
   "scripts": {
     "start": "node app",
-    "test": "grunt travis --verbose && mocha test --recursive && mocha test --recursive --require blanket --reporter html-cov > coverage.html",
+    "test": "grunt travis --verbose && mocha test --recursive",
     "postinstall": "bower install && grunt build",
-    "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated"
+    "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
+    "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html"
   },
   "dependencies": {
     "body-parser": "1.14.1",
@@ -35,7 +36,7 @@
     "webuild-repos": "1.1.1"
   },
   "devDependencies": {
-    "blanket": "1.2.0",
+    "blanket": "1.1.7",
     "bower": "1.5.3",
     "chai": "3.4.1",
     "coveralls": "2.11.4",
