@@ -42,7 +42,7 @@ module.exports = {
   domain: 'webuild.sg',
 
   archives: {
-    githubRepoFolder: 'webuildsg/archives/',
+    githubRepoFolder: 'webuildsg/data/',
     committer: {
       name: 'We Build SG Bot',
       email: 'webuildsg@gmail.com'
