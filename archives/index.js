@@ -8,22 +8,14 @@ module.exports = {
   'init': function(config) {
     function getBranchName() {
       if (process.env.NODE_ENV === 'production') {
-        return 'master'
-      } else {
-        return 'staging'
+        return 'gh-pages';
       }
+
+      return 'staging';
     }
 
     function getFilename(type) {
-      var prefix = '';
-
-      if (type === 'events') {
-        prefix = 'events';
-      } else {
-        prefix = 'repos';
-      }
-
-      return prefix + '_archive_' + moment().format('YYYY_MM_DD_HHmmss') + '.json';
+      return type + '_archive_' + moment().format('YYYY_MM_DD_HHmmss') + '.json';
     }
 
     function getCommitMessage(type) {
