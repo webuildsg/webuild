@@ -26,14 +26,13 @@ module.exports = {
     function getCurrentDayData(response, type) {
       var data = JSON.parse(response);
       var today = moment(data.meta.generated_at);
-      var compare = 0;
       var compareTime = type === 'events' ? 'start_time' : 'pushed_at';
       var answer = {};
       answer.meta = data.meta;
       answer[ type ] = [];
 
       data[ type ].forEach(function(element) {
-        if (today.diff(moment(element[ compareTime ]), 'days') === compare) {
+        if (today.diff(moment(element[ compareTime ]), 'days') === 0) {
           answer[ type ].push(element);
         }
       })
