@@ -26,7 +26,7 @@ module.exports = {
     function getCurrentDayData(response, type) {
       var data = JSON.parse(response);
       var today = moment(data.meta.generated_at);
-      var compare = type === 'events' ? 0 : 1;
+      var compare = 0;
       var compareTime = type === 'events' ? 'start_time' : 'pushed_at';
       var answer = {};
       answer.meta = data.meta;
