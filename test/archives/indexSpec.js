@@ -65,10 +65,10 @@ describe('Archives', function() {
         var fakeData = JSON.stringify(factory.data.response.repos);
         var reply = JSON.parse(archives.getCurrentDayData(fakeData, 'repos'));
 
-        expect(factory.data.response.repos.repos.length).to.be.above(4);
+        expect(factory.data.response.repos.repos.length).to.be.above(8);
         expect(reply.meta).to.exist;
         expect(reply.repos).to.exist;
-        expect(reply.repos.length).to.equal(4);
+        expect(reply.repos.length).to.equal(8);
         done();
       })
     })
