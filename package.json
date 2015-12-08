@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "body-parser": "1.14.1",
-    "bower": "1.6.9",
+    "bower": "1.7.0",
     "cli-color": "1.1.0",
     "compression": "1.6.0",
     "cors": "2.7.1",
@@ -26,7 +26,7 @@
     "grunt-contrib-uglify": "0.11.0",
     "grunt-jsbeautifier": "0.2.10",
     "ical": "0.4.0",
-    "ical-generator": "0.2.4",
+    "ical-generator": "0.2.5",
     "jade": "1.11.0",
     "jsonfile": "2.2.3",
     "moment-timezone": "0.4.1",
@@ -35,11 +35,11 @@
     "serve-favicon": "2.3.0",
     "sitemap": "1.4.1",
     "webuild-events": "1.3.2",
-    "webuild-repos": "1.2.0"
+    "webuild-repos": "1.2.1"
   },
   "devDependencies": {
     "blanket": "1.1.7",
-    "bower": "1.6.9",
+    "bower": "1.7.0",
     "chai": "3.4.1",
     "coveralls": "2.11.4",
     "grunt": "0.4.5",
