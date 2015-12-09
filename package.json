@@ -12,7 +12,7 @@
     "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html",
     "deploy:staging": "git push staging-rhc master && rhc app-force-stop --app staging && rhc deploy master --app staging",
     "deploy:production": "git push production-rhc master && rhc app-force-stop --app production && rhc deploy master --app production",
-    "deploy": "npm run deploy:development && npm run deploy:production"
+    "deploy": "npm run deploy:staging && npm run deploy:production"
   },
   "dependencies": {
     "body-parser": "1.14.1",
