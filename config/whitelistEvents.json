@@ -1,14 +1,14 @@
 [
   {
-    "id": "1",
-    "name": "UX TL;DR #1",
-    "description": "UX TL;DR is a learning event where everyone participates! Please bring a laptop or sketchbook.",
-    "location": "General Assembly Singapore, The Working Capitol, 1 Keong Saik Road, Level 3, Singapore 089101 ",
-    "url": "http://www.meetup.com/uxtldr/events/227264803/",
-    "group_name": "UX TL;DR",
-    "group_url": "http://www.meetup.com/uxtldr",
-    "formatted_time": "11 Dec 2015, Fri, 6:30 pm",
-    "start_time": "2015-12-11T10:30:00.000Z",
-    "end_time": "2015-12-11T12:30:00.000Z"
+    "id": "999999999",
+    "name": "This is a sample event on how to fill up this file. For whitelistEvents.json: all fields are required. For blacklistEvents.json: id, formatted_time and url are required. Time fields are filled in as an example for time format DD MMM YYYY, ddd, h:mm a.",
+    "description": "sample description",
+    "location": "sample location",
+    "url": "http://www.sample.com/event",
+    "group_name": "sample group name",
+    "group_url": "http://www.group.com",
+    "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
+    "start_time": "2014-11-14T10:00:00.000Z",
+    "end_time": "2014-11-16T09:00:00.000Z"
   }
 ]
