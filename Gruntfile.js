@@ -33,7 +33,6 @@ module.exports = function(grunt) {
       }
     },
     clean: [
-      'public/css/style.css',
       'public/js/script.js'
     ],
     csslint: {
@@ -59,16 +58,6 @@ module.exports = function(grunt) {
           jshintrc: '.jshintrc'
         },
         src: jsFilesToCheck
-      }
-    },
-    stylus: {
-      dist: {
-        options: {
-          compress: true
-        },
-        files: {
-          'public/css/style.css': 'public/css/style.styl'
-        }
       }
     },
     uglify: {
@@ -100,7 +89,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-jsbeautifier');
 
@@ -121,7 +109,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('travis', [
     'clean',
-    'stylus',
     'jshint',
     'jsbeautifier',
     'jscs',
@@ -135,13 +122,11 @@ module.exports = function(grunt) {
     'csslint',
     'jsbeautifier',
     'jscs',
-    'uglify',
-    'stylus'
+    'uglify'
   ]);
 
   grunt.registerTask('build', [
     'jsbeautifier',
-    'uglify',
-    'stylus'
+    'uglify'
   ]);
 };

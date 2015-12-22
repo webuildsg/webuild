@@ -15,4 +15,4 @@ __      _____  | |__  _   _(_) | __| | / \
   Site Url: http://webuild.sg
   Keywords: developer, designer, maker, open source, open events, open community, engineer
   Language: English
-  Technology: node.js, expressjs, facebook api, meetup.com api, github api, eventbrite api, stylus, jade, docker, heroku, html5 boilerplate, travis ci, npm
+  Technology: node.js, expressjs, facebook api, meetup.com api, github api, eventbrite api, jade, docker, heroku, html5 boilerplate, travis ci, npm
