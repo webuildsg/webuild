@@ -33,7 +33,6 @@
     "moment-timezone": "0.4.1",
     "promise": "7.0.4",
     "request": "2.67.0",
-    "serve-favicon": "2.3.0",
     "sitemap": "1.4.1",
     "webuild-events": "1.3.2",
     "webuild-repos": "1.2.1"

@@ -4,7 +4,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var errorHandler = require('errorhandler');
-var favicon = require('serve-favicon');
 var http = require('http');
 var moment = require('moment-timezone');
 var request = require('request');
@@ -38,7 +37,6 @@ app.use(compress());
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/humans.txt', express.static(__dirname + '/public/humans.txt'));
 app.use('/robots.txt', express.static(__dirname + '/public/robots.txt'));
-app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(errorHandler());
 app.use(bodyParser.urlencoded({
   extended: true
