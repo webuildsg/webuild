@@ -84,8 +84,8 @@ app.get('/api/v1/check/:checkdate', cors(), function(req, res) {
 });
 
 app.get('/api/v1/events', cors(), function(req, res) {
-  res.send(wb.events.feed);
-});
+  return req.query.n ? res.send(wb.events.get(req.query.n)) : res.send(wb.events.feed)
+})
 
 app.get('/api/v1/events/day', cors(), function(req, res) {
   res.send(wb.events.day);
