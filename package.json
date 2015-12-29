@@ -33,7 +33,7 @@
     "promise": "7.1.1",
     "request": "2.67.0",
     "sitemap": "1.5.0",
-    "webuild-events": "1.4.0",
+    "webuild-events": "1.4.1",
     "webuild-repos": "1.2.1"
   },
   "devDependencies": {
