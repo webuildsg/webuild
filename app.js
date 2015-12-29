@@ -87,6 +87,10 @@ app.get('/api/v1/events', cors(), function(req, res) {
   res.send(wb.events.feed);
 });
 
+app.get('/api/v1/events/day', cors(), function(req, res) {
+  res.send(wb.events.day);
+});
+
 app.get('/api/v1/repos', cors(), function(req, res) {
   res.send(wb.repos.feed);
 });
