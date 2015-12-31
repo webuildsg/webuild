@@ -96,7 +96,15 @@ app.get('/api/v1/events/hour', cors(), function(req, res) {
 });
 
 app.get('/api/v1/repos', cors(), function(req, res) {
-  res.send(wb.repos.feed);
+  return req.query.n ? res.send(wb.repos.get(req.query.n)) : res.send(wb.repos.feed)
+});
+
+app.get('/api/v1/repos/day', cors(), function(req, res) {
+  res.send(wb.repos.day);
+});
+
+app.get('/api/v1/repos/hour', cors(), function(req, res) {
+  res.send(wb.repos.hour);
 });
 
 app.get('/api/v1/repos/:language', cors(), function(req, res) {
