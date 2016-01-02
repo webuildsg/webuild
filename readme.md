@@ -1,6 +1,30 @@
+# We Build SG
 [![Dependency Status](https://img.shields.io/gemnasium/webuildsg/webuild.svg)](https://gemnasium.com/webuildsg/webuild) [![Build Status](https://img.shields.io/travis/webuildsg/webuild/master.svg)](https://travis-ci.org/webuildsg/webuild) [![Code Climate](https://codeclimate.com/github/webuildsg/webuild/badges/gpa.svg)](https://codeclimate.com/github/webuildsg/webuild) [![Coverage Status](https://img.shields.io/coveralls/webuildsg/webuild.svg)](https://coveralls.io/r/webuildsg/webuild) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/webuildsg/webuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[We Build SG](http://webuild.sg/) automatically curates a list of free public events ([Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS / manual) and open source projects ([Github](https://developer.github.com/v3/)) for the curious folks who love to make things in a particular city. This repository is an example for Singapore.
+> [We Build SG](http://webuild.sg/) automatically curates a list of free public developer / design events from [Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS url / manual and open source projects from  [Github](https://developer.github.com/v3/) for the curious folks who love to make things in a particular city.
+
+> This repository is an example for Singapore.
+
+## Quick start
+
+1. clone this project and install dependancies:
+
+	```sh
+git clone git@github.com:webuildsg/webuild.git && cd webuild
+gem install foreman thor tmuxinator
+gem install dotenv -v 0.11.1
+gem install dotenv-deployment -v 0.0.2
+npm install -g bower grunt-cli
+npm i && bower install
+	```
+- Setup environment variables. Refer [Environment Variables](#environment-variables) section for more details.
+
+	```sh
+	cp .env-example .env
+	```
+- Start the website locally with `./run.sh`
+
+## Background
 
 **Please feel free to fork this for your choice of city/country too :smile:**
 
@@ -13,80 +37,32 @@
 
 **Events curated automatically every hour:**
 
-1. Facebook [selected groups](/events/facebookGroups.json)
-- Meetup.com event category `Technology`, free, has a valid location
-- Eventbrite event category `Technology`, free, has a valid location
+1. Facebook [selected groups](config/facebookGroups.json)
+- Meetup.com / Eventbrite event category `Technology`, free, has a valid location
 - ICS url
 - Manually added events
 
-Who are we? We are **geeks** - engineers, designers, programmers, hackers or makers. And we want to connect various geeks to come together and connect:
-
-- **veteran geeks** to get introduced to the community of open events and open source
-- **beginner geeks** to get examples of great open source projects and events to meet mentors/seniors
-- **traveling geeks** to drop by and connect with the local ones
-- **existing geeks** to keep connecting, mentoring and growing the open community
-
-#Websites
-
-- [Main](http://www.webuild.sg/)
-- [Production](http://webuildsg.herokuapp.com/) in [Heroku](http://heroku.com/)
-- [Staging](http://webuildsg-dev.herokuapp.com/) in [Heroku](http://heroku.com/)
-- [Github Repo](https://github.com/webuildsg/webuild)
-- [Twitter](https://twitter.com/webuildsg)
-- [Facebook](https://www.facebook.com/webuildsg)
-
-#API endpints
+## API endpoints
 
 The events, repositories and podcasts data feeds are available as JSON.
 
 - <https://webuild.sg/api/v1/repos>
+- <https://webuild.sg/api/v1/repos/day>
+- <https://webuild.sg/api/v1/repos/hour>
+- <https://webuild.sg/api/v1/repos?n=2>
+- <https://webuild.sg/api/v1/repos/:language>
 - <https://webuild.sg/api/v1/events>
+- <https://webuild.sg/api/v1/events/day>
+- <https://webuild.sg/api/v1/events/hour>
+- -<https://webuild.sg/api/v1/events?n=2>
 - <https://webuild.sg/api/v1/podcasts>
 - `https://webuild.sg/api/v1/check/:checkdate` where `checkdate` is in the format `YYYY-MM-DD` to check for clashed events with `checkdate`
 
-#Archived snapshots
+## Archived snapshots and data analysis
 
-A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) API V1 endpoints are stored in the [archives](https://github.com/webuildsg/archives) for future data analaysis.
+A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) API V1 endpoints are stored in the [archives](https://github.com/webuildsg/data) for  data analaysis at [data.webuild.sg](https://data.webuild.sg).
 
-#Install for development
-
-1. Clone the app:
-	```sh
-	git clone git@github.com:webuildsg/webuild.git
-	cd webuild
-	```
-
-1. Setup the necessary environment variables. Refer [Environment Variables](#environment-variables) section for more details.
-
-	```sh
-	cp .env-example .env
-	```
-
-1. Install required packages with [npm](https://www.npmjs.org/) and [RubyGems](https://rubygems.org/).
-
-	```sh
-	gem install foreman thor tmuxinator
-	gem install dotenv -v 0.11.1
-	gem install dotenv-deployment -v 0.0.2
-	npm install -g bower
-	npm install -g grunt-cli
-	npm install
-	bower install
-	```
-1. Build frontend css and javascript files, along with other tasks with [grunt](http://gruntjs.com/)
-
-	```sh
-	grunt
-	```
-1. Run in command line `./run.sh` to start the app.
-1. Open [localhost:4000](http://localhost:4000/) in your browser.
-1. Run the following command in another terminal to update events and repos:
-
-	```sh
-	./update.sh
-	```
-
-#Deploy to Open Shift
+## Deploy to Open Shift
 
 We are using [Open Shift](https://www.openshift.com/) for production. These are the steps for setting it up for Open Shift:
 
@@ -116,14 +92,14 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 - to see app info use `rhc app-show {APP_NAME} -v`
 - to check out the logs from the app use `rhc tail {APP_NAME}`
 
-
-#Deploy to Heroku
+## Deploy to Heroku
 
 Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we took to deploy:
 
 1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
 - Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
 - Setup the following [environment variables](#environment-variables) under the Heroku app settings:
+
 	```sh
 	BOT_TOKEN=secret
 	EVENTBRITE_TOKEN=secret
@@ -136,7 +112,6 @@ Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we
 	WEBUILD_AUTH0_CLIENT_ID=secret
 	WEBUILD_AUTH0_CLIENT_SECRET=secret
 	```
-
 - Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
 	- update events every hour
 
@@ -148,14 +123,13 @@ Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we
 		```sh
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/repos/update
 		```
-
 	- store to archives repos and events every day
 
 		```sh
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/archives/update
 		```
 
-#Environment variables
+## Environment variables
 
 Set the following environment variables on your system:
 
@@ -177,25 +151,25 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
-# Editing events list
+## Editing events list
 
-1. Add any events manually in file `events/whitelistEvents.json`
-- Remove events already added manually (paid / duplicate ones) in file `events/blacklistEvents.json`
-- Remove Meetup.com group by adding the `group_id` (found in the `/api/v1/events`) to the file `config/meetupBlacklistGroups.json`
-- Add a Facebook groups
-	1. Go to [Lookup ID](http://lookup-id.com) to find a facebook group id
-	- Edit file `/events/facebookGroups.json`
-- Add an `*.ics` format URL to file `events/icsGroups.json`
-- Cleanup old events manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with a grunt task: `$ grunt cleanup`
+- Add events:
+	1. Add manual events in file `config/whitelistEvents.json`
+	- Add a Facebook groups with [Facebook group ID](http://lookup-id.com) in file `config/facebookGroups.json`
+	- Add an `*.ics` format URL in file `config/icsGroups.json`
+- Remove events:
+	- Remove paid / duplicate events in file `config/blacklistEvents.json`
+	- Remove Meetup.com group by adding the `group_id` in file `config/meetupBlacklistGroups.json`
+- Cleanup old events manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with `grunt cleanup`
 
-#Contribute
+## Contribute
 
 Please see `CONTRIBUTING.md` for details.
 
-#Versioning
+## Versioning
 
 Every production code has a version following the [Semantic Versioning guidelines](http://semver.org/). Run the `grunt bump`, `grunt bump:minor` or `grunt bump:major` command to bump the version accordingly and then push to production with `git push production master`.
 
-#License
+## License
 
 We Build is released under the [MIT License](http://opensource.org/licenses/MIT).
