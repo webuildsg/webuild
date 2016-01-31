@@ -39,6 +39,7 @@ html(lang='en')
                   p= event.name
                     span= 'on ' + event.formatted_time
                   p.tagline= 'by ' + event.group_name
+                  p.note!= event.rsvp_count + ' RSVP'
 
         section
           h3 open source
