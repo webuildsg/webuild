@@ -49,7 +49,7 @@ html(lang='en')
                   p= repo.name
                     span= 'updated ' + moment(repo.pushed_at).endOf('hour').fromNow()
                   p.tagline= repo.description
-                  p.note!= '&#9733; ' + repo.stargazers_count + '&nbsp;&nbsp;&nbsp;&nbsp;' + (repo.language || '')
+                  p.note!= '&#9733; ' + repo.stargazers_count + '&nbsp;&nbsp;&nbsp;&nbsp;' + (repo.language || '') + '&nbsp;&nbsp;&nbsp;&nbsp;' + repo.forks_count + ' forks' + '&nbsp;&nbsp;&nbsp;&nbsp;'  + repo.contributors.length + ' contributors'
 
       footer
         .container
