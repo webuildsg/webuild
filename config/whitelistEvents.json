@@ -10,5 +10,17 @@
     "formatted_time": "25 Feb 2016, Thu, 6:30 pm",
     "start_time": "2016-02-25T10:30:00.000Z",
     "end_time": "2016-02-25T12:30:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Introduction to Bluetooth Low Energy",
+    "description": "Next up, TECH TALK TUESDAYS is proud to have Kheng Meng share with us on Bluetooth Low Energy - a new and emerging wireless communication standard designed primarily to save power and was only ratified in 2010. Join us for his presentation titled Introduction to Bluetooth Low Energy, where he will be showing how to harness this new technology for your hardware projects with live demos and coding examples involving the Arduino, Raspberry Pi, Android and iOS.",
+    "location": "The Prototyping Lab @ NDC - 111 Middle Rd, #01-02 National Design Centre 188969 SG",
+    "url": "https://www.eventbrite.sg/e/tech-talk-tuesdays-tickets-21382842658",
+    "group_name": "ONE Maker Group",
+    "group_url": "http://onemakergroup.sg/",
+    "formatted_time": "16 Feb 2016, Tue, 7:30 pm",
+    "start_time": "2016-02-16T11:30:00.000Z",
+    "end_time": "2016-02-16T12:13:30.000Z"
   }
 ]
