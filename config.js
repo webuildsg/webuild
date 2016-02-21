@@ -19,7 +19,7 @@ var icsGroups = failSafeRequire('./config/icsGroups.json');
 var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
 var duplicateWords = require('./config/duplicateWords.json');
 var meetupBlacklistGroups = failSafeRequire('./config/meetupBlacklistGroups.json')[0].groups;
-var eventbriteBlacklistOrganiserIds = failSafeRequire('./config/eventbriteBlacklistOrganiserIds.json').ids;
+var eventbriteBlacklistOrganiserIds = failSafeRequire('./config/eventbriteBlacklistOrganiserIds.json')[0].ids;
 
 module.exports = {
   location: city,
@@ -92,6 +92,8 @@ module.exports = {
   eventbriteParams: {
     token: process.env.EVENTBRITE_TOKEN,
     url: 'https://www.eventbriteapi.com/v3/events/search',
+    venueUrl: 'https://www.eventbriteapi.com/v3/venues/',
+    organizerUrl: 'https://www.eventbriteapi.com/v3/organizers/',
     categories: [
       '102',
       '119'
