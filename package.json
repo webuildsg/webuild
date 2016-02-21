@@ -7,6 +7,8 @@
   "scripts": {
     "start": "node app",
     "build": "grunt",
+    "logs:staging": "rhc tail -o '-n 100' -a staging",
+    "logs:production": "rhc tail -o '-n 100' -a production",
     "test": "grunt travis --verbose && mocha test --recursive",
     "postinstall": "bower install && grunt build",
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
