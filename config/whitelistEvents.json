@@ -1,26 +1,14 @@
 [
   {
     "id": "1",
-    "name": "Become a Technical Speaker",
-    "description": "There are a lot of people in the community who are amazing developers. I realized some of them never share or speak at a public event. This is mostly for them. The devs I love the most and the developers who are highly knowledgable but too shy to share.",
-    "location": "PayPal, Suntec Tower 5, 7th Floor",
-    "url": "https://www.eventbrite.com/e/become-a-technical-speaker-tickets-21078212501",
-    "group_name": "Subhransu Behera",
-    "group_url": "https://www.eventbrite.com/e/become-a-technical-speaker-tickets-21078212501",
-    "formatted_time": "25 Feb 2016, Thu, 6:30 pm",
-    "start_time": "2016-02-25T10:30:00.000Z",
-    "end_time": "2016-02-25T12:30:00.000Z"
-  },
-  {
-    "id": "2",
-    "name": "Introduction to Bluetooth Low Energy",
-    "description": "Next up, TECH TALK TUESDAYS is proud to have Kheng Meng share with us on Bluetooth Low Energy - a new and emerging wireless communication standard designed primarily to save power and was only ratified in 2010. Join us for his presentation titled Introduction to Bluetooth Low Energy, where he will be showing how to harness this new technology for your hardware projects with live demos and coding examples involving the Arduino, Raspberry Pi, Android and iOS.",
-    "location": "The Prototyping Lab @ NDC - 111 Middle Rd, #01-02 National Design Centre 188969 SG",
-    "url": "https://www.eventbrite.sg/e/tech-talk-tuesdays-tickets-21382842658",
-    "group_name": "ONE Maker Group",
-    "group_url": "http://onemakergroup.sg/",
-    "formatted_time": "16 Feb 2016, Tue, 7:30 pm",
-    "start_time": "2016-02-16T11:30:00.000Z",
-    "end_time": "2016-02-16T12:13:30.000Z"
+    "name": "Product Design Meet-up #1",
+    "description": "The first product design meet-up will be held on 16th March, 2016 at the National Design Centre auditorium as part of Design Singapore Week 2016. The digital product design scene in Singapore is growing. There are more and more talented in-house designers, who lead and innovate through UI and UX design. For the first meet-up, speakers from product companies will share their design stories, how they solve problems, and their approach to design thinking. Speakers (TBC)... If you're interested, please RSVP. The National Design Centre auditorium can only accommodate 122 seats. First come, first served.",
+    "location": "National Design Centre Auditorium 111 Middle Rd, 188969, Singapore",
+    "url": "http://www.meetup.com/Product-Design-Singapore/events/229120615/",
+    "group_name": "Product Design Singapore",
+    "group_url": "http://www.meetup.com/Product-Design-Singapore",
+    "formatted_time": "16 Mar 2016, Wed, 7:00 pm",
+    "start_time": "2016-03-16T11:00:00.000Z",
+    "end_time": "2016-03-16T13:00:00.000Z"
   }
 ]
