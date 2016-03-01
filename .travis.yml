@@ -1,14 +1,8 @@
 language: node_js
+sudo: false
 node_js:
   - "iojs"
-before_install:
-  - npm install -g stylus
 before_script:
   - npm install -g grunt-cli bower
   - bower install
 after_script: NODE_ENV=test YOURPACKAGE_COVERAGE=1 mocha test --require blanket --reporter mocha-lcov-reporter --recursive | ./node_modules/coveralls/bin/coveralls.js
-deploy:
-  provider: heroku
-  api_key:
-    secure: iPFTID2VVA8eJBWCjbC5p20giQAmiot2NT6FLS88C0ch6ESkvz1Hos4Tpvjvc15ZyrKAT1Z+Dg/dy686b0nNBgppegr+HjvfzwHjC6ZpkUbNoL3hZN+nt6pVsNa+qTQIDt783pWdwZ2h6IT7eZ7lDQGDncInmm8YX7VAsRelD9g=
-  app: webuildsg-dev

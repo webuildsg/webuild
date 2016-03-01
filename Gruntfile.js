@@ -8,11 +8,8 @@ var jsFilesToCheck = [
   'app.js',
   'public/js/main.js',
   'archives/**/*.js',
-  'events/**/*.js',
-  'repos/**/*.js',
-  'test/archives/*.js',
-  'test/events/*.js',
-  'test/repos/*.js'
+  'countdown/**/*.js',
+  'test/archives/*.js'
 ];
 
 module.exports = function(grunt) {
@@ -31,12 +28,11 @@ module.exports = function(grunt) {
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
         push: true,
-        pushTo: 'github',
+        pushTo: 'origin',
         gitDescribeOptions: '--tags --always --abbrev=1'
       }
     },
     clean: [
-      'public/css/style.css',
       'public/js/script.js'
     ],
     csslint: {
@@ -62,16 +58,6 @@ module.exports = function(grunt) {
           jshintrc: '.jshintrc'
         },
         src: jsFilesToCheck
-      }
-    },
-    stylus: {
-      dist: {
-        options: {
-          compress: true
-        },
-        files: {
-          'public/css/style.css': 'public/css/style.styl'
-        }
       }
     },
     uglify: {
@@ -103,14 +89,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-jsbeautifier');
 
   grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
-    var cleanup = require('./events/cleanup');
-    var blacklistEventsFilepath = __dirname  + '/events/blacklistEvents.json';
-    var whitelistEventsFilepath =  __dirname  + '/events/whitelistEvents.json';
+    var cleanup = require('./tasks/cleanup');
+    var blacklistEventsFilepath = __dirname  + '/config/blacklistEvents.json';
+    var whitelistEventsFilepath =  __dirname  + '/config/whitelistEvents.json';
     var done = this.async();
 
     cleanup.all(blacklistEventsFilepath, cleanup.getEventsToKeep(blacklistEventsFilepath), function(reply) {
@@ -120,16 +105,15 @@ module.exports = function(grunt) {
         done();
       })
     })
-
   });
 
   grunt.registerTask('travis', [
     'clean',
-    'stylus',
-    'uglify',
     'jshint',
-    'csslint',
-    'jscs'
+    'jsbeautifier',
+    'jscs',
+    'uglify',
+    'csslint'
   ]);
 
   grunt.registerTask('default', [
@@ -138,14 +122,11 @@ module.exports = function(grunt) {
     'csslint',
     'jsbeautifier',
     'jscs',
-    'uglify',
-    'stylus'
+    'uglify'
   ]);
 
   grunt.registerTask('build', [
     'jsbeautifier',
-    'uglify',
-    'stylus'
+    'uglify'
   ]);
-
 };

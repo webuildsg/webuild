@@ -185,11 +185,13 @@
       response = JSON.parse( request.response );
     }
 
-    podcastTimeString = response.meta.next_live_show.start_time;
-    countdown( podcastTimeString );
-    setInterval( function () {
+    if ( response.meta.next_live_show ) {
+      podcastTimeString = response.meta.next_live_show.start_time;
       countdown( podcastTimeString );
-    }, 1000 );
+      setInterval( function () {
+        countdown( podcastTimeString );
+      }, 1000 );
+    }
   }
   request.send();
 

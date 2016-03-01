@@ -1,9 +1,0 @@
-name: wb # tmuxinator rubygem
-root: ~/Workspace/webuild
-windows:
-  - express:
-      layout: main-vertical
-      panes:
-        - git pull && ls && npm outdated --depth 0
-        - grunt
-        - ./run.sh

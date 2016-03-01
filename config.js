@@ -2,17 +2,54 @@ var city = 'Singapore';
 var country = 'Singapore';
 var locationSymbol = 'SG';
 
+function failSafeRequire(filename){
+  var requiredData;
+  try {
+   requiredData  = require(filename);
+  }
+  catch(e){
+    requiredData = [];
+  }
+  return requiredData;
+}
+
+var facebookGroups = failSafeRequire('./config/facebookGroups.json');
+var blacklistEvents = failSafeRequire('./config/blacklistEvents.json');
+var icsGroups = failSafeRequire('./config/icsGroups.json');
+var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
+var duplicateWords = require('./config/duplicateWords.json');
+var meetupBlacklistGroups = failSafeRequire('./config/meetupBlacklistGroups.json')[0].groups;
+var eventbriteBlacklistOrganiserIds = failSafeRequire('./config/eventbriteBlacklistOrganiserIds.json')[0].ids;
+
 module.exports = {
-  api_version: 'v1',
-  displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
-  dateFormat: 'YYYY-MM-DD HH:mm Z',
-  timezone: '+0800',
-  timezoneInfo: 'Asia/Singapore',
   location: city,
   city: city,
   country: country,
   symbol: locationSymbol,
+
+  api_version: 'v1',
+  apiUrl: 'https://webuild.sg/api/v1/',
+
+  displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
+  dateFormat: 'YYYY-MM-DD HH:mm Z',
+  timezone: '+0800',
+  timezoneInfo: 'Asia/Singapore',
+
   debug: process.env.NODE_ENV === 'development',
+
+  calendarTitle: 'We Build SG Events',
+  podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
+  domain: 'webuild.sg',
+
+  archives: {
+    githubRepoFolder: 'webuildsg/data/',
+    committer: {
+      name: 'We Build SG Bot',
+      email: 'webuildsg@gmail.com'
+    }
+  },
+
+  ignoreWordsInDuplicateEvents: duplicateWords[0].words,
 
   auth0: {
     domain: 'webuildsg.auth0.com',
@@ -20,13 +57,18 @@ module.exports = {
     clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
   },
 
+  facebookGroups : facebookGroups,
+  blacklistEvents: blacklistEvents,
+  whitelistEvents: whitelistEvents,
+  icsGroups: icsGroups,
+
   githubParams: {
     version: '3.0.0',
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     location: process.env.LOCATION || city,
     maxUsers: process.env.MAX_USERS || 1000,
-    maxRepos: process.env.MAX_REPOS || 50,
+    maxRepos: process.env.MAX_REPOS || 100,
     starLimit: process.env.STAR_LIMIT || 50,
     outfile: __dirname + '/cache.json'
   },
@@ -40,33 +82,9 @@ module.exports = {
     page: 500,
     fields: 'next_event',
 
-    blacklistGroups: [
-      9319232,
-      13903282,
-      15867652,
-      15237742,
-      10989282,
-      13917282,
-      12117622,
-      17604562,
-      4280832,
-      14995732,
-      15750332,
-      18312857,
-      18446496,
-      18429432,
-      18312607,
-      18312266,
-      18543965,
-      18536657,
-      18553183,
-      16869012,
-      18589883,
-      18180754
-    ],
+    blacklistGroups: meetupBlacklistGroups,
     blacklistWords: [
       'business',
-      'networking',
       'UNICOM'
     ],
   },
@@ -74,48 +92,12 @@ module.exports = {
   eventbriteParams: {
     token: process.env.EVENTBRITE_TOKEN,
     url: 'https://www.eventbriteapi.com/v3/events/search',
+    venueUrl: 'https://www.eventbriteapi.com/v3/venues/',
+    organizerUrl: 'https://www.eventbriteapi.com/v3/organizers/',
     categories: [
       '102',
       '119'
     ],
-    blacklistOrganiserId: [
-      4456586249,
-      7875748007,
-      7872992855,
-      7606683649,
-      7554720435,
-      7598389997,
-      7877801280,
-      2263972645,
-      7637890579,
-      7356770417,
-      4435944763,
-      7174588005,
-      6692116179,
-      7486804327,
-      7926982153,
-      7895391556,
-      3604803215,
-      8017855847,
-      8039668474,
-      8031646712,
-      7981933136,
-      8019329088,
-      8036387668,
-      1132869965,
-      8129344845,
-      8122789275,
-      8127085137,
-      5439297409,
-      8133260061,
-      8158476348,
-      8173408144,
-      1118363123,
-      6693763631,
-      8190696320,
-      8180937483,
-      4554446509,
-      8176022316
-    ]
+    blacklistOrganiserId: eventbriteBlacklistOrganiserIds
   }
 };

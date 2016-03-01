@@ -1,6 +1,6 @@
 {
   "name": "webuild",
-  "version": "2.10.28",
+  "version": "2.16.23",
   "main": "index.html",
   "private": true,
   "ignore": [
@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "fluidvids": "2.4.1",
-    "moment": "2.10.2",
+    "moment": "2.10.6",
     "auth0-widget.js": "5.2.13"
   }
 }
