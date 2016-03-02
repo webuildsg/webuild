@@ -191,7 +191,7 @@ app.post('/api/v1/events/update', function(req, res) {
     return;
   }
   wb.events.update();
-  res.status(200).send('Events feed updating...');
+  res.status(200).send('Updating the events feed; sit tight!');
 });
 
 app.post('/api/v1/repos/update', function(req, res) {

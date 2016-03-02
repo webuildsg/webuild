@@ -102,10 +102,12 @@ module.exports = {
         }
       }
 
-      storeToArchives('repos', createCallbackHandler('repos'));
-      setTimeout(function() {
-        storeToArchives('events', createCallbackHandler('events'))
-      }, 5000)
+      if (process.env.NODE_ENV === 'production') {
+        storeToArchives('repos', createCallbackHandler('repos'));
+        setTimeout(function() {
+          storeToArchives('events', createCallbackHandler('events'))
+        }, 5000)
+      }
     }
 
     return {
