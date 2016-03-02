@@ -129,6 +129,42 @@ Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/archives/update
 		```
 
+## Deploy to Bluemix
+Steps to deploy on Bluemix:
+
+1. Install [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/releases)
+- Create the manifest.yml file in the root directory. Modify the name, host and env for your application:
+	
+	```yaml
+	---
+	applications:
+	- name: webuild
+	  host: webuild
+	  domain: mybluemix.net
+	  buildpack: sdk-for-nodejs
+	  command: node app.js
+	  path: .
+	  memory: 512M
+	  stack: cflinuxfs2
+	  env: 
+	  	BOT_TOKEN: secret
+	    EVENTBRITE_TOKEN: secret
+	    GITHUB_CLIENT_ID: secret
+	    GITHUB_CLIENT_SECRET: secret
+	    MEETUP_API_KEY: secret
+	    NODE_ENV: production
+	    TZ: Asia/Singapore
+	    WEBUILD_API_SECRET: secret
+	    WEBUILD_AUTH0_CLIENT_ID: secret
+	    WEBUILD_AUTH0_CLIENT_SECRET: secret
+	```
+- Create the app on Bluemix
+
+	```sh
+	cf push
+	```
+- Setup the cron job with OpenWhisk (experimental): TODO
+	  
 ## Environment variables
 
 Set the following environment variables on your system:
