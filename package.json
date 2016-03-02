@@ -59,7 +59,7 @@
     "nconf": "0.8.4"
   },
   "engines": {
-    "iojs": "2.2.x"
+    "node": "4.3.x"
   },
   "config": {
     "blanket": {
