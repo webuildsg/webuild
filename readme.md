@@ -26,8 +26,6 @@ npm i && bower install
 
 ## Background
 
-**Please feel free to fork this for your choice of city/country too :smile:**
-
 **Repositories curated automatically every hour:**
 
 1. Github repositories
@@ -58,13 +56,23 @@ The events, repositories and podcasts data feeds are available as JSON.
 - <https://webuild.sg/api/v1/podcasts>
 - `https://webuild.sg/api/v1/check/:checkdate` where `checkdate` is in the format `YYYY-MM-DD` to check for clashed events with `checkdate`
 
-## Archived snapshots and data analysis
+## Archived data
 
 A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) API V1 endpoints are stored in the [archives](https://github.com/webuildsg/data) for  data analaysis at [data.webuild.sg](https://data.webuild.sg).
 
-## Deploy to Open Shift
+## Deploy
 
-We are using [Open Shift](https://www.openshift.com/) for production. These are the steps for setting it up for Open Shift:
+You can deploy this app to 3 different platforms:
+
+1. [Open Shift](https://www.openshift.com/)
+- [Heroku](https://heroku.com)
+- Bluemix
+
+### Deploy to Open Shift
+
+We are using [Open Shift](https://www.openshift.com/) for production.
+
+These are the steps for deploying:
 
 1. create an application with folder `.openshift` with various Open Shift related configurations
 - [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
@@ -92,9 +100,9 @@ We are using [Open Shift](https://www.openshift.com/) for production. These are 
 - to see app info use `rhc app-show {APP_NAME} -v`
 - to check out the logs from the app use `rhc tail {APP_NAME}`
 
-## Deploy to Heroku
+### Deploy to Heroku
 
-Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we took to deploy:
+These are the steps for deploying:
 
 1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
 - Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
@@ -129,12 +137,13 @@ Alternatively, we also used [Heroku](http://heroku.com/). These are the steps we
 		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/archives/update
 		```
 
-## Deploy to Bluemix
-Steps to deploy on Bluemix:
+### Deploy to Bluemix
+
+These are the steps for deploying:
 
 1. Install [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/releases)
 - Create the manifest.yml file in the root directory. Modify the name, host and env for your application:
-	
+
 	```yaml
 	---
 	applications:
@@ -146,7 +155,7 @@ Steps to deploy on Bluemix:
 	  path: .
 	  memory: 512M
 	  stack: cflinuxfs2
-	  env: 
+	  env:
 	  	BOT_TOKEN: secret
 	    EVENTBRITE_TOKEN: secret
 	    GITHUB_CLIENT_ID: secret
@@ -164,7 +173,7 @@ Steps to deploy on Bluemix:
 	cf push
 	```
 - Setup the cron job with OpenWhisk (experimental): TODO
-	  
+
 ## Environment variables
 
 Set the following environment variables on your system:
