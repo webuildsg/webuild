@@ -59,7 +59,7 @@ The events, repositories and podcasts data feeds are available in JSON format.
 	- recently updated repositories from a programming language `{language}`
 	- E.g. <https://webuild.sg/api/v1/repos/python>
 
-### Open events and podcast API endpoints:
+### Open events API endpoints:
 
 - <https://webuild.sg/api/v1/events>
 	- all upcoming open events
@@ -70,12 +70,15 @@ The events, repositories and podcasts data feeds are available in JSON format.
 - <https://webuild.sg/api/v1/events?n={num}>
 	- `{num}` number of upcoming open events
 	- E.g. <https://webuild.sg/api/v1/events?n=5>
-- <https://webuild.sg/api/v1/podcasts>
-	- all archives of podcast
-- <https://webuild.sg/api/v1/check/{checkdate}> where `checkdate` is in the format `YYYY-MM-DD`
-	- all upcoming events on `{checkdate}`
+- <https://webuild.sg/api/v1/check/{checkdate}>
+	- all upcoming events on `{checkdate}` with format `YYYY-MM-DD`
 	- E.g. <https://webuild.sg/api/v1/check/2016-06-30>
 
+### Podcast API endpoint:
+
+- <https://webuild.sg/api/v1/podcasts>
+	- all archives of podcast
+	
 ## Archived data
 
 A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) API V1 endpoints are stored in the [archives](https://github.com/webuildsg/data) for  data analaysis at [data.webuild.sg](https://data.webuild.sg).
