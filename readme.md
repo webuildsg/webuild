@@ -42,19 +42,39 @@ npm i && bower install
 
 ## API endpoints
 
-The events, repositories and podcasts data feeds are available as JSON.
+The events, repositories and podcasts data feeds are available in JSON format.
+
+### Open source API endpoints:
 
 - <https://webuild.sg/api/v1/repos>
+	- all recently updated repos
 - <https://webuild.sg/api/v1/repos/day>
+	- all upcoming open events in the last day
 - <https://webuild.sg/api/v1/repos/hour>
-- <https://webuild.sg/api/v1/repos?n=2>
-- <https://webuild.sg/api/v1/repos/:language>
+	- recently updated repos in the last hour
+- <https://webuild.sg/api/v1/repos?n={num}>
+	- recently updated `{num}` number of repos
+	- E.g. <https://webuild.sg/api/v1/repos?n=2>
+- <https://webuild.sg/api/v1/repos/{language}>
+	- recently updated repositories from a programming language `{language}`
+	- E.g. <https://webuild.sg/api/v1/repos/python>
+
+### Open events and podcast API endpoints:
+
 - <https://webuild.sg/api/v1/events>
+	- all upcoming open events
 - <https://webuild.sg/api/v1/events/day>
+	- all upcoming open events in the next day
 - <https://webuild.sg/api/v1/events/hour>
-- -<https://webuild.sg/api/v1/events?n=2>
+	- all upcoming open events in the next hour
+- <https://webuild.sg/api/v1/events?n={num}>
+	- `{num}` number of upcoming open events
+	- E.g. <https://webuild.sg/api/v1/events?n=5>
 - <https://webuild.sg/api/v1/podcasts>
-- `https://webuild.sg/api/v1/check/:checkdate` where `checkdate` is in the format `YYYY-MM-DD` to check for clashed events with `checkdate`
+	- all archives of podcast
+- <https://webuild.sg/api/v1/check/{checkdate}> where `checkdate` is in the format `YYYY-MM-DD`
+	- all upcoming events on `{checkdate}`
+	- E.g. <https://webuild.sg/api/v1/check/2016-06-30>
 
 ## Archived data
 
