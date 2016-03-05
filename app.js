@@ -12,6 +12,7 @@ var ical = require('ical-generator');
 var clc = require('cli-color');
 var sm = require('sitemap');
 var cal = ical();
+var morgan = require('morgan');
 
 var config = require('./config.js');
 var wb = require('webuild-events').init(config);
@@ -42,6 +43,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(wb.passport.initialize());
+app.use(morgan('tiny'))
 
 app.locals.pretty = true;
 app.locals.moment = require('moment-timezone');
