@@ -13,6 +13,13 @@ var clc = require('cli-color');
 var sm = require('sitemap');
 var cal = ical();
 var morgan = require('morgan');
+var logger = require('tracer').colorConsole({
+  format: '{{timestamp}} <{{title}}> ({{path}}:{{line}}:{{pos}}:{{method}}) {{message}}',
+  dateformat: 'mmm dd HH:MM:ss',
+  preprocess:  function(data) {
+    data.path = data.path.replace(process.cwd(), '');
+  }
+});
 
 var config = require('./config.js');
 var wb = require('webuild-events').init(config);
@@ -193,6 +200,8 @@ app.post('/api/v1/events/update', function(req, res) {
     return;
   }
   wb.events.update();
+
+  logger.trace('Updating the events feed; sit tight!')
   res.status(200).send('Updating the events feed; sit tight!');
 });
 
@@ -204,6 +213,8 @@ app.post('/api/v1/repos/update', function(req, res) {
   wb.repos.update().then(function() {
     console.log('GitHub feed generated');
   });
+
+  logger.trace('Updating the repos feed; sit tight!')
   res.status(200).send('Updating the repos feed; sit tight!');
 });
 
@@ -236,5 +247,5 @@ var ip = process.env.OPENSHIFT_NODE4_IP || process.env.OPENSHIFT_IOJS_IP || '0.0
 var port = process.env.PORT || process.env.OPENSHIFT_NODE4_PORT || process.env.OPENSHIFT_IOJS_PORT || 3000;
 
 http.createServer(app).listen(port, ip, function() {
-  console.log(clc.black('Express server started at ', ip, ':', port));
+  logger.trace(`Express server started at ${ip}:${port}`)
 });
