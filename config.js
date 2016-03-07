@@ -82,11 +82,7 @@ module.exports = {
     page: 500,
     fields: 'next_event',
 
-    blacklistGroups: meetupBlacklistGroups,
-    blacklistWords: [
-      'business',
-      'UNICOM'
-    ],
+    blacklistGroups: meetupBlacklistGroups
   },
 
   eventbriteParams: {
