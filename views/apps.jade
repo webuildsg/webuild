@@ -1,0 +1,59 @@
+include ./layout/head.jade
+body
+  //if lt IE 9
+    p.chromeframe Your browser is <em>ancient!</em> <a href='http://browsehappy.com/'>Upgrade to a cool new browser</a> to experience this site!
+  div.wrapper
+    .starter
+      header
+        .container
+          h1 we build!
+          ul.list-social
+            li 
+              span.icon-feed 
+              a(href="https://webuild.sg") main
+            li 
+              span.icon-music 
+              a(href="https://live.webuild.sg") live
+            li 
+              span.icon-cal 
+              a(href="https://data.webuild.sg") data
+            li 
+              span.icon-cc 
+              a(href="https://notes.webuild.sg") notes
+            li 
+              span.icon-volume-medium
+              a(href="https://api.webuild.sg") api
+    .main.container
+      .live
+        h3 We Build SG apps
+        p We have integrations with some external services too!
+
+      section
+        ul.open-list.first
+          li.apps
+            a(href="https://webuild.sg/cal")
+              .apps-left
+                img(src="/public/img/gcal.png")
+              .apps-right
+                p Calendar subscription gCal or iCal
+                p.tagline Add calendar url https://webuild.sg/cal
+          li.apps
+            a(href="https://github.com/webuildsg/osx/releases")
+              .apps-left
+                img(src="/public/img/el-capitan.png")
+              .apps-right
+                p Mac desktop app
+                p.tagline Add a tiny menubar app
+                
+      section
+        ul.open-list.second
+          li.apps
+            a(href="https://open.blockspring.com/cheeaun/webuildsg-slack")
+              .apps-left
+                img(src="/public/img/slack.png")
+              .apps-right
+                p Slack bot with Blockspring
+                p.tagline Add a trigger word "webuild" for your chat
+                
+
+  

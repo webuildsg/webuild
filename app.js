@@ -145,6 +145,10 @@ app.get('/admin', function(req, res) {
   });
 });
 
+app.get('/apps', function(req, res) {
+  res.render('./apps.jade')
+})
+
 app.get('/cal', function(req, res) {
   cal.clear();
   cal.setDomain(config.domain).setName(config.calendarTitle);
