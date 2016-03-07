@@ -195,7 +195,7 @@ app.get('/check', function(req, res) {
 app.get('/callback', wb.passport.callback);
 
 app.post('/api/v1/events/update', function(req, res) {
-  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
+  if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
@@ -206,7 +206,7 @@ app.post('/api/v1/events/update', function(req, res) {
 });
 
 app.post('/api/v1/repos/update', function(req, res) {
-  if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
+  if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
     res.status(503).send('Incorrect secret key');
     return;
   }
