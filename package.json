@@ -39,7 +39,7 @@
     "request": "2.69.0",
     "sitemap": "1.5.0",
     "tracer": "^0.8.3",
-    "webuild-events": "1.4.15",
+    "webuild-events": "1.4.16",
     "webuild-repos": "^1.4.0"
   },
   "devDependencies": {
