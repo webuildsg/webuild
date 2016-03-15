@@ -1,20 +1,25 @@
 #!/bin/bash
 
-# Change home directory (bower puts a lot of cache and tmp directories here)
-HOME=$OPENSHIFT_REPO_DIR
-cd $OPENSHIFT_REPO_DIR
+if [ -z "$OPENSHIFT_NODEJS_IP" ]; then
+  echo "Running old Nodejs Cartridge";
 
-# Cache npm components on main gear
-if [ "$OPENSHIFT_GEAR_UUID" == "$OPENSHIFT_APP_UUID" ]; then
-  mkdir -p "$OPENSHIFT_DATA_DIR"node_modules
-  mkdir -p "$OPENSHIFT_DATA_DIR"bower_components
+  # Change home directory (bower puts a lot of cache and tmp directories here)
+  HOME=$OPENSHIFT_REPO_DIR
+  cd $OPENSHIFT_REPO_DIR
 
-  ln -s "$OPENSHIFT_DATA_DIR"bower_components bower_components
-  ln -s "$OPENSHIFT_DATA_DIR"node_modules node_modules
-fi
+  # Cache npm components on main gear
+  if [ "$OPENSHIFT_GEAR_UUID" == "$OPENSHIFT_APP_UUID" ]; then
+    mkdir -p "$OPENSHIFT_DATA_DIR"node_modules
+    mkdir -p "$OPENSHIFT_DATA_DIR"bower_components
 
-# install npm dependencies
-npm install
+    ln -s "$OPENSHIFT_DATA_DIR"bower_components bower_components
+    ln -s "$OPENSHIFT_DATA_DIR"node_modules node_modules
+  fi
 
-# Prune unused node node_modules
-npm prune
+  # install npm dependencies
+  npm install
+
+  # Prune unused node node_modules
+  npm prune
+
+fi;
