@@ -1,8 +1,28 @@
 [
   {
+    "group_url": "http://meetup.com/Agile-Singapore",
+    "group_name": "Agile Singapore",
+    "group_id": 1704608
+  },
+  {
+    "group_url": "http://meetup.com/ac-sin",
+    "group_name": "Analytics.Club Singapore",
+    "group_id": 18654414
+  },
+  {
     "group_url": "http://www.facebook.com/156726297714355",
     "group_name": "ArtScience Museum",
     "group_id": 156726297714355
+  },
+  {
+    "group_url": "http://meetup.com/AWS-SG",
+    "group_name": "AWS User Group Singapore",
+    "group_id": 13024512
+  },
+  {
+    "group_url": "http://meetup.com/AzureSG",
+    "group_name": "Azure Community Singapore (ACS)",
+    "group_id": 18324557
   },
   {
     "group_url": "http://www.facebook.com/208146119270477",
@@ -10,14 +30,60 @@
     "group_id": 208146119270477
   },
   {
+    "group_url": "http://meetup.com/BitcoinSingapore",
+    "group_name": "Bitcoins in Singapore",
+    "group_id": 8103652
+  },
+  {
+    "group_url": "http://meetup.com/bluemixsg",
+    "group_name": "Bluemix Singapore",
+    "group_id": 18509757
+  },
+
+  {
     "group_url": "http://www.facebook.com/14431580201",
     "group_name": "Creative Crew Singapore",
     "group_id": 14431580201
   },
   {
+    "group_url": "http://meetup.com/DataKind-SG",
+    "group_name": "DataKind SG",
+    "group_id": 16412132
+  },
+  {
+    "group_url": "http://meetup.com/DataScience-SG-Singapore",
+    "group_name": "DataScience SG",
+    "group_id": 11168062
+  },
+  {
+    "group_url": "http://meetup.com/DesignDojoSingapore",
+    "group_name": "Design Dojo Singapore",
+    "group_id": 18981538
+  },
+  {
+    "group_url": "http://meetup.com/Design-Innovation-Singapor",
+    "group_name": "Design Innovation Singapore",
+    "group_id": 18241528
+  },
+  {
+    "group_url": "http://meetup.com/Docker-Singapore",
+    "group_name": "Docker Singapore",
+    "group_id": 16637192
+  },
+  {
+    "group_url": "http://meetup.com/Drupal-SG",
+    "group_name": "Drupal Developer Network (Singapore)",
+    "group_id": 1653716
+  },
+  {
     "group_url": "http://www.facebook.com/269504473170132",
     "group_name": "Electronic Music Lab",
     "group_id": 269504473170132
+  },
+  {
+    "group_url": "http://meetup.com/FOSSASIA-Singapore-Open-Technology-Meetup",
+    "group_name": "FOSSASIA Singapore OpenXLab Meetup",
+    "group_id": 18253077
   },
   {
     "group_url": "http://www.facebook.com/711704195596196",
@@ -43,6 +109,16 @@
     "group_url": "http://www.eventbrite.sg/o/infocomm-investments-ida-labs-triple-focustech-ventures-9897355892",
     "group_name": "Infocomm Investments, IDA Labs, TRIPLE, FocusTech Ventures",
     "group_id": 9897355892
+  },
+  {
+    "group_url": "http://meetup.com/v6-Starters",
+    "group_name": "IPv6 Research and Development Group",
+    "group_id": 12872522
+  },
+  {
+    "group_url": "http://meetup.com/mssgug",
+    "group_name": "Microsoft User Groups (Singapore)",
+    "group_id": 18429776
   },
   {
     "group_url": "http://www.facebook.com/219467331408976",
@@ -80,9 +156,29 @@
     "group_id": 19617994
   },
   {
+    "group_url": "http://meetup.com/PUGS-Postgres-Users-Group-Singapore",
+    "group_name": "PUGS (Postgres Users Group Singapore)",
+    "group_id": 11204382
+  },
+  {
+    "group_url": "http://meetup.com/PyData-SG",
+    "group_name": "PyData Singapore",
+    "group_id": 18509469
+  },
+  {
     "group_url": "http://www.facebook.com/1049407011745331",
     "group_name": "PyLadies SG",
     "group_id": 1049407011745331
+  },
+  {
+    "group_url": "http://meetup.com/Shapeways-Singapore",
+    "group_name": "Shapeways Singapore",
+    "group_id": 19108946
+  },
+  {
+     "group_url": "http://meetup.com/Singapore-JS",
+     "group_name": "SingaporeJS",
+     "group_id": 6363162
   },
   {
     "group_url": "http://www.facebook.com/1607343602876590",
@@ -90,8 +186,58 @@
     "group_id": 1607343602876590
   },
   {
+    "group_url": "http://meetup.com/dronesg",
+    "group_name": "Singapore FPV Fun Meetup (Drone Fun)",
+    "group_id": 18318692
+  },
+  {
+    "group_url": "http://meetup.com/Singapore-iOS-Dev-Scout-Meetup",
+    "group_name": "Singapore iOS Dev Scout Meetup",
+    "group_id": 18566806
+  },
+  {
+    "group_url": "http://meetup.com/Singapore-IT-Project-Managers-Producers",
+    "group_name": "Singapore IT Project Managers & Producers",
+    "group_id": 19168149
+  },
+  {
+    "group_url": "http://meetup.com/sg-linux",
+    "group_name": "The Singapore Linux Meetup Group",
+    "group_id": 95900
+  },
+  {
+    "group_url": "http://meetup.com/Singapore-Python-User-Group",
+    "group_name": "Singapore Python User Group",
+    "group_id": 18417697
+  },
+  {
+    "group_url": "http://meetup.com/Singapore-Ruby-Group",
+    "group_name": "Singapore Ruby Group",
+    "group_id": 3952812
+  },
+  {
     "group_url": "http://www.facebook.com/886098818070598",
     "group_name": "Singapore WordPress User Group",
     "group_id": 886098818070598
+  },
+  {
+    "group_url": "http://meetup.com/SingaporeCSS",
+    "group_name": "SingaporeCSS",
+    "group_id": 19061878
+  },
+  {
+    "group_url": "http://meetup.com/uxtldr",
+    "group_name": "UX TL;DR",
+    "group_id": 19189179
+  },
+  {
+    "group_url": "http://meetup.com/tfs-sg",
+    "group_name": "Visual Studio ALM and TFS Singapore",
+    "group_id": 18847677
+  },
+  {
+    "group_url": "http://meetup.com/WordPress-Singapore",
+    "group_name": "WordPress Singapore",
+    "group_id": 18556372
   }
 ]

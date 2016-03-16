@@ -28,19 +28,24 @@ body
       div#auth0(style='width: 320px; margin: 40px auto;')
         
       h3 Group not approved before
-      p.tagline Check if these groups are valid, and then add then to config/whitelistGroups.json
-      pre
-        each group in groups
-          br
-          code {
-          br
-          code    "group_url": "#{group.group_url}",
-          br
-          code    "group_name": "#{group.group_name}",
-          br
-          code    "group_id": #{group.group_id}
-          br
-          code },
+      br
+      p.tagline If these groups unapproved, then add them to file config/whitelistGroups.json.
+      
+      if groups.length > 0
+        pre
+          each group in groups
+            br
+            code {
+            br
+            code    "group_url": "#{group.group_url}",
+            br
+            code    "group_name": "#{group.group_name}",
+            br
+            code    "group_id": #{group.group_id}
+            br
+            code },
+      else 
+        pre No groups are unapproved. All events are in approved groups!
                                 
   script(type='text/javascript', src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
   script(type='text/javascript').
