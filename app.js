@@ -26,6 +26,7 @@ var wb = require('webuild-events').init(config);
 wb.repos = require('webuild-repos').init(config).repos;
 var archives = require('./archives').init(config);
 var podcastApiUrl = config.podcastApiUrl;
+var whitelistGroups = require('./config/whitelistGroups')
 
 var sitemap = sm.createSitemap ({
   hostname: 'https://' + config.domain,
@@ -54,6 +55,37 @@ app.use(morgan('tiny'))
 
 app.locals.pretty = true;
 app.locals.moment = require('moment-timezone');
+
+function isNotEventInApprovedGroup(eachEvent) {
+  return whitelistGroups.every(function(eachGroup) {
+    return eachGroup.group_url !== eachEvent.group_url &&
+      eachGroup.group_name !== eachEvent.group_name
+  })
+}
+
+function eventsToUniqGroups(groupsArray, eachEvent) {
+  var doesGroupExist = groupsArray.some(function(eachGroup) {
+    return eachGroup.group_name === eachEvent.group_name &&
+    eachGroup.group_url === eachEvent.group_url
+  })
+
+  if (!doesGroupExist) {
+    groupsArray.push({
+      group_id: eachEvent.group_id,
+      group_name: eachEvent.group_name,
+      group_url: eachEvent.group_url
+    })
+  }
+
+  return groupsArray
+}
+
+function getNotApprovedGroups() {
+  var events = wb.events.feed.events
+  var eventsNotInApprovedGroups = events.filter(isNotEventInApprovedGroup)
+
+  return eventsNotInApprovedGroups.reduce(eventsToUniqGroups,[])
+}
 
 app.get('/sitemap.xml', function(req, res) {
   sitemap.toXML( function (xml) {
@@ -138,10 +170,11 @@ app.get('/api/v1/repos/:language', cors(), function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  res.render('./facebook_login.jade', {
+  res.render('./admin.jade', {
     auth0: config.auth0,
     error: req.query.error ? true : false,
-    user: req.query.user ? req.query.user : ''
+    user: req.query.user ? req.query.user : '',
+    groups: getNotApprovedGroups()
   });
 });
 
