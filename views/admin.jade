@@ -29,7 +29,7 @@ body
         
       h3 Group not approved before
       br
-      p.tagline If these groups unapproved, then add them to file config/whitelistGroups.json.
+      p.tagline If these groups are not approved before, then add them to the files config/whitelistGroups.json or config/blacklist___.json.
       
       if groups.length > 0
         pre
@@ -45,7 +45,7 @@ body
             br
             code },
       else 
-        pre No groups are unapproved. All events are in approved groups!
+        pre All events are in the approved groups!
                                 
   script(type='text/javascript', src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
   script(type='text/javascript').
