@@ -1,32 +1,5 @@
 [
   {
-    "id": "999999999",
-    "name": "This is a sample event on how to fill up this file. For whitelistEvents.json: all fields are required. For blacklistEvents.json: id, formatted_time and url are required. Time fields are filled in as an example for time format DD MMM YYYY, ddd, h:mm a.",
-    "description": "sample description",
-    "location": "sample location",
-    "url": "http://www.sample.com/event",
-    "group_name": "sample group name",
-    "group_url": "http://www.group.com",
-    "formatted_time": "14 Nov 2014, Fri, 6:00 pm",
-    "start_time": "2014-11-14T10:00:00.000Z",
-    "end_time": "2014-11-16T09:00:00.000Z"
-  },
-  {
-    "id": "1671356216458710",
-    "formatted_time": "24 Feb 2016, Wed, 7:00 pm",
-    "url": "https://www.facebook.com/events/1671356216458710"
-  },
-  {
-    "id": "685026224933090",
-    "formatted_time": "01 Mar 2016, Tue, 7:00 pm",
-    "url": "https://www.facebook.com/events/685026224933090"
-  },
-  {
-    "id": "195990850765224",
-    "formatted_time": "15 Mar 2016, Tue, 7:00 pm",
-    "url": "https://www.facebook.com/events/195990850765224"
-  },
-  {
     "id": "228995710",
     "formatted_time": "23 Mar 2016, Wed, 7:00 pm",
     "ur": "http://www.meetup.com/lean-kanban-sg/events/228995710/"
