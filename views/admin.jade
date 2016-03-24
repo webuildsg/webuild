@@ -25,16 +25,18 @@ body
               span.icon-volume-medium
               a(href="https://api.webuild.sg") api
     .main.container
+      br
+      h3 Login to Facebook to add events
       div#auth0(style='width: 320px; margin: 40px auto;')
         
-      h3 Group not approved before
+      h3 Groups not approved before
       br
-      p.tagline If these groups are not approved before, then add them to the files config/whitelistGroups.json or config/blacklist___.json.
+      p.tagline 
+        | If these groups are not approved before, then add them to the files <code>config/whitelistGroups.json</code> or <code>config/blacklist{PROVIDER}.json</code>.
       
       if groups.length > 0
         pre
           each group in groups
-            br
             code {
             br
             code    "group_url": "#{group.group_url}",
@@ -46,7 +48,37 @@ body
             code },
       else 
         pre All events are in the approved groups!
-                                
+    
+    footer
+      .container
+        <p>Checkout more cool events and people in startup, arts and tech with <br><a href="http://thelist.sg/">thelist.sg</a>, <a href="http://connections.sg/">connections.sg</a>, <a href="http://hackerspace.sg/calendar/hackerspacesg-events/">hackerspace</a>, <a href="http://bhappening.wordpress.com/">bhappening</a>, <a href="http://www.techinasia.com/tech-startup-events/">tech in asia</a></p>
+
+    ul.social
+      li
+        a(href='https://twitter.com/webuildsg')
+          span.footer-twitter
+        p Twitter
+      li
+        a(href='http://www.facebook.com/webuildsg')
+          span.footer-facebook
+        p Facebook
+      li
+        a(href='https://github.com/webuildsg')
+          span.footer-github
+        p GitHub
+      li
+        a(href='https://webuild.sg/cal')
+          span.footer-calendar
+        p Calendar
+      li
+        a(href='https://feeds.feedburner.com/WeBuildLive')
+          span.footer-rss
+        p RSS
+      li
+        a(href='https://itunes.apple.com/us/podcast/we-build-sg-live/id713804010')
+          span.footer-itunes
+        p iTunes
+                                    
   script(type='text/javascript', src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
   script(type='text/javascript').
     var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
