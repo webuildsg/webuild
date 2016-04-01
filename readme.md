@@ -67,7 +67,7 @@ These are the steps for deploying:
 - setup the app with `rhc setup`
 - create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
 - to ssh into your gear, use `rhc ssh {APP_NAME}`
-- add the cron cratridge with `rhc cartridge add cron -a {APP_NAME}`
+- add the cron cartridge with `rhc cartridge add cron -a {APP_NAME}`
 - set environment variables with
 
   ```sh
