@@ -40,6 +40,11 @@
     "group_id": 208146119270477
   },
   {
+    "group_url": "http://meetup.com/BigData-Hadoop-SG",
+    "group_name": "BigData.SG & Hadoop.SG",
+    "group_id": 8165752
+  },
+  {
     "group_url": "http://meetup.com/BitcoinSingapore",
     "group_name": "Bitcoins in Singapore",
     "group_id": 8103652
@@ -116,6 +121,11 @@
     "group_id": 18522131
   },
   {
+    "group_url": "http://www.facebook.com/121463986679",
+    "group_name": "HackerspaceSG",
+    "group_id": 121463986679
+  },
+  {
     "group_url": "http://www.facebook.com/1478420759137175",
     "group_name": "HackerspaceSG Awesome Talks",
     "group_id": 1478420759137175
@@ -134,6 +144,11 @@
     "group_url": "http://meetup.com/v6-Starters",
     "group_name": "IPv6 Research and Development Group",
     "group_id": 12872522
+  },
+  {
+    "group_url": "http://kopi.io/",
+    "group_name": "KopiJS",
+    "group_id": null
   },
   {
     "group_url": "http://meetup.com/lean-kanban-sg",
