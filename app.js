@@ -29,45 +29,11 @@ app.use('/public', express.static(path.join(__dirname, '/public')))
 app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
 app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
 app.use(errorHandler())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(wb.passport.initialize())
 app.use(morgan('tiny'))
-
 app.locals.pretty = true
 app.locals.moment = require('moment-timezone')
-
-function isNotEventInApprovedGroup (eachEvent) {
-  return whitelistGroups.every(function (eachGroup) {
-    return eachGroup.group_url !== eachEvent.group_url &&
-      eachGroup.group_name !== eachEvent.group_name
-  })
-}
-
-function eventsToUniqGroups (groupsArray, eachEvent) {
-  var doesGroupExist = groupsArray.some(function (eachGroup) {
-    return eachGroup.group_name === eachEvent.group_name &&
-    eachGroup.group_url === eachEvent.group_url
-  })
-
-  if (!doesGroupExist) {
-    groupsArray.push({
-      group_id: eachEvent.group_id,
-      group_name: eachEvent.group_name,
-      group_url: eachEvent.group_url
-    })
-  }
-
-  return groupsArray
-}
-
-function getNotApprovedGroups () {
-  var events = wb.events.feed.events
-  var eventsNotInApprovedGroups = events.filter(isNotEventInApprovedGroup)
-
-  return eventsNotInApprovedGroups.reduce(eventsToUniqGroups, [])
-}
 
 app.get('/', function (req, res) {
   res.render('./index.jade', {
@@ -131,7 +97,7 @@ app.get('/admin', function (req, res) {
     auth0: config.auth0,
     error: req.query.error,
     user: req.query.user ? req.query.user : '',
-    groups: getNotApprovedGroups()
+    groups: require('./lib/notApprovedGroups')(wb.events.feed.events, whitelistGroups)
   })
 })
 
