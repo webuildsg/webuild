@@ -13,13 +13,7 @@ var clc = require('cli-color');
 var sm = require('sitemap');
 var cal = ical();
 var morgan = require('morgan');
-var logger = require('tracer').colorConsole({
-  format: '{{timestamp}} <{{title}}> ({{path}}:{{line}}:{{pos}}:{{method}}) {{message}}',
-  dateformat: 'mmm dd HH:MM:ss',
-  preprocess:  function(data) {
-    data.path = data.path.replace(process.cwd(), '');
-  }
-});
+var logger = require('./lib/logger')
 
 var config = require('./config.js');
 var wb = require('webuild-events').init(config);
@@ -121,7 +115,6 @@ app.get('/api/v1/check/:checkdate', cors(), function(req, res) {
   clashedEvents.meta.total_events = clashedEvents.events.length;
 
   res.send(clashedEvents);
-
 });
 
 app.get('/api/v1/events', cors(), function(req, res) {
