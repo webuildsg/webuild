@@ -9,7 +9,7 @@
     "build": "grunt",
     "logs:staging": "rhc tail -o '-n 100' -a staging",
     "logs:production": "rhc tail -o '-n 100' -a production",
-    "test": "grunt travis --verbose && mocha test --recursive",
+    "test": "standard archives/*.js countdown/*.js lib/*.js app.js && grunt travis --verbose && mocha test --recursive",
     "postinstall": "bower install && grunt build",
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
     "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html",
@@ -38,6 +38,7 @@
     "promise": "7.1.1",
     "request": "2.69.0",
     "sitemap": "1.5.0",
+    "standard": "^6.0.8",
     "tracer": "^0.8.3",
     "webuild-events": "1.4.17",
     "webuild-repos": "^1.4.0"
