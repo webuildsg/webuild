@@ -72,24 +72,8 @@ app.get('/api/v1/repos/hour', cors(), function (req, res) {
 })
 
 app.get('/api/v1/repos/:language', cors(), function (req, res) {
-  var language = req.params.language.toLowerCase()
-  var reposWIthLanguage = wb.repos.feed.repos.filter(function (repo) {
-    if (!repo.language) {
-      return false
-    }
-    return repo.language.toLowerCase() === language
-  })
-
-  res.send({
-    meta: {
-      generated_at: new Date().toISOString(),
-      location: config.city,
-      total_repos: wb.repos.length,
-      api_version: config.api_version,
-      max_repos: reposWIthLanguage.length
-    },
-    repos: reposWIthLanguage
-  })
+  var reposWithLanguage = require('./lib/reposWithLanguage')(req.params, config, wb.repos)
+  res.send(reposWithLanguage)
 })
 
 app.get('/admin', function (req, res) {
