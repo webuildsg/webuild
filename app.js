@@ -223,9 +223,8 @@ app.post('/api/v1/archives/update', function (req, res) {
 })
 
 app.use('/api/v1/podcasts', cors(), function (req, res) {
-  var url = podcastApiUrl
   res.setHeader('Cache-Control', 'public, max-age=86400') // 1 day
-  request(url, function (err, msg, response) {
+  request(podcastApiUrl, function (err, msg, response) {
     if (err) {
       res.status(503).send('We Build Live Error')
       return
