@@ -11,7 +11,6 @@ var request = require('request')
 var cors = require('cors')
 var ical = require('ical-generator')
 var clc = require('cli-color')
-var sm = require('sitemap')
 var cal = ical()
 var morgan = require('morgan')
 var logger = require('./lib/logger')
@@ -22,18 +21,6 @@ wb.repos = require('webuild-repos').init(config).repos
 var archives = require('./archives').init(config)
 var podcastApiUrl = config.podcastApiUrl
 var whitelistGroups = require('./config/whitelistGroups')
-
-var sitemap = sm.createSitemap({
-  hostname: 'https://' + config.domain,
-  cacheTime: 600000,
-  urls: [
-    {
-      url: '/',
-      changefreq: 'daily',
-      priority: 0.3
-    }
-  ]
-})
 
 var app = express()
 
@@ -81,13 +68,6 @@ function getNotApprovedGroups () {
 
   return eventsNotInApprovedGroups.reduce(eventsToUniqGroups, [])
 }
-
-app.get('/sitemap.xml', function (req, res) {
-  sitemap.toXML(function (xml) {
-    res.header('Content-Type', 'application/xml')
-    res.send(xml)
-  })
-})
 
 app.get('/', function (req, res) {
   res.render('./index.jade', {
