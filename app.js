@@ -14,6 +14,7 @@ var clc = require('cli-color')
 var cal = require('./lib/cal')
 var morgan = require('morgan')
 var logger = require('./lib/logger')
+var updateLib = require('./lib/update')
 
 var config = require('./config.js')
 var wb = require('webuild-events').init(config)
@@ -100,27 +101,11 @@ app.get('/check', function (req, res) {
 app.get('/callback', wb.passport.callback)
 
 app.post('/api/v1/events/update', function (req, res) {
-  if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
-    res.status(503).send('Incorrect secret key')
-    return
-  }
-  wb.events.update()
-
-  logger.trace('Updating the events feed sit tight!')
-  res.status(200).send('Updating the events feed sit tight!')
+  updateLib(req, res, wb, 'events')
 })
 
 app.post('/api/v1/repos/update', function (req, res) {
-  if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
-    res.status(503).send('Incorrect secret key')
-    return
-  }
-  wb.repos.update().then(function () {
-    console.log('GitHub feed generated')
-  })
-
-  logger.trace('Updating the repos feed sit tight!')
-  res.status(200).send('Updating the repos feed sit tight!')
+  updateLib(req, res, wb, 'events')
 })
 
 app.post('/api/v1/archives/update', function (req, res) {
