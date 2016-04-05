@@ -77,25 +77,8 @@ app.get('/', function (req, res) {
 })
 
 app.get('/api/v1/check/:checkdate', cors(), function (req, res) {
-  var checkdate = moment(req.params.checkdate, 'YYYY-MM-DD')
-  var clashedEvents = {
-    'meta': {
-      'generated_at': new Date().toISOString(),
-      'location': config.city,
-      'api_version': config.api_version
-    },
-    'events': []
-  }
-
-  clashedEvents.events = wb.events.feed.events.filter(function (element) {
-    if (moment(element.start_time).isSame(checkdate, 'day')) {
-      return true
-    }
-  })
-
-  clashedEvents.meta.total_events = clashedEvents.events.length
-
-  res.send(clashedEvents)
+  var clashedEvents = require('./lib/clashedEvents')
+  res.send(clashedEvents(req.params.checkdate, config, wb.events.feed.events))
 })
 
 app.get('/api/v1/events', cors(), function (req, res) {
