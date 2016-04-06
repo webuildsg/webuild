@@ -9,7 +9,7 @@
     "build": "grunt",
     "logs:staging": "rhc tail -o '-n 100' -a staging",
     "logs:production": "rhc tail -o '-n 100' -a production",
-    "test": "standard archives/*.js countdown/*.js lib/*.js app.js && grunt travis --verbose && mocha test --recursive",
+    "test": "standard archives/*.js countdown/*.js lib/*.js app.js && grunt travis --verbose",
     "postinstall": "bower install && grunt build",
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
     "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html",

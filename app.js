@@ -17,7 +17,7 @@ var updateLib = require('./lib/update')
 var app = express()
 
 var configLib = require('./config.js')
-configLib(function(config) {
+configLib(function (config) {
   var wb = require('webuild-events').init(config)
   wb.repos = require('webuild-repos').init(config).repos
 
