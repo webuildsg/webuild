@@ -21,6 +21,11 @@ var archives = require('./archives').init(config)
 var podcastApiUrl = config.podcastApiUrl
 var whitelistGroups = require('./config/whitelistGroups')
 
+var db = require('./lib/database')
+db.child('hello').once('value', function(snapshot) {
+  logger.info(snapshot.val())
+})
+
 var app = express()
 
 app.use(compress())
