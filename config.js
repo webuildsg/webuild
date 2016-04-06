@@ -15,7 +15,6 @@ function failSafeRequire(filename){
   return requiredData;
 }
 
-var icsGroups = failSafeRequire('./config/icsGroups.json');
 var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
 var duplicateWords = require('./config/duplicateWords.json');
 var meetupBlacklistGroups = failSafeRequire('./config/meetupBlacklistGroups.json')[0].groups;
@@ -25,6 +24,7 @@ module.exports = function(callback) {
   db.once('value', function(snapshot) {
     var facebookGroups = snapshot.val().facebookGroups
     var blacklistEvents = snapshot.val().blacklistEvents
+    var icsGroups = snapshot.val().icsGroups
 
     return callback({
       location: city,
