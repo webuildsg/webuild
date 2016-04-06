@@ -20,10 +20,10 @@ var configLib = require('./config.js')
 configLib(function(config) {
   var wb = require('webuild-events').init(config)
   wb.repos = require('webuild-repos').init(config).repos
-  
+
   var archives = require('./archives').init(config)
   var podcastApiUrl = config.podcastApiUrl
-  var whitelistGroups = require('./config/whitelistGroups')
+  var whitelistGroups = config.whitelistGroups
 
   app.use(compress())
   app.use('/public', express.static(path.join(__dirname, '/public')))

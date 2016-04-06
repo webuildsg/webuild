@@ -13,6 +13,7 @@ module.exports = function(callback) {
     var icsGroups = snapshot.val().icsGroups
     var meetupBlacklistGroups = snapshot.val().meetupBlacklistGroups
     var eventbriteBlacklistOrganiserIds = snapshot.val().eventbriteBlacklistOrganiserIds
+    var whitelistGroups = snapshot.val().whitelistGroups
 
     return callback({
       location: city,
@@ -54,6 +55,7 @@ module.exports = function(callback) {
       blacklistEvents: blacklistEvents,
       whitelistEvents: whitelistEvents,
       icsGroups: icsGroups,
+      whitelistGroups: whitelistGroups,
 
       githubParams: {
         version: '3.0.0',
