@@ -3,21 +3,7 @@ var country = 'Singapore';
 var locationSymbol = 'SG';
 var db = require('./lib/database')
 var logger = require('./lib/logger')
-
-function failSafeRequire(filename){
-  var requiredData;
-  try {
-   requiredData  = require(filename);
-  }
-  catch(e){
-    requiredData = [];
-  }
-  return requiredData;
-}
-
 var duplicateWords = require('./config/duplicateWords.json');
-
-var eventbriteBlacklistOrganiserIds = failSafeRequire('./config/eventbriteBlacklistOrganiserIds.json')[0].ids;
 
 module.exports = function(callback) {
   db.once('value', function(snapshot) {
@@ -26,6 +12,7 @@ module.exports = function(callback) {
     var whitelistEvents = snapshot.val().whitelistEvents
     var icsGroups = snapshot.val().icsGroups
     var meetupBlacklistGroups = snapshot.val().meetupBlacklistGroups
+    var eventbriteBlacklistOrganiserIds = snapshot.val().eventbriteBlacklistOrganiserIds
 
     return callback({
       location: city,
