@@ -20,6 +20,7 @@ var configLib = require('./config.js')
 configLib(function(config) {
   var wb = require('webuild-events').init(config)
   wb.repos = require('webuild-repos').init(config).repos
+  
   var archives = require('./archives').init(config)
   var podcastApiUrl = config.podcastApiUrl
   var whitelistGroups = require('./config/whitelistGroups')
@@ -34,7 +35,7 @@ configLib(function(config) {
   app.use(morgan('tiny'))
   app.locals.pretty = true
   app.locals.moment = require('moment-timezone')
-  
+
   app.get('/', function (req, res) {
     res.render('./index.jade', {
       repos: wb.repos.feed.repos.slice(0, 10),
