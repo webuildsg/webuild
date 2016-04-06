@@ -3,17 +3,10 @@ var country = 'Singapore';
 var locationSymbol = 'SG';
 var db = require('./lib/database')
 var logger = require('./lib/logger')
-var duplicateWords = require('./config/duplicateWords.json');
 
 module.exports = function(callback) {
-  db.once('value', function(snapshot) {
-    var facebookGroups = snapshot.val().facebookGroups
-    var blacklistEvents = snapshot.val().blacklistEvents
-    var whitelistEvents = snapshot.val().whitelistEvents
-    var icsGroups = snapshot.val().icsGroups
-    var meetupBlacklistGroups = snapshot.val().meetupBlacklistGroups
-    var eventbriteBlacklistOrganiserIds = snapshot.val().eventbriteBlacklistOrganiserIds
-    var whitelistGroups = snapshot.val().whitelistGroups
+  db.once('value', function(snapshotAll) {
+    var snapshot = snapshotAll.val()
 
     return callback({
       location: city,
@@ -34,6 +27,12 @@ module.exports = function(callback) {
       calendarTitle: 'We Build SG Events',
       podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
       domain: 'webuild.sg',
+
+      facebookGroups : snapshot.facebookGroups,
+      blacklistEvents: snapshot.blacklistEvents,
+      whitelistEvents: snapshot.whitelistEvents,
+      icsGroups: snapshot.icsGroups,
+      whitelistGroups: snapshot.whitelistGroups,
 
       archives: {
         githubRepoFolder: 'webuildsg/data/',
@@ -98,12 +97,6 @@ module.exports = function(callback) {
         clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
       },
 
-      facebookGroups : facebookGroups,
-      blacklistEvents: blacklistEvents,
-      whitelistEvents: whitelistEvents,
-      icsGroups: icsGroups,
-      whitelistGroups: whitelistGroups,
-
       githubParams: {
         version: '3.0.0',
         clientID: process.env.GITHUB_CLIENT_ID,
@@ -124,7 +117,7 @@ module.exports = function(callback) {
         page: 500,
         fields: 'next_event',
 
-        blacklistGroups: meetupBlacklistGroups
+        blacklistGroups: snapshot.meetupBlacklistGroups
       },
 
       eventbriteParams: {
@@ -136,7 +129,7 @@ module.exports = function(callback) {
           '102',
           '119'
         ],
-        blacklistOrganiserId: eventbriteBlacklistOrganiserIds
+        blacklistOrganiserId: snapshot.eventbriteBlacklistOrganiserIds
       }
     })
   })
