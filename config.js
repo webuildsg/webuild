@@ -1,6 +1,8 @@
 var city = 'Singapore';
 var country = 'Singapore';
 var locationSymbol = 'SG';
+var db = require('./lib/database')
+var logger = require('./lib/logger')
 
 function failSafeRequire(filename){
   var requiredData;
@@ -13,7 +15,6 @@ function failSafeRequire(filename){
   return requiredData;
 }
 
-var facebookGroups = failSafeRequire('./config/facebookGroups.json');
 var blacklistEvents = failSafeRequire('./config/blacklistEvents.json');
 var icsGroups = failSafeRequire('./config/icsGroups.json');
 var whitelistEvents = failSafeRequire('./config/whitelistEvents.json');
@@ -21,79 +22,85 @@ var duplicateWords = require('./config/duplicateWords.json');
 var meetupBlacklistGroups = failSafeRequire('./config/meetupBlacklistGroups.json')[0].groups;
 var eventbriteBlacklistOrganiserIds = failSafeRequire('./config/eventbriteBlacklistOrganiserIds.json')[0].ids;
 
-module.exports = {
-  location: city,
-  city: city,
-  country: country,
-  symbol: locationSymbol,
+module.exports = function(callback) {
+  db.once('value', function(snapshot) {
+    var facebookGroups = snapshot.val().facebookGroups
 
-  api_version: 'v1',
-  apiUrl: 'https://webuild.sg/api/v1/',
+    return callback({
+      location: city,
+      city: city,
+      country: country,
+      symbol: locationSymbol,
 
-  displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
-  dateFormat: 'YYYY-MM-DD HH:mm Z',
-  timezone: '+0800',
-  timezoneInfo: 'Asia/Singapore',
+      api_version: 'v1',
+      apiUrl: 'https://webuild.sg/api/v1/',
 
-  debug: process.env.NODE_ENV === 'development',
+      displayTimeformat: 'DD MMM YYYY, ddd, h:mm a',
+      dateFormat: 'YYYY-MM-DD HH:mm Z',
+      timezone: '+0800',
+      timezoneInfo: 'Asia/Singapore',
 
-  calendarTitle: 'We Build SG Events',
-  podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
-  domain: 'webuild.sg',
+      debug: process.env.NODE_ENV === 'development',
 
-  archives: {
-    githubRepoFolder: 'webuildsg/data/',
-    committer: {
-      name: 'We Build SG Bot',
-      email: 'webuildsg@gmail.com'
-    }
-  },
+      calendarTitle: 'We Build SG Events',
+      podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
+      domain: 'webuild.sg',
 
-  ignoreWordsInDuplicateEvents: duplicateWords[0].words,
+      archives: {
+        githubRepoFolder: 'webuildsg/data/',
+        committer: {
+          name: 'We Build SG Bot',
+          email: 'webuildsg@gmail.com'
+        }
+      },
 
-  auth0: {
-    domain: 'webuildsg.auth0.com',
-    clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
-    clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
-  },
+      ignoreWordsInDuplicateEvents: duplicateWords[0].words,
 
-  facebookGroups : facebookGroups,
-  blacklistEvents: blacklistEvents,
-  whitelistEvents: whitelistEvents,
-  icsGroups: icsGroups,
+      auth0: {
+        domain: 'webuildsg.auth0.com',
+        clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
+        clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
+      },
 
-  githubParams: {
-    version: '3.0.0',
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    location: process.env.LOCATION || city,
-    maxUsers: process.env.MAX_USERS || 1000,
-    maxRepos: process.env.MAX_REPOS || 100,
-    starLimit: process.env.STAR_LIMIT || 50,
-    outfile: __dirname + '/cache.json'
-  },
+      facebookGroups : facebookGroups,
+      blacklistEvents: blacklistEvents,
+      whitelistEvents: whitelistEvents,
+      icsGroups: icsGroups,
 
-  meetupParams: {
-    key: process.env.MEETUP_API_KEY,
-    country: locationSymbol,
-    state: locationSymbol,
-    city: city,
-    category_id: 34, // Tech category
-    page: 500,
-    fields: 'next_event',
+      githubParams: {
+        version: '3.0.0',
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        location: process.env.LOCATION || city,
+        maxUsers: process.env.MAX_USERS || 1000,
+        maxRepos: process.env.MAX_REPOS || 100,
+        starLimit: process.env.STAR_LIMIT || 50,
+        outfile: __dirname + '/cache.json'
+      },
 
-    blacklistGroups: meetupBlacklistGroups
-  },
+      meetupParams: {
+        key: process.env.MEETUP_API_KEY,
+        country: locationSymbol,
+        state: locationSymbol,
+        city: city,
+        category_id: 34, // Tech category
+        page: 500,
+        fields: 'next_event',
 
-  eventbriteParams: {
-    token: process.env.EVENTBRITE_TOKEN,
-    url: 'https://www.eventbriteapi.com/v3/events/search',
-    venueUrl: 'https://www.eventbriteapi.com/v3/venues/',
-    organizerUrl: 'https://www.eventbriteapi.com/v3/organizers/',
-    categories: [
-      '102',
-      '119'
-    ],
-    blacklistOrganiserId: eventbriteBlacklistOrganiserIds
-  }
-};
+        blacklistGroups: meetupBlacklistGroups
+      },
+
+      eventbriteParams: {
+        token: process.env.EVENTBRITE_TOKEN,
+        url: 'https://www.eventbriteapi.com/v3/events/search',
+        venueUrl: 'https://www.eventbriteapi.com/v3/venues/',
+        organizerUrl: 'https://www.eventbriteapi.com/v3/organizers/',
+        categories: [
+          '102',
+          '119'
+        ],
+        blacklistOrganiserId: eventbriteBlacklistOrganiserIds
+      }
+    })
+  })
+}
