@@ -20,7 +20,7 @@ npm i && bower install
 - Setup environment variables. Refer [Environment Variables](#environment-variables) section for more details.
 
 	```sh
-	cp .env-example .env
+	cp .env.sample .env
 	```
 - Start the website locally with `./run.sh`
 
