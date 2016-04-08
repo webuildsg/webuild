@@ -1,7 +1,7 @@
 {
   "name": "webuild.sg",
   "version": "2.17.0",
-  "homepage": "http://webuild.sg",
+  "homepage": "https://webuild.sg",
   "keywords": "developer, designer, maker, engineer, open source, open events, open community",
   "private": true,
   "scripts": {
