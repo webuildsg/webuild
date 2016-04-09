@@ -80,12 +80,12 @@ body
           span.footer-itunes
         p iTunes
                                     
-  script(type='text/javascript', src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
+  script(src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
   script(type='text/javascript').
     var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
     widget.signin({container: 'auth0', connections: ['facebook'], chrome: true, scope: 'openid profile user_groups user_events'},function(){
       var d = document, err = d.querySelector('.a0-avatar'), elem = d.createElement('div');
-      elem.innerText = #{error} ? 'Unauthorized user!' : '#{user}' ? 'Thanks #{user}!' : '';
-      elem.style.color = #{error} ? 'red' : 'MediumSeaGreen';
+      elem.innerText = '#{error}' ? 'Unauthorized user!' : '#{user}' ? 'Thanks #{user}!' : '';
+      elem.style.color = '#{error}' ? 'red' : 'MediumSeaGreen';
       err.parentNode.appendChild(elem);
     });
