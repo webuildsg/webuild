@@ -90,6 +90,10 @@ configLib(function (config) {
     res.render('./apps.jade')
   })
 
+  app.get('/privacy', function (req, res) {
+    res.render('./privacy.jade')
+  })
+
   app.get('/cal', function (req, res) {
     cal(config, wb.events.feed.events, res)
   })
