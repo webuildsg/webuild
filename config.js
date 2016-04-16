@@ -116,6 +116,7 @@ module.exports = function(callback) {
         category_id: 34, // Tech category
         page: 500,
         fields: 'next_event',
+        offset: 0,
 
         blacklistGroups: snapshot.meetupBlacklistGroups
       },
