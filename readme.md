@@ -184,6 +184,17 @@ Use an external "web cron" service to periodically refresh the GitHub data feed.
 
 Create an [Auth0](https://auth0.com/) account (you get one free app) and a Facebook app and link them with [these instructions](https://docs.auth0.com/facebook-clientid). Configure the `WEBUILD_AUTH0_CLIENT_*` environment variables (see above) and add your callback url in auth0. Run the app and if all is configured well, add your fb aceess token by logging in at `<localhost>/admin`
 
+### Firebase related environment variables
+
+1. Open a [Firebase account](https://www.firebase.com/)
+- Create a new app for this project
+- Under `Login & Auth` > `Registered Users` > `Add User`
+- Note the email, password, user uid and firebase unique app url for the following variables:
+	- **FIREBASE_EMAIL** (required): .   
+	- **FIREBASE_PASSWORD** (required)
+	- **FIREBASE_UID** (required)
+	- **FIREBASE_URL** (required)
+
 ## Editing events list
 
 - Add events:
