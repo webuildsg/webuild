@@ -45,7 +45,7 @@ module.exports = function(callback) {
       ignoreWordsInDuplicateEvents: [
         "meetup", "group", "event",
 
-        "centre", "center", "tower", "road", "boulevard",
+        "centre", "center", "tower", "road", "boulevard", "ayer",
         "avenue", "ave",
         "building", "city",
         "jalan", "jln",
