@@ -26,7 +26,7 @@
     "deploy": "npm run deploy:staging && npm run deploy:production"
   },
   "dependencies": {
-    "body-parser": "1.15.0",
+    "body-parser": "1.15.1",
     "bower": "1.7.9",
     "cli-color": "1.1.0",
     "compression": "1.6.1",
@@ -42,11 +42,11 @@
     "ical-generator": "0.2.7",
     "jade": "1.11.0",
     "jsonfile": "2.3.0",
-    "moment-timezone": "0.5.3",
+    "moment-timezone": "0.5.4",
     "morgan": "^1.7.0",
     "promise": "7.1.1",
     "request": "2.72.0",
-    "standard": "^6.0.8",
+    "standard": "7.0.1",
     "tracer": "^0.8.3",
     "webuild-events": "1.4.25",
     "webuild-repos": "^1.4.0"
