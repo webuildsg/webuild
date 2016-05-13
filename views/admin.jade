@@ -18,11 +18,11 @@ body
           each group in groups
             code {
             br
-            code    "group_url": "#{group.group_url}",
+            code    "group_id": #{group.group_id},
             br
             code    "group_name": "#{group.group_name}",
             br
-            code    "group_id": #{group.group_id}
+            code    "group_url": "#{group.group_url}"
             br
             code },
       else 
