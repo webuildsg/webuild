@@ -95,7 +95,6 @@ module.exports = {
       'getBranchName': getBranchName,
       'getFilename': getFilename,
       'getCommitMessage': getCommitMessage,
-      'getCurrentDayData': getCurrentDayData,
       'storeToArchives': storeToArchives,
       'update': update
     }
