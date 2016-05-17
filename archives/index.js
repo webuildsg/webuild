@@ -22,27 +22,8 @@ module.exports = {
       return 'data: ' + type + ' archive on ' + moment().format('DD MMM YYYY h:mm a')
     }
 
-    // NOTE: not required when the api provides /events/today and /repos/yesterday
-    function getCurrentDayData (response, type) {
-      var data = JSON.parse(response)
-      var today = moment(data.meta.generated_at)
-      var compareTime = type === 'events' ? 'start_time' : 'pushed_at'
-      var answer = {}
-      answer.meta = data.meta
-      answer[ type ] = []
-
-      data[ type ].forEach(function (element) {
-        if (today.diff(moment(element[ compareTime ]), 'days') === 0) {
-          answer[ type ].push(element)
-        }
-      })
-
-      answer.meta['total_' + type] = answer[ type ].length
-      return JSON.stringify(answer)
-    }
-
     function storeToArchives (type, callback) {
-      var url = config.apiUrl + type
+      var url = config.apiUrl + type + '/day'
 
       request(url, function (err, msg, response) {
         if (err) {
@@ -57,7 +38,7 @@ module.exports = {
         // PUT /repos/:owner/:repo/contents/:path
         var uri = 'https://api.github.com/repos/' + config.archives.githubRepoFolder + 'contents/data/' + type + '/v1/' + filename
         var token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64')
-        var content = new Buffer(getCurrentDayData(response, type)).toString('base64')
+        var content = new Buffer(response).toString('base64')
         var body = {
           'message': getCommitMessage(type),
           'committer': {
