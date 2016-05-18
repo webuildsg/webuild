@@ -8,26 +8,25 @@ body
     .main.container
       br
         
-      if user
-        h3 Groups not approved before
-        br
-        p.tagline
-          | If these groups are not approved before, then add them to Firebase DB <code>whitelistGroups</code> or <code>blacklist{PROVIDER}</code>.
-        
-        if groups.length > 0
-          pre
-            each group in groups
-              code {
-              br
-              code    "group_id": #{group.group_id},
-              br
-              code    "group_name": "#{group.group_name}",
-              br
-              code    "group_url": "#{group.group_url}"
-              br
-              code },
-        else
-          pre All events are in the approved groups!
+      h3 Groups not approved before
+      br
+      p.tagline
+        | If these groups are not approved before, then add them to Firebase DB <code>whitelistGroups</code> or <code>blacklist{PROVIDER}</code>.
+      
+      if groups.length > 0
+        pre
+          each group in groups
+            code {
+            br
+            code    "group_id": #{group.group_id},
+            br
+            code    "group_name": "#{group.group_name}",
+            br
+            code    "group_url": "#{group.group_url}"
+            br
+            code },
+      else
+        pre All events are in the approved groups!
 
       h3 Login
       div#auth0(style='width: 320px; margin: 40px auto;')
