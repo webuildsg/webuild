@@ -109,7 +109,7 @@ configLib(function (config) {
   })
 
   app.post('/api/v1/repos/update', function (req, res) {
-    updateLib(req, res, wb, 'events')
+    updateLib(req, res, wb, 'repos')
   })
 
   app.post('/api/v1/archives/update', function (req, res) {
