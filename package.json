@@ -12,7 +12,7 @@
     "logs:production": "rhc tail -o '-n 100' -a production",
 
     "test": "standard archives/*.js countdown/*.js lib/*.js app.js && grunt travis --verbose",
-    "postinstall": "bower install && grunt build",
+    "postinstall": "bower install || HOME=$HOME/app-root/runtime bower install && grunt build",
 
     "restart:staging": "rhc app-restart --app staging",
     "restart:production": "rhc app-restart --app production",
