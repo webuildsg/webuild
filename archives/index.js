@@ -74,9 +74,7 @@ module.exports = {
 
       if (process.env.NODE_ENV === 'production') {
         storeToArchives('repos', dataOptions.repos, createCallbackHandler('repos'))
-        setTimeout(function () {
-          storeToArchives('events', dataOptions.events, createCallbackHandler('events'))
-        }, 5000)
+        storeToArchives('events', dataOptions.events, createCallbackHandler('events'))
       }
     }
 

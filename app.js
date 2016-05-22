@@ -113,7 +113,7 @@ configLib(function (config) {
   })
 
   app.post('/api/v1/archives/update', function (req, res) {
-    if (req.param('secret') !== process.env.WEBUILD_API_SECRET) {
+    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
       res.status(503).send('Incorrect secret key')
       return
     }
