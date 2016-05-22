@@ -117,7 +117,13 @@ configLib(function (config) {
       res.status(503).send('Incorrect secret key')
       return
     }
-    archives.update()
+
+    var dataOptions = {
+      events: wb.events.day,
+      repos: wb.repos.day
+    }
+
+    archives.update(dataOptions)
     res.status(200).send('Updating the archives sit tight!')
   })
 
