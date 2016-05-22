@@ -32,7 +32,7 @@ configLib(function (config) {
   app.use(errorHandler())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(wb.passport.initialize())
-  app.use(morgan(':date[iso] :method :url :status - :remote-addr - :response-time ms'))
+  app.use(morgan(':date[iso] :method :url :status - :response-time ms'))
   app.locals.pretty = true
   app.locals.moment = require('moment-timezone')
 
