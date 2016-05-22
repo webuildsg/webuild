@@ -11,7 +11,7 @@ __      _____  | |__  _   _(_) | __| | / \
   https://github.com/webuildsg/webuild/graphs/contributors
 
 # SITE
-  Version: 2.17.17
+  Version: 2.17.18
   Site Url: http://webuild.sg
   Keywords: developer, designer, maker, open source, open events, open community, engineer
   Language: English
