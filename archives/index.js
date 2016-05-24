@@ -73,8 +73,11 @@ module.exports = {
       }
 
       if (process.env.NODE_ENV === 'production') {
-        storeToArchives('repos', dataOptions.repos, createCallbackHandler('repos'))
-        storeToArchives('events', dataOptions.events, createCallbackHandler('events'))
+        storeToArchives('repos', dataOptions.repos, function (error, reply) {
+          createCallbackHandler('repos')(error, reply);
+          storeToArchives('events', dataOptions.events, createCallbackHandler('events'))
+          }
+        )
       }
     }
 
