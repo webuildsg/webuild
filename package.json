@@ -46,9 +46,9 @@
     "morgan": "^1.7.0",
     "promise": "7.1.1",
     "request": "2.72.0",
-    "standard": "7.1.0",
+    "standard": "7.1.1",
     "tracer": "^0.8.3",
-    "webuild-events": "1.4.25",
+    "webuild-events": "1.4.26",
     "webuild-repos": "^1.4.0"
   },
   "devDependencies": {
@@ -65,7 +65,7 @@
     "grunt-contrib-uglify": "1.0.1",
     "grunt-jsbeautifier": "0.2.12",
     "grunt-jscs": "2.8.0",
-    "mocha": "2.4.5",
+    "mocha": "2.5.3",
     "mocha-lcov-reporter": "1.2.0",
     "nconf": "0.8.4"
   },
