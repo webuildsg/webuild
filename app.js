@@ -26,6 +26,7 @@ configLib(function (config) {
   var whitelistGroups = config.whitelistGroups
 
   app.use(compress())
+  app.set('view engine', 'pug');
   app.use('/public', express.static(path.join(__dirname, '/public')))
   app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
   app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
@@ -37,7 +38,7 @@ configLib(function (config) {
   app.locals.moment = require('moment-timezone')
 
   app.get('/', function (req, res) {
-    res.render('./index.jade', {
+    res.render('./index.pug', {
       repos: wb.repos.feed.repos.slice(0, 10),
       events: wb.events.feed.events.slice(0, 10)
     })
@@ -78,7 +79,7 @@ configLib(function (config) {
   })
 
   app.get('/admin', function (req, res) {
-    res.render('./admin.jade', {
+    res.render('./admin.pug', {
       auth0: config.auth0,
       error: req.query.error,
       user: req.query.user ? req.query.user : '',
@@ -87,11 +88,11 @@ configLib(function (config) {
   })
 
   app.get('/apps', function (req, res) {
-    res.render('./apps.jade')
+    res.render('./apps.pug')
   })
 
   app.get('/privacy', function (req, res) {
-    res.render('./privacy.jade')
+    res.render('./privacy.pug')
   })
 
   app.get('/cal', function (req, res) {

@@ -7,20 +7,15 @@
   "scripts": {
     "start": "node app",
     "build": "grunt",
-
     "logs:staging": "rhc tail -o '-n 100' -a staging",
     "logs:production": "rhc tail -o '-n 100' -a production",
-
     "test": "standard archives/*.js countdown/*.js lib/*.js app.js && grunt travis --verbose",
     "postinstall": "bower install || HOME=$HOME/app-root/runtime bower install && grunt build",
-
     "restart:staging": "rhc app-restart --app staging",
     "restart:production": "rhc app-restart --app production",
     "restart": "npm run restart:staging && npm run restart:production",
-
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
     "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html",
-
     "deploy:staging": "git push staging-rhc master && rhc app-force-stop --app staging && rhc deploy master --app staging",
     "deploy:production": "git push production-rhc master && rhc app-force-stop --app production && rhc deploy master --app production",
     "deploy": "npm run deploy:staging && npm run deploy:production"
@@ -33,23 +28,23 @@
     "cors": "2.7.1",
     "errorhandler": "1.4.3",
     "express": "4.13.4",
-    "firebase": "^2.4.2",
+    "firebase": "^3.0.3",
     "grunt": "1.0.1",
     "grunt-cli": "1.2.0",
     "grunt-contrib-uglify": "1.0.1",
     "grunt-jsbeautifier": "0.2.12",
     "ical": "0.5.0",
     "ical-generator": "0.2.7",
-    "jade": "1.11.0",
     "jsonfile": "2.3.1",
     "moment-timezone": "0.5.4",
     "morgan": "^1.7.0",
     "promise": "7.1.1",
+    "pug": "^2.0.0-alpha8",
     "request": "2.72.0",
     "standard": "7.1.1",
     "tracer": "^0.8.3",
     "webuild-events": "1.4.26",
-    "webuild-repos": "^1.4.0"
+    "webuild-repos": "^1.4.1"
   },
   "devDependencies": {
     "blanket": "1.2.3",
