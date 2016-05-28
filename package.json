@@ -28,7 +28,7 @@
     "cors": "2.7.1",
     "errorhandler": "1.4.3",
     "express": "4.13.4",
-    "firebase": "^2.4.2",
+    "firebase": "^3.0.3",
     "grunt": "1.0.1",
     "grunt-cli": "1.2.0",
     "grunt-contrib-uglify": "1.0.1",
