@@ -95,6 +95,10 @@ configLib(function (config) {
     res.render('./privacy.pug')
   })
 
+  app.get('/faq', function (req, res) {
+    res.render('./faq.pug')
+  })
+
   app.get('/cal', function (req, res) {
     cal(config, wb.events.feed.events, res)
   })
