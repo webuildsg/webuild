@@ -26,7 +26,7 @@ configLib(function (config) {
   var whitelistGroups = config.whitelistGroups
 
   app.use(compress())
-  app.set('view engine', 'pug');
+  app.set('view engine', 'pug')
   app.use('/public', express.static(path.join(__dirname, '/public')))
   app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
   app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
