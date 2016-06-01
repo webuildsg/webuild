@@ -86,7 +86,7 @@ module.exports = function(callback) {
 
         "a", "i", "will", "be", "who", "want", "or", "have", "if", "go", "of", "with", "from", "for",
 
-        "the", "others", "another", "all",
+        "the", "others", "another", "all", "which", "project",
 
         "your", "you", "our", "you\"re", "we\"re"
       ],
