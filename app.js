@@ -98,6 +98,9 @@ configLib(function (config) {
   app.get('/faq', function (req, res) {
     res.render('./faq.pug')
   })
+  app.get('/about', function (req, res) {
+    res.render('./about.pug')
+  })
 
   app.get('/cal', function (req, res) {
     cal(config, wb.events.feed.events, res)
