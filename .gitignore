@@ -1,5 +1,10 @@
 node_modules/*
+
 public/js/vendor/*
+!public/js/vendor/auth0-widget.js
+public/js/vendor/auth0-widget.js/*
+!public/js/vendor/auth0-widget.js/build
+public/js/vendor/auth0-widget.js/build/auth0-widget.js
 
 public/css/style.css
 cache.json
