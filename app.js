@@ -14,34 +14,60 @@ var morgan = require('morgan')
 var logger = require('./lib/logger')
 var updateLib = require('./lib/update')
 
+var getConfig = require('./config.js')
 var app = express()
 
-var configLib = require('./config.js')
-configLib(function (config) {
+app.get('/apps', function (req, res) {
+  res.render('./apps.pug')
+})
+
+app.get('/privacy', function (req, res) {
+  res.render('./privacy.pug')
+})
+
+app.get('/faq', function (req, res) {
+  res.render('./faq.pug')
+})
+
+app.get('/about', function (req, res) {
+  res.render('./about.pug')
+})
+
+app.get('/check', function (req, res) {
+  res.redirect('/#check')
+})
+
+app.use(compress())
+app.set('view engine', 'pug')
+app.use('/public', express.static(path.join(__dirname, '/public')))
+app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
+app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
+app.use(errorHandler())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan(':date[iso] :method :url :status - :response-time ms'))
+app.locals.pretty = true
+app.locals.moment = require('moment-timezone')
+
+getConfig(function (config) {
+  var archives = require('./archives')
   var wb = require('webuild-events').init(config)
   wb.repos = require('webuild-repos').init(config).repos
 
-  var archives = require('./archives').init(config)
-  var podcastApiUrl = config.podcastApiUrl
-  var whitelistGroups = config.whitelistGroups
-
-  app.use(compress())
-  app.set('view engine', 'pug')
-  app.use('/public', express.static(path.join(__dirname, '/public')))
-  app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
-  app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
-  app.use(errorHandler())
-  app.use(bodyParser.urlencoded({ extended: true }))
   app.use(wb.passport.initialize())
-  app.use(morgan(':date[iso] :method :url :status - :response-time ms'))
-  app.locals.pretty = true
-  app.locals.moment = require('moment-timezone')
 
   app.get('/', function (req, res) {
     res.render('./index.pug', {
       repos: wb.repos.feed.repos.slice(0, 10),
       events: wb.events.feed.events.slice(0, 10)
     })
+  })
+
+  app.post('/api/v1/events/update', function (req, res) {
+    updateLib(req, res, wb, 'events')
+  })
+
+  app.post('/api/v1/repos/update', function (req, res) {
+    updateLib(req, res, wb, 'repos')
   })
 
   app.get('/api/v1/check/:checkdate', cors(), function (req, res) {
@@ -83,42 +109,15 @@ configLib(function (config) {
       auth0: config.auth0,
       error: req.query.error,
       user: req.query.user ? req.query.user : '',
-      groups: require('./lib/notApprovedGroups')(wb.events.feed.events, whitelistGroups)
+      groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups)
     })
-  })
-
-  app.get('/apps', function (req, res) {
-    res.render('./apps.pug')
-  })
-
-  app.get('/privacy', function (req, res) {
-    res.render('./privacy.pug')
-  })
-
-  app.get('/faq', function (req, res) {
-    res.render('./faq.pug')
-  })
-  app.get('/about', function (req, res) {
-    res.render('./about.pug')
   })
 
   app.get('/cal', function (req, res) {
     cal(config, wb.events.feed.events, res)
   })
 
-  app.get('/check', function (req, res) {
-    res.redirect('/#check')
-  })
-
   app.get('/callback', wb.passport.callback)
-
-  app.post('/api/v1/events/update', function (req, res) {
-    updateLib(req, res, wb, 'events')
-  })
-
-  app.post('/api/v1/repos/update', function (req, res) {
-    updateLib(req, res, wb, 'repos')
-  })
 
   app.post('/api/v1/archives/update', function (req, res) {
     if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
@@ -131,13 +130,13 @@ configLib(function (config) {
       repos: wb.repos.day
     }
 
-    archives.update(dataOptions)
+    archives.init(config).update(dataOptions)
     res.status(200).send('Updating the archives sit tight!')
   })
 
   app.use('/api/v1/podcasts', cors(), function (req, res) {
     res.setHeader('Cache-Control', 'public, max-age=86400') // 1 day
-    request(podcastApiUrl, function (err, msg, response) {
+    request(config.podcastApiUrl, function (err, msg, response) {
       if (err) {
         res.status(503).send('We Build Live Error')
         return
