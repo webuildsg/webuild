@@ -50,8 +50,11 @@ app.locals.moment = require('moment-timezone')
 
 getConfig(function (config) {
   var archives = require('./archives')
-  var wb = require('webuild-events').init(config)
-  wb.repos = require('webuild-repos').init(config).repos
+  var wbEvents = require('webuild-events')
+  var wbRepos = require('webuild-repos')
+
+  var wb = wbEvents.init(config)
+  wb.repos = wbRepos.init(config).repos
 
   app.use(wb.passport.initialize())
 
@@ -63,11 +66,23 @@ getConfig(function (config) {
   })
 
   app.post('/api/v1/events/update', function (req, res) {
-    updateLib(req, res, wb, 'events')
+    getConfig(function (newConfig) {
+      config = newConfig
+      wb = wbEvents.init(config)
+      wb.repos = wbRepos.init(config).repos
+
+      updateLib(req, res, wb, 'events')
+    })
   })
 
   app.post('/api/v1/repos/update', function (req, res) {
-    updateLib(req, res, wb, 'repos')
+    getConfig(function (newConfig) {
+      config = newConfig
+      wb = wbEvents.init(config)
+      wb.repos = wbRepos.init(config).repos
+
+      updateLib(req, res, wb, 'repos')
+    })
   })
 
   app.get('/api/v1/check/:checkdate', cors(), function (req, res) {
