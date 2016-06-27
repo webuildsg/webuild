@@ -7,26 +7,37 @@ body
     include ./layout/header.pug
     .main.container
       br
-        
-      h3 Groups not approved before
-      br
-      p.tagline
-        | If these groups are not approved before, then add them to Firebase DB <code>whitelistGroups</code> or <code>blacklist{PROVIDER}</code>.
       
       if groups.length > 0
-        pre
-          each group in groups
-            code {
-            br
-            code    "group_id": #{group.group_id},
-            br
-            code    "group_name": "#{group.group_name}",
-            br
-            code    "group_url": "#{group.group_url}"
-            br
-            code },
-      else
-        pre All events are in the approved groups!
+        h3 New groups
+        br
+          
+        table.table
+          tr 
+            th Add 
+            th Remove 
+            th Name
+            th Upcoming event
+        
+        each group in groups
+          tr
+            td <input type="radio" name="group.group_id">
+            td <input type="radio" name="group.group_id">
+            td <a href="#{group.group_url}">#{group.group_name}</a>
+            td #{group}
+      
+      h3 Upcoming events
+      
+      table.table
+        tr 
+          th Remove 
+          th Name
+          th Organiser
+        each event in events
+          tr
+            td <input type="checkbox" name="event.id">
+            td <a href="#{event.url}">#{event.name}</a> <br> on #{event.formatted_time} <br> at #{event.location}
+            td <a href="#{event.group_url}">#{event.group_name}</a>
 
       h3 Login
       div#auth0(style='width: 320px; margin: 40px auto;')

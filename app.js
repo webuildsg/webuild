@@ -124,7 +124,8 @@ getConfig(function (config) {
       auth0: config.auth0,
       error: req.query.error,
       user: req.query.user ? req.query.user : '',
-      groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups)
+      groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups),
+      events: wb.events.feed.events.slice(0, 20)
     })
   })
 
