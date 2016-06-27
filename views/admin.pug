@@ -61,7 +61,7 @@ body
           span.footer-itunes
         p iTunes
                                     
-  script(src='public/js/vendor/auth0-widget.js/build/auth0-widget.min.js')
+  script(src='public/js/auth0-widget.min.js')
   script(type='text/javascript').
     var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
     widget.signin({container: 'auth0', connections: ['facebook'], chrome: true, scope: 'openid profile user_groups user_events'},function(){
