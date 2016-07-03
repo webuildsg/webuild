@@ -8,6 +8,7 @@ var http = require('http')
 var path = require('path')
 var request = require('request')
 var cors = require('cors')
+var auth = require('basic-auth')
 
 var cal = require('./lib/cal')
 var morgan = require('morgan')
@@ -120,13 +121,21 @@ getConfig(function (config) {
   })
 
   app.get('/admin', function (req, res) {
-    res.render('./admin.pug', {
-      auth0: config.auth0,
-      error: req.query.error,
-      user: req.query.user ? req.query.user : '',
-      groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups),
-      events: wb.events.feed.events.slice(0, 20)
-    })
+    var credentials = auth(req)
+
+    if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
+      res.statusCode = 401
+      res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
+      res.end('Access denied')
+    } else {
+      res.render('./admin.pug', {
+        auth0: config.auth0,
+        error: req.query.error,
+        user: req.query.user ? req.query.user : '',
+        groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups),
+        events: wb.events.feed.events.slice(0, 20)
+      })
+    }
   })
 
   app.get('/cal', function (req, res) {

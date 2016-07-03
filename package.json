@@ -20,6 +20,7 @@
     "deploy": "npm run deploy:staging && npm run deploy:production"
   },
   "dependencies": {
+    "basic-auth": "^1.0.4",
     "body-parser": "1.15.1",
     "cli-color": "1.1.0",
     "compression": "1.6.2",
