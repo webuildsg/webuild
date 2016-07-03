@@ -138,9 +138,9 @@ getConfig(function (config) {
     }
   })
 
-  app.post('/admin', function(req, res) {
+  // app.post('/admin', function (req, res) {
     // TODO: implement post request to update firebase db
-  })
+  // })
 
   app.get('/cal', function (req, res) {
     cal(config, wb.events.feed.events, res)
