@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "basic-auth": "^1.0.4",
-    "body-parser": "1.15.1",
+    "body-parser": "1.15.2",
     "cli-color": "1.1.0",
     "compression": "1.6.2",
     "cors": "2.7.1",
@@ -38,7 +38,7 @@
     "request": "2.72.0",
     "standard": "7.1.2",
     "tracer": "^0.8.3",
-    "webuild-events": "1.4.28",
+    "webuild-events": "1.4.29",
     "webuild-repos": "^1.4.1"
   },
   "devDependencies": {
@@ -53,8 +53,8 @@
     "grunt-contrib-csslint": "1.0.0",
     "grunt-contrib-jshint": "1.0.0",
     "grunt-contrib-uglify": "1.0.1",
-    "grunt-jsbeautifier": "0.2.12",
-    "grunt-jscs": "3.0.0",
+    "grunt-jsbeautifier": "0.2.13",
+    "grunt-jscs": "3.0.1",
     "mocha": "2.5.3",
     "mocha-lcov-reporter": "1.2.0",
     "nconf": "0.8.4"
