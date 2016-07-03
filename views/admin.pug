@@ -20,8 +20,8 @@ body
             th Upcoming event
           each group in groups
             tr
-              td <input type="radio" name="group.group_id">
-              td <input type="radio" name="group.group_id">
+              td <input type="radio" name="#{group.group_id}" value="yes">
+              td <input type="radio" name="#{group.group_id}" value="no">
               td <a href="#{group.group_url}">#{group.group_name}</a><br>ID: #{group.group_id}
               td <a href="#{group.upcoming_event_url}">#{group.upcoming_event_name}</a>
       
@@ -34,7 +34,7 @@ body
           th Organiser
         each event in events
           tr
-            td <input type="checkbox" name="event.id">
+            td <input type="checkbox" name="event.id" value="no">
             td <a href="#{event.url}">#{event.name}</a> <br> on #{event.formatted_time} <br> at #{event.location}
             td <a href="#{event.group_url}">#{event.group_name}</a>
 
