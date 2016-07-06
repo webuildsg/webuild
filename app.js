@@ -9,7 +9,6 @@ var path = require('path')
 var request = require('request')
 var cors = require('cors')
 var auth = require('basic-auth')
-var bodyParser = require('body-parser');
 
 var cal = require('./lib/cal')
 var morgan = require('morgan')
