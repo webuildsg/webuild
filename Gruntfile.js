@@ -71,6 +71,7 @@ module.exports = function(grunt) {
           'public/js/script.js': [
             'public/js/vendor/moment/min/moment.min.js',
             'public/js/vendor/fluidvids/dist/fluidvids.min.js',
+            'public/js/vendor/fetch/fetch.js',
             'public/js/main.js'
           ]
         }

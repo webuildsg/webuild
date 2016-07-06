@@ -36,6 +36,7 @@
     "describe": true,
     "document": true,
     "exports": true,
+    "fetch": true,
     "fluidvids": true,
     "it": true,
     "module": true,

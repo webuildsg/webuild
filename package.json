@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "basic-auth": "^1.0.4",
-    "body-parser": "1.15.2",
+    "body-parser": "^1.15.2",
     "cli-color": "1.1.0",
     "compression": "1.6.2",
     "cors": "2.7.1",

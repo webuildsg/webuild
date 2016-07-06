@@ -37,14 +37,22 @@
   console.log( '%c- tweet us https://twitter.com/webuildsg', 'background: #f1e9b4; color: #228dB7' );
 
   // randomise video in youtube playlist
-  totalVideo = 150; // larger than total videos in the playlist
-  rand1toTotalVideo = Math.floor( Math.random() * totalVideo );
-  newPlaylistAttribute = '//www.youtube.com/embed/videoseries?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1&index=' + rand1toTotalVideo;
-  document.getElementById( 'playlist' ).setAttribute( 'src', newPlaylistAttribute );
+  var playlistVideo = document.getElementById( 'playlist' )
+
+  if ( playlistVideo ) {
+    totalVideo = 150; // larger than total videos in the playlist
+    rand1toTotalVideo = Math.floor( Math.random() * totalVideo );
+    newPlaylistAttribute = '//www.youtube.com/embed/videoseries?list=PLECEw2eFfW7hYMucZmsrryV_9nIc485P1&index=' + rand1toTotalVideo;
+    playlistVideo.setAttribute( 'src', newPlaylistAttribute );
+  }
 
   // select all calendar URL
-  document.getElementById( 'selectAll' ).onclick = function () {
-    this.setSelectionRange( 0, this.value.length )
+  var calURL = document.getElementById( 'selectAll' )
+
+  if ( calURL ) {
+    calURL.onclick = function () {
+      this.setSelectionRange( 0, this.value.length )
+    }
   }
 
   function countdown( nextLiveShowDate ) {
@@ -136,41 +144,43 @@
   } );
 
   // event clash checker
-  eventDate.onchange = function () {
-    var checkEvent = moment();
-    var checkEventCompleteUrl = '';
-    var request = new XMLHttpRequest();
-    var wordedCheckDate = '';
+  if ( eventDate ) {
+    eventDate.onchange = function () {
+      var checkEvent = moment();
+      var checkEventCompleteUrl = '';
+      var request = new XMLHttpRequest();
+      var wordedCheckDate = '';
 
-    if ( this.value.match( /\-/ ) ) {
-      // For Chrome: YYYY-MM-DD - unchanged
-      checkEvent = this.value;
-    } else {
-      // For FF and Safari: DD/MM/YYYY to YYYY-MM-DD
-      checkEvent = this.value.substring( 6, 10 ) + '-' + this.value.substring( 3, 5 ) + '-' + this.value.substring( 0, 2 );
-    }
-
-    wordedCheckDate = '<strong>' + moment( checkEvent, 'YYYY-MM-DD' ).format( 'D MMM YYYY, ddd' ) + '</strong>';
-
-    ul.innerHTML = '';
-    loader.style.display = 'block';
-
-    checkEventCompleteUrl = eventsCheckApi + checkEvent;
-    request.open( 'GET', checkEventCompleteUrl, true );
-    request.responseType = 'json';
-    request.onload = function () {
-      if ( typeof request.response === 'string' ) {
-        // Chrome
-        events = JSON.parse( request.response ).events;
-        displayClashStatus( events );
+      if ( this.value.match( /\-/ ) ) {
+        // For Chrome: YYYY-MM-DD - unchanged
+        checkEvent = this.value;
       } else {
-        // FF or Safari
-        events = request.response.events;
-        displayClashStatus( events, wordedCheckDate );
+        // For FF and Safari: DD/MM/YYYY to YYYY-MM-DD
+        checkEvent = this.value.substring( 6, 10 ) + '-' + this.value.substring( 3, 5 ) + '-' + this.value.substring( 0, 2 );
       }
-      events.forEach( appendClashedEvent );
-    };
-    request.send();
+
+      wordedCheckDate = '<strong>' + moment( checkEvent, 'YYYY-MM-DD' ).format( 'D MMM YYYY, ddd' ) + '</strong>';
+
+      ul.innerHTML = '';
+      loader.style.display = 'block';
+
+      checkEventCompleteUrl = eventsCheckApi + checkEvent;
+      request.open( 'GET', checkEventCompleteUrl, true );
+      request.responseType = 'json';
+      request.onload = function () {
+        if ( typeof request.response === 'string' ) {
+          // Chrome
+          events = JSON.parse( request.response ).events;
+          displayClashStatus( events );
+        } else {
+          // FF or Safari
+          events = request.response.events;
+          displayClashStatus( events, wordedCheckDate );
+        }
+        events.forEach( appendClashedEvent );
+      };
+      request.send();
+    }
   }
 
   // read the next podcast date from /api/podcasts
@@ -214,4 +224,50 @@
   if ( window.location.hash ) {
     updateDateCheck();
   }
-} )();
+
+  // update on /admin
+  var updateBtn = document.getElementById( 'update' )
+
+  if ( updateBtn ) {
+    updateBtn.addEventListener( 'click', function () {
+      updateBtn.disabled = true
+
+      var selectedGroups = document.querySelectorAll( 'input[type="radio"]:checked' )
+      var answer = {}
+
+      selectedGroups.forEach( function ( eachGroup ) {
+        if ( eachGroup.value === 'yes' ) {
+          if ( !answer.whitelistGroups ) {
+            answer.whitelistGroups = []
+          }
+
+          answer.whitelistGroups.push( {
+            group_id: parseInt( eachGroup.name ),
+            group_name: eachGroup.dataset.name,
+            group_url: eachGroup.dataset.url
+          } )
+        } else {
+          if ( !answer[ eachGroup.dataset.platform ] ) {
+            answer[ eachGroup.dataset.platform ] = []
+          }
+
+          answer[ eachGroup.dataset.platform ].push( eachGroup.name )
+        }
+      } )
+
+      fetch( '/admin', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( answer ),
+        credentials: 'same-origin'
+      } ).then( function ( response ) {
+        return response.text()
+      } ).then( function ( body ) {
+        document.body.innerHTML = body
+      } )
+    } )
+  }
+} )()

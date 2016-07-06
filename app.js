@@ -9,14 +9,28 @@ var path = require('path')
 var request = require('request')
 var cors = require('cors')
 var auth = require('basic-auth')
+var bodyParser = require('body-parser');
 
 var cal = require('./lib/cal')
 var morgan = require('morgan')
 var logger = require('./lib/logger')
 var updateLib = require('./lib/update')
+var adminLib = require('./lib/admin')
 
 var getConfig = require('./config.js')
 var app = express()
+
+app.use(compress())
+app.set('view engine', 'pug')
+app.use('/public', express.static(path.join(__dirname, '/public')))
+app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
+app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
+app.use(errorHandler())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan(':date[iso] :method :url :status - :response-time ms'))
+app.locals.pretty = true
+app.locals.moment = require('moment-timezone')
 
 app.get('/apps', function (req, res) {
   res.render('./apps.pug')
@@ -37,17 +51,6 @@ app.get('/about', function (req, res) {
 app.get('/check', function (req, res) {
   res.redirect('/#check')
 })
-
-app.use(compress())
-app.set('view engine', 'pug')
-app.use('/public', express.static(path.join(__dirname, '/public')))
-app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
-app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
-app.use(errorHandler())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(morgan(':date[iso] :method :url :status - :response-time ms'))
-app.locals.pretty = true
-app.locals.moment = require('moment-timezone')
 
 getConfig(function (config) {
   var archives = require('./archives')
@@ -138,9 +141,30 @@ getConfig(function (config) {
     }
   })
 
-  // app.post('/admin', function (req, res) {
-    // TODO: implement post request to update firebase db
-  // })
+  app.post('/admin', function (req, res) {
+    var body = req.body
+    var credentials = auth(req)
+
+    if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
+      res.statusCode = 401
+      res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
+      res.end('Access denied')
+    } else {
+      // Update DB
+      if (body.whitelistGroups) {
+        adminLib.addToWhitelistGroups(body.whitelistGroups, config.lastIDs)
+        config.whitelistGroups = config.whitelistGroups.concat(body.whitelistGroups)
+      }
+
+      res.render('./admin.pug', {
+        auth0: config.auth0,
+        error: req.query.error,
+        user: req.query.user ? req.query.user : '',
+        groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups),
+        events: wb.events.feed.events.slice(0, 20)
+      })
+    }
+  })
 
   app.get('/cal', function (req, res) {
     cal(config, wb.events.feed.events, res)

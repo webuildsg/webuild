@@ -31,6 +31,7 @@ module.exports = function(callback) {
       facebookGroups : snapshot.facebookGroups,
       blacklistEvents: snapshot.blacklistEvents,
       whitelistEvents: snapshot.whitelistEvents,
+      lastIDs: snapshot.meta,
       icsGroups: snapshot.icsGroups,
       whitelistGroups: snapshot.whitelistGroups,
 
