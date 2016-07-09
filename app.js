@@ -151,7 +151,7 @@ getConfig(function (config) {
     } else {
       // Update DB
       if (body.whitelistGroups) {
-        adminLib.addToWhitelistGroups(body.whitelistGroups, config.lastIDs)
+        adminLib.addToWhitelistGroups(body.whitelistGroups)
         config.whitelistGroups = config.whitelistGroups.concat(body.whitelistGroups)
       }
 

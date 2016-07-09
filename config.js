@@ -4,10 +4,26 @@ var locationSymbol = 'SG';
 var db = require('./lib/database')
 var logger = require('./lib/logger')
 
+function objectToArray(obj) {
+  if (Array.isArray(obj)) {
+    return obj
+  }
+
+  var arr = []
+
+  for (var groupid in obj) {
+    if( obj.hasOwnProperty( groupid ) ) {
+      arr.push(obj[groupid])
+    }
+  }
+
+  return arr
+}
+
 module.exports = function(callback) {
   db.once('value', function(snapshotAll) {
     var snapshot = snapshotAll.val()
-
+    console.log(snapshot)
     return callback({
       location: city,
       city: city,
@@ -28,12 +44,12 @@ module.exports = function(callback) {
       podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
       domain: 'webuild.sg',
 
-      facebookGroups : snapshot.facebookGroups,
-      blacklistEvents: snapshot.blacklistEvents,
-      whitelistEvents: snapshot.whitelistEvents,
       lastIDs: snapshot.meta,
-      icsGroups: snapshot.icsGroups,
-      whitelistGroups: snapshot.whitelistGroups,
+      facebookGroups : objectToArray(snapshot.facebookGroups),
+      blacklistEvents: objectToArray(snapshot.blacklistEvents),
+      whitelistEvents: objectToArray(snapshot.whitelistEvents),
+      icsGroups: objectToArray(snapshot.icsGroups),
+      whitelistGroups: objectToArray(snapshot.whitelistGroups),
 
       archives: {
         githubRepoFolder: 'webuildsg/data/',
