@@ -23,7 +23,7 @@ function objectToArray(obj) {
 module.exports = function(callback) {
   db.once('value', function(snapshotAll) {
     var snapshot = snapshotAll.val()
-    console.log(snapshot)
+
     return callback({
       location: city,
       city: city,
@@ -44,7 +44,6 @@ module.exports = function(callback) {
       podcastApiUrl: 'http://webuildsg.github.io/live/api/v1/podcasts.json',
       domain: 'webuild.sg',
 
-      lastIDs: snapshot.meta,
       facebookGroups : objectToArray(snapshot.facebookGroups),
       blacklistEvents: objectToArray(snapshot.blacklistEvents),
       whitelistEvents: objectToArray(snapshot.whitelistEvents),
@@ -135,7 +134,7 @@ module.exports = function(callback) {
         fields: 'next_event',
         offset: 0,
 
-        blacklistGroups: snapshot.meetupBlacklistGroups
+        blacklistGroups: objectToArray(snapshot.meetupBlacklistGroups)
       },
 
       eventbriteParams: {
@@ -147,7 +146,7 @@ module.exports = function(callback) {
           '102',
           '119'
         ],
-        blacklistOrganiserId: snapshot.eventbriteBlacklistOrganiserIds
+        blacklistOrganiserId: objectToArray(snapshot.eventbriteBlacklistOrganiserIds)
       }
     })
   })

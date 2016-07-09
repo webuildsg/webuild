@@ -143,16 +143,23 @@ getConfig(function (config) {
   app.post('/admin', function (req, res) {
     var body = req.body
     var credentials = auth(req)
+    var blacklistGroupPlatforms = [ 'eventbrite', 'meetup' ]
 
     if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
       res.statusCode = 401
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
     } else {
-      // Update DB
       if (body.whitelistGroups) {
         adminLib.addToWhitelistGroups(body.whitelistGroups)
         config.whitelistGroups = config.whitelistGroups.concat(body.whitelistGroups)
+      } else {
+        blacklistGroupPlatforms.forEach(function (eachPlatform) {
+          if (body[ eachPlatform ]) {
+            adminLib.addToBlacklistGroups(body[ eachPlatform ], eachPlatform)
+            wb.events.feed.events = adminLib.removeBlacklistGroupEvents(wb.events.feed.events, body[ eachPlatform ], eachPlatform)
+          }
+        })
       }
 
       res.render('./admin.pug', {

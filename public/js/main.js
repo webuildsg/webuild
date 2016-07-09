@@ -246,7 +246,7 @@
             group_name: eachGroup.dataset.name,
             group_url: eachGroup.dataset.url
           } )
-        } else {
+        } else if ( eachGroup.value === 'no' ) {
           if ( !answer[ eachGroup.dataset.platform ] ) {
             answer[ eachGroup.dataset.platform ] = []
           }
