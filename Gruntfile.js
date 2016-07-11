@@ -93,21 +93,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-jsbeautifier');
 
-  grunt.registerTask('cleanup', 'Remove past events in blacklist and whitelist', function() {
-    var cleanup = require('./tasks/cleanup');
-    var blacklistEventsFilepath = __dirname  + '/config/blacklistEvents.json';
-    var whitelistEventsFilepath =  __dirname  + '/config/whitelistEvents.json';
-    var done = this.async();
-
-    cleanup.all(blacklistEventsFilepath, cleanup.getEventsToKeep(blacklistEventsFilepath), function(reply) {
-      grunt.log.writeln(reply);
-      cleanup.all(whitelistEventsFilepath, cleanup.getEventsToKeep(whitelistEventsFilepath), function(reply) {
-        grunt.log.writeln(reply);
-        done();
-      })
-    })
-  });
-
   grunt.registerTask('travis', [
     'clean',
     'jshint',
