@@ -6,7 +6,6 @@
   var request = new XMLHttpRequest();
   var eventDate = document.getElementById( 'check' );
   var ul = document.getElementById( 'clashed' );
-  var events = null;
   var loader = document.getElementById( 'loader' );
   var totalVideo = 0;
   var rand1toTotalVideo = 0;
@@ -148,7 +147,6 @@
     eventDate.onchange = function () {
       var checkEvent = moment();
       var checkEventCompleteUrl = '';
-      var request = new XMLHttpRequest();
       var wordedCheckDate = '';
 
       if ( this.value.match( /\-/ ) ) {
@@ -164,22 +162,16 @@
       ul.innerHTML = '';
       loader.style.display = 'block';
 
-      checkEventCompleteUrl = eventsCheckApi + checkEvent;
-      request.open( 'GET', checkEventCompleteUrl, true );
-      request.responseType = 'json';
-      request.onload = function () {
-        if ( typeof request.response === 'string' ) {
-          // Chrome
-          events = JSON.parse( request.response ).events;
-          displayClashStatus( events );
-        } else {
-          // FF or Safari
-          events = request.response.events;
-          displayClashStatus( events, wordedCheckDate );
-        }
-        events.forEach( appendClashedEvent );
-      };
-      request.send();
+      checkEventCompleteUrl = eventsCheckApi + checkEvent
+
+      fetch( checkEventCompleteUrl ).then( function ( response ) {
+        return response.json()
+      } ).then( function ( body ) {
+        var events = body.events
+
+        displayClashStatus( events, wordedCheckDate )
+        events.forEach( appendClashedEvent )
+      } )
     }
   }
 
