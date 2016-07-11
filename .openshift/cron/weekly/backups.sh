@@ -4,4 +4,5 @@
 hour=$(date '+%H')
 if [ $hour == 02 ]; then
 	curl -X POST --data "secret=$WEBUILD_API_SECRET" $WEBUILD_URL/api/v1/backups/update
+	curl -X DELETE --data "secret=$WEBUILD_API_SECRET" $WEBUILD_URL/api/v1/events/cleanup
 fi

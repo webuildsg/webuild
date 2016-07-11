@@ -15,6 +15,7 @@ var morgan = require('morgan')
 var logger = require('./lib/logger')
 var updateLib = require('./lib/update')
 var adminLib = require('./lib/admin')
+var cleanupLib = require('./lib/cleanup')
 
 var getConfig = require('./config.js')
 var app = express()
@@ -76,6 +77,21 @@ getConfig(function (config) {
       wb.repos = wbRepos.init(config).repos
 
       updateLib(req, res, wb, 'events')
+    })
+  })
+
+  app.delete('/api/v1/events/cleanup', function (req, res) {
+    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
+      res.status(503).send('Incorrect secret key')
+      return
+    }
+
+    cleanupLib(config.originalDB, function (error, reply) {
+      if (error) {
+        res.status(200).send(error)
+      } else {
+        res.status(200).send(reply)
+      }
     })
   })
 
