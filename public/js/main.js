@@ -3,7 +3,6 @@
 
   var podcastApi = '/api/v1/podcasts';
   var eventsCheckApi = '/api/v1/check/';
-  var request = new XMLHttpRequest();
   var eventDate = document.getElementById( 'check' );
   var ul = document.getElementById( 'clashed' );
   var loader = document.getElementById( 'loader' );
@@ -176,26 +175,20 @@
   }
 
   // read the next podcast date from /api/podcasts
-  request.open( 'GET', podcastApi, true );
-  request.responseType = 'json';
-  request.onload = function () {
-    var response = request.response;
+  fetch( podcastApi ).then( function ( response ) {
+    return response.json()
+  } ).then( function ( body ) {
     var podcastTimeString;
 
-    if ( typeof request.response === 'string' ) {
-      // Safari doesn't honor the responseType of 'json'.
-      response = JSON.parse( request.response );
-    }
+    if ( body.meta.next_live_show ) {
+      podcastTimeString = body.meta.next_live_show.start_time;
 
-    if ( response.meta.next_live_show ) {
-      podcastTimeString = response.meta.next_live_show.start_time;
       countdown( podcastTimeString );
       setInterval( function () {
         countdown( podcastTimeString );
       }, 1000 );
     }
-  }
-  request.send();
+  } )
 
   function updateDateCheck() {
     var fragment = window.location.hash;
