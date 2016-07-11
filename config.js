@@ -25,6 +25,8 @@ module.exports = function(callback) {
     var snapshot = snapshotAll.val()
 
     return callback({
+      originalDB: snapshot,
+
       location: city,
       city: city,
       country: country,

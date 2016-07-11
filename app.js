@@ -53,6 +53,7 @@ app.get('/check', function (req, res) {
 
 getConfig(function (config) {
   var archives = require('./archives')
+  var backups = require('./backups')
   var wbEvents = require('webuild-events')
   var wbRepos = require('webuild-repos')
 
@@ -191,6 +192,16 @@ getConfig(function (config) {
 
     archives.init(config).update(dataOptions)
     res.status(200).send('Updating the archives sit tight!')
+  })
+
+  app.post('/api/v1/backups/update', function (req, res) {
+    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
+      res.status(503).send('Incorrect secret key')
+      return
+    }
+
+    backups(config.archives, config.originalDB)
+    res.status(200).send('Backing up the Firebase db. Sit tight!')
   })
 
   app.use('/api/v1/podcasts', cors(), function (req, res) {
