@@ -217,7 +217,7 @@
     updateBtn.addEventListener( 'click', function () {
       updateBtn.disabled = true
 
-      var selectedGroups = document.querySelectorAll( 'input[type="radio"]:checked' )
+      var selectedGroups = document.querySelectorAll( 'input[type="radio"]:checked, input[type="checkbox"]:checked' )
       var answer = {}
 
       selectedGroups.forEach( function ( eachGroup ) {
@@ -237,6 +237,16 @@
           }
 
           answer[ eachGroup.dataset.platform ].push( eachGroup.name )
+        } else if ( eachGroup.value === 'blacklistEvent' ) {
+          if ( !answer.blacklistEvents ) {
+            answer.blacklistEvents = []
+          }
+
+          answer.blacklistEvents.push( {
+            id: eachGroup.name,
+            formatted_time: eachGroup.dataset.formmatedTime,
+            url: eachGroup.dataset.url
+          } )
         }
       } )
 

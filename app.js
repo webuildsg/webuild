@@ -167,10 +167,12 @@ getConfig(function (config) {
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
     } else {
-      if (body.whitelistGroups) {
+      if (body.whitelistGroups) { // white list groups
         adminLib.addToWhitelistGroups(body.whitelistGroups)
         config.whitelistGroups = config.whitelistGroups.concat(body.whitelistGroups)
-      } else {
+      } else if (body.blacklistEvents) { // black list events
+        adminLib.addToBlacklistEvents(body.blacklistEvents)
+      } else { // black list groups
         blacklistGroupPlatforms.forEach(function (eachPlatform) {
           if (body[ eachPlatform ]) {
             adminLib.addToBlacklistGroups(body[ eachPlatform ], eachPlatform)
