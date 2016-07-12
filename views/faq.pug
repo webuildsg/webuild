@@ -10,36 +10,8 @@ body
 
       img(src="/public/img/webuild.png", style="max-width:100%")
 
-    footer
-      .container
-        <p>Checkout more cool events and people in startup, arts and tech with <br><a href="http://thelist.sg/">thelist.sg</a>, <a href="http://connections.sg/">connections.sg</a>, <a href="http://hackerspace.sg/calendar/hackerspacesg-events/">hackerspace</a>, <a href="http://bhappening.wordpress.com/">bhappening</a>, <a href="http://www.techinasia.com/tech-startup-events/">tech in asia</a></p>
-
-    ul.social
-      li
-        a(href='https://twitter.com/webuildsg')
-          span.footer-twitter
-        p Twitter
-      li
-        a(href='http://www.facebook.com/webuildsg')
-          span.footer-facebook
-        p Facebook
-      li
-        a(href='https://github.com/webuildsg')
-          span.footer-github
-        p GitHub
-      li
-        a(href='https://webuild.sg/cal')
-          span.footer-calendar
-        p Calendar
-      li
-        a(href='https://feeds.feedburner.com/WeBuildLive')
-          span.footer-rss
-        p RSS
-      li
-        a(href='https://itunes.apple.com/us/podcast/we-build-sg-live/id713804010')
-          span.footer-itunes
-        p iTunes
-
+    include ./layout/footer.pug
+  
   script(src='public/js/script.js')
   script.
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

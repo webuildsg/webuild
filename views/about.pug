@@ -14,35 +14,7 @@ body
 
       p.body We curate, collect and gather information about the community in 4 ways: (1) automatically list open event and open source updates on <a href="https://webuild.sg">We Build SG Main</a> website (2) visualise the data collected through charts, graphs and maps on <a href="https://data.webuild.sg">We Build SG Data</a> (3) interview engineers, designers and makers through a live internet podcast with <a href="https://live.webuild.sg">We Build SG Live</a> (4) collate a list of useful tips for organising meetups, attending technical conferences and contributing to open source with <a href="https://notes.webuild.sg">We Build SG Notes</a>.
 
-    footer
-      .container
-        <p>Checkout more cool events and people in startup, arts and tech with <br><a href="http://thelist.sg/">thelist.sg</a>, <a href="http://connections.sg/">connections.sg</a>, <a href="http://hackerspace.sg/calendar/hackerspacesg-events/">hackerspace</a>, <a href="http://bhappening.wordpress.com/">bhappening</a>, <a href="http://www.techinasia.com/tech-startup-events/">tech in asia</a></p>
-
-    ul.social
-      li
-        a(href='https://twitter.com/webuildsg')
-          span.footer-twitter
-        p Twitter
-      li
-        a(href='http://www.facebook.com/webuildsg')
-          span.footer-facebook
-        p Facebook
-      li
-        a(href='https://github.com/webuildsg')
-          span.footer-github
-        p GitHub
-      li
-        a(href='https://webuild.sg/cal')
-          span.footer-calendar
-        p Calendar
-      li
-        a(href='https://feeds.feedburner.com/WeBuildLive')
-          span.footer-rss
-        p RSS
-      li
-        a(href='https://itunes.apple.com/us/podcast/we-build-sg-live/id713804010')
-          span.footer-itunes
-        p iTunes
+    include ./layout/footer.pug
 
   script(src='public/js/script.js')
   script.
