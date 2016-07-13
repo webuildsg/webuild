@@ -13,7 +13,6 @@ var auth = require('basic-auth')
 var cal = require('./lib/cal')
 var morgan = require('morgan')
 var logger = require('./lib/logger')
-var updateLib = require('./lib/update')
 var adminLib = require('./lib/admin')
 var cleanupLib = require('./lib/cleanup')
 var notApprovedGroupsLib = require('./lib/notApprovedGroups')
@@ -73,13 +72,39 @@ getConfig(function (config) {
   })
 
   app.post('/api/v1/events/update', function (req, res) {
+    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
+      res.status(503).send('Incorrect secret key')
+      return
+    }
+
     getConfig(function (newConfig) {
       config = newConfig
       wb = wbEvents.init(config)
       wb.repos = wbRepos.init(config).repos
-
-      updateLib(req, res, wb, 'events')
+      wb.events.update()
     })
+
+    var message = 'Updating the event feed sit tight!'
+    logger.trace(message)
+    res.status(200).send(message)
+  })
+
+  app.post('/api/v1/repos/update', function (req, res) {
+    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
+      res.status(503).send('Incorrect secret key')
+      return
+    }
+
+    getConfig(function (newConfig) {
+      config = newConfig
+      wb = wbEvents.init(config)
+      wb.repos = wbRepos.init(config).repos
+      wb.repos.update()
+    })
+
+    var message = 'Updating the repos feed sit tight!'
+    logger.trace(message)
+    res.status(200).send(message)
   })
 
   app.delete('/api/v1/events/cleanup', function (req, res) {
@@ -94,16 +119,6 @@ getConfig(function (config) {
       } else {
         res.status(200).send(reply)
       }
-    })
-  })
-
-  app.post('/api/v1/repos/update', function (req, res) {
-    getConfig(function (newConfig) {
-      config = newConfig
-      wb = wbEvents.init(config)
-      wb.repos = wbRepos.init(config).repos
-
-      updateLib(req, res, wb, 'repos')
     })
   })
 
