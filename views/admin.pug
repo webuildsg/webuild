@@ -41,6 +41,66 @@ html(lang='en')
 
         button#update.button Update 
         
+        hr 
+        
+        h3 Add manual event
+        
+        form(id="add-event", method="POST", action="/add")
+          .form-element
+            .form-left
+              label.form-label Event name
+            .form-right
+              input(type='text', placeholder='name', id='add-name', required='required', class='form-input')
+          .form-element
+            .form-left
+              label.form-label Event website
+            .form-right
+              input(type='url', placeholder='url', id='add-url', required='required', class='form-input')
+          .form-element
+            .form-left 
+              label.form-label Description
+            .form-right
+              textarea(class='form-textarea', id='add-description', placeholder='description') 
+          .form-element
+            .form-left 
+              label.form-label Location
+            .form-right
+              input(type='text', placeholder='address', id='add-location', required='required', class='form-input')
+          .form-element
+            .form-left 
+              label.form-label Latitude
+            .form-right
+              input(type='text', placeholder='1.2', id='add-latitude', required='required', class='form-input')
+          .form-element
+            .form-left 
+              label.form-label Longitude
+            .form-right
+              input(type='text', placeholder='103.85', id='add-longitude', required='required', class='form-input')
+          .form-element
+            .form-left 
+              label.form-label Group name
+            .form-right
+              input(type='text', placeholder='group name', id='add-group-name', required='required', class='form-input')
+          .form-element
+            .form-left
+              label.form-label Group website 
+            .form-right 
+              input(type='url', placeholder='group url', id='add-group-url', required='required', class='form-input')
+          .form-element
+            .form-left 
+              label.form-label Start date time
+            .form-right 
+              input(type='date', id='add-start-date', class='form-date', required='required')
+              input(type='time', id='add-start-time', class='form-date', required='required')
+          .form-element
+            .form-left 
+              label.form-label End date time
+            .form-right
+              input(type='date', id='add-end-date', class='form-date', required='required')
+              input(type='time', id='add-end-time', class='form-date', required='required')
+          .form-element
+            input(type='submit', class='button', id='add' value='Add event')
+        
         h3 Login
         div#auth0(style='width: 320px; margin: 40px auto;')
           
@@ -48,6 +108,7 @@ html(lang='en')
         
     script(src='public/js/auth0-widget.min.js')
     script(src='public/js/script.js')
+      
     script(type='text/javascript').
       var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
       widget.signin({container: 'auth0', connections: ['facebook'], chrome: true, scope: 'openid profile user_groups user_events'},function(){

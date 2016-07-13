@@ -16,6 +16,7 @@ var logger = require('./lib/logger')
 var updateLib = require('./lib/update')
 var adminLib = require('./lib/admin')
 var cleanupLib = require('./lib/cleanup')
+var notApprovedGroupsLib = require('./lib/notApprovedGroups')
 
 var getConfig = require('./config.js')
 var app = express()
@@ -24,6 +25,7 @@ app.use(compress())
 app.set('view engine', 'pug')
 app.use('/public', express.static(path.join(__dirname, '/public')))
 app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
+app.use('/form.css', express.static(path.join(__dirname, '/public/form.css')))
 app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
 app.use(errorHandler())
 app.use(bodyParser.json())
@@ -151,7 +153,7 @@ getConfig(function (config) {
         auth0: config.auth0,
         error: req.query.error,
         user: req.query.user ? req.query.user : '',
-        groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups),
+        groups: notApprovedGroupsLib(wb.events.feed.events, config.whitelistGroups),
         events: wb.events.feed.events.slice(0, 20)
       })
     }
@@ -185,7 +187,28 @@ getConfig(function (config) {
         auth0: config.auth0,
         error: req.query.error,
         user: req.query.user ? req.query.user : '',
-        groups: require('./lib/notApprovedGroups')(wb.events.feed.events, config.whitelistGroups),
+        groups: notApprovedGroupsLib(wb.events.feed.events, config.whitelistGroups),
+        events: wb.events.feed.events.slice(0, 20)
+      })
+    }
+  })
+
+  app.post('/add', function (req, res) {
+    var body = req.body
+    var credentials = auth(req)
+
+    if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
+      res.statusCode = 401
+      res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
+      res.end('Access denied')
+    } else {
+      adminLib.addToWhitelistEvents(body)
+
+      res.render('./admin.pug', {
+        auth0: config.auth0,
+        error: req.query.error,
+        user: req.query.user ? req.query.user : '',
+        groups: notApprovedGroupsLib(wb.events.feed.events, config.whitelistGroups),
         events: wb.events.feed.events.slice(0, 20)
       })
     }
