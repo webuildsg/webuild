@@ -72,7 +72,6 @@ module.exports = function(grunt) {
             'public/js/vendor/moment/min/moment.min.js',
             'public/js/vendor/fluidvids/dist/fluidvids.min.js',
             'public/js/vendor/fetch/fetch.js',
-
             'public/js/lib/title.js',
             'public/js/lib/hello.js',
             'public/js/lib/playlist.js',

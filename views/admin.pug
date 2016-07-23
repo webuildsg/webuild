@@ -102,19 +102,56 @@ html(lang='en')
             input(type='submit', class='button', id='add' value='Add event')
         
         h3 Login
-        div#auth0(style='width: 320px; margin: 40px auto;')
+        div#root(style='width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px; box-sizing: border-box;')
           
       include ./layout/footer.pug
         
-    script(src='public/js/auth0-widget.min.js')
+    script(src='public/js/vendor/auth0-lock/build/lock.js')
     script(src='public/js/script.js')
       
     script(type='text/javascript').
-      var widget = new Auth0Widget({domain: '#{auth0.domain}', clientID: '#{auth0.clientId}', callbackURL: window.location.origin + '/callback'});
-      widget.signin({container: 'auth0', connections: ['facebook'], chrome: true, scope: 'openid profile user_groups user_events'},function(){
-        var d = document, err = d.querySelector('.a0-avatar'), elem = d.createElement('div');
-        elem.innerText = '#{error}' ? 'Unauthorized user!' : '#{user}' ? 'Thanks #{user}!' : '';
-        elem.style.color = '#{error}' ? 'red' : 'MediumSeaGreen';
-        err.parentNode.appendChild(elem);
-      });
-      
+      var p
+      var form
+      var lock = new Auth0Lock('#{auth0.clientId}', '#{auth0.domain}', {
+        allowedConnections: ['facebook'],
+        callbackURL:  window.location.origin + '/callback',
+        container: 'root',
+        rememberLastLogin: false,
+        auth: {
+          responseType: 'token',
+          params: {
+            scope: 'openid profile user_groups user_events'
+          }
+        }
+      })
+
+      lock.show({container: 'root'})
+
+      lock.on('show', function() {
+        var loginBtn = document.querySelector('.auth0-lock-center')
+        form = document.querySelector('.auth0-lock-widget')
+        if (p){
+          loginBtn.removeChild(form)
+        }
+      })
+
+      lock.on('authenticated', function(authResult) {
+        lock.getProfile(authResult.idToken, function(error, profile) {
+          var loginBtn = document.querySelector('.auth0-lock-center');
+          p = document.createElement('p')
+          loginBtn.appendChild(p)
+
+          if (error) {
+            p.style = 'text-align: center; font-size: .9em;'
+            p.innerText = 'Error: ' + error
+            return
+          }
+
+          p.style = 'text-align: center; font-size: .9em; color: MediumSeaGreen;'
+          p.innerText = 'Hello ' + profile.name + '!'
+
+          if (form){
+            loginBtn.removeChild(form)
+          }
+        })
+      })
