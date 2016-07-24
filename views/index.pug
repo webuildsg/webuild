@@ -18,13 +18,8 @@ html(lang='en')
       include ./layout/header.pug
       .main.container
 
-        //- a.live(href="https://live.webuild.sg")
-        //-   h3 Catch We Build LIVE
-        //-   p A live Internet talk show with geeks in town on building, learning and sharing!
-        //-   p.countdown
-        //-     | in <strong>#{days}</strong> days <strong>#{hours}</strong> hours <strong>#{minutes}</strong> minutes <strong>#{seconds}</strong> seconds
-        //-   p#livetime.time=formattedTime
-
+        include ./layout/episode.pug
+        
         section
           h3 open events
           ul.open-list.first
@@ -37,7 +32,7 @@ html(lang='en')
                   - if (typeof(event.rsvp_count) !== 'undefined'){
                     p.note!= event.rsvp_count + ' RSVP'
                   -}
-                  
+
         section
           h3 open source
           ul.open-list.second
@@ -71,7 +66,7 @@ html(lang='en')
         | </div>
 
       include ./layout/footer.pug
-    
+
     script(src='public/js/script.js')
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
