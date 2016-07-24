@@ -1,6 +1,6 @@
 {
   "name": "webuild.sg",
-  "version": "2.19.4",
+  "version": "2.19.5",
   "homepage": "https://webuild.sg",
   "keywords": "developer, designer, maker, engineer, open source, open events, open community",
   "private": true,
@@ -15,8 +15,8 @@
     "restart": "npm run restart:staging && npm run restart:production",
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
     "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html",
-    "deploy:staging": "git push staging master && rhc app-force-stop --app staging && rhc deploy master --app staging",
-    "deploy:production": "git push production master && rhc app-force-stop --app production && rhc deploy master --app production",
+    "deploy:staging": "git push staging master && rhc deploy master --app staging",
+    "deploy:production": "git push production master && rhc deploy master --app production",
     "deploy": "npm run deploy:staging && npm run deploy:production"
   },
   "dependencies": {
@@ -38,7 +38,7 @@
     "request": "2.74.0",
     "standard": "7.1.2",
     "tracer": "^0.8.3",
-    "webuild-events": "1.4.30",
+    "webuild-events": "1.4.31",
     "webuild-repos": "^1.4.1"
   },
   "devDependencies": {
