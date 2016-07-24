@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Run archival at 3am
+# Run archival at 3am every day
 hour=$(date '+%H')
 if [ $hour == 03 ]; then
 	curl -X POST --data "secret=$WEBUILD_API_SECRET" $WEBUILD_URL/api/v1/archives/update
