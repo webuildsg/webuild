@@ -38,7 +38,7 @@
     "request": "2.74.0",
     "standard": "7.1.2",
     "tracer": "^0.8.3",
-    "webuild-events": "1.4.30",
+    "webuild-events": "1.4.31",
     "webuild-repos": "^1.4.1"
   },
   "devDependencies": {
