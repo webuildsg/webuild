@@ -25,6 +25,7 @@ app.set('view engine', 'pug')
 app.use('/public', express.static(path.join(__dirname, '/public')))
 app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
 app.use('/form.css', express.static(path.join(__dirname, '/public/form.css')))
+app.use('/data.csv', express.static(path.join(__dirname, '/public/data.csv')))
 app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
 app.use(errorHandler())
 app.use(bodyParser.json())
@@ -187,9 +188,13 @@ getConfig(function (config) {
       if (body.whitelistGroups) { // white list groups
         adminLib.addToWhitelistGroups(body.whitelistGroups)
         config.whitelistGroups = config.whitelistGroups.concat(body.whitelistGroups)
-      } else if (body.blacklistEvents) { // black list events
+      }
+
+      if (body.blacklistEvents) { // black list events
         adminLib.addToBlacklistEvents(body.blacklistEvents)
-      } else { // black list groups
+      }
+
+      if (body.meetup || body.eventbrite) { // black list groups
         blacklistGroupPlatforms.forEach(function (eachPlatform) {
           if (body[ eachPlatform ]) {
             adminLib.addToBlacklistGroups(body[ eachPlatform ], eachPlatform)

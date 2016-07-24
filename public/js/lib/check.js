@@ -104,5 +104,4 @@
     ].join( '' );
     ul.appendChild( li );
   }
-
 })()

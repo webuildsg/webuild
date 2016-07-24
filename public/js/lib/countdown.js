@@ -2,8 +2,7 @@
   'use strict';
 
   // read the next podcast date from /api/podcasts
-  var podcastApi = '/api/v1/podcasts';
-  fetch( podcastApi ).then( function ( response ) {
+  fetch( '/api/v1/podcasts' ).then( function ( response ) {
     return response.json()
   } ).then( function ( body ) {
     var podcastTimeString;
