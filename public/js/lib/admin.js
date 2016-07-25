@@ -36,7 +36,9 @@
           answer.blacklistEvents.push( {
             id: eachGroup.name,
             formatted_time: eachGroup.dataset.formmatedTime,
-            url: eachGroup.dataset.url
+            url: eachGroup.dataset.url,
+            name: eachGroup.dataset.name,
+            group_name: eachGroup.dataset.groupName
           } )
         }
       } )

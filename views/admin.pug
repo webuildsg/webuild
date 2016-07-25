@@ -8,14 +8,14 @@ html(lang='en')
       include ./layout/header.pug
       .main.container
         br
-        
+
         if groups.length > 0
           h3 New groups
           br
-            
+
           table.table
-            tr 
-              th ✅ 
+            tr
+              th ✅
               th ❌
               th Name
               th Upcoming event
@@ -25,26 +25,26 @@ html(lang='en')
                 td <input type="radio" name="#{group.group_id}" data-platform="#{group.platform}" data-url="#{group.group_url}", data-name="#{group.group_name}" value="no">
                 td <a href="#{group.group_url}">#{group.group_name}</a><br>ID: #{group.group_id}
                 td <a href="#{group.upcoming_event_url}">#{group.upcoming_event_name}</a>
-                
+
         h3 Upcoming events
-        
+
         table.table
-          tr 
-            th ❌ 
+          tr
+            th ❌
             th Name
             th Organiser
           each event in events
             tr
-              td <input type="checkbox" name="#{event.id}" data-formmated-time="#{event.formatted_time}" data-url="#{event.url}" value="blacklistEvent">
+              td <input type="checkbox" name="#{event.id}" data-formmated-time="#{event.formatted_time}" data-url="#{event.url}" data-name="#{event.name}" data-group-name="#{event.group_name}" value="blacklistEvent">
               td <a href="#{event.url}">#{event.name}</a> <br> on #{event.formatted_time} <br> at #{event.location}
               td <a href="#{event.group_url}">#{event.group_name}</a>
 
-        button#update.button Update 
-        
-        hr 
-        
+        button#update.button Update
+
+        hr
+
         h3 Add manual event
-        
+
         form(id="add-event", method="POST", action="/add")
           .form-element
             .form-left
@@ -57,60 +57,60 @@ html(lang='en')
             .form-right
               input(type='url', placeholder='url', id='add-url', required='required', class='form-input')
           .form-element
-            .form-left 
+            .form-left
               label.form-label Description
             .form-right
-              textarea(class='form-textarea', id='add-description', placeholder='description') 
+              textarea(class='form-textarea', id='add-description', placeholder='description')
           .form-element
-            .form-left 
+            .form-left
               label.form-label Location
             .form-right
               input(type='text', placeholder='address', id='add-location', required='required', class='form-input')
           .form-element
-            .form-left 
+            .form-left
               label.form-label Latitude
             .form-right
               input(type='text', placeholder='1.2', id='add-latitude', required='required', class='form-input')
           .form-element
-            .form-left 
+            .form-left
               label.form-label Longitude
             .form-right
               input(type='text', placeholder='103.85', id='add-longitude', required='required', class='form-input')
           .form-element
-            .form-left 
+            .form-left
               label.form-label Group name
             .form-right
               input(type='text', placeholder='group name', id='add-group-name', required='required', class='form-input')
           .form-element
             .form-left
-              label.form-label Group website 
-            .form-right 
+              label.form-label Group website
+            .form-right
               input(type='url', placeholder='group url', id='add-group-url', required='required', class='form-input')
           .form-element
-            .form-left 
+            .form-left
               label.form-label Start date time
-            .form-right 
+            .form-right
               input(type='date', id='add-start-date', class='form-date', required='required')
               input(type='time', id='add-start-time', class='form-date', required='required')
           .form-element
-            .form-left 
+            .form-left
               label.form-label End date time
             .form-right
               input(type='date', id='add-end-date', class='form-date', required='required')
               input(type='time', id='add-end-time', class='form-date', required='required')
           .form-element
             input(type='submit', class='button', id='add' value='Add event')
-        
+
         h3 Login
         div#root(style='width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px; box-sizing: border-box;')
-          
+
       include ./layout/footer.pug
-        
-    script(src='public/js/script.js')      
+
+    script(src='public/js/script.js')
     script(type='text/javascript').
       ( function () {
         'use strict';
-                    
+
         var p
         var form
         var lock = new Auth0Lock('#{auth0.clientId}', '#{auth0.domain}', {
@@ -125,9 +125,9 @@ html(lang='en')
             }
           }
         })
-    
+
         lock.show({container: 'root'})
-    
+
         lock.on('show', function() {
           var loginBtn = document.querySelector('.auth0-lock-center')
           form = document.querySelector('.auth0-lock-widget')
@@ -135,22 +135,22 @@ html(lang='en')
             loginBtn.removeChild(form)
           }
         })
-    
+
         lock.on('authenticated', function(authResult) {
           lock.getProfile(authResult.idToken, function(error, profile) {
             var loginBtn = document.querySelector('.auth0-lock-center');
             p = document.createElement('p')
             loginBtn.appendChild(p)
-    
+
             if (error) {
               p.style = 'text-align: center; font-size: .9em;'
               p.innerText = 'Error: ' + error
               return
             }
-    
+
             p.style = 'text-align: center; font-size: .9em; color: MediumSeaGreen;'
             p.innerText = 'Hello ' + profile.name + '!'
-    
+
             if (form){
               loginBtn.removeChild(form)
             }

@@ -2,6 +2,10 @@
   'use strict';
 
   // read the next podcast date from /api/podcasts
+  if (window.location.path !== '/') {
+    return
+  }
+  
   var podcastApi = '/api/v1/podcasts';
   fetch( podcastApi ).then( function ( response ) {
     return response.json()
