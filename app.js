@@ -191,9 +191,22 @@ getConfig(function (config) {
 
       if (body.blacklistEvents) { // black list events
         adminLib.addToBlacklistEvents(body.blacklistEvents)
+        config.blacklistEvents = config.blacklistEvents.concat(body.blacklistEvents)
+
+        wb.events.feed.events  = wb.events.feed.events.filter(function(eachEvent) {
+          var count = 0
+
+          body.blacklistEvents.forEach(function(eachBlacklistEvent) {
+            if (eachEvent.id.toString() === eachBlacklistEvent.id.toString()) {
+              count++
+            }
+          })
+
+          return count > 0 ? false : true
+        })
       }
 
-      blacklistGroupPlatforms.forEachfunction (eachPlatform) {
+      blacklistGroupPlatforms.forEach(function (eachPlatform) {
         if (body[ eachPlatform ]) {
           adminLib.addToBlacklistGroups(body[ eachPlatform ], eachPlatform)
           wb.events.feed.events = adminLib.removeBlacklistGroupEvents(wb.events.feed.events, body[ eachPlatform ], eachPlatform)
