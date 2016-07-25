@@ -187,16 +187,18 @@ getConfig(function (config) {
       if (body.whitelistGroups) { // white list groups
         adminLib.addToWhitelistGroups(body.whitelistGroups)
         config.whitelistGroups = config.whitelistGroups.concat(body.whitelistGroups)
-      } else if (body.blacklistEvents) { // black list events
-        adminLib.addToBlacklistEvents(body.blacklistEvents)
-      } else { // black list groups
-        blacklistGroupPlatforms.forEach(function (eachPlatform) {
-          if (body[ eachPlatform ]) {
-            adminLib.addToBlacklistGroups(body[ eachPlatform ], eachPlatform)
-            wb.events.feed.events = adminLib.removeBlacklistGroupEvents(wb.events.feed.events, body[ eachPlatform ], eachPlatform)
-          }
-        })
       }
+
+      if (body.blacklistEvents) { // black list events
+        adminLib.addToBlacklistEvents(body.blacklistEvents)
+      }
+
+      blacklistGroupPlatforms.forEachfunction (eachPlatform) {
+        if (body[ eachPlatform ]) {
+          adminLib.addToBlacklistGroups(body[ eachPlatform ], eachPlatform)
+          wb.events.feed.events = adminLib.removeBlacklistGroupEvents(wb.events.feed.events, body[ eachPlatform ], eachPlatform)
+        }
+      })
 
       res.render('./admin.pug', {
         auth0: config.auth0,
