@@ -193,16 +193,16 @@ getConfig(function (config) {
         adminLib.addToBlacklistEvents(body.blacklistEvents)
         config.blacklistEvents = config.blacklistEvents.concat(body.blacklistEvents)
 
-        wb.events.feed.events  = wb.events.feed.events.filter(function(eachEvent) {
+        wb.events.feed.events = wb.events.feed.events.filter(function (eachEvent) {
           var count = 0
 
-          body.blacklistEvents.forEach(function(eachBlacklistEvent) {
+          body.blacklistEvents.forEach(function (eachBlacklistEvent) {
             if (eachEvent.id.toString() === eachBlacklistEvent.id.toString()) {
               count++
             }
           })
 
-          return count > 0 ? false : true
+          return count === 0
         })
       }
 
