@@ -53,6 +53,8 @@ html(lang='en')
 
       .main.container
         h3 check for open events by date
+        .chart
+
         input#check.event-checker(type='date', placeholder="dd/mm/yyyy")
         .spinner#loader
           div
@@ -68,6 +70,7 @@ html(lang='en')
       include ./layout/footer.pug
 
     script(src='public/js/script.js')
+    script(src='public/js/lib/barGraph.js')
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
