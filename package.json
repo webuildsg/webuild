@@ -15,8 +15,8 @@
     "restart": "npm run restart:staging && npm run restart:production",
     "routine": "grunt cleanup && npm outdated && bower list && npm-check-updates -u && npm i && grunt && npm test && npm outdated",
     "cov": "mocha test --recursive --require blanket --reporter html-cov > coverage.html",
-    "deploy:staging": "git push staging master && rhc deploy master --app staging",
-    "deploy:production": "git push production master && rhc deploy master --app production",
+    "deploy:staging": "git push staging master && rhc app-force-stop --app staging && rhc deploy master --app staging",
+    "deploy:production": "git push production master && rhc app-force-stop --app production && rhc deploy master --app production",
     "deploy": "npm run deploy:staging && npm run deploy:production"
   },
   "dependencies": {
