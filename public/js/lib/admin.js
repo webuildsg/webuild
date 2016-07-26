@@ -51,10 +51,8 @@
         },
         body: JSON.stringify( answer ),
         credentials: 'same-origin'
-      } ).then( function ( response ) {
-        return response.text()
-      } ).then( function ( body ) {
-        document.body.innerHTML = body
+      } ).then( function () {
+        updateBtn.disabled = false
       } )
     } )
   }
@@ -117,10 +115,8 @@
         },
         body: JSON.stringify( answer ),
         credentials: 'same-origin'
-      } ).then( function ( response ) {
-        return response.text()
-      } ).then( function ( body ) {
-        document.body.innerHTML = body
+      } ).then( function () {
+        addBtn.disabled = false
       } )
     } )
   }

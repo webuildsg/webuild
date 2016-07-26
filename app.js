@@ -24,7 +24,6 @@ app.use(compress())
 app.set('view engine', 'pug')
 app.use('/public', express.static(path.join(__dirname, '/public')))
 app.use('/humans.txt', express.static(path.join(__dirname, '/public/humans.txt')))
-app.use('/form.css', express.static(path.join(__dirname, '/public/form.css')))
 app.use('/robots.txt', express.static(path.join(__dirname, '/public/robots.txt')))
 app.use(errorHandler())
 app.use(bodyParser.json())
@@ -213,13 +212,7 @@ getConfig(function (config) {
         }
       })
 
-      res.render('./admin.pug', {
-        auth0: config.auth0,
-        error: req.query.error,
-        user: req.query.user ? req.query.user : '',
-        groups: notApprovedGroupsLib(wb.events.feed.events, config.whitelistGroups),
-        events: wb.events.feed.events.slice(0, 20)
-      })
+      res.redirect('/admin')
     }
   })
 
@@ -234,13 +227,7 @@ getConfig(function (config) {
     } else {
       adminLib.addToWhitelistEvents(body)
 
-      res.render('./admin.pug', {
-        auth0: config.auth0,
-        error: req.query.error,
-        user: req.query.user ? req.query.user : '',
-        groups: notApprovedGroupsLib(wb.events.feed.events, config.whitelistGroups),
-        events: wb.events.feed.events.slice(0, 20)
-      })
+      res.redirect('/admin')
     }
   })
 
