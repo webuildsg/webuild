@@ -19,7 +19,7 @@ html(lang='en')
       .main.container
 
         include ./layout/episode.pug
-        
+
         section
           h3 open events
           ul.open-list.first
@@ -52,10 +52,10 @@ html(lang='en')
             span.helptext Click to select URL
 
       .main.container
-        h3 check for open events by date
+        h3#check check for open events by date
         .chart
 
-        input#check.event-checker(type='date', placeholder="dd/mm/yyyy")
+        input.event-checker(type='date', placeholder="dd/mm/yyyy")
         .spinner#loader
           div
         p.tagline.center#results <strong>Tip:</strong> Avoid clashes with other events held on <br> <a href="http://data.webuild.sg/dataset/events-per-day-of-week/" target="_blank">most active days of the week</a> or <a href="http://data.webuild.sg/dataset/events-per-week-of-month/">most active week of the month</a>
