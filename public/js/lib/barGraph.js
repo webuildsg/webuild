@@ -32,12 +32,18 @@
     var dateArray = [];
     var currentDate = moment(startDate);
     while (currentDate <= stopDate) {
-      dateArray.push( moment(currentDate).format('DD MMM') )
+      dateArray.push( {
+        date: moment(currentDate).format('DD MMM') ,
+        day: moment(currentDate).format('ddd')
+      })
       currentDate = moment(currentDate).add(1, 'days');
     }
     return dateArray;
   }
 
+  function isWeekday(day) {
+    return (day === 'Sun' || day === 'Sat') ? false : true
+  }
 
   fetch( '/api/v1/events' ).then( function ( response ) {
     return response.json()
@@ -57,10 +63,11 @@
       }
     })
 
-    dateArrays.forEach(function(eachDate) {
+    dateArrays.forEach(function(eachDate, index) {
       data.push({
-        date: eachDate,
-        events: chartValues[ eachDate ] ? chartValues[ eachDate ].toString() : '0'
+        date: index === 0 ? 'today' : eachDate.date,
+        events: chartValues[ eachDate.date ] ? chartValues[ eachDate.date ].toString() : '0',
+        weekday: isWeekday(eachDate.day)
       })
     })
 
@@ -90,22 +97,16 @@
     svg.selectAll('.column')
       .data(data)
       .enter().append('rect')
-      .attr('class', 'column')
+      .attr('class', function(d) {
+        if (d.weekday) {
+          return 'column'
+        } else {
+          return 'column-light'
+        }
+      })
       .attr('x', function(d) { return x(d.date) })
       .attr('width', x.rangeBand())
       .attr('y', function(d) { return y(d.events) })
       .attr('height', function(d) { return height - y(d.events) })
-
   } )
-
-  // d3.csv('data.csv', function(error, data) {
-  //   if (error) throw error
-  //   console.log(data)
-  //
-  // })
-
-  function type(d) {
-    d.events = +d.events
-    return d
-  }
 })()

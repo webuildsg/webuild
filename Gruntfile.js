@@ -80,7 +80,8 @@ module.exports = function(grunt) {
             'public/js/lib/playlist.js',
             'public/js/lib/check.js',
             'public/js/lib/countdown.js',
-            'public/js/lib/admin.js'
+            'public/js/lib/admin.js',
+            'public/js/lib/barGraph.js'
           ]
         }
       }
