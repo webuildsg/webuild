@@ -11,7 +11,7 @@
   }
 
   // event clash checker
-  var eventDate = document.getElementById( 'check' );
+  var eventDate = document.getElementById( 'check-event' );
   var ul = document.getElementById( 'clashed' );
   var eventsCheckApi = '/api/v1/check/';
   var loader = document.getElementById( 'loader' );
