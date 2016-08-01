@@ -67,17 +67,22 @@ getConfig(function (config) {
 
   app.get('/', function (req, res) {
     request(config.podcastApiUrl, function (err, msg, response) {
-      var podcastTime = JSON.parse(response).meta.next_live_show.start_time
-      var countdownTime = countdownLib(config, podcastTime)
+      var podcastTime
+      var countdownTime
+
+      if (!err) {
+        podcastTime = JSON.parse(response).meta.next_live_show.start_time
+        countdownTime = countdownLib(config, podcastTime)
+      }
 
       res.render('./index.pug', {
         repos: wb.repos.feed.repos.slice(0, 10),
         events: wb.events.feed.events.slice(0, 10),
-        days: countdownTime.days,
-        hours: countdownTime.hours,
-        minutes: countdownTime.minutes,
-        seconds: countdownTime.seconds,
-        formattedTime: countdownTime.formattedTime
+        days: countdownTime.days || '',
+        hours: countdownTime.hours || '',
+        minutes: countdownTime.minutes || '',
+        seconds: countdownTime.seconds || '',
+        formattedTime: countdownTime.formattedTime || ''
       })
     })
   })
