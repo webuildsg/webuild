@@ -8,7 +8,6 @@ var http = require('http')
 var path = require('path')
 var request = require('request')
 var cors = require('cors')
-var auth = require('basic-auth')
 
 var cal = require('./lib/cal')
 var morgan = require('morgan')
@@ -173,9 +172,7 @@ getConfig(function (config) {
   })
 
   app.get('/admin', function (req, res) {
-    var credentials = auth(req)
-
-    if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
+    if (adminLib.isAdmin(req)) {
       res.statusCode = 401
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
@@ -192,10 +189,9 @@ getConfig(function (config) {
 
   app.post('/admin', function (req, res) {
     var body = req.body
-    var credentials = auth(req)
     var blacklistGroupPlatforms = [ 'eventbrite', 'meetup' ]
 
-    if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
+    if (adminLib.isAdmin(req)) {
       res.statusCode = 401
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
@@ -235,9 +231,8 @@ getConfig(function (config) {
 
   app.post('/add', function (req, res) {
     var body = req.body
-    var credentials = auth(req)
 
-    if (!credentials || credentials.name !== process.env.ADMIN_USERNAME || credentials.pass !== process.env.ADMIN_PASSWORD) {
+    if (adminLib.isAdmin(req)) {
       res.statusCode = 401
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
