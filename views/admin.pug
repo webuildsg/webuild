@@ -23,8 +23,8 @@ html(lang='en')
               tr
                 td <input type="radio" name="#{group.group_id}" data-platform="#{group.platform}" data-url="#{group.group_url}", data-name="#{group.group_name}" value="yes">
                 td <input type="radio" name="#{group.group_id}" data-platform="#{group.platform}" data-url="#{group.group_url}", data-name="#{group.group_name}" value="no">
-                td <a href="#{group.group_url}">#{group.group_name}</a><br>ID: #{group.group_id}
-                td <a href="#{group.upcoming_event_url}">#{group.upcoming_event_name}</a>
+                td <a href="#{group.group_url}">#{group.group_name}</a><br>#{group.platform}.com ID: #{group.group_id}
+                td <a href="#{group.upcoming_event_url}">#{group.upcoming_event_name}</a> <br>#{group.formatted_time}
 
         h3 Upcoming events
 
