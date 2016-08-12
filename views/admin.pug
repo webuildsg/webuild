@@ -37,7 +37,7 @@ html(lang='en')
             tr
               td <input type="checkbox" name="#{event.id}" data-formmated-time="#{event.formatted_time}" data-url="#{event.url}" data-name="#{event.name}" data-group-name="#{event.group_name}" value="blacklistEvent">
               td <a href="#{event.url}">#{event.name}</a> <br> on #{event.formatted_time} <br> at #{event.location}
-              td <a href="#{event.group_url}">#{event.group_name}</a>
+              td <a href="#{event.group_url}">#{event.group_name}</a> <br> #{event.platform}
 
         button#update.button Update
 
