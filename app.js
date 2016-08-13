@@ -179,8 +179,6 @@ getConfig(function (config) {
     } else {
       res.render('./admin.pug', {
         auth0: config.auth0,
-        error: req.query.error,
-        user: req.query.user ? req.query.user : '',
         groups: notApprovedGroupsLib(wb.events.feed.events, config.whitelistGroups),
         events: wb.events.feed.events.slice(0, 20)
       })
