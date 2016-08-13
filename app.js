@@ -189,7 +189,7 @@ getConfig(function (config) {
     var body = req.body
     var blacklistGroupPlatforms = [ 'eventbrite', 'meetup' ]
 
-    if (!adminLib.isAdmin(req)) {
+    if (!adminLib.isAdmin(req) || !adminLib.isValidOrigin(req)){
       res.statusCode = 401
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
@@ -230,7 +230,7 @@ getConfig(function (config) {
   app.post('/add', function (req, res) {
     var body = req.body
 
-    if (!adminLib.isAdmin(req)) {
+    if (!adminLib.isAdmin(req) || !adminLib.isValidOrigin(req)) {
       res.statusCode = 401
       res.setHeader('WWW-Authenticate', 'Basic realm="webuildsg"')
       res.end('Access denied')
