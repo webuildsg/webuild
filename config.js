@@ -114,7 +114,8 @@ module.exports = function(callback) {
       auth0: {
         domain: 'webuildsg.auth0.com',
         clientId: process.env.WEBUILD_AUTH0_CLIENT_ID,
-        clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET
+        clientSecret: process.env.WEBUILD_AUTH0_CLIENT_SECRET,
+        clientToken: process.env.WEBUILD_AUTH0_CLIENT_TOKEN
       },
 
       githubParams: {
