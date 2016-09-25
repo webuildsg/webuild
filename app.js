@@ -59,8 +59,17 @@ getConfig(function (config) {
   var wbEvents = require('webuild-events')
   var wbRepos = require('webuild-repos')
 
-  var wb = wbEvents.init(config)
+  var wb = {};
+
+  var tmp = wbEvents.init(config);
+
+  wb.events = tmp.events
+  wb.passport = tmp.passport
   wb.repos = wbRepos.init(config).repos
+
+  // Update on start
+  wb.events.update();
+  wb.repos.update();
 
   app.use(wb.passport.initialize())
 
@@ -95,7 +104,6 @@ getConfig(function (config) {
     getConfig(function (newConfig) {
       config = newConfig
       wb = wbEvents.init(config)
-      wb.repos = wbRepos.init(config).repos
       wb.events.update()
     })
 
@@ -112,7 +120,6 @@ getConfig(function (config) {
 
     getConfig(function (newConfig) {
       config = newConfig
-      wb = wbEvents.init(config)
       wb.repos = wbRepos.init(config).repos
       wb.repos.update()
     })
