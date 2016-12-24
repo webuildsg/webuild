@@ -59,17 +59,17 @@ getConfig(function (config) {
   var wbEvents = require('webuild-events')
   var wbRepos = require('webuild-repos')
 
-  var wb = {};
+  var wb = {}
 
-  var tmp = wbEvents.init(config);
+  var tmp = wbEvents.init(config)
 
   wb.events = tmp.events
   wb.passport = tmp.passport
   wb.repos = wbRepos.init(config).repos
 
   // Update on start
-  wb.events.update();
-  wb.repos.update();
+  wb.events.update()
+  wb.repos.update()
 
   app.use(wb.passport.initialize())
 
