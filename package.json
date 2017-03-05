@@ -44,7 +44,7 @@
     "blanket": "1.2.3",
     "bower": "1.8.0",
     "chai": "3.5.0",
-    "coveralls": "2.11.16",
+    "coveralls": "2.12.0",
     "grunt": "1.0.1",
     "grunt-bump": "0.8.0",
     "grunt-cli": "1.2.0",
