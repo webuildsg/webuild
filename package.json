@@ -34,7 +34,7 @@
     "morgan": "^1.7.0",
     "promise": "7.1.1",
     "pug": "2.0.0-beta9",
-    "request": "2.80.0",
+    "request": "2.81.0",
     "standard": "8.6.0",
     "tracer": "^0.8.3",
     "webuild-events": "1.4.37",
