@@ -299,6 +299,6 @@ getConfig(function (config) {
   var port = process.env.NODE_PORT || process.env.OPENSHIFT_NODE4_PORT || process.env.PORT || 3000
 
   http.createServer(app).listen(port, ip, function () {
-    logger.trace(`Express server started at ${ip}:${port}`)
+    logger.trace(`Express server started at http://${ip}:${port}`)
   })
 })
