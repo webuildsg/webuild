@@ -20,6 +20,13 @@ var countdownLib = require('./lib/countdown')
 var getConfig = require('./config.js')
 var app = express()
 
+var archives = require('./archives')
+var backups = require('./backups')
+var wbEvents = require('webuild-events')
+var wbRepos = require('webuild-repos')
+
+var wb = {}
+
 app.use(compress())
 app.set('view engine', 'pug')
 app.use('/public', express.static(path.join(__dirname, '/public')))
@@ -54,17 +61,9 @@ app.get('/check', function (req, res) {
 })
 
 getConfig(function (config) {
-  var archives = require('./archives')
-  var backups = require('./backups')
-  var wbEvents = require('webuild-events')
-  var wbRepos = require('webuild-repos')
 
-  var wb = {}
+  ({ events: wb.events, passport: wb.passport } = wbEvents.init(config));
 
-  var tmp = wbEvents.init(config)
-
-  wb.events = tmp.events
-  wb.passport = tmp.passport
   wb.repos = wbRepos.init(config).repos
 
   // Update on start
@@ -93,8 +92,9 @@ getConfig(function (config) {
         formattedTime: countdownTime.formattedTime || ''
       })
     })
-  })
+  });
 
+  // Event
   app.post('/api/v1/events/update', function (req, res) {
     if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
       res.status(503).send('Incorrect secret key')
@@ -108,23 +108,6 @@ getConfig(function (config) {
     })
 
     var message = 'Updating the event feed sit tight!'
-    logger.trace(message)
-    res.status(200).send(message)
-  })
-
-  app.post('/api/v1/repos/update', function (req, res) {
-    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
-      res.status(503).send('Incorrect secret key')
-      return
-    }
-
-    getConfig(function (newConfig) {
-      config = newConfig
-      wb.repos = wbRepos.init(config).repos
-      wb.repos.update()
-    })
-
-    var message = 'Updating the repos feed sit tight!'
     logger.trace(message)
     res.status(200).send(message)
   })
@@ -161,6 +144,28 @@ getConfig(function (config) {
     res.send(wb.events.hour)
   })
 
+  app.get('/cal', function (req, res) {
+    cal(config, wb.events.feed.events, res)
+  })
+
+  // Repos
+  app.post('/api/v1/repos/update', function (req, res) {
+    if (req.body.secret !== process.env.WEBUILD_API_SECRET) {
+      res.status(503).send('Incorrect secret key')
+      return
+    }
+
+    getConfig(function (newConfig) {
+      config = newConfig
+      wb.repos = wbRepos.init(config).repos
+      wb.repos.update()
+    })
+
+    var message = 'Updating the repos feed sit tight!'
+    logger.trace(message)
+    res.status(200).send(message)
+  })
+
   app.get('/api/v1/repos', cors(), function (req, res) {
     return req.query.n ? res.send(wb.repos.get(req.query.n)) : res.send(wb.repos.feed)
   })
@@ -177,6 +182,8 @@ getConfig(function (config) {
     var reposWithLanguage = require('./lib/reposWithLanguage')(req.params, config, wb.repos)
     res.send(reposWithLanguage)
   })
+
+  // Admin
 
   app.get('/admin', function (req, res) {
     if (!adminLib.isAdmin(req)) {
@@ -248,11 +255,9 @@ getConfig(function (config) {
     }
   })
 
-  app.get('/cal', function (req, res) {
-    cal(config, wb.events.feed.events, res)
-  })
-
   app.get('/callback', wb.passport.callback)
+
+  // Archives
 
   app.post('/api/v1/archives/update', function (req, res) {
     if (req.body.secret !== process.env.WEBUILD_API_SECRET) {

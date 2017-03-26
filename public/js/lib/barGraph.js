@@ -7,19 +7,10 @@
   }
   var width = 960 - margin.left - margin.right
   var height = 150 - margin.top - margin.bottom
-  var x = d3.scale
-    .ordinal()
-    .rangeRoundBands([0, width], .1)
-  var y = d3.scale
-    .linear()
+  var x = d3.scaleBand()
+    .range([0, width])
+  var y = d3.scaleLinear()
     .range([height, 0])
-  var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient('bottom')
-  var yAxis = d3.svg
-    .axis()
-    .scale(y)
-    .orient('left')
   var svg = d3.select('.chart').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
@@ -82,11 +73,11 @@
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis)
+      .call(d3.axisBottom(x))
 
     svg.append('g')
       .attr('class', 'y axis')
-      .call(yAxis)
+      .call(d3.axisLeft(y).ticks(maxY, "d"))
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
@@ -105,7 +96,7 @@
         }
       })
       .attr('x', function(d) { return x(d.date) })
-      .attr('width', x.rangeBand())
+      .attr('width', x.bandwidth())
       .attr('y', function(d) { return y(d.events) })
       .attr('height', function(d) { return height - y(d.events) })
   } )

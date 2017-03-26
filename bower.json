@@ -9,10 +9,10 @@
     "bower_components"
   ],
   "dependencies": {
-    "auth0-lock": "10.0.0",
+    "auth0-lock": "10.13.0",
     "fluidvids": "2.4.1",
-    "moment": "2.13.0",
-    "d3": "3.5.17",
-    "fetch": "^1.0.0"
+    "moment": "2.18.1",
+    "d3": "4.7.4",
+    "fetch": "^2.0.3"
   }
 }
