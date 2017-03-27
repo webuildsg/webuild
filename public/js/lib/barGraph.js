@@ -11,6 +11,7 @@
     .range([0, width])
   var y = d3.scaleLinear()
     .range([height, 0])
+    .tickFormat(5, "+%");
   var svg = d3.select('.chart').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
@@ -77,7 +78,7 @@
 
     svg.append('g')
       .attr('class', 'y axis')
-      .call(d3.axisLeft(y).ticks(maxY, "d"))
+      .call(d3.axisLeft(y))
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
