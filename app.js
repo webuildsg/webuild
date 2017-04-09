@@ -83,8 +83,8 @@ getConfig(function (config) {
       }
 
       res.render('./index.pug', {
-        repos: wb.repos.feed.repos.slice(0, 10),
-        events: wb.events.feed.events.slice(0, 10),
+        repos: wb.repos && wb.repos.feed && wb.repos.feed.repos ? wb.repos.feed.repos.slice(0, 10) : [],
+        events: wb.events && wb.events.feed && wb.events.feed.events ? wb.events.feed.events.slice(0, 10) : [],
         days: countdownTime.days || '',
         hours: countdownTime.hours || '',
         minutes: countdownTime.minutes || '',
