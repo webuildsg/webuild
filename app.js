@@ -61,8 +61,7 @@ app.get('/check', function (req, res) {
 })
 
 getConfig(function (config) {
-
-  ({ events: wb.events, passport: wb.passport } = wbEvents.init(config));
+  ({ events: wb.events, passport: wb.passport } = wbEvents.init(config))
 
   wb.repos = wbRepos.init(config).repos
 
@@ -92,7 +91,7 @@ getConfig(function (config) {
         formattedTime: countdownTime.formattedTime || ''
       })
     })
-  });
+  })
 
   // Event
   app.post('/api/v1/events/update', function (req, res) {

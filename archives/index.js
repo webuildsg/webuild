@@ -27,8 +27,8 @@ module.exports = {
       // INFO: API https://developer.github.com/v3/repos/contents/#create-a-file
       // PUT /repos/:owner/:repo/contents/:path
       var uri = 'https://api.github.com/repos/' + config.archives.githubRepoFolder + 'contents/data/' + type + '/v1/' + filename
-      var token = new Buffer(process.env.BOT_TOKEN.toString()).toString('base64')
-      var content = new Buffer(JSON.stringify(data)).toString('base64')
+      var token = Buffer.from(process.env.BOT_TOKEN.toString()).toString('base64')
+      var content = Buffer.from(JSON.stringify(data)).toString('base64')
       var body = {
         'message': getCommitMessage(type),
         'committer': {
