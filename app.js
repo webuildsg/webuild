@@ -77,18 +77,18 @@ getConfig(function (config) {
       var countdownTime
 
       if (!err) {
-        podcastTime = JSON.parse(response).meta.next_live_show.start_time
-        countdownTime = countdownLib(config, podcastTime)
+        try {
+          response = '';
+          podcastTime = JSON.parse(response).meta.next_live_show.start_time
+          countdownTime = countdownLib(config, podcastTime)
+        }catch(e){}
+
       }
 
       res.render('./index.pug', {
         repos: wb.repos && wb.repos.feed && wb.repos.feed.repos ? wb.repos.feed.repos.slice(0, 10) : [],
         events: wb.events && wb.events.feed && wb.events.feed.events ? wb.events.feed.events.slice(0, 10) : [],
-        days: countdownTime.days || '',
-        hours: countdownTime.hours || '',
-        minutes: countdownTime.minutes || '',
-        seconds: countdownTime.seconds || '',
-        formattedTime: countdownTime.formattedTime || ''
+        countdownTime: countdownTime
       })
     })
   })

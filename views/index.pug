@@ -18,7 +18,9 @@ html(lang='en')
       include ./layout/header.pug
       .main.container
 
-        include ./layout/episode.pug
+        - if (typeof(countdownTime) !== 'undefined'){
+          include ./layout/episode.pug
+        - }
 
         section
           h3 open events
