@@ -7,11 +7,10 @@
   }
   var width = 960 - margin.left - margin.right
   var height = 150 - margin.top - margin.bottom
-  var x = d3.scaleBand()
+  var xScale = d3.scaleBand()
     .range([0, width])
-  var y = d3.scaleLinear()
+  var yScale = d3.scaleLinear()
     .range([height, 0])
-    .tickFormat(5, "+%");
   var svg = d3.select('.chart').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
@@ -68,17 +67,22 @@
       maxY = Math.max(d.events, maxY)
     })
 
-    x.domain(data.map(function(d) { return d.date }))
-    y.domain([0, maxY])
+    xScale.domain(data.map(function(d) { return d.date }))
+    yScale.domain([0, maxY])
+
+    yAxis = d3.axisLeft(yScale)
+    xAxis = d3.axisBottom(xScale)
+
+    yAxis.ticks(maxY, "d");
 
     svg.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x))
+      .call(xAxis)
 
     svg.append('g')
       .attr('class', 'y axis')
-      .call(d3.axisLeft(y))
+      .call(yAxis)
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
@@ -96,9 +100,9 @@
           return 'column-light'
         }
       })
-      .attr('x', function(d) { return x(d.date) })
-      .attr('width', x.bandwidth())
-      .attr('y', function(d) { return y(d.events) })
-      .attr('height', function(d) { return height - y(d.events) })
+      .attr('x', function(d) { return xScale(d.date) })
+      .attr('width', xScale.bandwidth())
+      .attr('y', function(d) { return yScale(d.events) })
+      .attr('height', function(d) { return height - yScale(d.events) })
   } )
 })()

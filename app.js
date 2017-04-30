@@ -78,10 +78,9 @@ getConfig(function (config) {
 
       if (!err) {
         try {
-          response = '';
           podcastTime = JSON.parse(response).meta.next_live_show.start_time
           countdownTime = countdownLib(config, podcastTime)
-        }catch(e){}
+        }catch (e){}
 
       }
 
@@ -166,15 +165,28 @@ getConfig(function (config) {
   })
 
   app.get('/api/v1/repos', cors(), function (req, res) {
-    return req.query.n ? res.send(wb.repos.get(req.query.n)) : res.send(wb.repos.feed)
+    if (wb.repos && wb.repos.feed){
+      return req.query.n ? res.send(wb.repos.get(req.query.n)) : res.send(wb.repos.feed)
+    }else {
+      res.send(503)
+    }
   })
 
   app.get('/api/v1/repos/day', cors(), function (req, res) {
-    res.send(wb.repos.day)
+    if (wb.repos && wb.repos.day){
+      res.send(wb.repos.day)
+    }else {
+      res.send(503)
+    }
   })
 
   app.get('/api/v1/repos/hour', cors(), function (req, res) {
-    res.send(wb.repos.hour)
+    if (wb.repos && wb.repos.hour){
+      res.send(wb.repos.hour)
+    }else {
+      res.send(503)
+    }
+
   })
 
   app.get('/api/v1/repos/:language', cors(), function (req, res) {
