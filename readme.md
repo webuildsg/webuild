@@ -1,5 +1,5 @@
 # We Build SG
-[![Dependency Status](https://img.shields.io/gemnasium/webuildsg/webuild.svg)](https://gemnasium.com/webuildsg/webuild) [![Build Status](https://img.shields.io/travis/webuildsg/webuild/master.svg)](https://travis-ci.org/webuildsg/webuild) [![Code Climate](https://codeclimate.com/github/webuildsg/webuild/badges/gpa.svg)](https://codeclimate.com/github/webuildsg/webuild) [![Coverage Status](https://img.shields.io/coveralls/webuildsg/webuild.svg)](https://coveralls.io/r/webuildsg/webuild) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/webuildsg/webuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Dependency Status](https://img.shields.io/gemnasium/webuildsg/webuild.svg)](https://gemnasium.com/webuildsg/webuild) [![Build Status](https://img.shields.io/travis/webuildsg/webuild/master.svg)](https://travis-ci.org/webuildsg/webuild) [![Code Climate](https://codeclimate.com/github/webuildsg/webuild/badges/gpa.svg)](https://codeclimate.com/github/webuildsg/webuild) [![Coverage Status](https://img.shields.io/coveralls/webuildsg/webuild.svg)](https://coveralls.io/r/webuildsg/webuild) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/webuildsg/webuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > [We Build SG](http://webuild.sg/) automatically curates a list of free public developer / design events from [Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS url / manual and open source projects from  [Github](https://developer.github.com/v3/) for the curious folks who love to make things in a particular city.
 
@@ -10,35 +10,35 @@
 1. clone this project and install dependancies:
 
 	```sh
-git clone git@github.com:webuildsg/webuild.git && cd webuild
-gem install foreman thor tmuxinator
-gem install dotenv -v 0.11.1
-gem install dotenv-deployment -v 0.0.2
-npm install -g bower grunt-cli
-npm i && bower install
+	git clone git@github.com:webuildsg/webuild.git && cd webuild
+	gem install foreman thor tmuxinator
+	gem install dotenv -v 0.11.1
+	gem install dotenv-deployment -v 0.0.2
+	npm install -g bower grunt-cli
+	npm i && bower install
 	```
-- Setup environment variables. Refer [Environment Variables](#environment-variables) section for more details.
+2. Setup environment variables. Refer [Environment Variables](#environment-variables) section for more details.
 
 	```sh
 	cp .env.sample .env
 	```
-- Start the website locally with `./run.sh`
+3. Start the website locally with `./run.sh`
 
 ## Background
 
 **Repositories curated automatically every hour:**
 
 1. Github repositories
-- user location contains `Singapore`
-- repos with more than 50 watchers
-- repos pushed date less than 3 months ago
+	- user location contains `Singapore`
+	- repos with more than 50 watchers
+	- repos pushed date less than 3 months ago
 
 **Events curated automatically every hour:**
 
 1. Facebook [selected groups](config/facebookGroups.json)
-- Meetup.com / Eventbrite event category `Technology`, free, has a valid location
-- ICS url
-- Manually added events
+2. Meetup.com / Eventbrite event category `Technology`, free, has a valid location
+3. ICS url
+4. Manually added events
 
 ## API endpoints
 
@@ -53,8 +53,8 @@ A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](ht
 You can deploy this app to 3 different platforms:
 
 1. [Open Shift](https://www.openshift.com/)
-- [Heroku](https://heroku.com)
-- Bluemix
+2. [Heroku](https://heroku.com)
+3. Bluemix
 
 ### Deploy to Open Shift
 
@@ -63,38 +63,38 @@ We are using [Open Shift](https://www.openshift.com/) for production.
 These are the steps for deploying:
 
 1. create an application with folder `.openshift` with various Open Shift related configurations
-- [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
-- setup the app with `rhc setup`
-- create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
-- to ssh into your gear, use `rhc ssh {APP_NAME}`
-- add the cron cartridge with `rhc cartridge add cron -a {APP_NAME}`
-- set environment variables with
+2. [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
+3. setup the app with `rhc setup`
+4. create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
+5. to ssh into your gear, use `rhc ssh {APP_NAME}`
+6. add the cron cartridge with `rhc cartridge add cron -a {APP_NAME}`
+7. set environment variables with
 
-  ```sh
-  rhc env-set BOT_TOKEN={secret} EVENTBRITE_TOKEN={secret} GITHUB_CLIENT_ID={secret} GITHUB_CLIENT_SECRET={secret} MEETUP_API_KEY={secret} NODE_ENV={APP_NAME} TZ=Asia/Singapore WEBUILD_API_SECRET={secret} WEBUILD_AUTH0_CLIENT_ID={secret} WEBUILD_AUTH0_CLIENT_SECRET={secret} --app {APP_NAME}
-  ```
-- add a git remote to the git config, so you can push your code to the gear
+	```sh
+	rhc env-set BOT_TOKEN={secret} EVENTBRITE_TOKEN={secret} GITHUB_CLIENT_ID={secret} GITHUB_CLIENT_SECRET={secret} MEETUP_API_KEY={secret} NODE_ENV={APP_NAME} TZ=Asia/Singapore WEBUILD_API_SECRET={secret} WEBUILD_AUTH0_CLIENT_ID={secret} WEBUILD_AUTH0_CLIENT_SECRET={secret} --app {APP_NAME}
+	```
+8. add a git remote to the git config, so you can push your code to the gear
 
-  ```sh
-  [remote "{APP_NAME}"]
-    url = {GIT_REMOTE_URL}
-    fetch = +refs/heads/*:refs/remotes/{APP_NAME}/*
-  ```
-- create a [build file](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build) in path `.openshift/action_hooks/build` for your app (if you're forking webuildsg, this is already inside the repo)
-- make sure the build file permissions for is executable `chmod +x .openshift/action_hooks/build`
-- push the app `git push {APP_NAME} master --force`
-- check if the app website is up
-- if you need to restart the app use `rhc app-restart {APP_NAME}`
-- to see app info use `rhc app-show {APP_NAME} -v`
-- to check out the logs from the app use `rhc tail {APP_NAME}`
+	```sh
+ 	[remote "{APP_NAME}"]
+	    url = {GIT_REMOTE_URL}
+	    fetch = +refs/heads/*:refs/remotes/{APP_NAME}/*
+ 	```
+9. create a [build file](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build) in path `.openshift/action_hooks/build` for your app (if you're forking webuildsg, this is already inside the repo)
+10. make sure the build file permissions for is executable `chmod +x .openshift/action_hooks/build`
+11. push the app `git push {APP_NAME} master --force`
+12. check if the app website is up
+13. if you need to restart the app use `rhc app-restart {APP_NAME}`
+14. to see app info use `rhc app-show {APP_NAME} -v`
+15. to check out the logs from the app use `rhc tail {APP_NAME}`
 
 ### Deploy to Heroku
 
 These are the steps for deploying:
 
 1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
-- Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- Setup the following [environment variables](#environment-variables) under the Heroku app settings:
+2. Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+3. Setup the following [environment variables](#environment-variables) under the Heroku app settings:
 
 	```sh
 	BOT_TOKEN=secret
@@ -108,7 +108,7 @@ These are the steps for deploying:
 	WEBUILD_AUTH0_CLIENT_ID=secret
 	WEBUILD_AUTH0_CLIENT_SECRET=secret
 	```
-- Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
+4. Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
 	- update events every hour
 
 		```sh
@@ -130,7 +130,7 @@ These are the steps for deploying:
 These are the steps for deploying:
 
 1. Install [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/releases)
-- Create the manifest.yml file in the root directory. Modify the name, host and env for your application:
+2. Create the manifest.yml file in the root directory. Modify the name, host and env for your application:
 
 	```yaml
 	---
@@ -155,12 +155,12 @@ These are the steps for deploying:
 	    WEBUILD_AUTH0_CLIENT_ID: secret
 	    WEBUILD_AUTH0_CLIENT_SECRET: secret
 	```
-- Create the app on Bluemix
+3. Create the app on Bluemix
 
 	```sh
 	cf push
 	```
-- Setup the cron job with OpenWhisk (experimental): TODO
+4. Setup the cron job with OpenWhisk (experimental): TODO
 
 ## Environment variables
 
@@ -187,9 +187,9 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 ### Firebase related environment variables
 
 1. Open a [Firebase account](https://www.firebase.com/)
-- Create a new app for this project
-- Under `Login & Auth` > `Registered Users` > `Add User`
-- Note the email, password, user uid and firebase unique app url for the following variables:
+2. Create a new app for this project
+3. Under `Login & Auth` > `Registered Users` > `Add User`
+4. Note the email, password, user uid and firebase unique app url for the following variables:
 	- **FIREBASE_EMAIL** (required): .   
 	- **FIREBASE_PASSWORD** (required)
 	- **FIREBASE_UID** (required)
@@ -208,7 +208,7 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 
 ## Contribute
 
-Please see `CONTRIBUTING.md` for details.
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Versioning
 
