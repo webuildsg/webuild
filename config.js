@@ -124,7 +124,7 @@ module.exports = function(callback) {
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         location: process.env.LOCATION || city,
         maxUsers: process.env.MAX_USERS || 1000,
-        maxRepos: process.env.MAX_REPOS || 100,
+        maxRepos: process.env.MAX_REPOS || 150,
         starLimit: process.env.STAR_LIMIT || 50,
         outfile: __dirname + '/cache.json'
       },
