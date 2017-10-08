@@ -101,7 +101,7 @@ getConfig(function (config) {
 
     getConfig(function (newConfig) {
       config = newConfig
-      wb = wbEvents.init(config)
+      wb.events = wbEvents.init(config).events
       wb.events.update()
     })
 
