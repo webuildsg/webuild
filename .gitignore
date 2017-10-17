@@ -5,6 +5,8 @@ public/css/style.css
 cache.json
 events.json
 run.debug.sh
+ecosystem.config.js
+crontab.txt
 private.json
 encrypt.sh
 spinuprhcinstance.sh
