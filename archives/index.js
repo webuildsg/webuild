@@ -8,7 +8,7 @@ module.exports = {
   'init': function (config) {
     function getBranchName () {
       if (process.env.NODE_ENV === 'production') {
-        return 'gh-pages'
+        return 'master'
       }
 
       return 'staging'
