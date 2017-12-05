@@ -26,9 +26,9 @@ describe('Archives', function() {
       expect(archives.getBranchName('events')).to.equal('staging')
     })
 
-    it('returns "gh-pages" NODE_ENV is "production"', function() {
+    it('returns "master" NODE_ENV is "production"', function() {
       process.env.NODE_ENV = 'production';
-      expect(archives.getBranchName('events')).to.equal('gh-pages')
+      expect(archives.getBranchName('events')).to.equal('master')
     })
   })
 
