@@ -3,8 +3,6 @@
 
 > [We Build SG](http://webuild.sg/) automatically curates a list of free public developer / design events from [Facebook](https://developers.facebook.com/docs/graph-api/reference/v2.0/group/events) / [Meetup](http://www.meetup.com/meetup_api/docs/2/event/#get) / [Eventbrite](http://developer.eventbrite.com/doc/events/event_search/) / ICS url / manual and open source projects from  [Github](https://developer.github.com/v3/) for the curious folks who love to make things in a particular city.
 
-> This repository is an example for Singapore.
-
 ## Quick start
 
 1. clone this project and install dependancies:
@@ -48,120 +46,6 @@ The events, repositories and podcasts data feeds are available in public as JSON
 
 A daily snapshot of the [repos](https://webuild.sg/api/v1/repos) and [events](https://webuild.sg/api/v1/events) API V1 endpoints are stored in the [archives](https://github.com/webuildsg/data) for  data analysis at [data.webuild.sg](https://data.webuild.sg).
 
-## Deploy
-
-You can deploy this app to 3 different platforms:
-
-1. [Open Shift](https://www.openshift.com/)
-2. [Heroku](https://heroku.com)
-3. Bluemix
-
-### Deploy to Open Shift
-
-We are using [Open Shift](https://www.openshift.com/) for production.
-
-These are the steps for deploying:
-
-1. create an application with folder `.openshift` with various Open Shift related configurations
-2. [install client tools](https://developers.openshift.com/en/getting-started-osx.html#client-tools) with `gem install rhc`
-3. setup the app with `rhc setup`
-4. create an app using [cartridge](https://github.com/connyay/openshift-iojs#usage) - note the `GIT_REMOTE_URL`
-5. to ssh into your gear, use `rhc ssh {APP_NAME}`
-6. add the cron cartridge with `rhc cartridge add cron -a {APP_NAME}`
-7. set environment variables with
-
-	```sh
-	rhc env-set BOT_TOKEN={secret} EVENTBRITE_TOKEN={secret} GITHUB_CLIENT_ID={secret} GITHUB_CLIENT_SECRET={secret} MEETUP_API_KEY={secret} NODE_ENV={APP_NAME} TZ=Asia/Singapore WEBUILD_API_SECRET={secret} WEBUILD_AUTH0_CLIENT_ID={secret} WEBUILD_AUTH0_CLIENT_SECRET={secret} --app {APP_NAME}
-	```
-8. add a git remote to the git config, so you can push your code to the gear
-
-	```sh
- 	[remote "{APP_NAME}"]
-	    url = {GIT_REMOTE_URL}
-	    fetch = +refs/heads/*:refs/remotes/{APP_NAME}/*
- 	```
-9. create a [build file](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build) in path `.openshift/action_hooks/build` for your app (if you're forking webuildsg, this is already inside the repo)
-10. make sure the build file permissions for is executable `chmod +x .openshift/action_hooks/build`
-11. push the app `git push {APP_NAME} master --force`
-12. check if the app website is up
-13. if you need to restart the app use `rhc app-restart {APP_NAME}`
-14. to see app info use `rhc app-show {APP_NAME} -v`
-15. to check out the logs from the app use `rhc tail {APP_NAME}`
-
-### Deploy to Heroku
-
-These are the steps for deploying:
-
-1. Install [Heroku command line](https://devcenter.heroku.com/articles/heroku-command)
-2. Create [new Heroku app](https://devcenter.heroku.com/articles/creating-apps) for [NodeJS](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-3. Setup the following [environment variables](#environment-variables) under the Heroku app settings:
-
-	```sh
-	BOT_TOKEN=secret
-	EVENTBRITE_TOKEN=secret
-	GITHUB_CLIENT_ID=secret
-	GITHUB_CLIENT_SECRET=secret
-	MEETUP_API_KEY=secret
-	NODE_ENV=production
-	TZ=Asia/Singapore
-	WEBUILD_API_SECRET=secret
-	WEBUILD_AUTH0_CLIENT_ID=secret
-	WEBUILD_AUTH0_CLIENT_SECRET=secret
-	```
-4. Get [Heroku Scheduler](https://addons-sso.heroku.com/apps/webuildsg-dev/addons/scheduler:standard) add on and add 2 tasks with an hourly frequency:
-	- update events every hour
-
-		```sh
-		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/events/update
-		```
-	- update repos every hour
-
-		```sh
-		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/repos/update
-		```
-	- store to archives repos and events every day
-
-		```sh
-		curl -X POST --data "secret=<WEBUILD_API_SECRET>" <your_production_url>/api/v1/archives/update
-		```
-
-### Deploy to Bluemix
-
-These are the steps for deploying:
-
-1. Install [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/releases)
-2. Create the manifest.yml file in the root directory. Modify the name, host and env for your application:
-
-	```yaml
-	---
-	applications:
-	- name: webuild
-	  host: webuild
-	  domain: mybluemix.net
-	  buildpack: sdk-for-nodejs
-	  command: node app.js
-	  path: .
-	  memory: 512M
-	  stack: cflinuxfs2
-	  env:
-	  	BOT_TOKEN: secret
-	    EVENTBRITE_TOKEN: secret
-	    GITHUB_CLIENT_ID: secret
-	    GITHUB_CLIENT_SECRET: secret
-	    MEETUP_API_KEY: secret
-	    NODE_ENV: production
-	    TZ: Asia/Singapore
-	    WEBUILD_API_SECRET: secret
-	    WEBUILD_AUTH0_CLIENT_ID: secret
-	    WEBUILD_AUTH0_CLIENT_SECRET: secret
-	```
-3. Create the app on Bluemix
-
-	```sh
-	cf push
-	```
-4. Setup the cron job with OpenWhisk (experimental): TODO
-
 ## Environment variables
 
 Set the following environment variables on your system:
@@ -194,17 +78,6 @@ Create an [Auth0](https://auth0.com/) account (you get one free app) and a Faceb
 	- **FIREBASE_PASSWORD** (required)
 	- **FIREBASE_UID** (required)
 	- **FIREBASE_URL** (required)
-
-## Editing events list
-
-- Add events:
-	1. Add manual events in file `config/whitelistEvents.json`
-	- Add a Facebook groups with [Facebook group ID](http://lookup-id.com) in file `config/facebookGroups.json`
-	- Add an `*.ics` format URL in file `config/icsGroups.json`
-- Remove events:
-	- Remove paid / duplicate events in file `config/blacklistEvents.json`
-	- Remove Meetup.com group by adding the `group_id` in file `config/meetupBlacklistGroups.json`
-- Cleanup old events manually in files `events/whitelistEvents.json` and `events/blacklistEvents.json` with `grunt cleanup`
 
 ## Contribute
 
