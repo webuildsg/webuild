@@ -106,9 +106,11 @@ module.exports = function(callback) {
 
         "the", "others", "another", "all", "which", "project",
 
-        "your", "you", "our", "you\"re", "we\"re",
+        "your", "you", "our", "you\"re", "we\"re", "we\'re",
 
-        "how","view","get","sponsor","thank","join"
+        "how","view","get","sponsor","thank","join",
+
+        "please","into","also","over","see"
       ],
 
       auth0: {
