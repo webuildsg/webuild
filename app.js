@@ -60,6 +60,10 @@ app.get('/check', function (req, res) {
   res.redirect('/#check')
 })
 
+app.get('/techstack', function (req, res) {
+  res.render('./techstack.pug')
+})
+
 getConfig(function (config) {
   ({ events: wb.events, passport: wb.passport } = wbEvents.init(config))
 
