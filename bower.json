@@ -11,8 +11,8 @@
   "dependencies": {
     "auth0-lock": "10.13.0",
     "fluidvids": "2.4.1",
-    "moment": "2.18.1",
-    "d3": "4.7.4",
+    "moment": "2.21.0",
+    "d3": "4.13.0",
     "fetch": "^2.0.3"
   }
 }
