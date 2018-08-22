@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>We Build SG</title>
+  <meta name="description" content="a list of free open events and open source libraries for the curious folks who love to make things!">
+  <meta name="keywords" content="Singapore, SG, open community, open source, software, hardware, programming, design, maker movement, free events, free tech events">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- FIXME: -->
+  <!-- Amend all assets.webuild.sg to webuildsg.github.io/assets -->
+  <meta property="og:image" content="https://assets.webuild.sg/logo.png">
+  <meta property="og:url" content="http://www.webuild.sg">
+  <meta property="og:site_name" content="www.webuild.sg">
+  <meta property="og:title" content="We Build SG">
+  <meta property="og:description" content="a list of free open events and open source libraries for the curious folks who love to make things!">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="https://assets.webuild.sg/css/style.css">
+  <link rel="icon" href="https://assets.webuild.sg/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="https://assets.webuild.sg/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://assets.webuild.sg/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://assets.webuild.sg/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://assets.webuild.sg/apple-touch-icon-144x144-precomposed.png">
+</head>
+<body>
+<div class="wrapper">
+  <div class="starter">
+    <header>
+      <div class="container">
+        <h1>we build!</h1>
+        <ul class="list-social">
+          <li> <span class="icon-feed"> </span><a href="https://engineers.sg/events">main</a></li>
+          <li> <span class="icon-music"> </span><a href="https://webuildsg.github.io/live">live</a></li>
+          <li> <span class="icon-cal"> </span><a href="https://webuildsg.github.io/data">data</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="container">
+      <br>
+      <p class="subtitle">From August 2018: <br>Please refer to <a href="https://engineers.sg/events">Engineers.sg/event</a> for the <br>list of upcoming open developer, design and maker events in Singapore!</p>
+      <br><br>
+      <p class="subtitle"><a href="https://webuildsg.github.io/data/">data.webuild.sg</a> and <a href="https://webuildsg.github.io/live/">live.webuild.sg</a> are now available as archived sites.</p>
+      <br>
+    </div>
+  </div>
+  <br>
+  <br>
+  <p class="subtitle">Redirecting to Engineers.sg in <code id="countdown">20</code> seconds</p>
+
+</div>
+
+<script>
+  var seconds = 20;
+  function countdown() {
+    seconds = seconds - 1;
+    if (seconds < 0) {
+      window.location = "https://engineers.sg/events";
+    } else {
+      document.getElementById("countdown").innerHTML = seconds;
+      window.setTimeout("countdown()", 1000);
+    }
+  }
+  countdown();
+</script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-37308530-1', 'auto');
+ga('send', 'pageview');
+</script>
+</body>
+</html>
