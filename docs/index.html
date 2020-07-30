@@ -44,25 +44,8 @@
       <br>
     </div>
   </div>
-  <br>
-  <br>
-  <p class="subtitle">Redirecting to Engineers.sg in <code id="countdown">30</code> seconds</p>
-
 </div>
 
-<script>
-  var seconds = 30;
-  function countdown() {
-    seconds = seconds - 1;
-    if (seconds < 0) {
-      window.location = "https://engineers.sg/events";
-    } else {
-      document.getElementById("countdown").innerHTML = seconds;
-      window.setTimeout("countdown()", 1000);
-    }
-  }
-  countdown();
-</script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
